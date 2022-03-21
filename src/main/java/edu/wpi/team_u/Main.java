@@ -11,7 +11,7 @@ public class Main {
     System.out.println("William Doyle");
     System.out.println("Marko Vila");
     System.out.println("Nick Biliouris");
-    System.out.println("Kody Robinson")
+    System.out.println("Kody Robinson");
 
     App.launch(App.class, args);
   }
