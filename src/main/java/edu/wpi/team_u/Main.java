@@ -8,7 +8,6 @@ public class Main {
     System.out.println("Joselin Barbosa");
     System.out.println("William Doyle");
     System.out.println("Marko Vila");
-    System.out.println("Michael Akstin");
     App.launch(App.class, args);
   }
 }
