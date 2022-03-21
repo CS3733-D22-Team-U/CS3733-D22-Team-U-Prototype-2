@@ -6,9 +6,10 @@ public class Main {
     System.out.println("Harsh Patel");
     System.out.println("Timothy Klein");
     System.out.println("Joselin Barbosa");
-    System.out.println("Kody Robinson");
-    System.out.println("Michael Akstin");
+    System.out.println("William Doyle");
     System.out.println("Marko Vila");
+    System.out.println("Nick Biliouris");
+
     App.launch(App.class, args);
   }
 }
