@@ -4,7 +4,7 @@ public class Main {
 
   public static void main(String[] args) {
     System.out.println("Harsh Patel");
-    System.out.println("Joselin");
+    System.out.println("Timothy Klein");
     App.launch(App.class, args);
   }
 }
