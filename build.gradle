@@ -80,7 +80,6 @@ jacocoTestCoverageVerification {
             }
             excludes = codeCoverageExcludes
         }
-
         rule {
             element = 'CLASS'
             limit {
