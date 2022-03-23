@@ -1,5 +1,6 @@
 package edu.wpi.team_u;
 
+import edu.wpi.team_u.controllers.AppController;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +19,7 @@ public class Uapp extends Application {
 
   @Override
   public void start(Stage primaryStage) throws IOException {
-    Parent root =
-        FXMLLoader.load(getClass().getClassLoader().getResource("edu/wpi/team_u/views/app.fxml"));
-    Scene scene = new Scene(root);
+    Scene scene = getScene("edu/wpi/team_u/views/app.fxml");
     primaryStage.setScene(scene);
     primaryStage.show();
   }
@@ -28,5 +27,11 @@ public class Uapp extends Application {
   @Override
   public void stop() {
     log.info("Shutting Down");
+  }
+
+  public static Scene getScene(String pathFromResources) throws IOException {
+    Parent root =
+        FXMLLoader.load(AppController.class.getClassLoader().getResource(pathFromResources));
+    return new Scene(root);
   }
 }
