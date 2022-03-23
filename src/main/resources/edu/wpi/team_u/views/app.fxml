@@ -16,7 +16,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="332.0" layoutY="277.0" mnemonicParsing="false" onAction="#sayHello" text="Gift and Floral Delivery Service">
+      <Button alignment="giftFloralService" contentDisplay="CENTER" layoutX="332.0" layoutY="277.0" mnemonicParsing="false" onAction="#togiftFloralController" text="Gift and Floral Delivery Service">
          <font>
             <Font size="18.0" />
          </font>
