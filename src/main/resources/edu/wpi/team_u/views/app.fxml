@@ -4,7 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<<<<<<< HEAD
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
+=======
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
+>>>>>>> feature/servicePage
    <children>
       <Label contentDisplay="CENTER" graphicTextGap="0.0" layoutX="212.0" layoutY="32.0" prefHeight="66.0" prefWidth="222.0" text="Service Page" textAlignment="CENTER">
          <font>
@@ -16,7 +20,11 @@
             <Font size="18.0" />
          </font>
       </Button>
+<<<<<<< HEAD
       <Button fx:id="medicineDelivery" alignment="CENTER" contentDisplay="CENTER" layoutX="386.0" layoutY="279.0" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="68.0" prefWidth="199.0" text="Medicine Delivery">
+=======
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="332.0" layoutY="277.0" mnemonicParsing="false" onAction="#sayHello" text="Gift and Floral Delivery Service">
+>>>>>>> feature/servicePage
          <font>
             <Font size="18.0" />
          </font>
@@ -26,9 +34,9 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="34.0" layoutY="277.0" mnemonicParsing="false" onAction="#sayHello" text="Say Hello">
+      <Button fx:id="mealDelivery" alignment="CENTER" contentDisplay="CENTER" layoutX="34.0" layoutY="277.0" mnemonicParsing="false" onAction="#toMealDelivery" text="Patient Meal Delivery Service">
          <font>
-            <Font size="36.0" />
+            <Font size="18.0" />
          </font>
       </Button>
    </children>

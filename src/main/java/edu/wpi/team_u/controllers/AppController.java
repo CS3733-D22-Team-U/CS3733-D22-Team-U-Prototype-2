@@ -1,7 +1,6 @@
 package edu.wpi.team_u.controllers;
 
 import edu.wpi.team_u.Uapp;
-import java.awt.*;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,6 +32,12 @@ public class AppController {
 
   public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/medicineDelivery.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+  }
+
+  public void toMealDelivery(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/mealDelivery.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
