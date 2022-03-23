@@ -38,7 +38,7 @@ public class AppController {
     appStage.show();
   }
 
-  public void togiftFloralController(ActionEvent actionEvent) throws IOException {
+  public void togiftFloralService(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/giftFloralService.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);

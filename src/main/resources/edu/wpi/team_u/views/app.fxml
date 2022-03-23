@@ -16,7 +16,12 @@
             <Font size="18.0" />
          </font>
       </Button>
-
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="117.0" mnemonicParsing="false" onAction="#sayHello" prefHeight="68.0" prefWidth="199.0" text="Equipment Delivery">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="giftFloral" alignment="CENTER" contentDisplay="CENTER" layoutX="332.0" layoutY="277.0" mnemonicParsing="false" onAction="#togiftFloralService" text="Gift and Floral Delivery Service">
       <Button fx:id="laundryService" alignment="CENTER" contentDisplay="CENTER" layoutX="386.0" layoutY="117.0" mnemonicParsing="false" onAction="#toLaundryService" prefHeight="68.0" prefWidth="199.0" text="Laundry Service">
          <font>
             <Font size="18.0" />
