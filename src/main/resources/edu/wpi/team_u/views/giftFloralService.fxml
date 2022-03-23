@@ -4,9 +4,24 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.giftFloralController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.views.giftFloralService">
    <children>
-      <Text layoutX="211.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gift and Floral Delivery Service" wrappingWidth="170.86376953125" />
-      <Button layoutX="42.0" layoutY="33.0" mnemonicParsing="false" onAction="#toServicePage" text="Return to Services Page" />
+      <Text layoutX="132.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gift and Floral Delivery Service" wrappingWidth="336.86376953125">
+         <font>
+            <Font name="Charter Roman" size="24.0" />
+         </font></Text>
+      <Button layoutX="14.0" layoutY="33.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="176.0" text="Return to Services Page">
+         <font>
+            <Font name="Charter Roman" size="13.0" />
+         </font></Button>
+      <CheckBox layoutX="132.0" layoutY="164.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Flowers" />
+      <CheckBox layoutX="346.0" layoutY="164.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Balloons" />
+      <CheckBox layoutX="132.0" layoutY="258.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Gift Basket" />
+      <CheckBox layoutX="346.0" layoutY="258.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Plants" />
+      <Text fill="#295ee4" layoutX="112.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select which of the following services you would like to request" wrappingWidth="383.04034423828125">
+         <font>
+            <Font name="Charter Roman" size="13.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
