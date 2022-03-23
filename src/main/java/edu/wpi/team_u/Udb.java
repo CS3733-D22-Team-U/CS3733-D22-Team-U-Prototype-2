@@ -110,7 +110,7 @@ public class Udb {
                 + "')");
         j++;
       }
-      // connection.close();
+      connection.close();
 
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
