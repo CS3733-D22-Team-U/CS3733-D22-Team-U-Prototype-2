@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
    <children>
       <Label contentDisplay="CENTER" graphicTextGap="0.0" layoutX="212.0" layoutY="32.0" prefHeight="66.0" prefWidth="222.0" text="Service Page" textAlignment="CENTER">
          <font>
@@ -17,9 +16,9 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="390.0" layoutY="277.0" mnemonicParsing="false" onAction="#sayHello" text="Say Hello">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="332.0" layoutY="277.0" mnemonicParsing="false" onAction="#sayHello" text="Gift and Floral Delivery Service">
          <font>
-            <Font size="36.0" />
+            <Font size="18.0" />
          </font>
       </Button>
       <Button fx:id="laundryService" alignment="CENTER" contentDisplay="CENTER" layoutX="386.0" layoutY="117.0" mnemonicParsing="false" onAction="#toLaundryService" prefHeight="68.0" prefWidth="199.0" text="Laundry Service">
