@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.giftFloralController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.giftFloralController">
    <children>
       <Text layoutX="211.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gift and Floral Delivery Service" wrappingWidth="170.86376953125" />
-      <Button layoutX="42.0" layoutY="33.0" mnemonicParsing="false" text="Return to Services Page" />
+      <Button layoutX="42.0" layoutY="33.0" mnemonicParsing="false" onAction="#toServicePage" text="Return to Services Page" />
    </children>
 </AnchorPane>
