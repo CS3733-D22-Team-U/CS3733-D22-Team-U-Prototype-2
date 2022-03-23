@@ -79,7 +79,7 @@ public class Udb {
       Statement exampleStatement = connection.createStatement();
       exampleStatement.execute("Drop table Locations");
       exampleStatement.execute(
-          "CREATE TABLE Locations(nodeID varchar(18) primary key, "
+          "CREATE TABLE Locations(nodeID varchar(18) not null, "
               + "xcoord int not null,"
               + "ycoord int not null,"
               + "floor varchar(3) not null,"
@@ -90,23 +90,28 @@ public class Udb {
       while (j < locations.size()) {
         Location currLoc = locations.get(j);
         exampleStatement.execute(
-            "INSERT INTO Locations(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) "
-                + "VALUES(,'"
+            "INSERT INTO Locations VALUES("
+                + "'"
                 + currLoc.nodeID
                 + "',"
-                + ""
                 + currLoc.xcoord
                 + ","
-                + "currLoc.ycoord,"
-                + "'currLoc.floor',"
-                + "'currLoc.building',"
-                + "'currLoc.nodeType',"
-                + "'currLoc.longName',"
-                + "'currLoc.shortName')");
+                + currLoc.ycoord
+                + ",'"
+                + currLoc.floor
+                + "','"
+                + currLoc.building
+                + "','"
+                + currLoc.nodeType
+                + "','"
+                + currLoc.longName
+                + "','"
+                + currLoc.shortName
+                + "')");
         j++;
       }
+      // connection.close();
 
-      connection.close();
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
