@@ -17,4 +17,5 @@ public class giftFloralController {
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(scene);
         appStage.show();
+    }
 }
