@@ -54,7 +54,7 @@ public class Udb {
   }
 
   public void JavaToSQL() {
-    int j = 0;
+    int j = 1;
 
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
     try {
@@ -77,6 +77,7 @@ public class Udb {
     try {
       connection = DriverManager.getConnection("jdbc:derby:UDB;create=true");
       Statement exampleStatement = connection.createStatement();
+      exampleStatement.execute("Drop table Locations");
       exampleStatement.execute(
           "CREATE TABLE Locations(nodeID varchar(18) primary key, "
               + "xcoord int not null,"
@@ -89,18 +90,23 @@ public class Udb {
       while (j < locations.size()) {
         Location currLoc = locations.get(j);
         exampleStatement.execute(
-            "INSERT INTO Locations VALUES(currLoc.nodeID,"
-                + "currLoc.xcoord,"
-                + "currLoc.ycoor,d"
-                + "currLoc.floor,"
-                + "currLoc.building,"
-                + "currLoc.nodeType,"
-                + "currLoc.longName,"
-                + "currLoc.shortName)");
+            "INSERT INTO Locations(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) "
+                + "VALUES(,'"
+                + currLoc.nodeID
+                + "',"
+                + ""
+                + currLoc.xcoord
+                + ","
+                + "currLoc.ycoord,"
+                + "'currLoc.floor',"
+                + "'currLoc.building',"
+                + "'currLoc.nodeType',"
+                + "'currLoc.longName',"
+                + "'currLoc.shortName')");
         j++;
       }
 
-      // connection.close();
+      connection.close();
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
