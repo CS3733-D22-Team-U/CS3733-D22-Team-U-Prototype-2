@@ -3,6 +3,7 @@ package edu.wpi.team_u;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Udb {
 
@@ -164,5 +165,36 @@ public class Udb {
     fw.flush();
     fw.close();
   }
+  public void menu() {
+    System.out.println("1 – Location Information\n" +
+            "2 – Change Floor and Type\n" +
+            "3 – Enter Location\n" +
+            "4 – Delete Location\n" +
+            "5 – Save Locations to CSV file\n" +
+            "6 – Exit Program");
 
+    Scanner userInput = new Scanner(System.in);
+    int inputNumber = Integer.parseInt(userInput.nextLine());
+    switch(inputNumber) {
+      case 1:
+
+        break;
+      case 2:
+
+        break;
+
+      case 3:
+      //
+         break;
+      case 4:
+      //
+        break;
+      case 5:
+      //
+        break;
+      case 6:
+      //
+        break;
+    }
+  }
 }
