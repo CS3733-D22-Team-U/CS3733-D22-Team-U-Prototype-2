@@ -10,13 +10,12 @@ import javafx.stage.Stage;
 
 public class EquipmentDeliverySystemController {
 
-    public Button servicePage;
+  public Button servicePage;
 
-    public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {
-        Scene scene = Uapp.getScene("edu/wpi/team_u/views/app.fxml");
-        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        appStage.setScene(scene);
-        appStage.show();
-    }
-
+  public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/app.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
 }
