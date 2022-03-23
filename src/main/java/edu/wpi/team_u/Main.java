@@ -1,8 +1,10 @@
 package edu.wpi.team_u;
 
+import java.io.IOException;
+
 public class Main {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     System.out.println("Michael Akstin");
     System.out.println("Harsh Patel");
     System.out.println("Timothy Klein");
@@ -13,6 +15,11 @@ public class Main {
     System.out.println("Nick Biliouris");
     System.out.println("Kody Robinson");
     System.out.println("Belisha Genin");
-    App.launch(App.class, args);
+    // App.launch(App.class, args);
+
+    Udb udb = new Udb();
+    String csvFile = "src/main/resources/TowerLocations.csv";
+    udb.storeCSVtoOBJ(csvFile);
+    udb.JavaToSQL();
   }
 }
