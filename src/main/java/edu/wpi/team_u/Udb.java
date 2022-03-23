@@ -165,13 +165,16 @@ public class Udb {
     fw.flush();
     fw.close();
   }
-  public void menu() {
+
+  public void displayMenu(){
     System.out.println("1 – Location Information\n" +
             "2 – Change Floor and Type\n" +
             "3 – Enter Location\n" +
             "4 – Delete Location\n" +
             "5 – Save Locations to CSV file\n" +
             "6 – Exit Program");
+  }
+  public void menu() {
 
     Scanner userInput = new Scanner(System.in);
     int inputNumber = Integer.parseInt(userInput.nextLine());
@@ -185,6 +188,8 @@ public class Udb {
 
       case 3:
       //
+        System.out.println("Input ID for new location node: ");
+
          break;
       case 4:
       //
