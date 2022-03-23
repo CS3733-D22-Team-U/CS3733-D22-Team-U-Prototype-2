@@ -36,7 +36,7 @@ public class Udb {
                                                                 "nodeType varchar(6)," +
                                                                 "longName varchar(900) not null," +
                                                                 "shortName varchar(600))");
-            while(locations.get(j) != null){
+            while(j < locations.size - 1){
                 Location currLoc = locations.get(j);
                 exampleStatement.execute("INSERT INTO Locations VALUES(currLoc.nodeID," +
                                                                           "currLoc.xcoord," +
@@ -56,6 +56,9 @@ public class Udb {
             return;
         }
         System.out.println("Apache Derby connection established!");
+    }
+
+    private void SQLToJava() {
 
     }
 }
