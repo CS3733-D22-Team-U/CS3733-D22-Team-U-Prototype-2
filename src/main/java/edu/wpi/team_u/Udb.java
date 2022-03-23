@@ -1,9 +1,6 @@
 package edu.wpi.team_u;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -124,4 +121,48 @@ public class Udb {
   }
 
   private void SQLToJava() {}
+
+  private void JavaToCSV(ArrayList<Location> locs, String csvFilem) throws IOException {
+    FileWriter fw = new FileWriter(csvFilem);
+
+    fw.append("nodeID");
+    fw.append(",");
+    fw.append("xcoord");
+    fw.append(",");
+    fw.append("ycoord");
+    fw.append(",");
+    fw.append("floor");
+    fw.append(",");
+    fw.append("building");
+    fw.append(",");
+    fw.append("nodeType");
+    fw.append(",");
+    fw.append("longName");
+    fw.append(",");
+    fw.append("shortName");
+    fw.append("\n");
+
+    for (int i = 1; i < locs.size(); i++) {
+      System.out.println(i);
+      fw.append(locations.get(i).nodeID);
+      fw.append(",");
+      fw.append(Integer.toString(locations.get(i).xcoord));
+      fw.append(",");
+      fw.append(Integer.toString(locations.get(i).ycoord));
+      fw.append(",");
+      fw.append(locations.get(i).floor);
+      fw.append(",");
+      fw.append(locations.get(i).building);
+      fw.append(",");
+      fw.append(locations.get(i).nodeType);
+      fw.append(",");
+      fw.append(locations.get(i).longName);
+      fw.append(",");
+      fw.append(locations.get(i).shortName);
+      fw.append("\n");
+    }
+    fw.flush();
+    fw.close();
+  }
+
 }
