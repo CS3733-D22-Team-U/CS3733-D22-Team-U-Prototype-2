@@ -77,7 +77,10 @@ public class Udb {
     try {
       connection = DriverManager.getConnection("jdbc:derby:UDB;create=true");
       Statement exampleStatement = connection.createStatement();
-      exampleStatement.execute("Drop table Locations");
+      try {
+        exampleStatement.execute("Drop table Locations");
+      } catch (Exception e) {
+      }
       exampleStatement.execute(
           "CREATE TABLE Locations(nodeID varchar(18) not null, "
               + "xcoord int not null,"
