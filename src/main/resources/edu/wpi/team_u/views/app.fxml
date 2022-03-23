@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
    <children>
       <Label layoutX="189.0" layoutY="14.0" prefHeight="66.0" prefWidth="222.0" text="Service Page">
          <font>
@@ -26,7 +26,7 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="277.0" mnemonicParsing="false" onAction="#sayHello" text="Say Hello">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="277.0" mnemonicParsing="false" onAction="#sayHello" text="Security Services">
          <font>
             <Font size="36.0" />
          </font>
