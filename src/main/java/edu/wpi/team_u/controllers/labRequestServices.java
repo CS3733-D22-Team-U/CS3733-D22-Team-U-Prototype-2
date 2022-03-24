@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class SecurityServicesController {
+public class labRequestServices {
 
   public Button backButton;
 

@@ -59,7 +59,7 @@ public class AppController {
   }
 
   public void toSecurityService(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/securityService.fxml");
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/labRequestServices.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();

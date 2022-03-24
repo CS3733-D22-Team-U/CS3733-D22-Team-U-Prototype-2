@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
     <children>
         <Label contentDisplay="CENTER" graphicTextGap="0.0" layoutX="212.0" layoutY="32.0" prefHeight="66.0" prefWidth="222.0" text="Service Page" textAlignment="CENTER">
             <font>
@@ -36,7 +36,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="325.0" mnemonicParsing="false" onAction="#toSecurityService" prefHeight="29.0" prefWidth="328.0" text="Security Services">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="325.0" mnemonicParsing="false" onAction="#toSecurityService" prefHeight="77.0" prefWidth="401.0" text="Lab Request Services">
          <font>
             <Font size="36.0" />
          </font>
