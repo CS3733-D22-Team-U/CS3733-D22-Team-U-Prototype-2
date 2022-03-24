@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.MealDeliveryController">
+   <children>
+      <Button defaultButton="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#toServicePage" text="Back to Service Page" textOverrun="WORD_ELLIPSIS" />
+      <Text layoutX="75.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Meal Delivery Service">
+         <font>
+            <Font name="Yu Gothic Light" size="36.0" />
+         </font>
+      </Text>
+      <Pane layoutX="204.0" layoutY="112.0" prefHeight="236.0" prefWidth="174.0">
+         <children>
+            <CheckBox layoutX="13.0" layoutY="34.0" mnemonicParsing="false" text="Vegan" />
+            <CheckBox layoutX="14.0" layoutY="61.0" mnemonicParsing="false" text="Vegetarian" />
+            <CheckBox layoutX="12.0" layoutY="87.0" mnemonicParsing="false" text="Gluten-free" />
+            <CheckBox layoutX="12.0" layoutY="111.0" mnemonicParsing="false" text="Kosher" />
+            <CheckBox layoutX="10.0" layoutY="136.0" mnemonicParsing="false" text="Halal" />
+            <CheckBox layoutX="11.0" layoutY="163.0" mnemonicParsing="false" text="Lactose-intolerant" />
+            <CheckBox layoutX="10.0" layoutY="187.0" mnemonicParsing="false" text="No Nuts" />
+            <CheckBox layoutX="11.0" layoutY="214.0" mnemonicParsing="false" text="No Shellfish" />
+            <Text layoutX="37.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dietary Restrictions " textAlignment="CENTER">
+               <font>
+                  <Font name="Century Gothic" size="12.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Button layoutX="275.0" layoutY="360.0" mnemonicParsing="false" text="OK" />
+   </children>
+</AnchorPane>

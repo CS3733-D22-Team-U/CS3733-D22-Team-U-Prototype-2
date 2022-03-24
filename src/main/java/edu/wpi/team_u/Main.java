@@ -13,6 +13,6 @@ public class Main {
     System.out.println("Nick Biliouris");
     System.out.println("Kody Robinson");
     System.out.println("Belisha Genin");
-    App.launch(App.class, args);
+    Uapp.launch(Uapp.class, args);
   }
 }
