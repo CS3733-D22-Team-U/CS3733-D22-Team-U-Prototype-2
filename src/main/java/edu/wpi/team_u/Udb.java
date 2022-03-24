@@ -12,6 +12,7 @@ public class Udb {
   private final String DB_LOC = "jdbc:derby:UDB";
 
   public void storeCSVtoOBJ(String csvFile) throws IOException {
+    locations = new ArrayList<Location>();
     String s;
     File file = new File(csvFile);
     BufferedReader br = new BufferedReader(new FileReader(file));
@@ -32,6 +33,7 @@ public class Udb {
       try {
         exampleStatement.execute("Drop table Locations");
       } catch (Exception e) {
+        System.out.println("didn't drop table");
       }
 
       exampleStatement.execute(
@@ -77,7 +79,7 @@ public class Udb {
   }
 
   public void SQLToJava() throws SQLException {
-    locations = new ArrayList<>();
+    locations = new ArrayList<Location>();
 
     try {
       Connection connection = null;
