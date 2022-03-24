@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.labRequestServices">
    <children>
-      <Button layoutX="280.0" layoutY="361.0" mnemonicParsing="false" onAction="#backToServicePage" text="Back" />
+      <Button layoutX="280.0" layoutY="361.0" mnemonicParsing="false" onAction="#backToServicePage" text="Ok" />
       <CheckBox layoutX="79.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Blood Test" />
       <CheckBox layoutX="80.0" layoutY="127.0" mnemonicParsing="false" text="COVID-19 Test" />
       <CheckBox layoutX="79.0" layoutY="150.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="85.0" text="Urine Test" />
