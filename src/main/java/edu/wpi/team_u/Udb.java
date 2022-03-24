@@ -218,10 +218,10 @@ public class Udb {
             locations.remove(i);
           }
         }
-        this.JavaToSQL();
-        this.SQLToJava();
+        this.JavaToSQL(connection);
+        this.SQLToJava(connection);
         this.JavaToCSV(locations, locFile);
-        menu(locFile);
+        menu(locFile, connection);
         break;
       case 5:
         System.out.println("Enter CSV file location name");
