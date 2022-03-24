@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 public class Udb {
 
-  ArrayList<Location> locations = new ArrayList<Location>();
+  public ArrayList<Location> locations = new ArrayList<Location>();
+  public ArrayList<Location> SQLBuiltLocations = new ArrayList<Location>();
 
   public void storeCSVtoOBJ(String csvFile) throws IOException {
     String s;
@@ -30,7 +31,7 @@ public class Udb {
     }
   }
 
-  private class Location {
+  public class Location {
 
     String nodeID;
     int xcoord;
@@ -120,5 +121,45 @@ public class Udb {
     System.out.println("Apache Derby connection established!");
   }
 
-  private void SQLToJava() {}
+  public void SQLToJava() {
+
+    Connection connection = null;
+    try {
+      connection = DriverManager.getConnection("jdbc:derby:UDB;");
+      Statement exampleStatement = connection.createStatement();
+
+      try {
+        ResultSet results;
+        results = exampleStatement.executeQuery("SELECT * FROM Locations");
+
+        while (results.next()) {
+          String nodeID = results.getString("nodeID");
+          int xcoord = results.getInt("xcoord");
+          int ycoord = results.getInt("ycoord");
+          String floor = results.getString("floor");
+          String building = results.getString("building");
+          String nodeType = results.getString("nodeType");
+          String longName = results.getString("longName");
+          String shortName = results.getString("shortName");
+
+          Location SQLRow = new Location();
+          SQLRow.nodeID = nodeID;
+          SQLRow.xcoord = xcoord;
+          SQLRow.ycoord = ycoord;
+          SQLRow.floor = floor;
+          SQLRow.building = building;
+          SQLRow.nodeType = nodeType;
+          SQLRow.longName = longName;
+          SQLRow.shortName = shortName;
+
+          SQLBuiltLocations.add(SQLRow);
+        }
+      } catch (SQLException e) {
+        System.out.println("Locations not found");
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Database does not exist.");
+    }
+  }
 }
