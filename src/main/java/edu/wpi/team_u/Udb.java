@@ -1,6 +1,8 @@
 package edu.wpi.team_u;
 
 import java.io.*;
+import java.io.File;
+import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -164,7 +166,7 @@ public class Udb {
     }
   }
 
-  private void JavaToCSV(ArrayList<Location> locs, String csvFilem) throws IOException {
+  public void JavaToCSV(ArrayList<Location> locs, String csvFilem) throws IOException {
     FileWriter fw = new FileWriter(csvFilem);
 
     fw.append("nodeID");
@@ -184,7 +186,7 @@ public class Udb {
     fw.append("shortName");
     fw.append("\n");
 
-    for (int i = 1; i < locs.size(); i++) {
+    for (int i = 1; i <= locs.size(); i++) { // ask about how this was working without and = sign
       System.out.println(i);
       fw.append(locations.get(i).nodeID);
       fw.append(",");
@@ -206,74 +208,50 @@ public class Udb {
     fw.flush();
     fw.close();
   }
+
   public void menu() {
-    System.out.println("1 – Location Information\n" +
-            "2 – Change Floor and Type\n" +
-            "3 – Enter Location\n" +
-            "4 – Delete Location\n" +
-            "5 – Save Locations to CSV file\n" +
-            "6 – Exit Program");
+    System.out.println(
+        "1 – Location Information\n"
+            + "2 – Change Floor and Type\n"
+            + "3 – Enter Location\n"
+            + "4 – Delete Location\n"
+            + "5 – Save Locations to CSV file\n"
+            + "6 – Exit Program");
 
     Scanner userInput = new Scanner(System.in);
     int inputNumber = Integer.parseInt(userInput.nextLine());
-    switch(inputNumber) {
+    switch (inputNumber) {
       case 1:
-        //csv to java
-        storeCSVtoOBJ(locFile);
-        //display locations and attributes
-        System.out.println("Node | X | Y | Level | Building | Type | Long Name | Short Name");
-        for (Location location : locations){
-          System.out.printf("%s | %i | %i | %s | %s | %s | %s | %s \n",
-                  location.nodeID,
-                  location.xcoord,
-                  location.ycoord,
-                  location.floor,
-                  location.building,
-                  location.nodeType,
-                  location.longName,
-                  location.shortName
-          );
-        }
-        //menu
-        menu(locFile);
+        // csv to java
+
         break;
       case 2:
-
         break;
 
       case 3:
-      //add a new entry to the SQL table
-        //prompt for ID
-        System.out.println("Enter the new location ID");
-        String newNodeID = userInput.next();
-        //create location object
-        Location newLocation = new Location(newNodeID); //TODO double check with constructor for proper implementation
-        //pull and convert csv to java
-        String fileName = "";
-        try {
-          storeCSVtoOBJ(fileName);
-          //add new location
-          locations.add(newLocation);
-          //convert to SQL, converting adds the new node inherently
-          JavaToSQL();
-          //convert and store SQL to csv
-          SQLToJava();
-          JavaToCSV(locations, fileName);
-        }catch(Exception e){}
-        //display menu
-        menu(locFile);
-         break;
+        break;
       case 4:
-      //
+        //
         break;
       case 5:
-      //
+        System.out.println("Enter CSV file location name");
+        Scanner sc = new Scanner(System.in);
+        String CSVName = sc.nextLine();
+        String csvFilePath = "src/main/resources/" + CSVName + ".csv";
+
+        try {
+          new File(csvFilePath);
+          this.SQLToJava();
+          this.JavaToCSV(this.SQLBuiltLocations, csvFilePath);
+
+        } catch (IOException e) {
+
+        }
         break;
       case 6:
-      //
+        //
         break;
       default:
-        menu(locFile);
         break;
     }
   }
