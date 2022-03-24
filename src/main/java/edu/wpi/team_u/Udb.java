@@ -2,7 +2,6 @@ package edu.wpi.team_u;
 
 import java.io.*;
 import java.io.File;
-import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,40 +24,6 @@ public class Udb {
         locations.get(i).StrtoLoc(row);
       }
       i++;
-    }
-  }
-
-  public class Location {
-
-    String nodeID;
-    int xcoord;
-    int ycoord;
-    String floor;
-    String building;
-    String nodeType;
-    String longName;
-    String shortName;
-
-    public Location() {}
-
-    public Location(String nodeID) {
-      this.nodeID = nodeID;
-      this.floor = "N/A";
-      this.building = "N/A";
-      this.nodeType = "N/A";
-      this.longName = "N/A";
-      this.shortName = "N/A";
-    }
-
-    void StrtoLoc(String[] row) {
-      this.nodeID = row[0];
-      this.xcoord = Integer.parseInt(row[1]);
-      this.ycoord = Integer.parseInt(row[2]);
-      this.floor = row[3];
-      this.building = row[4];
-      this.nodeType = row[5];
-      this.longName = row[6];
-      this.shortName = row[7];
     }
   }
 
@@ -174,8 +139,8 @@ public class Udb {
     }
   }
 
-  public void JavaToCSV(ArrayList<Location> locs, String csvFilem) throws IOException {
-    FileWriter fw = new FileWriter(csvFilem);
+  public void JavaToCSV(ArrayList<Location> locations, String csvFilem) throws IOException {
+    PrintWriter fw = new PrintWriter(new File(csvFilem));
 
     fw.append("nodeID");
     fw.append(",");
@@ -194,8 +159,9 @@ public class Udb {
     fw.append("shortName");
     fw.append("\n");
 
-    for (int i = 1; i <= locs.size(); i++) { // ask about how this was working without and = sign
-      System.out.println(i);
+    for (int i = 0;
+        i < locations.size();
+        i++) { // ask about how this was working without and = sign
       fw.append(locations.get(i).nodeID);
       fw.append(",");
       fw.append(Integer.toString(locations.get(i).xcoord));
@@ -213,7 +179,6 @@ public class Udb {
       fw.append(locations.get(i).shortName);
       fw.append("\n");
     }
-    fw.flush();
     fw.close();
   }
 
