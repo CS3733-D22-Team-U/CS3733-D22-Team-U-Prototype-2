@@ -150,3 +150,4 @@ uPATI05903,1586,1123,3,Tower,PATI,Patient Room Pod C,PRC
 uPATI06003,1588,1093,3,Tower,PATI,Patient Room Pod C,PRC
 uHALL003,1700,817,3,Tower,HALL,Bed and Reciner Parking A-B,BRPAB
 uHALL003,1700,1033,3,Tower,HALL,Bed and Recliner Parking C-D,BRPCD
+test,0,0,3,N/A,tower,N/A,N/A

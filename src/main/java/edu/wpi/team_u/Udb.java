@@ -10,6 +10,41 @@ public class Udb {
 
   public ArrayList<Location> locations = new ArrayList<Location>();
   private final String DB_LOC = "jdbc:derby:UDB";
+  private String username, password;
+
+  public static void main(String[] args) throws IOException, SQLException {
+    Udb udb = new Udb();
+    // String csvFile = "src/main/resources/TowerLocations.csv";
+    String username = args[0];
+    String password = args[1];
+    String csvFile = args[2];
+    udb.start(username, password, csvFile);
+  }
+
+  public void start(String username, String password, String csvFile) throws IOException, SQLException {
+    this.username = username;
+    this.password = password;
+
+    try {
+      Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+    } catch (ClassNotFoundException e) {
+      System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
+      System.out.println("For IntelliJ do the following:");
+      System.out.println("File | Project Structure, Modules, Dependency tab");
+      System.out.println("Add by clicking on the green plus icon on the right of the window");
+      System.out.println(
+              "Select JARs or directories. Go to the folder where the database JAR is located");
+      System.out.println("Click OK, now you can compile your program and run it.");
+      e.printStackTrace();
+      return;
+    }
+
+    System.out.println("Apache Derby driver registered!");
+
+    storeCSVtoOBJ(csvFile);
+    JavaToSQL();
+    menu(csvFile);
+  }
 
   public void storeCSVtoOBJ(String csvFile) throws IOException {
     locations = new ArrayList<Location>();
@@ -275,28 +310,5 @@ public class Udb {
         menu(locFile);
         break;
     }
-  }
-
-  public void start(String csvFile) throws IOException, SQLException {
-
-    try {
-      Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-    } catch (ClassNotFoundException e) {
-      System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
-      System.out.println("For IntelliJ do the following:");
-      System.out.println("File | Project Structure, Modules, Dependency tab");
-      System.out.println("Add by clicking on the green plus icon on the right of the window");
-      System.out.println(
-          "Select JARs or directories. Go to the folder where the database JAR is located");
-      System.out.println("Click OK, now you can compile your program and run it.");
-      e.printStackTrace();
-      return;
-    }
-
-    System.out.println("Apache Derby driver registered!");
-
-    storeCSVtoOBJ(csvFile);
-    JavaToSQL();
-    menu(csvFile);
   }
 }
