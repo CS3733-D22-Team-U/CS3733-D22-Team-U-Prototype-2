@@ -1,11 +1,9 @@
 package edu.wpi.team_u;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Udb {
 
@@ -78,7 +76,10 @@ public class Udb {
     try {
       connection = DriverManager.getConnection("jdbc:derby:UDB;create=true");
       Statement exampleStatement = connection.createStatement();
-      exampleStatement.execute("Drop table Locations");
+      try {
+        exampleStatement.execute("Drop table Locations");
+      } catch (Exception e) {
+      }
       exampleStatement.execute(
           "CREATE TABLE Locations(nodeID varchar(18) not null, "
               + "xcoord int not null,"
@@ -160,6 +161,81 @@ public class Udb {
 
     } catch (SQLException e) {
       System.out.println("Database does not exist.");
+    }
+  }
+
+  private void JavaToCSV(ArrayList<Location> locs, String csvFilem) throws IOException {
+    FileWriter fw = new FileWriter(csvFilem);
+
+    fw.append("nodeID");
+    fw.append(",");
+    fw.append("xcoord");
+    fw.append(",");
+    fw.append("ycoord");
+    fw.append(",");
+    fw.append("floor");
+    fw.append(",");
+    fw.append("building");
+    fw.append(",");
+    fw.append("nodeType");
+    fw.append(",");
+    fw.append("longName");
+    fw.append(",");
+    fw.append("shortName");
+    fw.append("\n");
+
+    for (int i = 1; i < locs.size(); i++) {
+      System.out.println(i);
+      fw.append(locations.get(i).nodeID);
+      fw.append(",");
+      fw.append(Integer.toString(locations.get(i).xcoord));
+      fw.append(",");
+      fw.append(Integer.toString(locations.get(i).ycoord));
+      fw.append(",");
+      fw.append(locations.get(i).floor);
+      fw.append(",");
+      fw.append(locations.get(i).building);
+      fw.append(",");
+      fw.append(locations.get(i).nodeType);
+      fw.append(",");
+      fw.append(locations.get(i).longName);
+      fw.append(",");
+      fw.append(locations.get(i).shortName);
+      fw.append("\n");
+    }
+    fw.flush();
+    fw.close();
+  }
+  public void menu() {
+    System.out.println("1 – Location Information\n" +
+            "2 – Change Floor and Type\n" +
+            "3 – Enter Location\n" +
+            "4 – Delete Location\n" +
+            "5 – Save Locations to CSV file\n" +
+            "6 – Exit Program");
+
+    Scanner userInput = new Scanner(System.in);
+    int inputNumber = Integer.parseInt(userInput.nextLine());
+    switch(inputNumber) {
+      case 1:
+
+        break;
+      case 2:
+
+        break;
+
+      case 3:
+      //
+         break;
+      case 4:
+      //
+        break;
+      case 5:
+      //
+        break;
+      case 6:
+      //
+        break;
     }
   }
 }
