@@ -24,9 +24,6 @@ public class Udb {
       }
       i++;
     }
-    for (int j = 1; j < locations.size(); j++) {
-      System.out.println(locations.get(j).nodeID);
-    }
   }
 
   public class Location {
@@ -206,35 +203,51 @@ public class Udb {
     fw.flush();
     fw.close();
   }
-  public void menu() {
-    System.out.println("1 – Location Information\n" +
-            "2 – Change Floor and Type\n" +
-            "3 – Enter Location\n" +
-            "4 – Delete Location\n" +
-            "5 – Save Locations to CSV file\n" +
-            "6 – Exit Program");
+
+  public void menu(String locFile) throws IOException {
+    System.out.println(
+        "1 – Location Information\n"
+            + "2 – Change Floor and Type\n"
+            + "3 – Enter Location\n"
+            + "4 – Delete Location\n"
+            + "5 – Save Locations to CSV file\n"
+            + "6 – Exit Program");
 
     Scanner userInput = new Scanner(System.in);
     int inputNumber = Integer.parseInt(userInput.nextLine());
-    switch(inputNumber) {
+    switch (inputNumber) {
       case 1:
-
         break;
       case 2:
+        System.out.println("Please input the node ID: ");
+        String inputNodeID = userInput.nextLine();
+        System.out.println("New floor: ");
+        String inputNewFloor = userInput.nextLine();
+        System.out.println("New location type");
+        String inputNewType = userInput.nextLine();
+        this.storeCSVtoOBJ(locFile);
+        for (int i = 1; i < this.locations.size(); i++) {
+          if (locations.get(i).nodeID.equals(inputNodeID)) {
+            locations.get(i).floor = inputNewFloor;
+            locations.get(i).nodeType = inputNewType;
+          }
+        }
+        this.JavaToSQL();
+        this.SQLToJava();
+        this.JavaToCSV(locations, locFile);
 
         break;
-
       case 3:
-      //
-         break;
+        //
+        break;
       case 4:
-      //
+        //
         break;
       case 5:
-      //
+        //
         break;
       case 6:
-      //
+        //
         break;
     }
   }
