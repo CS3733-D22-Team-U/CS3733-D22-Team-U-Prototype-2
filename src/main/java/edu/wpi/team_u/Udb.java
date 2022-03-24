@@ -22,28 +22,12 @@ public class Udb {
     }
   }
 
-  public void JavaToSQL() {
+  public void JavaToSQL(Connection connection) {
 
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
-    try {
-      Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-    } catch (ClassNotFoundException e) {
-      System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
-      System.out.println("For IntelliJ do the following:");
-      System.out.println("File | Project Structure, Modules, Dependency tab");
-      System.out.println("Add by clicking on the green plus icon on the right of the window");
-      System.out.println(
-          "Select JARs or directories. Go to the folder where the database JAR is located");
-      System.out.println("Click OK, now you can compile your program and run it.");
-      e.printStackTrace();
-      return;
-    }
-
-    System.out.println("Apache Derby driver registered!");
-    Connection connection = null;
 
     try {
-      connection = DriverManager.getConnection(DB_LOC + ";create=true");
+
       Statement exampleStatement = connection.createStatement();
       try {
         exampleStatement.execute("Drop table Locations");
@@ -60,9 +44,8 @@ public class Udb {
               + "shortName varchar(600))");
       for (int j = 0; j < locations.size(); j++) {
         Location currLoc = locations.get(j);
-        addLocation(currLoc);
+        addLocation(currLoc, connection);
       }
-      connection.close();
 
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
@@ -72,11 +55,10 @@ public class Udb {
     System.out.println("Apache Derby connection established!");
   }
 
-  public void SQLToJava() {
+  public void SQLToJava(Connection connection) throws SQLException {
     locations = new ArrayList<>();
-    Connection connection = null;
+
     try {
-      connection = DriverManager.getConnection(DB_LOC + ";");
       Statement exampleStatement = connection.createStatement();
 
       try {
@@ -157,7 +139,7 @@ public class Udb {
     fw.close();
   }
 
-  public void menu(String locFile) throws IOException, SQLException {
+  public void menu(String locFile, Connection connection) throws IOException, SQLException {
     System.out.println(
         "1 – Location Information\n"
             + "2 – Change Floor and Type\n"
@@ -173,21 +155,28 @@ public class Udb {
         // csv to java
         storeCSVtoOBJ(locFile);
         // display locations and attributes
-        System.out.println("Node | X | Y | Level | Building | Type | Long Name | Short Name");
+        System.out.println(
+            "Node |\t X |\t Y |\t Level |\t Building |\t Type |\t Long Name |\t Short Name");
         for (Location location : locations) {
-          System.out.printf(
-              "%s | %i | %i | %s | %s | %s | %s | %s \n",
-              location.nodeID,
-              location.xcoord,
-              location.ycoord,
-              location.floor,
-              location.building,
-              location.nodeType,
-              location.longName,
-              location.shortName);
+          System.out.println(
+              location.nodeID
+                  + " | \t"
+                  + location.xcoord
+                  + " | \t"
+                  + location.ycoord
+                  + " | \t"
+                  + location.floor
+                  + " | \t"
+                  + location.building
+                  + " | \t"
+                  + location.nodeType
+                  + " | \t"
+                  + location.longName
+                  + " | \t"
+                  + location.shortName);
         }
         // menu
-        menu(locFile);
+        menu(locFile, connection);
         break;
       case 2:
         System.out.println("Please input the node ID: ");
@@ -203,10 +192,10 @@ public class Udb {
             locations.get(i).nodeType = inputNewType;
           }
         }
-        this.JavaToSQL();
-        this.SQLToJava();
+        this.JavaToSQL(connection);
+        this.SQLToJava(connection);
         this.JavaToCSV(locations, locFile);
-        menu(locFile);
+        menu(locFile, connection);
         break;
       case 3:
         // add a new entry to the SQL table
@@ -215,9 +204,9 @@ public class Udb {
         String newNodeID = userInput.nextLine();
         Location newLocation = new Location(newNodeID);
         locations.add(newLocation);
-        addLocation(newLocation);
+        addLocation(newLocation, connection);
         JavaToCSV(locations, locFile);
-        menu(locFile);
+        menu(locFile, connection);
         break;
       case 4:
         //
@@ -226,35 +215,55 @@ public class Udb {
         System.out.println("Enter CSV file location name");
         Scanner sc = new Scanner(System.in);
         String CSVName = sc.nextLine();
-        String csvFilePath = "src/main/resources/" + CSVName + ".csv";
+        String csvFilePath = "../" + CSVName + ".csv";
 
         try {
           new File(csvFilePath);
-          this.SQLToJava();
+          this.SQLToJava(connection);
           this.JavaToCSV(this.locations, csvFilePath);
 
         } catch (IOException e) {
           System.out.println(e.fillInStackTrace());
         }
-        menu(locFile);
+        menu(locFile, connection);
         break;
       case 6:
         //
+        connection.close();
         break;
       default:
-        menu(locFile);
+        menu(locFile, connection);
         break;
     }
   }
 
   public void start(String csvFile) throws IOException, SQLException {
+
+    try {
+      Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+    } catch (ClassNotFoundException e) {
+      System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
+      System.out.println("For IntelliJ do the following:");
+      System.out.println("File | Project Structure, Modules, Dependency tab");
+      System.out.println("Add by clicking on the green plus icon on the right of the window");
+      System.out.println(
+          "Select JARs or directories. Go to the folder where the database JAR is located");
+      System.out.println("Click OK, now you can compile your program and run it.");
+      e.printStackTrace();
+      return;
+    }
+
+    System.out.println("Apache Derby driver registered!");
+
+    Connection connection = null;
+    connection = DriverManager.getConnection(DB_LOC + ";create=true");
+
     storeCSVtoOBJ(csvFile);
-    JavaToSQL();
-    menu(csvFile);
+    JavaToSQL(connection);
+    menu(csvFile, connection);
   }
 
-  public void addLocation(Location currLoc) throws SQLException {
-    Connection connection = DriverManager.getConnection(DB_LOC + ";");
+  public void addLocation(Location currLoc, Connection connection) throws SQLException {
     Statement exampleStatement = connection.createStatement();
     exampleStatement.execute(
         "INSERT INTO Locations VALUES("
