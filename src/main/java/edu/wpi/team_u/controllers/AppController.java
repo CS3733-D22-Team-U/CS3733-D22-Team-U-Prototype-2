@@ -16,6 +16,7 @@ public class AppController {
   public TextField nameField;
   public Label outputLabel;
   public Button laundryService;
+  public Button equipmentDelivery;
 
   @FXML
   void sayHello() {
@@ -38,6 +39,20 @@ public class AppController {
 
   public void toMealDelivery(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/mealDelivery.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
+
+  public void togiftFloralService(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/giftFloralService.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
+
+  public void toDeliverEquipmentController(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/equipmentDelivery.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
