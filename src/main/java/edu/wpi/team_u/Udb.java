@@ -9,26 +9,20 @@ import java.util.Scanner;
 public class Udb {
 
   public ArrayList<Location> locations = new ArrayList<Location>();
-  public ArrayList<Location> SQLBuiltLocations = new ArrayList<Location>();
+  private final String DB_LOC = "jdbc:derby:UDB";
 
   public void storeCSVtoOBJ(String csvFile) throws IOException {
     String s;
     File file = new File(csvFile);
     BufferedReader br = new BufferedReader(new FileReader(file));
-    int i = 0;
+    br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
-
-      locations.add(new Location());
-      if (i > 0) {
-        locations.get(i).StrtoLoc(row);
-      }
-      i++;
+      if (row.length == 8) locations.add(new Location(row));
     }
   }
 
   public void JavaToSQL() {
-    int j = 1;
 
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
     try {
@@ -49,7 +43,7 @@ public class Udb {
     Connection connection = null;
 
     try {
-      connection = DriverManager.getConnection("jdbc:derby:UDB;create=true");
+      connection = DriverManager.getConnection(DB_LOC + ";create=true");
       Statement exampleStatement = connection.createStatement();
       try {
         exampleStatement.execute("Drop table Locations");
@@ -64,28 +58,9 @@ public class Udb {
               + "nodeType varchar(6),"
               + "longName varchar(900) not null,"
               + "shortName varchar(600))");
-      while (j < locations.size()) {
+      for (int j = 0; j < locations.size(); j++) {
         Location currLoc = locations.get(j);
-        exampleStatement.execute(
-            "INSERT INTO Locations VALUES("
-                + "'"
-                + currLoc.nodeID
-                + "',"
-                + currLoc.xcoord
-                + ","
-                + currLoc.ycoord
-                + ",'"
-                + currLoc.floor
-                + "','"
-                + currLoc.building
-                + "','"
-                + currLoc.nodeType
-                + "','"
-                + currLoc.longName
-                + "','"
-                + currLoc.shortName
-                + "')");
-        j++;
+        addLocation(currLoc);
       }
       connection.close();
 
@@ -98,10 +73,10 @@ public class Udb {
   }
 
   public void SQLToJava() {
-
+    locations = new ArrayList<>();
     Connection connection = null;
     try {
-      connection = DriverManager.getConnection("jdbc:derby:UDB;");
+      connection = DriverManager.getConnection(DB_LOC + ";");
       Statement exampleStatement = connection.createStatement();
 
       try {
@@ -128,7 +103,7 @@ public class Udb {
           SQLRow.longName = longName;
           SQLRow.shortName = shortName;
 
-          SQLBuiltLocations.add(SQLRow);
+          locations.add(SQLRow);
         }
       } catch (SQLException e) {
         System.out.println("Locations not found");
@@ -182,7 +157,7 @@ public class Udb {
     fw.close();
   }
 
-  public void menu(String locFile) throws IOException {
+  public void menu(String locFile) throws IOException, SQLException {
     System.out.println(
         "1 – Location Information\n"
             + "2 – Change Floor and Type\n"
@@ -239,17 +214,9 @@ public class Udb {
         System.out.println("Enter the new location ID");
         String newNodeID = userInput.nextLine();
         Location newLocation = new Location(newNodeID);
-        try {
-          storeCSVtoOBJ(locFile);
-          // add new location
-          locations.add(newLocation);
-
-          JavaToSQL();
-          SQLToJava();
-          JavaToCSV(locations, locFile);
-        } catch (Exception e) {
-        }
-        // display menu
+        locations.add(newLocation);
+        addLocation(newLocation);
+        JavaToCSV(locations, locFile);
         menu(locFile);
         break;
       case 4:
@@ -264,11 +231,12 @@ public class Udb {
         try {
           new File(csvFilePath);
           this.SQLToJava();
-          this.JavaToCSV(this.SQLBuiltLocations, csvFilePath);
+          this.JavaToCSV(this.locations, csvFilePath);
 
         } catch (IOException e) {
-
+          System.out.println(e.fillInStackTrace());
         }
+        menu(locFile);
         break;
       case 6:
         //
@@ -277,5 +245,35 @@ public class Udb {
         menu(locFile);
         break;
     }
+  }
+
+  public void start(String csvFile) throws IOException, SQLException {
+    storeCSVtoOBJ(csvFile);
+    JavaToSQL();
+    menu(csvFile);
+  }
+
+  public void addLocation(Location currLoc) throws SQLException {
+    Connection connection = DriverManager.getConnection(DB_LOC + ";");
+    Statement exampleStatement = connection.createStatement();
+    exampleStatement.execute(
+        "INSERT INTO Locations VALUES("
+            + "'"
+            + currLoc.nodeID
+            + "',"
+            + currLoc.xcoord
+            + ","
+            + currLoc.ycoord
+            + ",'"
+            + currLoc.floor
+            + "','"
+            + currLoc.building
+            + "','"
+            + currLoc.nodeType
+            + "','"
+            + currLoc.longName
+            + "','"
+            + currLoc.shortName
+            + "')");
   }
 }

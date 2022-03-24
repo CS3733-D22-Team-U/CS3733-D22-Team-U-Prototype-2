@@ -24,7 +24,7 @@ public class Location {
     this.shortName = "N/A";
   }
 
-  void StrtoLoc(String[] row) {
+  public Location(String[] row) {
     this.nodeID = row[0];
     this.xcoord = Integer.parseInt(row[1]);
     this.ycoord = Integer.parseInt(row[2]);

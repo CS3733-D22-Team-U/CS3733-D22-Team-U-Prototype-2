@@ -1,10 +1,11 @@
 package edu.wpi.team_u;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Main {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, SQLException {
     System.out.println("Michael Akstin");
     System.out.println("Harsh Patel");
     System.out.println("Timothy Klein");
@@ -19,6 +20,6 @@ public class Main {
 
     Udb udb = new Udb();
     String csvFile = "src/main/resources/TowerLocations.csv";
-    udb.menu(csvFile);
+    udb.start(csvFile);
   }
 }
