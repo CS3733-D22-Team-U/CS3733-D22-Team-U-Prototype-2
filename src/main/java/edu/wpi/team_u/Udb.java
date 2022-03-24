@@ -26,9 +26,6 @@ public class Udb {
       }
       i++;
     }
-    for (int j = 1; j < locations.size(); j++) {
-      System.out.println(locations.get(j).nodeID);
-    }
   }
 
   public class Location {
@@ -41,6 +38,17 @@ public class Udb {
     String nodeType;
     String longName;
     String shortName;
+
+    public Location() {}
+
+    public Location(String nodeID) {
+      this.nodeID = nodeID;
+      this.floor = "N/A";
+      this.building = "N/A";
+      this.nodeType = "N/A";
+      this.longName = "N/A";
+      this.shortName = "N/A";
+    }
 
     void StrtoLoc(String[] row) {
       this.nodeID = row[0];
@@ -209,7 +217,7 @@ public class Udb {
     fw.close();
   }
 
-  public void menu() {
+  public void menu(String locFile) throws IOException {
     System.out.println(
         "1 – Location Information\n"
             + "2 – Change Floor and Type\n"
@@ -223,12 +231,61 @@ public class Udb {
     switch (inputNumber) {
       case 1:
         // csv to java
-
+        storeCSVtoOBJ(locFile);
+        // display locations and attributes
+        System.out.println("Node | X | Y | Level | Building | Type | Long Name | Short Name");
+        for (Location location : locations) {
+          System.out.printf(
+              "%s | %i | %i | %s | %s | %s | %s | %s \n",
+              location.nodeID,
+              location.xcoord,
+              location.ycoord,
+              location.floor,
+              location.building,
+              location.nodeType,
+              location.longName,
+              location.shortName);
+        }
+        // menu
+        menu(locFile);
         break;
       case 2:
+        System.out.println("Please input the node ID: ");
+        String inputNodeID = userInput.nextLine();
+        System.out.println("New floor: ");
+        String inputNewFloor = userInput.nextLine();
+        System.out.println("New location type");
+        String inputNewType = userInput.nextLine();
+        this.storeCSVtoOBJ(locFile);
+        for (int i = 1; i < this.locations.size(); i++) {
+          if (locations.get(i).nodeID.equals(inputNodeID)) {
+            locations.get(i).floor = inputNewFloor;
+            locations.get(i).nodeType = inputNewType;
+          }
+        }
+        this.JavaToSQL();
+        this.SQLToJava();
+        this.JavaToCSV(locations, locFile);
+        menu(locFile);
         break;
-
       case 3:
+        // add a new entry to the SQL table
+        // prompt for ID
+        System.out.println("Enter the new location ID");
+        String newNodeID = userInput.nextLine();
+        Location newLocation = new Location(newNodeID);
+        try {
+          storeCSVtoOBJ(locFile);
+          // add new location
+          locations.add(newLocation);
+
+          JavaToSQL();
+          SQLToJava();
+          JavaToCSV(locations, locFile);
+        } catch (Exception e) {
+        }
+        // display menu
+        menu(locFile);
         break;
       case 4:
         //
@@ -252,6 +309,7 @@ public class Udb {
         //
         break;
       default:
+        menu(locFile);
         break;
     }
   }
