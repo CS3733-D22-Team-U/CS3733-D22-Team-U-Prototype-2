@@ -214,7 +214,7 @@ public class Udb {
         System.out.println("New location type");
         String inputNewType = userInput.nextLine();
         this.storeCSVtoOBJ(locFile);
-        for (int i = 1; i < this.locations.size(); i++) {
+        for (int i = 0; i < this.locations.size(); i++) {
           if (locations.get(i).nodeID.equals(inputNodeID)) {
             locations.get(i).floor = inputNewFloor;
             locations.get(i).nodeType = inputNewType;
