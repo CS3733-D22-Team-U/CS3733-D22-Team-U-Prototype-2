@@ -218,14 +218,50 @@ public class Udb {
     int inputNumber = Integer.parseInt(userInput.nextLine());
     switch(inputNumber) {
       case 1:
-
+        //csv to java
+        storeCSVtoOBJ(locFile);
+        //display locations and attributes
+        System.out.println("Node | X | Y | Level | Building | Type | Long Name | Short Name");
+        for (Location location : locations){
+          System.out.printf("%s | %i | %i | %s | %s | %s | %s | %s \n",
+                  location.nodeID,
+                  location.xcoord,
+                  location.ycoord,
+                  location.floor,
+                  location.building,
+                  location.nodeType,
+                  location.longName,
+                  location.shortName
+          );
+        }
+        //menu
+        menu(locFile);
         break;
       case 2:
 
         break;
 
       case 3:
-      //
+      //add a new entry to the SQL table
+        //prompt for ID
+        System.out.println("Enter the new location ID");
+        String newNodeID = userInput.next();
+        //create location object
+        Location newLocation = new Location(newNodeID); //TODO double check with constructor for proper implementation
+        //pull and convert csv to java
+        String fileName = "";
+        try {
+          storeCSVtoOBJ(fileName);
+          //add new location
+          locations.add(newLocation);
+          //convert to SQL, converting adds the new node inherently
+          JavaToSQL();
+          //convert and store SQL to csv
+          SQLToJava();
+          JavaToCSV(locations, fileName);
+        }catch(Exception e){}
+        //display menu
+        menu(locFile);
          break;
       case 4:
       //
@@ -235,6 +271,9 @@ public class Udb {
         break;
       case 6:
       //
+        break;
+      default:
+        menu(locFile);
         break;
     }
   }
