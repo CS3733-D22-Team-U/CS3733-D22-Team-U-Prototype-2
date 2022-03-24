@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
     <children>
         <Label contentDisplay="CENTER" graphicTextGap="0.0" layoutX="212.0" layoutY="32.0" prefHeight="66.0" prefWidth="222.0" text="Service Page" textAlignment="CENTER">
             <font>
@@ -32,5 +33,10 @@
                 <Font size="18.0" />
             </font>
         </Button>
+      <Button fx:id="medicineDelivery" layoutX="197.0" layoutY="200.0" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="66.0" prefWidth="253.0" text="Medicine Delivery Service">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>
