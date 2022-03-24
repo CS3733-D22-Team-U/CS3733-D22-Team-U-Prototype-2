@@ -22,17 +22,18 @@ public class Udb {
     }
   }
 
-  public void JavaToSQL(Connection connection) {
-
-    System.out.println("-------Embedded Apache Derby Connection Testing --------");
+  public void JavaToSQL() {
 
     try {
+      Connection connection = null;
+      connection = DriverManager.getConnection(DB_LOC + ";create=true");
 
       Statement exampleStatement = connection.createStatement();
       try {
         exampleStatement.execute("Drop table Locations");
       } catch (Exception e) {
       }
+
       exampleStatement.execute(
           "CREATE TABLE Locations(nodeID varchar(18) not null, "
               + "xcoord int not null,"
@@ -42,23 +43,46 @@ public class Udb {
               + "nodeType varchar(6),"
               + "longName varchar(900) not null,"
               + "shortName varchar(600))");
+
       for (int j = 0; j < locations.size(); j++) {
         Location currLoc = locations.get(j);
-        addLocation(currLoc, connection);
+        exampleStatement.execute(
+            "INSERT INTO Locations VALUES("
+                + "'"
+                + currLoc.nodeID
+                + "',"
+                + currLoc.xcoord
+                + ","
+                + currLoc.ycoord
+                + ",'"
+                + currLoc.floor
+                + "','"
+                + currLoc.building
+                + "','"
+                + currLoc.nodeType
+                + "','"
+                + currLoc.longName
+                + "','"
+                + currLoc.shortName
+                + "')");
       }
+
+      connection.close();
 
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
       return;
     }
-    System.out.println("Apache Derby connection established!");
   }
 
-  public void SQLToJava(Connection connection) throws SQLException {
+  public void SQLToJava() throws SQLException {
     locations = new ArrayList<>();
 
     try {
+      Connection connection = null;
+      connection = DriverManager.getConnection(DB_LOC + ";");
+
       Statement exampleStatement = connection.createStatement();
 
       try {
@@ -90,6 +114,8 @@ public class Udb {
       } catch (SQLException e) {
         System.out.println("Locations not found");
       }
+
+      connection.close();
 
     } catch (SQLException e) {
       System.out.println("Database does not exist.");
@@ -139,7 +165,7 @@ public class Udb {
     fw.close();
   }
 
-  public void menu(String locFile, Connection connection) throws IOException, SQLException {
+  public void menu(String locFile) throws IOException, SQLException {
     System.out.println(
         "1 – Location Information\n"
             + "2 – Change Floor and Type\n"
@@ -176,7 +202,7 @@ public class Udb {
                   + location.shortName);
         }
         // menu
-        menu(locFile, connection);
+        menu(locFile);
         break;
       case 2:
         System.out.println("Please input the node ID: ");
@@ -192,10 +218,10 @@ public class Udb {
             locations.get(i).nodeType = inputNewType;
           }
         }
-        this.JavaToSQL(connection);
-        this.SQLToJava(connection);
+        this.JavaToSQL();
+        this.SQLToJava();
         this.JavaToCSV(locations, locFile);
-        menu(locFile, connection);
+        menu(locFile);
         break;
       case 3:
         // add a new entry to the SQL table
@@ -204,9 +230,10 @@ public class Udb {
         String newNodeID = userInput.nextLine();
         Location newLocation = new Location(newNodeID);
         locations.add(newLocation);
-        addLocation(newLocation, connection);
+        JavaToSQL();
+        SQLToJava();
         JavaToCSV(locations, locFile);
-        menu(locFile, connection);
+        menu(locFile);
         break;
       case 4:
         // removes entries from SQL table that match input node
@@ -218,10 +245,10 @@ public class Udb {
             locations.remove(i);
           }
         }
-        this.JavaToSQL(connection);
-        this.SQLToJava(connection);
+        this.JavaToSQL();
+        this.SQLToJava();
         this.JavaToCSV(locations, locFile);
-        menu(locFile, connection);
+        menu(locFile);
         break;
       case 5:
         System.out.println("Enter CSV file location name");
@@ -231,20 +258,19 @@ public class Udb {
 
         try {
           new File(csvFilePath);
-          this.SQLToJava(connection);
+          this.SQLToJava();
           this.JavaToCSV(this.locations, csvFilePath);
 
         } catch (IOException e) {
           System.out.println(e.fillInStackTrace());
         }
-        menu(locFile, connection);
+        menu(locFile);
         break;
       case 6:
         //
-        connection.close();
         break;
       default:
-        menu(locFile, connection);
+        menu(locFile);
         break;
     }
   }
@@ -267,34 +293,8 @@ public class Udb {
 
     System.out.println("Apache Derby driver registered!");
 
-    Connection connection = null;
-    connection = DriverManager.getConnection(DB_LOC + ";create=true");
-
     storeCSVtoOBJ(csvFile);
-    JavaToSQL(connection);
-    menu(csvFile, connection);
-  }
-
-  public void addLocation(Location currLoc, Connection connection) throws SQLException {
-    Statement exampleStatement = connection.createStatement();
-    exampleStatement.execute(
-        "INSERT INTO Locations VALUES("
-            + "'"
-            + currLoc.nodeID
-            + "',"
-            + currLoc.xcoord
-            + ","
-            + currLoc.ycoord
-            + ",'"
-            + currLoc.floor
-            + "','"
-            + currLoc.building
-            + "','"
-            + currLoc.nodeType
-            + "','"
-            + currLoc.longName
-            + "','"
-            + currLoc.shortName
-            + "')");
+    JavaToSQL();
+    menu(csvFile);
   }
 }
