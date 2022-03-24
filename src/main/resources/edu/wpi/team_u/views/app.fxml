@@ -36,7 +36,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="325.0" mnemonicParsing="false" onAction="#sayHello" prefHeight="29.0" prefWidth="328.0" text="Security Services">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="325.0" mnemonicParsing="false" onAction="#toSecurityService" prefHeight="29.0" prefWidth="328.0" text="Security Services">
          <font>
             <Font size="36.0" />
          </font>
