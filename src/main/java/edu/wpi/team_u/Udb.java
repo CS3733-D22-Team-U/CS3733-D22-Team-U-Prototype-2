@@ -9,8 +9,7 @@ import java.util.Scanner;
 public class Udb {
 
   public ArrayList<Location> locations = new ArrayList<Location>();
-  private final String DB_LOC = "jdbc:derby:UDB";
-  private String username, password;
+  private String DB_LOC = "jdbc:derby:UDB;";
 
   public static void main(String[] args) throws IOException, SQLException {
     Udb udb = new Udb();
@@ -21,10 +20,10 @@ public class Udb {
     udb.start(username, password, csvFile);
   }
 
-  public void start(String username, String password, String csvFile) throws IOException, SQLException {
-    this.username = username;
-    this.password = password;
-
+  public void start(String username, String password, String csvFile)
+      throws IOException, SQLException {
+    DB_LOC = DB_LOC + "user=" + username + ";password=" + password + ";";
+    System.out.println(DB_LOC);
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
     } catch (ClassNotFoundException e) {
@@ -33,7 +32,7 @@ public class Udb {
       System.out.println("File | Project Structure, Modules, Dependency tab");
       System.out.println("Add by clicking on the green plus icon on the right of the window");
       System.out.println(
-              "Select JARs or directories. Go to the folder where the database JAR is located");
+          "Select JARs or directories. Go to the folder where the database JAR is located");
       System.out.println("Click OK, now you can compile your program and run it.");
       e.printStackTrace();
       return;
@@ -62,7 +61,7 @@ public class Udb {
 
     try {
       Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC + ";create=true");
+      connection = DriverManager.getConnection(DB_LOC + "create=true");
 
       Statement exampleStatement = connection.createStatement();
       try {
@@ -118,7 +117,7 @@ public class Udb {
 
     try {
       Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC + ";");
+      connection = DriverManager.getConnection(DB_LOC);
 
       Statement exampleStatement = connection.createStatement();
 
