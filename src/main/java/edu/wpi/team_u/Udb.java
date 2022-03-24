@@ -220,7 +220,19 @@ public class Udb {
         menu(locFile);
         break;
       case 4:
-        //
+        // removes entries from SQL table that match input node
+        // prompt for ID
+        System.out.println("Input ID for to delete location: ");
+        String userNodeID = userInput.nextLine(); // remove locations that match user input
+        for (int i = locations.size() - 1; i >= 0; i--) {
+          if (locations.get(i).nodeID.equals(userNodeID)) {
+            locations.remove(i);
+          }
+        }
+        this.JavaToSQL();
+        this.SQLToJava();
+        this.JavaToCSV(locations, locFile);
+        menu(locFile);
         break;
       case 5:
         System.out.println("Enter CSV file location name");
