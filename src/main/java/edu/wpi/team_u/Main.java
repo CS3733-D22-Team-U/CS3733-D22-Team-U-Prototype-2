@@ -21,5 +21,6 @@ public class Main {
     String csvFile = "src/main/resources/TowerLocations.csv";
     udb.storeCSVtoOBJ(csvFile);
     udb.JavaToSQL();
+    udb.SQLToJava();
   }
 }
