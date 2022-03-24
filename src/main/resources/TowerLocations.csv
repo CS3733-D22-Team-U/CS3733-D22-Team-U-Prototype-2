@@ -1,5 +1,5 @@
 nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName
-FDEPT00101,1617,825,4,Tower,DEEP,Center for International Medicine,CIM
+FDEPT00101,1617,825,1,Tower,DEPT,Center for International Medicine,CIM
 FDEPT00201,1610,1120,1,Tower,DEPT,Bretholtz Center for Patients and Families,Bretholtz WR
 FDEPT00301,1721,931,1,Tower,DEPT,Multifaith Chapel,Chapel
 FDEPT00401,1794,1146,1,Tower,DEPT,Sharf Admitting Center,Sharf Center
@@ -132,3 +132,4 @@ uPATI003,1490,690,3,Tower,PATI,Patient Room Pod B,PRB
 uPATI003,1477,1002,3,Tower,PATI,Patient Room Pod C,PRC
 uHALL003,1700,817,3,Tower,HALL,Bed and Reciner Parking A-B,BRPAB
 uHALL003,1700,1033,3,Tower,HALL,Bed and Recliner Parking C-D,BRPCD
+

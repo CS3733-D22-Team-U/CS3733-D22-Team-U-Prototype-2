@@ -37,6 +37,17 @@ public class Udb {
     String longName;
     String shortName;
 
+    public Location() {}
+
+    public Location(String nodeID) {
+      this.nodeID = nodeID;
+      this.floor = "N/A";
+      this.building = "N/A";
+      this.nodeType = "N/A";
+      this.longName = "N/A";
+      this.shortName = "N/A";
+    }
+
     void StrtoLoc(String[] row) {
       this.nodeID = row[0];
       this.xcoord = Integer.parseInt(row[1]);
@@ -217,23 +228,23 @@ public class Udb {
     int inputNumber = Integer.parseInt(userInput.nextLine());
     switch (inputNumber) {
       case 1:
-        //csv to java
+        // csv to java
         storeCSVtoOBJ(locFile);
-        //display locations and attributes
+        // display locations and attributes
         System.out.println("Node | X | Y | Level | Building | Type | Long Name | Short Name");
-        for (Location location : locations){
-          System.out.printf("%s | %i | %i | %s | %s | %s | %s | %s \n",
-                  location.nodeID,
-                  location.xcoord,
-                  location.ycoord,
-                  location.floor,
-                  location.building,
-                  location.nodeType,
-                  location.longName,
-                  location.shortName
-          );
+        for (Location location : locations) {
+          System.out.printf(
+              "%s | %i | %i | %s | %s | %s | %s | %s \n",
+              location.nodeID,
+              location.xcoord,
+              location.ycoord,
+              location.floor,
+              location.building,
+              location.nodeType,
+              location.longName,
+              location.shortName);
         }
-        //menu
+        // menu
         menu(locFile);
         break;
       case 2:
@@ -253,32 +264,27 @@ public class Udb {
         this.JavaToSQL();
         this.SQLToJava();
         this.JavaToCSV(locations, locFile);
-
+        menu(locFile);
         break;
       case 3:
-        //
-        break;
-      //add a new entry to the SQL table
-        //prompt for ID
+        // add a new entry to the SQL table
+        // prompt for ID
         System.out.println("Enter the new location ID");
-        String newNodeID = userInput.next();
-        //create location object
-        Location newLocation = new Location(newNodeID); //TODO double check with constructor for proper implementation
-        //pull and convert csv to java
-        String fileName = "";
+        String newNodeID = userInput.nextLine();
+        Location newLocation = new Location(newNodeID);
         try {
-          storeCSVtoOBJ(fileName);
-          //add new location
+          storeCSVtoOBJ(locFile);
+          // add new location
           locations.add(newLocation);
-          //convert to SQL, converting adds the new node inherently
+
           JavaToSQL();
-          //convert and store SQL to csv
           SQLToJava();
-          JavaToCSV(locations, fileName);
-        }catch(Exception e){}
-        //display menu
+          JavaToCSV(locations, locFile);
+        } catch (Exception e) {
+        }
+        // display menu
         menu(locFile);
-         break;
+        break;
       case 4:
         //
         break;
@@ -287,7 +293,7 @@ public class Udb {
         break;
       case 6:
         //
-      //
+        //
         break;
       default:
         menu(locFile);
