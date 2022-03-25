@@ -9,59 +9,91 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
+<AnchorPane prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: f6f8f8;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
     <children>
         <Label contentDisplay="CENTER" graphicTextGap="0.0" layoutX="739.0" layoutY="51.0" prefHeight="66.0" prefWidth="222.0" text="Service Page" textAlignment="CENTER">
             <font>
                 <Font size="31.0" />
             </font>
         </Label>
-      <VBox layoutY="121.0" prefHeight="479.0" prefWidth="231.0">
+      <VBox prefHeight="600.0" prefWidth="231.0" style="-fx-background-color: ffffff;">
          <children>
-              <Button fx:id="equipmentDelivery" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toDeliverEquipmentController" prefHeight="68.0" prefWidth="235.0" text="Equipment Delivery">
+              <Button fx:id="equipmentDelivery" alignment="BASELINE_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toDeliverEquipmentController" prefHeight="68.0" prefWidth="235.0" style="-fx-background-color: transparent;" text="Equipment Delivery" textAlignment="RIGHT">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -115;">
+                     <image>
+                        <Image url="@../icons/doctoricon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+              </Button>
+            <Button alignment="BASELINE_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toSecurityService" prefHeight="50.0" prefWidth="240.0" style="-fx-background-color: transparent;" text="Lab Request Services">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="39.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -115;">
+                     <image>
+                        <Image url="@../icons/labIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+              <Button fx:id="mealDelivery" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toMealDelivery" text="Patient Meal Delivery Service">
                   <font>
                       <Font size="18.0" />
                   </font>
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/doctoricon.png" />
+                        <Image url="@../icons/mealIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
               </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toSecurityService" prefHeight="50.0" prefWidth="240.0" text="Lab Request Services">
+            <Button fx:id="medicineDelivery" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="66.0" prefWidth="253.0" style="-fx-background-color: transparent;" text="Medicine Delivery Service">
                <font>
                   <Font size="18.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/pillIcon.png" />
+                     </image>
+                  </ImageView>
                </graphic>
             </Button>
+              <Button fx:id="giftFloral" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#togiftFloralService" text="Gift and Floral Delivery Service">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/flowerIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+              </Button>
+              <Button fx:id="laundryService" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toLaundryService" prefHeight="68.0" prefWidth="199.0" style="-fx-background-color: transparent;" styleClass="buttons" text="Laundry Service">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/laundryIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+              </Button>
          </children>
       </VBox>
-      <Button fx:id="medicineDelivery" layoutX="315.0" layoutY="302.0" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="66.0" prefWidth="253.0" text="Medicine Delivery Service">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-        <Button fx:id="laundryService" alignment="CENTER" contentDisplay="CENTER" layoutX="252.0" layoutY="184.0" mnemonicParsing="false" onAction="#toLaundryService" prefHeight="68.0" prefWidth="199.0" text="Laundry Service">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
-        <Button fx:id="mealDelivery" alignment="CENTER" contentDisplay="CENTER" layoutX="653.0" layoutY="412.0" mnemonicParsing="false" onAction="#toMealDelivery" text="Patient Meal Delivery Service">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
-        <Button fx:id="giftFloral" alignment="CENTER" contentDisplay="CENTER" layoutX="456.0" layoutY="113.0" mnemonicParsing="false" onAction="#togiftFloralService" text="Gift and Floral Delivery Service">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
    </children>
 </AnchorPane>
