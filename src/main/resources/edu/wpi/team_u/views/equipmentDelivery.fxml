@@ -6,32 +6,37 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.EquipmentDeliverySystemController">
-   <children>
-      <Button fx:id="equipmentDelivery" layoutX="72.0" layoutY="100.0" mnemonicParsing="false" onAction="#toEquipmentDelivery" style="-fx-background-radius: 15; -fx-background-color: #A6CDF2;" text="Back to Service Page" />
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.team_u.controllers.EquipmentDeliverySystemController">
+    <children>
+        <Button fx:id="equipmentDelivery" layoutX="72.0" layoutY="100.0" mnemonicParsing="false"
+                onAction="#toEquipmentDelivery" style="-fx-background-radius: 15; -fx-background-color: #A6CDF2;"
+                text="Back to Service Page"/>
         <Label layoutX="228.0" layoutY="15.0" prefHeight="52.0" prefWidth="372.0" text="Equipment Delivery Service">
-         <font>
-            <Font name="Yuanti SC Regular" size="30.0" />
-         </font>
-      </Label>
-      <CheckBox layoutX="287.0" layoutY="113.0" mnemonicParsing="false" text="Scrubs" />
-      <CheckBox layoutX="287.0" layoutY="150.0" mnemonicParsing="false" text="Gloves" />
-      <CheckBox layoutX="288.0" layoutY="191.0" mnemonicParsing="false" text="Masks" />
-      <CheckBox layoutX="287.0" layoutY="229.0" mnemonicParsing="false" text="Wheel Chairs" />
-      <CheckBox layoutX="288.0" layoutY="264.0" mnemonicParsing="false" text="Crutches" />
-      <Button layoutX="293.0" layoutY="321.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="181.0" style="-fx-background-radius: 15; -fx-background-color: #89D7BF;" text="Order Selected Equipment" />
-      <AmbientLight layoutX="228.0" layoutY="142.0" lightOn="true">
-         <color>
-            <Color red="0.013888888992369175" green="0.39189815521240234" blue="1.0" />
-         </color>
-      </AmbientLight>
-      <Label layoutX="430.0" layoutY="76.0" text="# of Item Selected" />
-      <Label layoutX="288.0" layoutY="76.0" text="Equipment" />
-      <TextField layoutX="430.0" layoutY="109.0" prefHeight="15.0" prefWidth="30.0" />
-      <TextField layoutX="430.0" layoutY="187.0" prefHeight="15.0" prefWidth="30.0" />
-      <TextField layoutX="430.0" layoutY="225.0" prefHeight="15.0" prefWidth="30.0" />
-      <TextField layoutX="430.0" layoutY="146.0" prefHeight="15.0" prefWidth="30.0" />
-      <TextField layoutX="430.0" layoutY="260.0" prefHeight="15.0" prefWidth="30.0" />
-      <Label layoutX="56.0" layoutY="6.0" />
-   </children>
+            <font>
+                <Font name="Yuanti SC Regular" size="30.0"/>
+            </font>
+        </Label>
+        <CheckBox layoutX="287.0" layoutY="113.0" mnemonicParsing="false" text="Scrubs"/>
+        <CheckBox layoutX="287.0" layoutY="150.0" mnemonicParsing="false" text="Gloves"/>
+        <CheckBox layoutX="288.0" layoutY="191.0" mnemonicParsing="false" text="Masks"/>
+        <CheckBox layoutX="287.0" layoutY="229.0" mnemonicParsing="false" text="Wheel Chairs"/>
+        <CheckBox layoutX="288.0" layoutY="264.0" mnemonicParsing="false" text="Crutches"/>
+        <Button layoutX="293.0" layoutY="321.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="181.0"
+                style="-fx-background-radius: 15; -fx-background-color: #89D7BF;" text="Order Selected Equipment"/>
+        <AmbientLight layoutX="228.0" layoutY="142.0" lightOn="true">
+            <color>
+                <Color red="0.013888888992369175" green="0.39189815521240234" blue="1.0"/>
+            </color>
+        </AmbientLight>
+        <Label layoutX="430.0" layoutY="76.0" text="# of Item Selected"/>
+        <Label layoutX="288.0" layoutY="76.0" text="Equipment"/>
+        <TextField layoutX="430.0" layoutY="109.0" prefHeight="15.0" prefWidth="30.0"/>
+        <TextField layoutX="430.0" layoutY="187.0" prefHeight="15.0" prefWidth="30.0"/>
+        <TextField layoutX="430.0" layoutY="225.0" prefHeight="15.0" prefWidth="30.0"/>
+        <TextField layoutX="430.0" layoutY="146.0" prefHeight="15.0" prefWidth="30.0"/>
+        <TextField layoutX="430.0" layoutY="260.0" prefHeight="15.0" prefWidth="30.0"/>
+        <Label layoutX="56.0" layoutY="6.0"/>
+    </children>
 </AnchorPane>

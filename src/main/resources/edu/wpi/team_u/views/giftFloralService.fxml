@@ -8,62 +8,84 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: 89D7BF89D7BF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.giftFloralController">
-   <children>
-      <Text layoutX="215.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gift and Floral Delivery Service" textAlignment="CENTER" wrappingWidth="173.97613525390625">
-         <font>
-            <Font name="Lucida Grande" size="18.0" />
-         </font></Text>
-      <Button layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#toServicePage" prefHeight="29.0" prefWidth="176.0" style="-fx-background-color: #A6CDF2; -fx-background-radius: 15;" text="Back to Services Page">
-         <font>
-            <Font name="Arial" size="13.0" />
-         </font></Button>
-      <CheckBox layoutX="138.0" layoutY="222.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Flowers">
-         <font>
-            <Font name="Lucida Grande" size="11.0" />
-         </font></CheckBox>
-      <CheckBox layoutX="352.0" layoutY="222.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Balloons">
-         <font>
-            <Font name="Lucida Grande" size="11.0" />
-         </font></CheckBox>
-      <CheckBox layoutX="138.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Gift Basket">
-         <font>
-            <Font name="Lucida Grande" size="11.0" />
-         </font></CheckBox>
-      <CheckBox layoutX="352.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Plants">
-         <font>
-            <Font name="Lucida Grande" size="11.0" />
-         </font></CheckBox>
-      <Text layoutX="152.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select which of the following services you would like to request" wrappingWidth="315.1868896484375">
-         <font>
-            <Font name="Lucida Grande" size="10.0" />
-         </font>
-      </Text>
-      <ImageView fitHeight="58.0" fitWidth="63.0" layoutX="168.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../../Downloads/getwellsoon.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="70.0" fitWidth="52.0" layoutX="158.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../../Desktop/CS/icons/bouquet.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="54.0" fitWidth="58.0" layoutX="380.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../../Desktop/CS/icons/plant.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="54.0" fitWidth="64.0" layoutX="379.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../../Downloads/balloon.jpg" />
-         </image>
-      </ImageView>
-      <Button layoutX="272.0" layoutY="328.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="OK" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="377.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../../Desktop/CS/icons/MGB%20Logo.png" />
-         </image>
-      </ImageView>
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: 89D7BF89D7BF;"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.team_u.controllers.giftFloralController">
+    <children>
+        <Text layoutX="215.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Gift and Floral Delivery Service" textAlignment="CENTER" wrappingWidth="173.97613525390625">
+            <font>
+                <Font name="Lucida Grande" size="18.0"/>
+            </font>
+        </Text>
+        <Button layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#toServicePage" prefHeight="29.0"
+                prefWidth="176.0" style="-fx-background-color: #A6CDF2; -fx-background-radius: 15;"
+                text="Back to Services Page">
+            <font>
+                <Font name="Arial" size="13.0"/>
+            </font>
+        </Button>
+        <CheckBox layoutX="138.0" layoutY="222.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0"
+                  text="Flowers">
+            <font>
+                <Font name="Lucida Grande" size="11.0"/>
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="352.0" layoutY="222.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0"
+                  text="Balloons">
+            <font>
+                <Font name="Lucida Grande" size="11.0"/>
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="138.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0"
+                  text="Gift Basket">
+            <font>
+                <Font name="Lucida Grande" size="11.0"/>
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="352.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0"
+                  text="Plants">
+            <font>
+                <Font name="Lucida Grande" size="11.0"/>
+            </font>
+        </CheckBox>
+        <Text layoutX="152.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Select which of the following services you would like to request" wrappingWidth="315.1868896484375">
+            <font>
+                <Font name="Lucida Grande" size="10.0"/>
+            </font>
+        </Text>
+        <ImageView fitHeight="58.0" fitWidth="63.0" layoutX="168.0" layoutY="245.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../../../Downloads/getwellsoon.jpg"/>
+            </image>
+        </ImageView>
+        <ImageView fitHeight="70.0" fitWidth="52.0" layoutX="158.0" layoutY="160.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../../../Desktop/CS/icons/bouquet.png"/>
+            </image>
+        </ImageView>
+        <ImageView fitHeight="54.0" fitWidth="58.0" layoutX="380.0" layoutY="247.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../../../Desktop/CS/icons/plant.png"/>
+            </image>
+        </ImageView>
+        <ImageView fitHeight="54.0" fitWidth="64.0" layoutX="379.0" layoutY="162.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../../../Downloads/balloon.jpg"/>
+            </image>
+        </ImageView>
+        <Button layoutX="272.0" layoutY="328.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0"
+                style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="OK"/>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="377.0" layoutY="26.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../../../Desktop/CS/icons/MGB%20Logo.png"/>
+            </image>
+        </ImageView>
+    </children>
 </AnchorPane>
