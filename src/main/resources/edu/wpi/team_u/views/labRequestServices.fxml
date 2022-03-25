@@ -117,7 +117,7 @@
                   </DropShadow>
                </effect>
             </Pane>
-            <Button fx:id="equipmentDelivery1" alignment="CENTER" layoutX="10.0" layoutY="86.0" mnemonicParsing="false" onAction="#toServicePage" prefHeight="68.0" prefWidth="326.0" style="-fx-background-color: transparent; -fx-border-color: #b5b5b5;" text="Service Dashboard" textAlignment="RIGHT">
+            <Button fx:id="equipmentDelivery1" alignment="CENTER" layoutX="10.0" layoutY="86.0" mnemonicParsing="false" onAction="#toServicePage" prefHeight="68.0" prefWidth="326.0" style="-fx-background-color: TRANSPARENT; -fx-border-color: #b5b5b5;" text="Service Dashboard" textAlignment="RIGHT">
                <font>
                   <Font size="18.0" />
                </font>
