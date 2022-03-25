@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="548.0" prefWidth="1102.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
-    <children>
+   <children>
       <Pane layoutX="325.0" prefHeight="600.0" prefWidth="777.0" style="-fx-background-color: #f6f8f8;">
          <children>
               <Label contentDisplay="CENTER" graphicTextGap="0.0" layoutX="223.0" layoutY="14.0" prefHeight="93.0" prefWidth="332.0" text="Service Page">
@@ -268,4 +268,5 @@
             </DropShadow>
          </effect>
       </VBox>
+   </children>
 </AnchorPane>
