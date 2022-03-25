@@ -19,7 +19,8 @@ public class Udb {
     try {
       csvFile = args[2];
     } catch (Exception e) {
-      csvFile = "src/main/resources/TowerLocations.csv";
+      System.out.println("Please define file path for .csv file for Tower Locations");
+      return;
     }
     udb.start(username, password, csvFile);
   }
@@ -237,7 +238,7 @@ public class Udb {
   // This calls all of our private functions
   private void menu(String locFile) throws IOException, SQLException {
     System.out.println(
-        "1 – Location Information\n"
+        "1 - Location Information\n"
             + "2 – Change Floor and Type\n"
             + "3 – Enter Location\n"
             + "4 – Delete Location\n"
@@ -330,7 +331,7 @@ public class Udb {
         System.out.println("Enter CSV file location name");
         Scanner sc = new Scanner(System.in);
         String CSVName = sc.nextLine();
-        String csvFilePath = "../" + CSVName + ".csv";
+        String csvFilePath = "./" + CSVName + ".csv";
 
         try {
           new File(csvFilePath);
