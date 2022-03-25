@@ -40,6 +40,22 @@ public class Udb {
 
     System.out.println("Apache Derby driver registered!");
 
+    try {
+      Connection connection = null;
+      connection = DriverManager.getConnection(DB_LOC + "create=true");
+      Statement exampleStatement = connection.createStatement();
+      exampleStatement.executeUpdate(
+          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.connection.requireAuthentication',true)");
+      exampleStatement.executeUpdate(
+          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.database.sqlAuthorization', true)");
+      exampleStatement.executeUpdate(
+          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.user.admin', 'admin')");
+      connection.close();
+    } catch (Exception e) {
+      System.out.println(e);
+      return;
+    }
+
     storeCSVtoOBJ(csvFile);
     JavaToSQL();
     menu(csvFile);
@@ -61,7 +77,7 @@ public class Udb {
 
     try {
       Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC + "create=true");
+      connection = DriverManager.getConnection(DB_LOC);
 
       Statement exampleStatement = connection.createStatement();
       try {
