@@ -21,9 +21,8 @@ public class Udb {
   }
 
   public void start(String username, String password, String csvFile)
-      throws IOException, SQLException {
+          throws IOException, SQLException {
     DB_LOC = DB_LOC + "user=" + username + ";password=" + password + ";";
-    System.out.println(DB_LOC);
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
     } catch (ClassNotFoundException e) {
@@ -32,7 +31,7 @@ public class Udb {
       System.out.println("File | Project Structure, Modules, Dependency tab");
       System.out.println("Add by clicking on the green plus icon on the right of the window");
       System.out.println(
-          "Select JARs or directories. Go to the folder where the database JAR is located");
+              "Select JARs or directories. Go to the folder where the database JAR is located");
       System.out.println("Click OK, now you can compile your program and run it.");
       e.printStackTrace();
       return;
@@ -41,18 +40,24 @@ public class Udb {
     System.out.println("Apache Derby driver registered!");
 
     try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC + "create=true");
+      Connection connection = DriverManager.getConnection(DB_LOC + "create=true;");
       Statement exampleStatement = connection.createStatement();
+
       exampleStatement.executeUpdate(
-          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.connection.requireAuthentication',true)");
+              "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.connection.requireAuthentication',true)");
       exampleStatement.executeUpdate(
-          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.database.sqlAuthorization', true)");
+              "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.database.sqlAuthorization', true)");
       exampleStatement.executeUpdate(
-          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.user.admin', 'admin')");
+              "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY("
+                      + "'derby.authentication.provider', 'BUILTIN')");
+      exampleStatement.executeUpdate(
+              "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.user.admin', 'admin')");
+      exampleStatement.executeUpdate(
+              "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY("
+                      + "'derby.database.defaultConnectionMode', 'fullAccess')");
       connection.close();
     } catch (Exception e) {
-      System.out.println(e);
+      System.out.println("Wrong Username/Password");
       return;
     }
 
@@ -91,36 +96,36 @@ public class Udb {
       }
 
       exampleStatement.execute(
-          "CREATE TABLE Locations(nodeID varchar(18) not null, "
-              + "xcoord int not null,"
-              + "ycoord int not null,"
-              + "floor varchar(3) not null,"
-              + "building varchar(6),"
-              + "nodeType varchar(6),"
-              + "longName varchar(900) not null,"
-              + "shortName varchar(600))");
+              "CREATE TABLE Locations(nodeID varchar(18) not null, "
+                      + "xcoord int not null,"
+                      + "ycoord int not null,"
+                      + "floor varchar(3) not null,"
+                      + "building varchar(6),"
+                      + "nodeType varchar(6),"
+                      + "longName varchar(900) not null,"
+                      + "shortName varchar(600))");
 
       for (int j = 0; j < locations.size(); j++) {
         Location currLoc = locations.get(j);
         exampleStatement.execute(
-            "INSERT INTO Locations VALUES("
-                + "'"
-                + currLoc.nodeID
-                + "',"
-                + currLoc.xcoord
-                + ","
-                + currLoc.ycoord
-                + ",'"
-                + currLoc.floor
-                + "','"
-                + currLoc.building
-                + "','"
-                + currLoc.nodeType
-                + "','"
-                + currLoc.longName
-                + "','"
-                + currLoc.shortName
-                + "')");
+                "INSERT INTO Locations VALUES("
+                        + "'"
+                        + currLoc.nodeID
+                        + "',"
+                        + currLoc.xcoord
+                        + ","
+                        + currLoc.ycoord
+                        + ",'"
+                        + currLoc.floor
+                        + "','"
+                        + currLoc.building
+                        + "','"
+                        + currLoc.nodeType
+                        + "','"
+                        + currLoc.longName
+                        + "','"
+                        + currLoc.shortName
+                        + "')");
       }
 
       connection.close();
@@ -201,8 +206,8 @@ public class Udb {
     fw.append("\n");
 
     for (int i = 0;
-        i < locations.size();
-        i++) { // ask about how this was working without and = sign
+         i < locations.size();
+         i++) { // ask about how this was working without and = sign
       fw.append(locations.get(i).nodeID);
       fw.append(",");
       fw.append(Integer.toString(locations.get(i).xcoord));
@@ -228,12 +233,12 @@ public class Udb {
   // This calls all of our private functions
   private void menu(String locFile) throws IOException, SQLException {
     System.out.println(
-        "1 – Location Information\n"
-            + "2 – Change Floor and Type\n"
-            + "3 – Enter Location\n"
-            + "4 – Delete Location\n"
-            + "5 – Save Locations to CSV file\n"
-            + "6 – Exit Program");
+            "1 – Location Information\n"
+                    + "2 – Change Floor and Type\n"
+                    + "3 – Enter Location\n"
+                    + "4 – Delete Location\n"
+                    + "5 – Save Locations to CSV file\n"
+                    + "6 – Exit Program");
 
     Scanner userInput = new Scanner(System.in);
     int inputNumber = Integer.parseInt(userInput.nextLine());
@@ -243,24 +248,24 @@ public class Udb {
         storeCSVtoOBJ(locFile);
         // display locations and attributes
         System.out.println(
-            "Node |\t X |\t Y |\t Level |\t Building |\t Type |\t Long Name |\t Short Name");
+                "Node |\t X |\t Y |\t Level |\t Building |\t Type |\t Long Name |\t Short Name");
         for (Location location : locations) {
           System.out.println(
-              location.nodeID
-                  + " | \t"
-                  + location.xcoord
-                  + " | \t"
-                  + location.ycoord
-                  + " | \t"
-                  + location.floor
-                  + " | \t"
-                  + location.building
-                  + " | \t"
-                  + location.nodeType
-                  + " | \t"
-                  + location.longName
-                  + " | \t"
-                  + location.shortName);
+                  location.nodeID
+                          + " | \t"
+                          + location.xcoord
+                          + " | \t"
+                          + location.ycoord
+                          + " | \t"
+                          + location.floor
+                          + " | \t"
+                          + location.building
+                          + " | \t"
+                          + location.nodeType
+                          + " | \t"
+                          + location.longName
+                          + " | \t"
+                          + location.shortName);
         }
         // menu
         menu(locFile);
