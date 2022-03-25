@@ -1,20 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.labRequestServices">
    <children>
-      <Button layoutX="16.0" layoutY="39.0" mnemonicParsing="false" onAction="#backToServicePage" text="Back To Service Page" />
-      <CheckBox layoutX="79.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Blood Test" />
-      <CheckBox layoutX="80.0" layoutY="127.0" mnemonicParsing="false" text="COVID-19 Test" />
-      <CheckBox layoutX="79.0" layoutY="150.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="85.0" text="Urine Test" />
-      <CheckBox layoutX="74.0" layoutY="183.0" mnemonicParsing="false" text="Drug Screen Test" />
-      <CheckBox layoutX="79.0" layoutY="211.0" mnemonicParsing="false" text="Pregnancy Test" />
-      <TextField layoutX="79.0" layoutY="265.0" />
-      <Label layoutX="266.0" layoutY="30.0" text="Lab Request Services" />
-      <Label layoutX="79.0" layoutY="74.0" text="Select which of the following services you would like to request." />
-      <Label layoutX="80.0" layoutY="239.0" text="Other:" />
-      <Button layoutX="274.0" layoutY="352.0" mnemonicParsing="false" onAction="#backToServicePage" text="OK" />
+      <Button layoutX="22.0" layoutY="20.0" mnemonicParsing="false" onAction="#backToServicePage" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #A6CDF2; -fx-background-radius: 15; -fx-border-radius: 15;" text="Back To Service Page">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <CheckBox layoutX="120.0" layoutY="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Blood Test">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></CheckBox>
+      <CheckBox layoutX="120.0" layoutY="180.0" mnemonicParsing="false" text="COVID-19 Test">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></CheckBox>
+      <CheckBox layoutX="120.0" layoutY="205.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="85.0" text="Urine Test">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></CheckBox>
+      <CheckBox layoutX="120.0" layoutY="231.0" mnemonicParsing="false" style="-fx-region-border: #FFFFFF;" text="Drug Screen Test">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></CheckBox>
+      <CheckBox layoutX="120.0" layoutY="257.0" mnemonicParsing="false" text="Pregnancy Test">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></CheckBox>
+      <TextField layoutX="119.0" layoutY="301.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
+      <Label layoutX="176.0" layoutY="71.0" text="Lab Request Services">
+         <font>
+            <Font size="27.0" />
+         </font></Label>
+      <Label layoutX="103.0" layoutY="126.0" text="Select which of the following services you would like to request." />
+      <Label layoutX="120.0" layoutY="282.0" text="Other:" />
+      <Button layoutX="266.0" layoutY="344.0" mnemonicParsing="false" onAction="#backToServicePage" prefHeight="31.0" prefWidth="69.0" style="-fx-background-radius: 15; -fx-background-color: #89D7BF;" text="    OK    ">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
    </children>
 </AnchorPane>
