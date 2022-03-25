@@ -61,7 +61,9 @@ public class Udb {
     menu(csvFile);
   }
 
-  public void storeCSVtoOBJ(String csvFile) throws IOException {
+  // Takes in a CSV file and converts it to java objects
+
+  private void storeCSVtoOBJ(String csvFile) throws IOException {
     locations = new ArrayList<Location>();
     String s;
     File file = new File(csvFile);
@@ -73,7 +75,9 @@ public class Udb {
     }
   }
 
-  public void JavaToSQL() {
+  // This function converts all of the CSV information that is stored in Java objects and
+  // puts them into the the SQL database
+  private void JavaToSQL() {
 
     try {
       Connection connection = null;
@@ -128,7 +132,8 @@ public class Udb {
     }
   }
 
-  public void SQLToJava() throws SQLException {
+  // This function takes all of the SQL database information into java objects
+  private void SQLToJava() throws SQLException {
     locations = new ArrayList<Location>();
 
     try {
@@ -174,7 +179,8 @@ public class Udb {
     }
   }
 
-  public void JavaToCSV(ArrayList<Location> locations, String csvFilem) throws IOException {
+  // This function converts the java objects of our CSV data into a new CSV file
+  private void JavaToCSV(ArrayList<Location> locations, String csvFilem) throws IOException {
     PrintWriter fw = new PrintWriter(new File(csvFilem));
 
     fw.append("nodeID");
@@ -217,7 +223,10 @@ public class Udb {
     fw.close();
   }
 
-  public void menu(String locFile) throws IOException, SQLException {
+  // This function is called in main the starts the menu where a client can access and or change
+  // data in our SQL data base
+  // This calls all of our private functions
+  private void menu(String locFile) throws IOException, SQLException {
     System.out.println(
         "1 – Location Information\n"
             + "2 – Change Floor and Type\n"
@@ -257,10 +266,15 @@ public class Udb {
         menu(locFile);
         break;
       case 2:
+        // takes entries from SQL table that match input node and updates it with a new floor and
+        // location type
+        // input ID
         System.out.println("Please input the node ID: ");
         String inputNodeID = userInput.nextLine();
+        // input new floor
         System.out.println("New floor: ");
         String inputNewFloor = userInput.nextLine();
+        // input new location type
         System.out.println("New location type");
         String inputNewType = userInput.nextLine();
         this.storeCSVtoOBJ(locFile);
@@ -303,6 +317,7 @@ public class Udb {
         menu(locFile);
         break;
       case 5:
+        // takes entries from SQL table and an input name, from there it makes a new CSV file
         System.out.println("Enter CSV file location name");
         Scanner sc = new Scanner(System.in);
         String CSVName = sc.nextLine();
@@ -319,7 +334,7 @@ public class Udb {
         menu(locFile);
         break;
       case 6:
-        //
+        // exits the whole menu
         break;
       default:
         menu(locFile);
