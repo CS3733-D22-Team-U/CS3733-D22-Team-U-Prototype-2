@@ -8,34 +8,39 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.AppController">
     <children>
-        <Label contentDisplay="CENTER" graphicTextGap="0.0" layoutX="212.0" layoutY="32.0" prefHeight="66.0" prefWidth="222.0" text="Service Page" textAlignment="CENTER">
+        <Label contentDisplay="CENTER" graphicTextGap="0.0" layoutX="213.0" prefHeight="66.0" prefWidth="222.0" text="Service Page" textAlignment="CENTER">
             <font>
                 <Font size="31.0" />
             </font>
         </Label>
-        <Button fx:id="equipmentDelivery" alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="117.0" mnemonicParsing="false" onAction="#toDeliverEquipmentController" prefHeight="68.0" prefWidth="199.0" text="Equipment Delivery">
+        <Button fx:id="equipmentDelivery" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="66.0" mnemonicParsing="false" onAction="#toDeliverEquipmentController" prefHeight="75.0" prefWidth="230.0" text="Equipment Delivery">
             <font>
-                <Font size="18.0" />
+                <Font size="16.0" />
             </font>
         </Button>
-        <Button fx:id="giftFloral" alignment="CENTER" contentDisplay="CENTER" layoutX="320.0" layoutY="277.0" mnemonicParsing="false" onAction="#togiftFloralService" text="Gift and Floral Delivery Service">
+        <Button fx:id="giftFloral" alignment="CENTER" contentDisplay="CENTER" layoutX="356.0" layoutY="267.0" mnemonicParsing="false" onAction="#togiftFloralService" prefHeight="75.0" prefWidth="230.0" text="Gift and Floral Delivery Service">
             <font>
-                <Font size="18.0" />
+                <Font size="16.0" />
             </font>
         </Button>
-        <Button fx:id="laundryService" alignment="CENTER" contentDisplay="CENTER" layoutX="365.0" layoutY="117.0" mnemonicParsing="false" onAction="#toLaundryService" prefHeight="68.0" prefWidth="199.0" text="Laundry Service">
+        <Button fx:id="laundryService" alignment="CENTER" contentDisplay="CENTER" layoutX="356.0" layoutY="66.0" mnemonicParsing="false" onAction="#toLaundryService" prefHeight="75.0" prefWidth="230.0" text="Laundry Service">
             <font>
-                <Font size="18.0" />
+                <Font size="16.0" />
             </font>
         </Button>
-        <Button fx:id="mealDelivery" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="277.0" mnemonicParsing="false" onAction="#toMealDelivery" text="Patient Meal Delivery Service">
+        <Button fx:id="mealDelivery" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="267.0" mnemonicParsing="false" onAction="#toMealDelivery" prefHeight="75.0" prefWidth="230.0" text="Patient Meal Delivery Service">
             <font>
-                <Font size="18.0" />
+                <Font size="16.0" />
             </font>
         </Button>
-      <Button fx:id="medicineDelivery" layoutX="197.0" layoutY="200.0" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="66.0" prefWidth="253.0" text="Medicine Delivery Service">
+      <Button fx:id="medicineDelivery" layoutX="356.0" layoutY="163.0" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="75.0" prefWidth="230.0" text="Medicine Delivery Service">
          <font>
-            <Font size="18.0" />
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="24.0" layoutY="163.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="230.0" text="Lab Request Service">
+         <font>
+            <Font size="16.0" />
          </font>
       </Button>
     </children>
