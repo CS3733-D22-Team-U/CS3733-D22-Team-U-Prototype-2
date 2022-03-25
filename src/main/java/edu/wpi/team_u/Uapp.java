@@ -24,6 +24,7 @@ public class Uapp extends Application {
     primaryStage.getIcons().add(new Image("edu/wpi/team_u/icons/hospitalicon.png"));
     primaryStage.setTitle("Mass General Brigham");
     primaryStage.setScene(scene);
+    primaryStage.setResizable(false);
     primaryStage.show();
   }
 
