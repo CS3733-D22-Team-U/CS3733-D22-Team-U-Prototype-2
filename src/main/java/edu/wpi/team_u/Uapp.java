@@ -1,6 +1,5 @@
 package edu.wpi.team_u;
 
-import edu.wpi.team_u.controllers.AppController;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -34,8 +33,10 @@ public class Uapp extends Application {
   }
 
   public static Scene getScene(String pathFromResources) throws IOException {
-    Parent root =
-        FXMLLoader.load(AppController.class.getClassLoader().getResource(pathFromResources));
+    FXMLLoader fxmlLoader = new FXMLLoader();
+    // InputStream is = AppController.class.getClassLoader().getResourceAsStream(pathFromResources);
+
+    Parent root = fxmlLoader.load(Uapp.class.getClassLoader().getResource(pathFromResources));
     return new Scene(root);
   }
 }
