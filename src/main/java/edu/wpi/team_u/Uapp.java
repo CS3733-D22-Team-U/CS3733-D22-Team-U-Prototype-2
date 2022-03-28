@@ -20,7 +20,7 @@ public class Uapp extends Application {
 
   @Override
   public void start(Stage primaryStage) throws IOException {
-    Scene scene = getScene("edu/wpi/team_u/views/app.fxml");
+    Scene scene = getScene("edu/wpi/team_u/views/HomePage.fxml");
     URL a = Uapp.class.getClassLoader().getResource("edu/wpi/team_u/icons/hospitalIcon.png");
     primaryStage.getIcons().add(new Image(String.valueOf(a)));
     primaryStage.setTitle("Mass General Brigham");
