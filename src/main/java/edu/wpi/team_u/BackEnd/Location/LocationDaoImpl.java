@@ -11,7 +11,9 @@ public class LocationDaoImpl implements LocationDao {
   public String DB_LOC;
   public ArrayList<Location> locations = new ArrayList<Location>();
 
-  public LocationDaoImpl(String db_loc) { this.DB_LOC = db_loc; }
+  public LocationDaoImpl(String db_loc) {
+    DB_LOC = db_loc;
+  }
 
   // Takes in a CSV file and converts it to java objects
   public void CSVToJava(String csvFile) throws IOException {
