@@ -2,16 +2,25 @@ package edu.wpi.team_u;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public interface LocationDao {
 
-  public ArrayList<Location> CSVToJava(String csvFile, ArrayList<Location> locations)
-      throws IOException;
+  public void CSVToJava(String csvFile) throws IOException;
 
-  public ArrayList<Location> JavaToSQL(ArrayList<Location> locations);
+  public void JavaToSQL();
 
-  public ArrayList<Location> SQLToJava(ArrayList<Location> locations) throws SQLException;
+  public void SQLToJava() throws SQLException;
 
-  public void JavaToCSV(ArrayList<Location> locations, String csvFilem) throws IOException;
+  public void JavaToCSV(String csvFile) throws IOException;
+
+  public void printLocTableInTerm(String csvFile) throws IOException;
+
+  public void editLocValue(String csvFile, Scanner userInput) throws IOException, SQLException;
+
+  public void addLoc(String csvFile, Scanner userInput) throws IOException, SQLException;
+
+  public void removeLoc(String csvFile, Scanner userInput) throws IOException, SQLException;
+
+  public void saveLocTableAsCSV(Scanner userInput) throws SQLException;
 }

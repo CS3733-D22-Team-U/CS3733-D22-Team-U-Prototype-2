@@ -1,14 +1,11 @@
 package edu.wpi.team_u;
 
 import java.io.*;
-import java.io.File;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Udb {
 
-  public ArrayList<Location> locations = new ArrayList<Location>();
   private LocationDaoImpl locationImpl = new LocationDaoImpl();
 
   public static void main(String[] args) throws IOException, SQLException {
@@ -65,8 +62,9 @@ public class Udb {
       System.out.println("Wrong Username/Password");
       return;
     }
-    locations = locationImpl.CSVToJava(csvFile, locations);
-    locations = locationImpl.JavaToSQL(locations);
+
+    locationImpl.CSVToJava(csvFile);
+    locationImpl.JavaToSQL();
     menu(csvFile);
   }
 
@@ -86,98 +84,23 @@ public class Udb {
     int inputNumber = Integer.parseInt(userInput.nextLine());
     switch (inputNumber) {
       case 1:
-        // csv to java
-        locations = locationImpl.CSVToJava(locFile, locations);
-        // display locations and attributes
-        System.out.println(
-            "Node |\t X |\t Y |\t Level |\t Building |\t Type |\t Long Name |\t Short Name");
-        for (Location location : locations) {
-          System.out.println(
-              location.nodeID
-                  + " | \t"
-                  + location.xcoord
-                  + " | \t"
-                  + location.ycoord
-                  + " | \t"
-                  + location.floor
-                  + " | \t"
-                  + location.building
-                  + " | \t"
-                  + location.nodeType
-                  + " | \t"
-                  + location.longName
-                  + " | \t"
-                  + location.shortName);
-        }
-        // menu
+        locationImpl.printLocTableInTerm(locFile);
         menu(locFile);
         break;
       case 2:
-        // takes entries from SQL table that match input node and updates it with a new floor and
-        // location type
-        // input ID
-        System.out.println("Please input the node ID: ");
-        String inputNodeID = userInput.nextLine();
-        // input new floor
-        System.out.println("New floor: ");
-        String inputNewFloor = userInput.nextLine();
-        // input new location type
-        System.out.println("New location type");
-        String inputNewType = userInput.nextLine();
-        locations = locationImpl.CSVToJava(locFile, locations); // t
-        for (int i = 0; i < this.locations.size(); i++) {
-          if (locations.get(i).nodeID.equals(inputNodeID)) {
-            locations.get(i).floor = inputNewFloor;
-            locations.get(i).nodeType = inputNewType;
-          }
-        }
-        locations = locationImpl.JavaToSQL(locations); // t
-        locations = locationImpl.SQLToJava(locations); // t
-        locationImpl.JavaToCSV(locations, locFile); // t
+        locationImpl.editLocValue(locFile, userInput);
         menu(locFile);
         break;
       case 3:
-        // add a new entry to the SQL table
-        // prompt for ID
-        System.out.println("Enter the new location ID");
-        String newNodeID = userInput.nextLine();
-        Location newLocation = new Location(newNodeID);
-        locations.add(newLocation);
-        locations = locationImpl.JavaToSQL(locations);
-        locations = locationImpl.SQLToJava(locations);
-        locationImpl.JavaToCSV(locations, locFile);
+        locationImpl.addLoc(locFile, userInput);
         menu(locFile);
         break;
       case 4:
-        // removes entries from SQL table that match input node
-        // prompt for ID
-        System.out.println("Input ID for to delete location: ");
-        String userNodeID = userInput.nextLine(); // remove locations that match user input
-        for (int i = locations.size() - 1; i >= 0; i--) {
-          if (locations.get(i).nodeID.equals(userNodeID)) {
-            locations.remove(i);
-          }
-        }
-        locations = locationImpl.JavaToSQL(locations);
-        locations = locationImpl.SQLToJava(locations);
-        locationImpl.JavaToCSV(locations, locFile);
+        locationImpl.removeLoc(locFile, userInput);
         menu(locFile);
         break;
       case 5:
-        // takes entries from SQL table and an input name, from there it makes a new CSV file
-        System.out.println("Enter CSV file location name");
-        Scanner sc = new Scanner(System.in);
-        String CSVName = sc.nextLine();
-        String csvFilePath = "./" + CSVName + ".csv";
-
-        try {
-          new File(csvFilePath);
-          locations = locationImpl.SQLToJava(locations);
-          locationImpl.JavaToCSV(this.locations, csvFilePath);
-
-        } catch (IOException e) {
-          System.out.println(e.fillInStackTrace());
-        }
+        locationImpl.saveLocTableAsCSV(userInput);
         menu(locFile);
         break;
       case 6:
