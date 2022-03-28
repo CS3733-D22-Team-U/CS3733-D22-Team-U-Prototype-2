@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Udb {
 
   public ArrayList<Location> locations = new ArrayList<Location>();
-  private String DB_LOC = "jdbc:derby:UDB;";
+  private LocationDaoImpl locationImpl = new LocationDaoImpl();
 
   public static void main(String[] args) throws IOException, SQLException {
     Udb udb = new Udb();
@@ -27,7 +27,7 @@ public class Udb {
 
   public void start(String username, String password, String csvFile)
       throws IOException, SQLException {
-    DB_LOC = DB_LOC + "user=" + username + ";password=" + password + ";";
+    locationImpl.DB_LOC = locationImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
     } catch (ClassNotFoundException e) {
@@ -45,7 +45,7 @@ public class Udb {
     System.out.println("Apache Derby driver registered!");
 
     try {
-      Connection connection = DriverManager.getConnection(DB_LOC + "create=true;");
+      Connection connection = DriverManager.getConnection(locationImpl.DB_LOC + "create=true;");
       Statement exampleStatement = connection.createStatement();
 
       exampleStatement.executeUpdate(
@@ -65,172 +65,9 @@ public class Udb {
       System.out.println("Wrong Username/Password");
       return;
     }
-
-    storeCSVtoOBJ(csvFile);
-    JavaToSQL();
+    locationImpl.CSVToJava(csvFile);
+    locationImpl.JavaToSQL();
     menu(csvFile);
-  }
-
-  // Takes in a CSV file and converts it to java objects
-
-  private void storeCSVtoOBJ(String csvFile) throws IOException {
-    locations = new ArrayList<Location>();
-    String s;
-    File file = new File(csvFile);
-    BufferedReader br = new BufferedReader(new FileReader(file));
-    br.readLine();
-    while ((s = br.readLine()) != null) {
-      String[] row = s.split(",");
-      if (row.length == 8) locations.add(new Location(row));
-    }
-  }
-
-  // This function converts all of the CSV information that is stored in Java objects and
-  // puts them into the the SQL database
-  private void JavaToSQL() {
-
-    try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
-
-      Statement exampleStatement = connection.createStatement();
-      try {
-        exampleStatement.execute("Drop table Locations");
-      } catch (Exception e) {
-        System.out.println("didn't drop table");
-      }
-
-      exampleStatement.execute(
-          "CREATE TABLE Locations(nodeID varchar(18) not null, "
-              + "xcoord int not null,"
-              + "ycoord int not null,"
-              + "floor varchar(3) not null,"
-              + "building varchar(6),"
-              + "nodeType varchar(6),"
-              + "longName varchar(900) not null,"
-              + "shortName varchar(600))");
-
-      for (int j = 0; j < locations.size(); j++) {
-        Location currLoc = locations.get(j);
-        exampleStatement.execute(
-            "INSERT INTO Locations VALUES("
-                + "'"
-                + currLoc.nodeID
-                + "',"
-                + currLoc.xcoord
-                + ","
-                + currLoc.ycoord
-                + ",'"
-                + currLoc.floor
-                + "','"
-                + currLoc.building
-                + "','"
-                + currLoc.nodeType
-                + "','"
-                + currLoc.longName
-                + "','"
-                + currLoc.shortName
-                + "')");
-      }
-
-      connection.close();
-
-    } catch (SQLException e) {
-      System.out.println("Connection failed. Check output console.");
-      e.printStackTrace();
-      return;
-    }
-  }
-
-  // This function takes all of the SQL database information into java objects
-  private void SQLToJava() throws SQLException {
-    locations = new ArrayList<Location>();
-
-    try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
-
-      Statement exampleStatement = connection.createStatement();
-
-      try {
-        ResultSet results;
-        results = exampleStatement.executeQuery("SELECT * FROM Locations");
-
-        while (results.next()) {
-          String nodeID = results.getString("nodeID");
-          int xcoord = results.getInt("xcoord");
-          int ycoord = results.getInt("ycoord");
-          String floor = results.getString("floor");
-          String building = results.getString("building");
-          String nodeType = results.getString("nodeType");
-          String longName = results.getString("longName");
-          String shortName = results.getString("shortName");
-
-          Location SQLRow = new Location();
-          SQLRow.nodeID = nodeID;
-          SQLRow.xcoord = xcoord;
-          SQLRow.ycoord = ycoord;
-          SQLRow.floor = floor;
-          SQLRow.building = building;
-          SQLRow.nodeType = nodeType;
-          SQLRow.longName = longName;
-          SQLRow.shortName = shortName;
-
-          locations.add(SQLRow);
-        }
-      } catch (SQLException e) {
-        System.out.println("Locations not found");
-      }
-
-      connection.close();
-
-    } catch (SQLException e) {
-      System.out.println("Database does not exist.");
-    }
-  }
-
-  // This function converts the java objects of our CSV data into a new CSV file
-  private void JavaToCSV(ArrayList<Location> locations, String csvFilem) throws IOException {
-    PrintWriter fw = new PrintWriter(new File(csvFilem));
-
-    fw.append("nodeID");
-    fw.append(",");
-    fw.append("xcoord");
-    fw.append(",");
-    fw.append("ycoord");
-    fw.append(",");
-    fw.append("floor");
-    fw.append(",");
-    fw.append("building");
-    fw.append(",");
-    fw.append("nodeType");
-    fw.append(",");
-    fw.append("longName");
-    fw.append(",");
-    fw.append("shortName");
-    fw.append("\n");
-
-    for (int i = 0;
-        i < locations.size();
-        i++) { // ask about how this was working without and = sign
-      fw.append(locations.get(i).nodeID);
-      fw.append(",");
-      fw.append(Integer.toString(locations.get(i).xcoord));
-      fw.append(",");
-      fw.append(Integer.toString(locations.get(i).ycoord));
-      fw.append(",");
-      fw.append(locations.get(i).floor);
-      fw.append(",");
-      fw.append(locations.get(i).building);
-      fw.append(",");
-      fw.append(locations.get(i).nodeType);
-      fw.append(",");
-      fw.append(locations.get(i).longName);
-      fw.append(",");
-      fw.append(locations.get(i).shortName);
-      fw.append("\n");
-    }
-    fw.close();
   }
 
   // This function is called in main the starts the menu where a client can access and or change
@@ -250,7 +87,7 @@ public class Udb {
     switch (inputNumber) {
       case 1:
         // csv to java
-        storeCSVtoOBJ(locFile);
+        locationImpl.CSVToJava(locFile);
         // display locations and attributes
         System.out.println(
             "Node |\t X |\t Y |\t Level |\t Building |\t Type |\t Long Name |\t Short Name");
@@ -287,16 +124,16 @@ public class Udb {
         // input new location type
         System.out.println("New location type");
         String inputNewType = userInput.nextLine();
-        this.storeCSVtoOBJ(locFile);
+        locationImpl.CSVToJava(locFile); // t
         for (int i = 0; i < this.locations.size(); i++) {
           if (locations.get(i).nodeID.equals(inputNodeID)) {
             locations.get(i).floor = inputNewFloor;
             locations.get(i).nodeType = inputNewType;
           }
         }
-        this.JavaToSQL();
-        this.SQLToJava();
-        this.JavaToCSV(locations, locFile);
+        locationImpl.JavaToSQL(); // t
+        locationImpl.SQLToJava(); // t
+        locationImpl.JavaToCSV(locations, locFile); // t
         menu(locFile);
         break;
       case 3:
@@ -306,9 +143,9 @@ public class Udb {
         String newNodeID = userInput.nextLine();
         Location newLocation = new Location(newNodeID);
         locations.add(newLocation);
-        JavaToSQL();
-        SQLToJava();
-        JavaToCSV(locations, locFile);
+        locationImpl.JavaToSQL();
+        locationImpl.SQLToJava();
+        locationImpl.JavaToCSV(locations, locFile);
         menu(locFile);
         break;
       case 4:
@@ -321,9 +158,9 @@ public class Udb {
             locations.remove(i);
           }
         }
-        this.JavaToSQL();
-        this.SQLToJava();
-        this.JavaToCSV(locations, locFile);
+        locationImpl.JavaToSQL();
+        locationImpl.SQLToJava();
+        locationImpl.JavaToCSV(locations, locFile);
         menu(locFile);
         break;
       case 5:
@@ -335,8 +172,8 @@ public class Udb {
 
         try {
           new File(csvFilePath);
-          this.SQLToJava();
-          this.JavaToCSV(this.locations, csvFilePath);
+          locationImpl.SQLToJava();
+          locationImpl.JavaToCSV(this.locations, csvFilePath);
 
         } catch (IOException e) {
           System.out.println(e.fillInStackTrace());
