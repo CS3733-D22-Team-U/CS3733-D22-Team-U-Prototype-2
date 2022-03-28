@@ -1,4 +1,4 @@
-package edu.wpi.team_u;
+package edu.wpi.team_u.BackEnd.Location;
 
 import java.io.*;
 import java.sql.*;
@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class LocationDaoImpl implements LocationDao {
 
+  // make constant in locationDao
   public String DB_LOC = "jdbc:derby:UDB;";
   public ArrayList<Location> locations = new ArrayList<Location>();
 

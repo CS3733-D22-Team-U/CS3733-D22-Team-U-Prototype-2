@@ -1,5 +1,6 @@
-package edu.wpi.team_u;
+package edu.wpi.team_u.BackEnd;
 
+import edu.wpi.team_u.BackEnd.Location.LocationDaoImpl;
 import java.io.*;
 import java.sql.*;
 import java.util.Scanner;

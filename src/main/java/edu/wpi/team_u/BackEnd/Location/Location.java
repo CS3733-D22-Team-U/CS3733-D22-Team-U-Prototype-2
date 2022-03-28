@@ -1,4 +1,4 @@
-package edu.wpi.team_u;
+package edu.wpi.team_u.BackEnd.Location;
 
 public class Location {
 
@@ -45,7 +45,7 @@ public class Location {
 
   @Override
   public String toString() {
-    return "Location{"
+    return "edu.wpi.team_u.BackEnd.Location.Location{"
         + "nodeID='"
         + nodeID
         + '\''

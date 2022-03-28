@@ -1,4 +1,4 @@
-package edu.wpi.team_u;
+package edu.wpi.team_u.BackEnd.Location;
 
 import java.io.IOException;
 import java.sql.SQLException;
