@@ -1,5 +1,6 @@
 package edu.wpi.team_u.BackEnd;
 
+import edu.wpi.team_u.BackEnd.Equipment.EquipmentDaoImpl;
 import edu.wpi.team_u.BackEnd.Location.LocationDaoImpl;
 import java.io.*;
 import java.sql.*;
@@ -7,7 +8,9 @@ import java.util.Scanner;
 
 public class Udb {
 
-  private LocationDaoImpl locationImpl = new LocationDaoImpl();
+  public String DB_LOC = "jdbc:derby:UDB;";
+  private LocationDaoImpl locationImpl = new LocationDaoImpl(DB_LOC);
+  private EquipmentDaoImpl EquipmentImpl = new EquipmentDaoImpl(DB_LOC);
 
   public static void main(String[] args) throws IOException, SQLException {
     Udb udb = new Udb();
@@ -63,6 +66,7 @@ public class Udb {
       System.out.println("Wrong Username/Password");
       return;
     }
+
 
     locationImpl.CSVToJava(csvFile);
     locationImpl.JavaToSQL();
