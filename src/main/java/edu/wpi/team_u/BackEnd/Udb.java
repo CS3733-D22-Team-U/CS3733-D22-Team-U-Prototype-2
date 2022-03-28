@@ -67,7 +67,6 @@ public class Udb {
       return;
     }
 
-
     locationImpl.CSVToJava(csvFile);
     locationImpl.JavaToSQL();
     menu(csvFile);
