@@ -1,6 +1,7 @@
 package edu.wpi.team_u;
 
 import java.io.IOException;
+import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +21,8 @@ public class Uapp extends Application {
   @Override
   public void start(Stage primaryStage) throws IOException {
     Scene scene = getScene("edu/wpi/team_u/views/app.fxml");
-    primaryStage.getIcons().add(new Image("edu/wpi/team_u/icons/hospitalicon.png"));
+    URL a = Uapp.class.getClassLoader().getResource("edu/wpi/team_u/icons/hospitalIcon.png");
+    primaryStage.getIcons().add(new Image(String.valueOf(a)));
     primaryStage.setTitle("Mass General Brigham");
     primaryStage.setScene(scene);
     primaryStage.setResizable(false);

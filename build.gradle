@@ -45,7 +45,7 @@ test {
 }
 
 jar {
-    duplicatesStrategy = 'include'
+    duplicatesStrategy = 'exclude'
     manifest {
         attributes "Main-Class": "$mainClassName"
     }
