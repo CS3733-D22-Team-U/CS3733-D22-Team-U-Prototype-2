@@ -6,11 +6,12 @@ import java.util.ArrayList;
 
 public interface LocationDao {
 
-  public void CSVToJava(String csvFile) throws IOException;
+  public ArrayList<Location> CSVToJava(String csvFile, ArrayList<Location> locations)
+      throws IOException;
 
-  public void JavaToSQL();
+  public ArrayList<Location> JavaToSQL(ArrayList<Location> locations);
 
-  public void SQLToJava() throws SQLException;
+  public ArrayList<Location> SQLToJava(ArrayList<Location> locations) throws SQLException;
 
   public void JavaToCSV(ArrayList<Location> locations, String csvFilem) throws IOException;
 }

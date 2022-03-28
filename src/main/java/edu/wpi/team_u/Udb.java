@@ -65,8 +65,8 @@ public class Udb {
       System.out.println("Wrong Username/Password");
       return;
     }
-    locationImpl.CSVToJava(csvFile);
-    locationImpl.JavaToSQL();
+    locations = locationImpl.CSVToJava(csvFile, locations);
+    locations = locationImpl.JavaToSQL(locations);
     menu(csvFile);
   }
 
@@ -87,7 +87,7 @@ public class Udb {
     switch (inputNumber) {
       case 1:
         // csv to java
-        locationImpl.CSVToJava(locFile);
+        locations = locationImpl.CSVToJava(locFile, locations);
         // display locations and attributes
         System.out.println(
             "Node |\t X |\t Y |\t Level |\t Building |\t Type |\t Long Name |\t Short Name");
@@ -124,15 +124,15 @@ public class Udb {
         // input new location type
         System.out.println("New location type");
         String inputNewType = userInput.nextLine();
-        locationImpl.CSVToJava(locFile); // t
+        locations = locationImpl.CSVToJava(locFile, locations); // t
         for (int i = 0; i < this.locations.size(); i++) {
           if (locations.get(i).nodeID.equals(inputNodeID)) {
             locations.get(i).floor = inputNewFloor;
             locations.get(i).nodeType = inputNewType;
           }
         }
-        locationImpl.JavaToSQL(); // t
-        locationImpl.SQLToJava(); // t
+        locations = locationImpl.JavaToSQL(locations); // t
+        locations = locationImpl.SQLToJava(locations); // t
         locationImpl.JavaToCSV(locations, locFile); // t
         menu(locFile);
         break;
@@ -143,8 +143,8 @@ public class Udb {
         String newNodeID = userInput.nextLine();
         Location newLocation = new Location(newNodeID);
         locations.add(newLocation);
-        locationImpl.JavaToSQL();
-        locationImpl.SQLToJava();
+        locations = locationImpl.JavaToSQL(locations);
+        locations = locationImpl.SQLToJava(locations);
         locationImpl.JavaToCSV(locations, locFile);
         menu(locFile);
         break;
@@ -158,8 +158,8 @@ public class Udb {
             locations.remove(i);
           }
         }
-        locationImpl.JavaToSQL();
-        locationImpl.SQLToJava();
+        locations = locationImpl.JavaToSQL(locations);
+        locations = locationImpl.SQLToJava(locations);
         locationImpl.JavaToCSV(locations, locFile);
         menu(locFile);
         break;
@@ -172,7 +172,7 @@ public class Udb {
 
         try {
           new File(csvFilePath);
-          locationImpl.SQLToJava();
+          locations = locationImpl.SQLToJava(locations);
           locationImpl.JavaToCSV(this.locations, csvFilePath);
 
         } catch (IOException e) {

@@ -3,17 +3,16 @@ package edu.wpi.team_u;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LocationDaoImpl implements LocationDao {
 
-  List<Location> locations;
   public String DB_LOC = "jdbc:derby:UDB;";
 
   public LocationDaoImpl() {}
 
   // Takes in a CSV file and converts it to java objects
-  public void CSVToJava(String csvFile) throws IOException {
+  public ArrayList<Location> CSVToJava(String csvFile, ArrayList<Location> locations)
+      throws IOException {
     locations = new ArrayList<Location>();
     String s;
     File file = new File(csvFile);
@@ -33,11 +32,12 @@ public class LocationDaoImpl implements LocationDao {
                 row[6],
                 row[7]));
     }
+    return locations;
   }
 
   // This function converts all of the CSV information that is stored in Java objects and
   // puts them into the the SQL database
-  public void JavaToSQL() {
+  public ArrayList<Location> JavaToSQL(ArrayList<Location> locations) {
 
     try {
       Connection connection = null;
@@ -88,12 +88,13 @@ public class LocationDaoImpl implements LocationDao {
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
-      return;
     }
+
+    return locations;
   }
 
   // This function takes all of the SQL database information into java objects
-  public void SQLToJava() throws SQLException {
+  public ArrayList<Location> SQLToJava(ArrayList<Location> locations) throws SQLException {
     locations = new ArrayList<Location>();
 
     try {
@@ -137,6 +138,8 @@ public class LocationDaoImpl implements LocationDao {
     } catch (SQLException e) {
       System.out.println("Database does not exist.");
     }
+
+    return locations;
   }
 
   // This function converts the java objects of our CSV data into a new CSV file
