@@ -8,10 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class AppController {
+public class MedicineDeliveryController {
 
-  public Button laundryService;
-  public Button equipmentDelivery;
+  public Button backButton;
 
   public void backToServicePage(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/app.fxml");

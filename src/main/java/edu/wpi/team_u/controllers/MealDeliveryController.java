@@ -8,17 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class AppController {
+public class MealDeliveryController {
 
-  public Button laundryService;
-  public Button equipmentDelivery;
-
-  public void backToServicePage(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/app.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
+  public Button servicePage; // private or public?
 
   public void toLaundryService(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/laundryService.fxml");
