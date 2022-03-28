@@ -1,5 +1,6 @@
 package edu.wpi.team_u.BackEnd;
 
+import edu.wpi.team_u.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.team_u.BackEnd.Location.LocationDaoImpl;
 import java.io.*;
 import java.sql.*;
@@ -7,7 +8,13 @@ import java.util.Scanner;
 
 public class Udb {
 
-  private LocationDaoImpl locationImpl = new LocationDaoImpl();
+  public String DB_LOC = "jdbc:derby:UDB;";
+  private LocationDaoImpl locationImpl = new LocationDaoImpl(DB_LOC);
+  private EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl(DB_LOC);
+
+
+
+
 
   public static void main(String[] args) throws IOException, SQLException {
     Udb udb = new Udb();
@@ -66,13 +73,11 @@ public class Udb {
 
     locationImpl.CSVToJava(csvFile);
     locationImpl.JavaToSQL();
-    menu(csvFile);
+    locationMenu(csvFile);
   }
 
-  // This function is called in main the starts the menu where a client can access and or change
-  // data in our SQL data base
-  // This calls all of our private functions
-  private void menu(String locFile) throws IOException, SQLException {
+  //location menu
+  private void locationMenu(String locFile) throws IOException, SQLException {
     System.out.println(
         "1 - Location Information\n"
             + "2 – Change Floor and Type\n"
@@ -86,29 +91,29 @@ public class Udb {
     switch (inputNumber) {
       case 1:
         locationImpl.printLocTableInTerm(locFile);
-        menu(locFile);
+        locationMenu(locFile);
         break;
       case 2:
         locationImpl.editLocValue(locFile, userInput);
-        menu(locFile);
+        locationMenu(locFile);
         break;
       case 3:
         locationImpl.addLoc(locFile, userInput);
-        menu(locFile);
+        locationMenu(locFile);
         break;
       case 4:
         locationImpl.removeLoc(locFile, userInput);
-        menu(locFile);
+        locationMenu(locFile);
         break;
       case 5:
         locationImpl.saveLocTableAsCSV(userInput);
-        menu(locFile);
+        locationMenu(locFile);
         break;
       case 6:
         // exits the whole menu
         break;
       default:
-        menu(locFile);
+        locationMenu(locFile);
         break;
     }
   }

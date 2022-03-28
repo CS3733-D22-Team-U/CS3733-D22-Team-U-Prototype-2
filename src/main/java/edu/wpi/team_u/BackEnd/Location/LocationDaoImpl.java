@@ -8,10 +8,10 @@ import java.util.Scanner;
 public class LocationDaoImpl implements LocationDao {
 
   // make constant in locationDao
-  public String DB_LOC = "jdbc:derby:UDB;";
+  public String DB_LOC;
   public ArrayList<Location> locations = new ArrayList<Location>();
 
-  public LocationDaoImpl() {}
+  public LocationDaoImpl(String db_loc) { this.DB_LOC = db_loc; }
 
   // Takes in a CSV file and converts it to java objects
   public void CSVToJava(String csvFile) throws IOException {
