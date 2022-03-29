@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="550.0" prefWidth="1100.0" style="-fx-background-color: 89D7BF89D7BF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.frontEnd.controllers.giftFloralController">
+    <children>
+      <Pane layoutX="325.0" layoutY="2.0" prefHeight="538.0" prefWidth="775.0">
+         <children>
+              <Text layoutX="236.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gift and Floral Delivery Service" textAlignment="CENTER" wrappingWidth="257.080078125">
+                  <font>
+                      <Font name="Lucida Grande" size="18.0" />
+                  </font>
+              </Text>
+              <CheckBox layoutX="493.0" layoutY="163.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Balloons">
+                  <font>
+                      <Font name="Lucida Grande" size="11.0" />
+                  </font>
+              </CheckBox>
+              <CheckBox layoutX="177.0" layoutY="163.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Gift Basket">
+                  <font>
+                      <Font name="Lucida Grande" size="11.0" />
+                  </font>
+              </CheckBox>
+              <CheckBox layoutX="493.0" layoutY="285.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Plants">
+                  <font>
+                      <Font name="Lucida Grande" size="11.0" />
+                  </font>
+              </CheckBox>
+              <Button layoutX="305.0" layoutY="237.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="OK" />
+              <Button layoutX="257.0" layoutY="369.0" mnemonicParsing="false" onAction="#toServicePage" prefHeight="29.0" prefWidth="176.0" style="-fx-background-color: #A6CDF2; -fx-background-radius: 15;" text="Back to Services Page">
+                  <font>
+                      <Font name="Arial" size="13.0" />
+                  </font>
+              </Button>
+              <CheckBox layoutX="179.0" layoutY="285.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Flowers">
+                  <font>
+                      <Font name="Lucida Grande" size="11.0" />
+                  </font>
+              </CheckBox>
+            <ImageView fitHeight="62.0" fitWidth="68.0" layoutX="706.0" layoutY="490.0" opacity="0.29" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/unicornLogo.png" />
+               </image>
+            </ImageView>
+              <Text layoutX="224.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select which of the following services you would like to request" wrappingWidth="282.1868896484375">
+                  <font>
+                      <Font name="Lucida Grande" size="10.0" />
+                  </font>
+              </Text>
+         </children>
+      </Pane>
+      <VBox layoutY="1.0" prefHeight="552.0" prefWidth="325.0" style="-fx-background-color: ffffff;">
+         <children>
+            <Pane layoutY="2.0" prefHeight="83.0" prefWidth="325.0" style="-fx-background-color: #f3f3f3;">
+               <children>
+                  <Text fill="#044e9a" fontSmoothingType="LCD" layoutX="50.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mass General Brigham" wrappingWidth="257.080078125">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="70.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/hospitalIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.7098039388656616" green="0.7098039388656616" blue="0.7098039388656616" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Pane>
+            <Button fx:id="equipmentDelivery1" alignment="CENTER" layoutX="10.0" layoutY="86.0" mnemonicParsing="false" onAction="#toServicePage" prefHeight="68.0" prefWidth="326.0" style="-fx-background-color: transparent; -fx-border-color: #b5b5b5;" text="Service Dashboard" textAlignment="RIGHT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/dashboardIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="equipmentDelivery" alignment="CENTER" mnemonicParsing="false" onAction="#toDeliverEquipmentController" prefHeight="68.0" prefWidth="326.0" style="-fx-background-color: transparent; -fx-border-color: #b5b5b5;" text="Equipment Delivery" textAlignment="RIGHT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/doctoricon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#toSecurityService" prefHeight="68.0" prefWidth="325.0" style="-fx-background-color: transparent; -fx-border-color: #b5b5b5;" text="Lab Request Services">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/labIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="mealDelivery" alignment="CENTER" mnemonicParsing="false" onAction="#toMealDelivery" prefHeight="68.0" prefWidth="334.0" style="-fx-background-color: transparen; -fx-border-color: #b5b5b5;" text="Patient Meal Delivery Service">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/mealIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="medicineDelivery" alignment="CENTER" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="68.0" prefWidth="328.0" style="-fx-background-color: transparent; -fx-border-color: #b5b5b5;" text="Medicine Delivery Service">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/pillIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="giftFloral" alignment="CENTER" mnemonicParsing="false" onAction="#togiftFloralService" prefHeight="68.0" prefWidth="344.0" style="-fx-background-color: transparent; -fx-border-color: #b5b5b5;" text="Gift and Floral Delivery Service" textFill="#044e9a">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/flowerIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="laundryService" alignment="CENTER" mnemonicParsing="false" onAction="#toLaundryService" prefHeight="0.0" prefWidth="325.0" style="-fx-background-color: transparent; -fx-border-color: #b5b5b5;" text="Laundry Service">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/laundryIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.7098039388656616" green="0.7098039388656616" blue="0.7098039388656616" />
+               </color>
+            </DropShadow>
+         </effect>
+      </VBox>
+    </children>
+</AnchorPane>
