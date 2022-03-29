@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class giftFloralController {
 
   public void toServicePage(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/app.fxml");
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();

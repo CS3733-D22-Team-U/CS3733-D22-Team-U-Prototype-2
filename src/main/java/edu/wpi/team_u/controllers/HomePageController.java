@@ -5,16 +5,22 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class AppController {
+public class HomePageController {
 
+  public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/equipmentDelivery.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
+  /*
   public Button laundryService;
   public Button equipmentDelivery;
 
   public void backToServicePage(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/app.fxml");
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
@@ -62,9 +68,9 @@ public class AppController {
   }
 
   public void toServicePage(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/app.fxml");
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
-  }
+  }*/
 }
