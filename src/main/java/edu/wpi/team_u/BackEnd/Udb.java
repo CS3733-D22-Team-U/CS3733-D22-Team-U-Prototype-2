@@ -19,14 +19,21 @@ public class Udb {
     String username = args[0];
     String password = args[1];
     String csvLocationFile = "src/main/resources/TowerLocations.csv";
-    String csvEmployee;
-    String csvEquipment;
-    udb.start(username, password, csvLocationFile);
+    String csvEmployee = "src/main/resources/TowerEmployees.csv";
+    String csvEquipment = "src/main/resources/TowerEquipment.csv";
+
+    String[] CSVfiles = {csvLocationFile, csvEmployee, csvEquipment};
+
+    udb.start(username, password, CSVfiles);
   }
 
-  public void start(String username, String password, String csvFile)
+  public void start(String username, String password, String[] CSVfiles)
       throws IOException, SQLException {
     locationImpl.DB_LOC = locationImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
+    EmployeeImpl.DB_LOC = EmployeeImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
+    EquipmentImpl.DB_LOC =
+        EquipmentImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
+
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
     } catch (ClassNotFoundException e) {
@@ -65,22 +72,22 @@ public class Udb {
       return;
     }
 
-    locationImpl.CSVToJava(csvFile);
+    locationImpl.CSVToJava(CSVfiles[0]);
     locationImpl.JavaToSQL();
 
-    EmployeeImpl.CSVToJava(csvFile);
+    EmployeeImpl.CSVToJava(CSVfiles[1]);
     EmployeeImpl.JavaToSQL();
 
-    EquipmentImpl.CSVToJava(csvFile);
+    EquipmentImpl.CSVToJava(CSVfiles[2]);
     EquipmentImpl.JavaToSQL();
 
-    menu(csvFile);
+    menu(CSVfiles);
   }
 
   // This function is called in main the starts the menu where a client can access and or change
   // data in our SQL data base
   // This calls all of our private functions
-  private void menu(String locFile) throws IOException, SQLException {
+  private void menu(String[] CSVfiles) throws IOException, SQLException {
     System.out.println(
         "1 - Location Information\n"
             + "2 – Change Floor and Type\n"
@@ -93,30 +100,120 @@ public class Udb {
     int inputNumber = Integer.parseInt(userInput.nextLine());
     switch (inputNumber) {
       case 1:
-        locationImpl.printLocTableInTerm(locFile);
-        menu(locFile);
+        System.out.println(
+            "What database would you like to chose: "
+                + " 1 - Locations\n"
+                + " 2 - Employees\n"
+                + " 3 - Equipment");
+
+        int choice = userInput.nextInt();
+
+        switch (choice) {
+          case 1:
+            locationImpl.printLocTableInTerm(CSVfiles[0]);
+            break;
+          case 2:
+            EmployeeImpl.printEmployeeTableInTerm(CSVfiles[1]);
+            break;
+          case 3:
+            EquipmentImpl.printEquipTableInTerm(CSVfiles[2]);
+            break;
+        }
+        menu(CSVfiles);
         break;
       case 2:
-        locationImpl.editLocValue(locFile, userInput);
-        menu(locFile);
+        System.out.println(
+            "What database would you like to chose: "
+                + " 1 - Locations\n"
+                + " 2 - Employees\n"
+                + " 3 - Equipment");
+
+        choice = userInput.nextInt();
+
+        switch (choice) {
+          case 1:
+            locationImpl.editLocValue(CSVfiles[0], userInput);
+            break;
+          case 2:
+            EmployeeImpl.editEmployee(CSVfiles[1], userInput);
+            break;
+          case 3:
+            EquipmentImpl.editEquipValue(CSVfiles[2], userInput);
+            break;
+        }
+        menu(CSVfiles);
         break;
       case 3:
-        locationImpl.addLoc(locFile, userInput);
-        menu(locFile);
+        System.out.println(
+            "What database would you like to chose: "
+                + " 1 - Locations\n"
+                + " 2 - Employees\n"
+                + " 3 - Equipment");
+
+        choice = userInput.nextInt();
+
+        switch (choice) {
+          case 1:
+            locationImpl.addLoc(CSVfiles[0], userInput);
+            break;
+          case 2:
+            EmployeeImpl.addEmployee(CSVfiles[1], userInput);
+            break;
+          case 3:
+            EquipmentImpl.addEquip(CSVfiles[2], userInput);
+            break;
+        }
+        menu(CSVfiles);
         break;
       case 4:
-        locationImpl.removeLoc(locFile, userInput);
-        menu(locFile);
+        System.out.println(
+            "What database would you like to chose: "
+                + " 1 - Locations\n"
+                + " 2 - Employees\n"
+                + " 3 - Equipment");
+
+        choice = userInput.nextInt();
+
+        switch (choice) {
+          case 1:
+            locationImpl.removeLoc(CSVfiles[0], userInput);
+            break;
+          case 2:
+            EmployeeImpl.removeEmployee(CSVfiles[1], userInput);
+            break;
+          case 3:
+            EquipmentImpl.removeEquip(CSVfiles[2], userInput);
+            break;
+        }
+        menu(CSVfiles);
         break;
       case 5:
-        locationImpl.saveLocTableAsCSV(userInput);
-        menu(locFile);
+        System.out.println(
+            "What database would you like to chose: "
+                + " 1 - Locations\n"
+                + " 2 - Employees\n"
+                + " 3 - Equipment");
+
+        choice = userInput.nextInt();
+
+        switch (choice) {
+          case 1:
+            locationImpl.saveLocTableAsCSV(userInput);
+            break;
+          case 2:
+            EmployeeImpl.saveEmployeeTableAsCSV(userInput);
+            break;
+          case 3:
+            EquipmentImpl.saveEquipTableAsCSV(userInput);
+            break;
+        }
+        menu(CSVfiles);
         break;
       case 6:
         // exits the whole menu
         break;
       default:
-        menu(locFile);
+        menu(CSVfiles);
         break;
     }
   }

@@ -40,7 +40,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
       Statement exampleStatement = connection.createStatement();
       try {
-        exampleStatement.execute("Drop table Locations");
+        exampleStatement.execute("Drop table Employees");
       } catch (Exception e) {
         System.out.println("didn't drop table");
       }
@@ -49,7 +49,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
           "CREATE TABLE Employees(employeeID varchar(18) not null, "
               + "occupation varchar(200) not null,"
               + "reports int not null,"
-              + "onDuty boolean not null");
+              + "onDuty boolean not null)");
 
       for (int j = 0; j < employees.size(); j++) {
         Employee currEmp = employees.get(j);

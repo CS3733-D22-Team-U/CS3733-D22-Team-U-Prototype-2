@@ -46,7 +46,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
           "CREATE TABLE EquipmentList(name varchar(18) not null, "
               + "amount int not null,"
               + "inUse int not null,"
-              + "available int not null,");
+              + "available int not null)");
 
       for (int j = 0; j < EquipmentList.size(); j++) {
         Equipment currLoc = EquipmentList.get(j);
