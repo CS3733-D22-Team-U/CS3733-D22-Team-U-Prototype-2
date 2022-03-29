@@ -1,4 +1,6 @@
-package edu.wpi.team_u;
+package edu.wpi.team_u.frontEnd;
+
+import edu.wpi.team_u.Uapp;
 
 public class Main {
 
