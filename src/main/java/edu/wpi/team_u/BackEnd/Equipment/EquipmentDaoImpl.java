@@ -13,7 +13,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
     this.DB_LOC = db_loc;
   }
 
-  public void CSVtoJava(String csvFile) throws IOException {
+  public void CSVToJava(String csvFile) throws IOException {
     EquipmentList = new ArrayList<Equipment>();
     String s;
     File file = new File(csvFile);
@@ -134,7 +134,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
 
   public void printEquipTableInTerm(String csvFile) throws IOException {
     // csv to java
-    this.CSVtoJava(csvFile);
+    this.CSVToJava(csvFile);
     // display locations and attributes
     System.out.println(
         "Node |\t X |\t Y |\t Level |\t Building |\t Type |\t Long Name |\t Short Name");
@@ -164,7 +164,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
     // input new location type
     System.out.println("New location type");
     String inputInUse = userInput.nextLine();
-    this.CSVtoJava(csvFile); // t
+    this.CSVToJava(csvFile); // t
     for (int i = 0; i < this.EquipmentList.size(); i++) {
       if (this.EquipmentList.get(i).getName().equals(inputName)) {
         this.EquipmentList.get(i).Amount = Integer.parseInt(inputNewAmount);

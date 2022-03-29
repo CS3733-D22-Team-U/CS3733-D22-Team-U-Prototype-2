@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public interface EquipmentDao {
 
-  public void CSVtoJava(String csvFile) throws IOException;
+  public void CSVToJava(String csvFile) throws IOException;
 
   public void JavaToSQL();
 

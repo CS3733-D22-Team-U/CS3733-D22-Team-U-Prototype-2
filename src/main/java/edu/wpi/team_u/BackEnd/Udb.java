@@ -1,5 +1,6 @@
 package edu.wpi.team_u.BackEnd;
 
+import edu.wpi.team_u.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.team_u.BackEnd.Equipment.EquipmentDaoImpl;
 import edu.wpi.team_u.BackEnd.Location.LocationDaoImpl;
 import java.io.*;
@@ -11,19 +12,16 @@ public class Udb {
   public String DB_LOC = "jdbc:derby:UDB;";
   private LocationDaoImpl locationImpl = new LocationDaoImpl(DB_LOC);
   private EquipmentDaoImpl EquipmentImpl = new EquipmentDaoImpl(DB_LOC);
+  private EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
 
   public static void main(String[] args) throws IOException, SQLException {
     Udb udb = new Udb();
     String username = args[0];
     String password = args[1];
-    String csvFile;
-    try {
-      csvFile = args[2];
-    } catch (Exception e) {
-      System.out.println("Please define file path for .csv file for Tower Locations");
-      return;
-    }
-    udb.start(username, password, csvFile);
+    String csvLocationFile = "src/main/resources/TowerLocations.csv";
+    String csvEmployee;
+    String csvEquipment;
+    udb.start(username, password, csvLocationFile);
   }
 
   public void start(String username, String password, String csvFile)
@@ -69,6 +67,13 @@ public class Udb {
 
     locationImpl.CSVToJava(csvFile);
     locationImpl.JavaToSQL();
+
+    EmployeeImpl.CSVToJava(csvFile);
+    EmployeeImpl.JavaToSQL();
+
+    EquipmentImpl.CSVToJava(csvFile);
+    EquipmentImpl.JavaToSQL();
+
     menu(csvFile);
   }
 
