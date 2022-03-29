@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.controllers.HomePageController">
+<AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.team_u.frontEnd.controllers.HomePageController">
    <children>
       <ImageView fitHeight="750.0" fitWidth="1177.0" opacity="0.34" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -36,15 +36,7 @@
       </Pane>
       <ButtonBar layoutX="213.0" layoutY="272.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="56.0" prefWidth="733.0">
         <buttons>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Map" textFill="WHITE">
-               <font>
-                  <Font size="26.0" />
-               </font>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Button>
-            <Button fx:id="EquipmentDelivery" alignment="CENTER" mnemonicParsing="false" onAction="#toEquipmentDelivery" prefHeight="75.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Equipment Delivery" textFill="WHITE">
+            <Button fx:id="EquipmentDelivery" alignment="CENTER" mnemonicParsing="false" onAction="#toEquipmentDelivery" prefHeight="75.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Medicine Delivery" textFill="WHITE">
                <font>
                   <Font size="21.0" />
                </font>
@@ -52,7 +44,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Map" textFill="WHITE">
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Lab Request" textFill="WHITE">
                <font>
                   <Font size="26.0" />
                </font>
@@ -60,7 +52,55 @@
                   <DropShadow />
                </effect>
             </Button>
+            <Button fx:id="EquipmentDelivery2" alignment="CENTER" mnemonicParsing="false" onAction="#toEquipmentDelivery" prefHeight="75.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Equipment Delivery" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
         </buttons>
+      </ButtonBar>
+      <ButtonBar layoutX="213.0" layoutY="432.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="56.0" prefWidth="733.0">
+         <buttons>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Laundry" textFill="WHITE">
+               <font>
+                  <Font size="26.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Button fx:id="EquipmentDelivery1" alignment="CENTER" mnemonicParsing="false" onAction="#toEquipmentDelivery" prefHeight="75.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Gift &amp; Floral" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#toMealDelivery" prefHeight="40.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Meal Delivery" textFill="WHITE">
+               <font>
+                  <Font size="26.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+         </buttons>
+      </ButtonBar>
+      <ButtonBar layoutX="432.0" layoutY="354.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="56.0" prefWidth="236.0">
+         <buttons>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="209.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Map" textFill="WHITE">
+               <font>
+                  <Font size="26.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+         </buttons>
       </ButtonBar>
    </children>
 </AnchorPane>
