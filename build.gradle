@@ -45,14 +45,21 @@ test {
 }
 
 jar {
+    duplicatesStrategy = 'exclude'
     manifest {
-        attributes 'Main-Class': mainClassName
+        attributes "Main-Class": "$mainClassName"
+    }
+    from('src/main') {
+        include  '/resources/'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
 def codeCoverageExcludes = [
-        'edu.wpi.teamname.App',
-        'edu.wpi.teamname.Main',
+        'edu.wpi.team_u.App',
+        'edu.wpi.team_U.Main',
 ]
 
 jacoco {
