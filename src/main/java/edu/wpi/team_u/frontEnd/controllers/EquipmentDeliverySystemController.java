@@ -39,6 +39,7 @@ public class EquipmentDeliverySystemController implements Initializable {
     appStage.setScene(scene);
     appStage.show();
   }
+
   /*
   public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
