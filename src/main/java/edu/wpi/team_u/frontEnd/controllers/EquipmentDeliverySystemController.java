@@ -11,7 +11,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -19,6 +23,9 @@ public class EquipmentDeliverySystemController implements Initializable {
 
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
+  @FXML TabPane tabPane;
+  @FXML Pane backgroundPane;
+  @FXML AnchorPane anchor;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -30,6 +37,12 @@ public class EquipmentDeliverySystemController implements Initializable {
           closeTransition.setRate(closeTransition.getRate() * -1);
           closeTransition.play();
           vBoxPane.setVisible(!vBoxPane.isVisible());
+          tabPane.setDisable(!tabPane.isDisable());
+          if (tabPane.isDisable()) {
+            tabPane.setEffect(new GaussianBlur(10));
+          } else {
+            tabPane.setEffect(null);
+          }
         });
   }
 
