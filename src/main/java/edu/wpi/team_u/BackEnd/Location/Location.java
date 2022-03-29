@@ -11,8 +11,15 @@ public class Location {
   String longName;
   String shortName;
 
+  /**
+   * Empty constructor
+   */
   public Location() {}
 
+  /**
+   * Location constuctor that only take in the nodeID
+   * @param nodeID
+   */
   public Location(String nodeID) {
     this.nodeID = nodeID;
     this.xcoord = 0;
@@ -24,6 +31,17 @@ public class Location {
     this.shortName = "N/A";
   }
 
+  /**
+   * Location constructor that takes in all attributes
+   * @param nodeID
+   * @param xcoord
+   * @param ycoord
+   * @param floor
+   * @param building
+   * @param nodeType
+   * @param longName
+   * @param shortName
+   */
   public Location(
       String nodeID,
       int xcoord,
@@ -43,6 +61,10 @@ public class Location {
     this.shortName = shortName;
   }
 
+  /**
+   * Method that rturn the locations header
+   * @return String
+   */
   @Override
   public String toString() {
     return "edu.wpi.team_u.BackEnd.Location.Location{"
