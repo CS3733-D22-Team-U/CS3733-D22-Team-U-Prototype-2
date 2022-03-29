@@ -2,7 +2,6 @@ package edu.wpi.team_u.BackEnd.Employee;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 public interface EmployeeDao {
 
@@ -16,11 +15,11 @@ public interface EmployeeDao {
 
   public void printEmployeeTableInTerm(String csvFile) throws IOException;
 
-  public void editEmployee(String csvFile, Scanner userInput) throws IOException, SQLException;
+  public void editEmployee(String csvFile) throws IOException, SQLException;
 
-  public void addEmployee(String csvFile, Scanner userInput) throws IOException, SQLException;
+  public void addEmployee(String csvFile) throws IOException, SQLException;
 
-  public void removeEmployee(String csvFile, Scanner userInput) throws IOException, SQLException;
+  public void removeEmployee(String csvFile) throws IOException, SQLException;
 
-  public void saveEmployeeTableAsCSV(Scanner userInput) throws SQLException;
+  public void saveEmployeeTableAsCSV() throws SQLException;
 }

@@ -213,18 +213,20 @@ public class LocationDaoImpl implements LocationDao {
     // menu
   }
 
-  public void editLocValue(String csvFile, Scanner userInput) throws IOException, SQLException {
+  public void editLocValue(String csvFile) throws IOException, SQLException {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
     // input ID
+    Scanner s = new Scanner(System.in);
+
     System.out.println("Please input the node ID: ");
-    String inputNodeID = userInput.nextLine();
+    String inputNodeID = s.nextLine();
     // input new floor
     System.out.println("New floor: ");
-    String inputNewFloor = userInput.nextLine();
+    String inputNewFloor = s.nextLine();
     // input new location type
     System.out.println("New location type");
-    String inputNewType = userInput.nextLine();
+    String inputNewType = s.nextLine();
     this.CSVToJava(csvFile); // t
     for (int i = 0; i < this.locations.size(); i++) {
       if (this.locations.get(i).nodeID.equals(inputNodeID)) {
@@ -237,11 +239,12 @@ public class LocationDaoImpl implements LocationDao {
     this.JavaToCSV(csvFile); // t
   }
 
-  public void addLoc(String csvFile, Scanner userInput) throws IOException, SQLException {
+  public void addLoc(String csvFile) throws IOException, SQLException {
     // add a new entry to the SQL table
     // prompt for ID
+    Scanner s = new Scanner(System.in);
     System.out.println("Enter the new location ID");
-    String newNodeID = userInput.nextLine();
+    String newNodeID = s.nextLine();
     Location newLocation = new Location(newNodeID);
     this.locations.add(newLocation);
     this.JavaToSQL();
@@ -249,11 +252,12 @@ public class LocationDaoImpl implements LocationDao {
     this.JavaToCSV(csvFile);
   }
 
-  public void removeLoc(String csvFile, Scanner userInput) throws IOException, SQLException {
+  public void removeLoc(String csvFile) throws IOException, SQLException {
     // removes entries from SQL table that match input node
     // prompt for ID
+    Scanner s = new Scanner(System.in);
     System.out.println("Input ID for to delete location: ");
-    String userNodeID = userInput.nextLine(); // remove locations that match user input
+    String userNodeID = s.nextLine(); // remove locations that match user input
     for (int i = this.locations.size() - 1; i >= 0; i--) {
       if (this.locations.get(i).nodeID.equals(userNodeID)) {
         this.locations.remove(i);
@@ -264,11 +268,13 @@ public class LocationDaoImpl implements LocationDao {
     this.JavaToCSV(csvFile);
   }
 
-  public void saveLocTableAsCSV(Scanner userInput) throws SQLException {
+  public void saveLocTableAsCSV() throws SQLException {
     // takes entries from SQL table and an input name, from there it makes a new CSV file
+    Scanner s = new Scanner(System.in);
+
     System.out.println("Enter CSV file location name");
 
-    String CSVName = userInput.nextLine();
+    String CSVName = s.nextLine();
     String csvFilePath = "./" + CSVName + ".csv";
 
     try {

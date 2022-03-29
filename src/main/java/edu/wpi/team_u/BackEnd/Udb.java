@@ -89,7 +89,7 @@ public class Udb {
   // This calls all of our private functions
   private void menu(String[] CSVfiles) throws IOException, SQLException {
     System.out.println(
-        "1 - Location Information\n"
+        "1 - print+ Information\n"
             + "2 – Change Floor and Type\n"
             + "3 – Enter Location\n"
             + "4 – Delete Location\n"
@@ -128,13 +128,13 @@ public class Udb {
 
         switch (userInput.nextInt()) {
           case 1:
-            locationImpl.editLocValue(CSVfiles[0], userInput);
+            locationImpl.editLocValue(CSVfiles[0]);
             break;
           case 2:
-            EmployeeImpl.editEmployee(CSVfiles[1], userInput);
+            EmployeeImpl.editEmployee(CSVfiles[1]);
             break;
           case 3:
-            EquipmentImpl.editEquipValue(CSVfiles[2], userInput);
+            EquipmentImpl.editEquipValue(CSVfiles[2]);
             break;
         }
         menu(CSVfiles);
@@ -148,15 +148,16 @@ public class Udb {
 
         switch (userInput.nextInt()) {
           case 1:
-            locationImpl.addLoc(CSVfiles[0], userInput);
+            locationImpl.addLoc(CSVfiles[0]);
             break;
           case 2:
-            EmployeeImpl.addEmployee(CSVfiles[1], userInput);
+            EmployeeImpl.addEmployee(CSVfiles[1]);
             break;
           case 3:
-            EquipmentImpl.addEquip(CSVfiles[2], userInput);
+            EquipmentImpl.addEquip(CSVfiles[2]);
             break;
         }
+
         menu(CSVfiles);
         break;
       case 4:
@@ -168,13 +169,13 @@ public class Udb {
 
         switch (userInput.nextInt()) {
           case 1:
-            locationImpl.removeLoc(CSVfiles[0], userInput);
+            locationImpl.removeLoc(CSVfiles[0]);
             break;
           case 2:
-            EmployeeImpl.removeEmployee(CSVfiles[1], userInput);
+            EmployeeImpl.removeEmployee(CSVfiles[1]);
             break;
           case 3:
-            EquipmentImpl.removeEquip(CSVfiles[2], userInput);
+            EquipmentImpl.removeEquip(CSVfiles[2]);
             break;
         }
         menu(CSVfiles);
@@ -188,13 +189,13 @@ public class Udb {
 
         switch (userInput.nextInt()) {
           case 1:
-            locationImpl.saveLocTableAsCSV(userInput);
+            locationImpl.saveLocTableAsCSV();
             break;
           case 2:
-            EmployeeImpl.saveEmployeeTableAsCSV(userInput);
+            EmployeeImpl.saveEmployeeTableAsCSV();
             break;
           case 3:
-            EquipmentImpl.saveEquipTableAsCSV(userInput);
+            EquipmentImpl.saveEquipTableAsCSV();
             break;
         }
         menu(CSVfiles);

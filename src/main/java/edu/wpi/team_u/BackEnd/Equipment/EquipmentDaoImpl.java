@@ -83,19 +83,19 @@ public class EquipmentDaoImpl implements EquipmentDao {
 
       try {
         ResultSet results;
-        results = exampleStatement.executeQuery("SELECT * FROM Locations");
+        results = exampleStatement.executeQuery("SELECT * FROM EquipmentList");
 
         while (results.next()) {
-          String name = results.getString("name");
-          int amount = results.getInt("amount");
-          int inUse = results.getInt("inUse");
+          String name = results.getString("Name");
+          int amount = results.getInt("Amount");
+          int inUse = results.getInt("InUse");
 
           Equipment SQLRow = new Equipment(name, amount, inUse);
 
           EquipmentList.add(SQLRow);
         }
       } catch (SQLException e) {
-        System.out.println("Locations not found");
+        System.out.println(e);
       }
 
       connection.close();
@@ -151,18 +151,19 @@ public class EquipmentDaoImpl implements EquipmentDao {
     // menu
   }
 
-  public void editEquipValue(String csvFile, Scanner userInput) throws IOException, SQLException {
+  public void editEquipValue(String csvFile) throws IOException, SQLException {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
     // input ID
+    Scanner s = new Scanner(System.in);
     System.out.println("Please input the name: ");
-    String inputName = userInput.nextLine();
+    String inputName = s.nextLine();
     // input new floor
     System.out.println("New Amount: ");
-    String inputNewAmount = userInput.nextLine();
+    String inputNewAmount = s.nextLine();
     // input new location type
     System.out.println("New In Use type");
-    String inputInUse = userInput.nextLine();
+    String inputInUse = s.nextLine();
     this.CSVToJava(csvFile); // t
     for (int i = 0; i < this.EquipmentList.size(); i++) {
       if (this.EquipmentList.get(i).getName().equals(inputName)) {
@@ -176,11 +177,12 @@ public class EquipmentDaoImpl implements EquipmentDao {
     this.JavaToCSV(csvFile); // t
   }
 
-  public void addEquip(String csvFile, Scanner userInput) throws IOException, SQLException {
+  public void addEquip(String csvFile) throws IOException, SQLException {
     // add a new entry to the SQL table
     // prompt for ID
-    System.out.println("Enter the new location ID");
-    String newName = userInput.nextLine();
+    Scanner s = new Scanner(System.in);
+    System.out.println("Enter the new equipment name");
+    String newName = s.nextLine();
     Equipment newEquipment = new Equipment(newName);
     this.EquipmentList.add(newEquipment);
     this.JavaToSQL();
@@ -188,11 +190,12 @@ public class EquipmentDaoImpl implements EquipmentDao {
     this.JavaToCSV(csvFile);
   }
 
-  public void removeEquip(String csvFile, Scanner userInput) throws IOException, SQLException {
+  public void removeEquip(String csvFile) throws IOException, SQLException {
     // removes entries from SQL table that match input node
     // prompt for ID
+    Scanner s = new Scanner(System.in);
     System.out.println("Input ID for to delete location: ");
-    String userNodeID = userInput.nextLine(); // remove locations that match user input
+    String userNodeID = s.nextLine(); // remove locations that match user input
     for (int i = this.EquipmentList.size() - 1; i >= 0; i--) {
       if (this.EquipmentList.get(i).getName().equals(userNodeID)) {
         this.EquipmentList.remove(i);
@@ -203,11 +206,13 @@ public class EquipmentDaoImpl implements EquipmentDao {
     this.JavaToCSV(csvFile);
   }
 
-  public void saveEquipTableAsCSV(Scanner userInput) throws SQLException {
+  public void saveEquipTableAsCSV() throws SQLException {
     // takes entries from SQL table and an input name, from there it makes a new CSV file
+    Scanner s = new Scanner(System.in);
+
     System.out.println("Enter CSV file location name");
 
-    String CSVName = userInput.nextLine();
+    String CSVName = s.nextLine();
     String csvFilePath = "./" + CSVName + ".csv";
 
     try {

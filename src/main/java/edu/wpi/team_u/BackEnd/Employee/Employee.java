@@ -16,9 +16,9 @@ public class Employee {
 
   public Employee(String employeeID) {
     this.employeeID = employeeID;
-    this.onDuty = false;
+    this.occupation = "N/A";
     this.reports = 0;
-    this.occupation = null;
+    this.onDuty = false;
   }
 
   public String getEmployeeID() {

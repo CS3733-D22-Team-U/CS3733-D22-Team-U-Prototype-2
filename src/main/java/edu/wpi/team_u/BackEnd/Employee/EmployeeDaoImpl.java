@@ -24,9 +24,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
     br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
-      if (row.length == 8)
+      if (row.length == 4)
         employees.add(
-            new Employee(row[0], row[1], Integer.parseInt(row[2]), Boolean.parseBoolean(row[3])));
+            new Employee(
+                row[0].trim(),
+                row[1].trim(),
+                Integer.parseInt(row[2].trim()),
+                Boolean.parseBoolean(row[3].trim())));
     }
   }
 
@@ -54,12 +58,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
       for (int j = 0; j < employees.size(); j++) {
         Employee currEmp = employees.get(j);
         exampleStatement.execute(
-            "INSERT INTO Locations VALUES("
-                + "'"
+            "INSERT INTO Employees VALUES('"
                 + currEmp.employeeID
-                + "',"
+                + "','"
                 + currEmp.occupation
-                + ","
+                + "',"
                 + currEmp.reports
                 + ",'"
                 + currEmp.onDuty
@@ -140,10 +143,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
   public void printEmployeeTableInTerm(String csvFile) throws IOException {
     // csv to java
-    this.CSVToJava(csvFile);
+    CSVToJava(csvFile);
     // display locations and attributes
     System.out.println("Employee ID |\t Occupation |\t Reports |\t On Duty");
-    for (Employee employee : this.employees) {
+    for (Employee employee : employees) {
       System.out.println(
           employee.employeeID
               + " | \t"
@@ -156,20 +159,22 @@ public class EmployeeDaoImpl implements EmployeeDao {
     // menu
   }
 
-  public void editEmployee(String csvFile, Scanner userInput) throws IOException, SQLException {
+  public void editEmployee(String csvFile) throws IOException, SQLException {
     // takes entries from SQL table that match input id and updates it with
     // a new occupation
     // a new number of reports
+    Scanner s = new Scanner(System.in);
     System.out.println("Please input the employee ID: ");
-    String inputEmployeeID = userInput.nextLine();
+    String inputEmployeeID = s.nextLine();
+
     // input new occupation
     System.out.println("New occupation: ");
-    String inputNewOccupation = userInput.nextLine();
+    String inputNewOccupation = s.nextLine();
     // input number of new reports
     System.out.println("Number of new reports: ");
-    int inputNewReports = userInput.nextInt();
+    int inputNewReports = s.nextInt();
 
-    this.CSVToJava(csvFile); // t
+    CSVToJava(csvFile); // t
     for (int i = 0; i < this.employees.size(); i++) {
       if (this.employees.get(i).employeeID.equals(inputEmployeeID)) {
         this.employees.get(i).occupation = inputNewOccupation;
@@ -181,11 +186,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
     this.JavaToCSV(csvFile); // t
   }
 
-  public void addEmployee(String csvFile, Scanner userInput) throws IOException, SQLException {
+  public void addEmployee(String csvFile) throws IOException, SQLException {
     // add a new entry to the SQL table
     // prompt for ID
+    Scanner s = new Scanner(System.in);
     System.out.println("Enter the new employee ID");
-    String newEmployeeID = userInput.nextLine();
+    String newEmployeeID = s.nextLine();
     Employee newEmployee = new Employee(newEmployeeID);
     this.employees.add(newEmployee);
     this.JavaToSQL();
@@ -193,11 +199,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
     this.JavaToCSV(csvFile);
   }
 
-  public void removeEmployee(String csvFile, Scanner userInput) throws IOException, SQLException {
+  public void removeEmployee(String csvFile) throws IOException, SQLException {
     // removes entries from SQL table that match input node
     // prompt for ID
+    Scanner s = new Scanner(System.in);
     System.out.println("Input ID for to delete employee: ");
-    String userEmployeeID = userInput.nextLine(); // remove locations that match user input
+    String userEmployeeID = s.nextLine(); // remove locations that match user input
     for (int i = this.employees.size() - 1; i >= 0; i--) {
       if (this.employees.get(i).employeeID.equals(userEmployeeID)) {
         this.employees.remove(i);
@@ -208,11 +215,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
     this.JavaToCSV(csvFile);
   }
 
-  public void saveEmployeeTableAsCSV(Scanner userInput) throws SQLException {
+  public void saveEmployeeTableAsCSV() throws SQLException {
     // takes entries from SQL table and an input name, from there it makes a new CSV file
+    Scanner s = new Scanner(System.in);
     System.out.println("Enter CSV file location name");
 
-    String CSVName = userInput.nextLine();
+    String CSVName = s.nextLine();
     String csvFilePath = "./" + CSVName + ".csv";
 
     try {
