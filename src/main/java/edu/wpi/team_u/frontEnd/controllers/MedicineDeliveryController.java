@@ -1,15 +1,18 @@
-package edu.wpi.team_u.controllers;
+package edu.wpi.team_u.frontEnd.controllers;
 
 import edu.wpi.team_u.Uapp;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class giftFloralController {
+public class MedicineDeliveryController {
 
-  public void toServicePage(ActionEvent actionEvent) throws IOException {
+  public Button backButton;
+
+  public void backToServicePage(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
@@ -52,6 +55,13 @@ public class giftFloralController {
 
   public void toSecurityService(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/labRequestServices.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
+
+  public void toServicePage(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
