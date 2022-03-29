@@ -101,14 +101,12 @@ public class Udb {
     switch (inputNumber) {
       case 1:
         System.out.println(
-            "What database would you like to chose: "
+            "What database would you like to chose: \n"
                 + " 1 - Locations\n"
                 + " 2 - Employees\n"
                 + " 3 - Equipment");
 
-        int choice = userInput.nextInt();
-
-        switch (choice) {
+        switch (userInput.nextInt()) {
           case 1:
             locationImpl.printLocTableInTerm(CSVfiles[0]);
             break;
@@ -123,14 +121,12 @@ public class Udb {
         break;
       case 2:
         System.out.println(
-            "What database would you like to chose: "
+            "What database would you like to chose: \n"
                 + " 1 - Locations\n"
                 + " 2 - Employees\n"
                 + " 3 - Equipment");
 
-        choice = userInput.nextInt();
-
-        switch (choice) {
+        switch (userInput.nextInt()) {
           case 1:
             locationImpl.editLocValue(CSVfiles[0], userInput);
             break;
@@ -145,14 +141,12 @@ public class Udb {
         break;
       case 3:
         System.out.println(
-            "What database would you like to chose: "
+            "What database would you like to chose: \n"
                 + " 1 - Locations\n"
                 + " 2 - Employees\n"
                 + " 3 - Equipment");
 
-        choice = userInput.nextInt();
-
-        switch (choice) {
+        switch (userInput.nextInt()) {
           case 1:
             locationImpl.addLoc(CSVfiles[0], userInput);
             break;
@@ -167,14 +161,12 @@ public class Udb {
         break;
       case 4:
         System.out.println(
-            "What database would you like to chose: "
+            "What database would you like to chose: \n"
                 + " 1 - Locations\n"
                 + " 2 - Employees\n"
                 + " 3 - Equipment");
 
-        choice = userInput.nextInt();
-
-        switch (choice) {
+        switch (userInput.nextInt()) {
           case 1:
             locationImpl.removeLoc(CSVfiles[0], userInput);
             break;
@@ -189,14 +181,12 @@ public class Udb {
         break;
       case 5:
         System.out.println(
-            "What database would you like to chose: "
+            "What database would you like to chose: \n"
                 + " 1 - Locations\n"
                 + " 2 - Employees\n"
                 + " 3 - Equipment");
 
-        choice = userInput.nextInt();
-
-        switch (choice) {
+        switch (userInput.nextInt()) {
           case 1:
             locationImpl.saveLocTableAsCSV(userInput);
             break;

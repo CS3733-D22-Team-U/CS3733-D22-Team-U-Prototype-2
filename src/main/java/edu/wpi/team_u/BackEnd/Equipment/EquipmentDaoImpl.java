@@ -51,16 +51,16 @@ public class EquipmentDaoImpl implements EquipmentDao {
       for (int j = 0; j < EquipmentList.size(); j++) {
         Equipment currLoc = EquipmentList.get(j);
         exampleStatement.execute(
-            "INSERT INTO Locations VALUES("
+            "INSERT INTO EquipmentList VALUES("
                 + "'"
                 + currLoc.getName()
                 + "',"
                 + currLoc.getAmount()
                 + ","
                 + currLoc.getInUse()
-                + ",'"
+                + ","
                 + currLoc.getAvailable()
-                + "')");
+                + ")");
       }
 
       connection.close();
@@ -136,17 +136,16 @@ public class EquipmentDaoImpl implements EquipmentDao {
     // csv to java
     this.CSVToJava(csvFile);
     // display locations and attributes
-    System.out.println(
-        "Node |\t X |\t Y |\t Level |\t Building |\t Type |\t Long Name |\t Short Name");
+    System.out.println("Name |\t Amount |\t In Use |\t Available");
     for (Equipment equipment : EquipmentList) {
       System.out.println(
           equipment.getName()
               + " | \t"
               + equipment.getAmount()
               + " | \t"
-              + equipment.getAvailable()
-              + " | \t"
               + equipment.getInUse()
+              + " | \t"
+              + equipment.getAvailable()
               + " | \t");
     }
     // menu
@@ -159,10 +158,10 @@ public class EquipmentDaoImpl implements EquipmentDao {
     System.out.println("Please input the name: ");
     String inputName = userInput.nextLine();
     // input new floor
-    System.out.println("New floor: ");
+    System.out.println("New Amount: ");
     String inputNewAmount = userInput.nextLine();
     // input new location type
-    System.out.println("New location type");
+    System.out.println("New In Use type");
     String inputInUse = userInput.nextLine();
     this.CSVToJava(csvFile); // t
     for (int i = 0; i < this.EquipmentList.size(); i++) {
