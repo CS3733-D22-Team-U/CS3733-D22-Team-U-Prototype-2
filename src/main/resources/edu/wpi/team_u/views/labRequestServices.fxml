@@ -207,7 +207,7 @@
                </cursor>
             </CheckBox>
             <TextArea fx:id="otherField" layoutX="417.0" layoutY="454.0" prefHeight="95.0" prefWidth="241.0" />
-            <Button layoutX="767.0" layoutY="461.0" mnemonicParsing="false" onAction="#clearButton" prefHeight="39.0" prefWidth="149.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15; -fx-border-radius: 15;" text="Clear" textAlignment="CENTER">
+            <Button layoutX="767.0" layoutY="460.0" mnemonicParsing="false" onAction="#clearButton" prefHeight="39.0" prefWidth="149.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15; -fx-border-radius: 15;" text="Clear" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
