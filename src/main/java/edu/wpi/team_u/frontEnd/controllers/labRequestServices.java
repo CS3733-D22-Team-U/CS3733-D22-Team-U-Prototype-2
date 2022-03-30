@@ -90,6 +90,20 @@ public class labRequestServices implements Initializable {
                 Thread.sleep(1500); // milliseconds
                 Platform.runLater(
                     () -> {
+                      requestProcessing.setText("Request complete.");
+                      bloodTest.setSelected(false);
+                      covidTest.setSelected(false);
+                      pregnancyTest.setSelected(false);
+                      otherCheck.setSelected(false);
+                      drugScreenTest.setSelected(false);
+                      urineTest.setSelected(false);
+                      patientNameField.setText("");
+                      staffMemberField.setText("");
+                      otherField.setText("");
+                    });
+                Thread.sleep(1500);
+                Platform.runLater(
+                    () -> {
                       requestProcessing.setVisible(false);
                     });
               } catch (InterruptedException ie) {
