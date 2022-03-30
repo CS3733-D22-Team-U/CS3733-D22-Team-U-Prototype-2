@@ -15,7 +15,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
     this.DB_LOC = db_loc;
   }
 
-  // Takes in a CSV file and converts it to java objects
+  /**
+   * CSVToJava: converts the CSV file at the given filepath into a list of Java objects
+   *
+   * @param csvFile
+   * @throws IOException
+   */
   public void CSVToJava(String csvFile) throws IOException {
     employees = new ArrayList<Employee>();
     String s;
@@ -34,8 +39,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
   }
 
-  // This function converts all of the CSV information that is stored in Java objects and
-  // puts them into the the SQL database
+  /** JavaToSQL: takes the global list of Java objects and translates them into a SQL database */
   public void JavaToSQL() {
 
     try {
@@ -78,7 +82,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
   }
 
-  // This function takes all of the SQL database information into java objects
+  /**
+   * SQLToJava: takes the SQL database and overwrites the global list of Java objects
+   *
+   * @throws SQLException
+   */
   public void SQLToJava() throws SQLException {
     employees = new ArrayList<Employee>();
 
@@ -113,7 +121,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
   }
 
-  // This function converts the java objects of our CSV data into a new CSV file
+  /**
+   * JavaToCSV: takes the global list of Java objects and writes them into a CSV document with the
+   * given filepath string
+   *
+   * @param csvFile
+   * @throws IOException
+   */
   public void JavaToCSV(String csvFile) throws IOException {
     PrintWriter fw = new PrintWriter(new File(csvFile));
 
@@ -126,9 +140,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     fw.append("onDuty");
     fw.append("\n");
 
-    for (int i = 0;
-        i < employees.size();
-        i++) { // ask about how this was working without and = sign
+    for (int i = 0; i < employees.size(); i++) {
       fw.append(employees.get(i).employeeID);
       fw.append(",");
       fw.append(employees.get(i).occupation);
@@ -141,6 +153,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
     fw.close();
   }
 
+  /**
+   * printEmployeeTableInTerm: prints out the Employees from the given CSV filepath, printing a
+   * table with each Employee's attributes
+   *
+   * @param csvFile
+   * @throws IOException
+   */
   public void printEmployeeTableInTerm(String csvFile) throws IOException {
     // csv to java
     CSVToJava(csvFile);
@@ -156,9 +175,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
               + " | \t"
               + employee.onDuty);
     }
-    // menu
   }
 
+
+  //-----------------------------Start of debugging backend functions------------------------------//
+
+  /**
+   * editEmployee: makes a SQL table from the given CSV filepath, then prompts for an ID and updates
+   * the employee with the matching ID, then converts the modified SQL table into a CSV, storing at
+   * the original filepath
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
   public void editEmployee(String csvFile) throws IOException, SQLException {
     // takes entries from SQL table that match input id and updates it with
     // a new occupation
@@ -186,6 +216,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
     this.JavaToCSV(csvFile); // t
   }
 
+  /**
+   * addEmployee: adds a new employee with the prompted ID to the global Java list, then updates the
+   * SQL table and the CSV file at the given filepath
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
   public void addEmployee(String csvFile) throws IOException, SQLException {
     // add a new entry to the SQL table
     // prompt for ID
@@ -199,6 +237,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
     this.JavaToCSV(csvFile);
   }
 
+  /**
+   * removeEmployee: removes the new employee with the prompted ID from the global Java list, then
+   * updates the SQL table and the CSV file at the given filepath
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
   public void removeEmployee(String csvFile) throws IOException, SQLException {
     // removes entries from SQL table that match input node
     // prompt for ID
@@ -215,12 +261,114 @@ public class EmployeeDaoImpl implements EmployeeDao {
     this.JavaToCSV(csvFile);
   }
 
+  /**
+   * saveEmployeeTableAsCSV: Converts the SQL table to a CSV file, saving it with the prompted file
+   * name
+   *
+   * @throws SQLException
+   */
   public void saveEmployeeTableAsCSV() throws SQLException {
-    // takes entries from SQL table and an input name, from there it makes a new CSV file
     Scanner s = new Scanner(System.in);
     System.out.println("Enter CSV file location name");
 
     String CSVName = s.nextLine();
+    String csvFilePath = "./" + CSVName + ".csv";
+
+    try {
+      new File(csvFilePath);
+      this.SQLToJava();
+      this.JavaToCSV(csvFilePath);
+
+    } catch (IOException e) {
+      System.out.println(e.fillInStackTrace());
+    }
+  }
+
+  //-----------------------------End of debugging backend functions------------------------------//
+
+
+
+
+
+
+
+
+  //-----------------------------Start of frontend backend functions------------------------------//
+
+  /**
+   * editEmployee: makes a SQL table from the given CSV filepath, then prompts for an ID and updates
+   * the employee with the matching ID, then converts the modified SQL table into a CSV, storing at
+   * the original filepath
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
+  public void editEmployee(String csvFile, String inputEmployeeID, String inputNewOccupation, int inputNewReports) throws IOException, SQLException {
+    // takes entries from SQL table that match input id and updates it with
+    // a new occupation
+    // a new number of reports
+
+    CSVToJava(csvFile); // t
+    for (int i = 0; i < this.employees.size(); i++) {
+      if (this.employees.get(i).employeeID.equals(inputEmployeeID)) {
+        this.employees.get(i).occupation = inputNewOccupation;
+        this.employees.get(i).reports = inputNewReports;
+      }
+    }
+    this.JavaToSQL(); // t
+    this.SQLToJava(); // t
+    this.JavaToCSV(csvFile); // t
+  }
+
+  /**
+   * addEmployee: adds a new employee with the prompted ID to the global Java list, then updates the
+   * SQL table and the CSV file at the given filepath
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
+  public void addEmployee(String csvFile, String newEmployeeID) throws IOException, SQLException {
+    // add a new entry to the SQL table
+    // prompt for ID
+
+    Employee newEmployee = new Employee(newEmployeeID);
+    this.employees.add(newEmployee);
+    this.JavaToSQL();
+    this.SQLToJava();
+    this.JavaToCSV(csvFile);
+  }
+
+  /**
+   * removeEmployee: removes the new employee with the prompted ID from the global Java list, then
+   * updates the SQL table and the CSV file at the given filepath
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
+  public void removeEmployee(String csvFile, String userEmployeeID) throws IOException, SQLException {
+    // removes entries from SQL table that match input node
+    // prompt for ID
+
+    for (int i = this.employees.size() - 1; i >= 0; i--) {
+      if (this.employees.get(i).employeeID.equals(userEmployeeID)) {
+        this.employees.remove(i);
+      }
+    }
+    this.JavaToSQL();
+    this.SQLToJava();
+    this.JavaToCSV(csvFile);
+  }
+
+  /**
+   * saveEmployeeTableAsCSV: Converts the SQL table to a CSV file, saving it with the prompted file
+   * name
+   *
+   * @throws SQLException
+   */
+  public void saveEmployeeTableAsCSV(String CSVName) throws SQLException {
     String csvFilePath = "./" + CSVName + ".csv";
 
     try {

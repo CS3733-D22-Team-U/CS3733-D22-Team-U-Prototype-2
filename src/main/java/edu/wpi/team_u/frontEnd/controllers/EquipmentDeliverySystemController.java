@@ -3,6 +3,7 @@ package edu.wpi.team_u.frontEnd.controllers;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import edu.wpi.team_u.Uapp;
+import edu.wpi.team_u.frontEnd.services.IService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class EquipmentDeliverySystemController implements Initializable {
+public class EquipmentDeliverySystemController implements Initializable, IService {
 
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
@@ -33,6 +34,23 @@ public class EquipmentDeliverySystemController implements Initializable {
         });
   }
 
+  @Override
+  public void addRequest() {}
+
+    @Override
+    public void removeRequest() {}
+
+    @Override
+    public void updateRequest() {}
+
+    @Override
+    public void displayRequest() {}
+
+  public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {
+
+  }
+
+
   public void toHome(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -40,30 +58,12 @@ public class EquipmentDeliverySystemController implements Initializable {
     appStage.show();
   }
 
-    public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
-        Scene scene = Uapp.getScene("edu/wpi/team_u/views/medicineDelivery.fxml");
-        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        appStage.setScene(scene);
-    }
-
-
-    /*
-
-  public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
+  public void toLabRequest(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/labRequestServices.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
   }
-
-  public void toLaundryService(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/laundryService.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-
 
   public void toMealDelivery(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/mealDelivery.fxml");
@@ -72,32 +72,31 @@ public class EquipmentDeliverySystemController implements Initializable {
     appStage.show();
   }
 
-  public void togiftFloralService(ActionEvent actionEvent) throws IOException {
+  public void toGiftAndFloral(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/giftFloralService.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
   }
 
-  public void toDeliverEquipmentController(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/equipmentDelivery.fxml");
+  public void toLaundry(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/laundryService.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
   }
 
-  public void toSecurityService(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/labRequestServices.fxml");
+  public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/medicineDelivery.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
   }
 
-  public void toServicePage(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
+  public void toMap(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/map.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
-  }*/
-
+  }
 }

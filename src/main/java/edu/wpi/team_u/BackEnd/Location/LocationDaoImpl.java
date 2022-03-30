@@ -11,11 +11,22 @@ public class LocationDaoImpl implements LocationDao {
   public String DB_LOC;
   public ArrayList<Location> locations = new ArrayList<Location>();
 
+  /**
+   * Contructor for LocationDaoImpl
+   *
+   * @param db_loc
+   */
   public LocationDaoImpl(String db_loc) {
     DB_LOC = db_loc;
   }
 
   // Takes in a CSV file and converts it to java objects
+  /**
+   * Reads CSV file and puts the Locations into an array list: locations
+   *
+   * @param csvFile
+   * @throws IOException
+   */
   public void CSVToJava(String csvFile) throws IOException {
     locations = new ArrayList<Location>();
     String s;
@@ -40,6 +51,12 @@ public class LocationDaoImpl implements LocationDao {
 
   // This function converts all of the CSV information that is stored in Java objects and
   // puts them into the the SQL database
+
+  /**
+   * Reads the array list: locations, then opens up a connection to the UDB database, then it
+   * creates a new table called in the UDB database table: Locations. It then inserts the array
+   * list: Locations into the UDB database table: Locations
+   */
   public void JavaToSQL() {
 
     try {
@@ -96,6 +113,12 @@ public class LocationDaoImpl implements LocationDao {
   }
 
   // This function takes all of the SQL database information into java objects
+  /**
+   * Clears the array list: locations and then reads the UDB database table: Locations then copies
+   * the to the cleared array list
+   *
+   * @throws SQLException
+   */
   public void SQLToJava() throws SQLException {
     locations = new ArrayList<Location>();
 
@@ -143,6 +166,12 @@ public class LocationDaoImpl implements LocationDao {
   }
 
   // This function converts the java objects of our CSV data into a new CSV file
+  /**
+   * Copies the array list: locations and writes it into the CSV file
+   *
+   * @param csvFile
+   * @throws IOException
+   */
   public void JavaToCSV(String csvFile) throws IOException {
     PrintWriter fw = new PrintWriter(new File(csvFile));
 
@@ -186,6 +215,12 @@ public class LocationDaoImpl implements LocationDao {
     fw.close();
   }
 
+  /**
+   * Prints out the Contents of the CSV file TowerLocations.csv
+   *
+   * @param csvFile
+   * @throws IOException
+   */
   public void printLocTableInTerm(String csvFile) throws IOException {
     // csv to java
     this.CSVToJava(csvFile);
@@ -213,6 +248,14 @@ public class LocationDaoImpl implements LocationDao {
     // menu
   }
 
+  /**
+   * Asks user for nodeID they wish to edit and then ask to change the floor and the node type, it
+   * then changes the values in the database and csv file
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
   public void editLocValue(String csvFile) throws IOException, SQLException {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
@@ -234,11 +277,34 @@ public class LocationDaoImpl implements LocationDao {
         this.locations.get(i).nodeType = inputNewType;
       }
     }
+    this.JavaToSQL();
+    this.SQLToJava();
+    this.JavaToCSV(csvFile);
+  }
+
+  public void editLocValue(String nodeID, String floor, String nodeType, String csvFile) throws IOException, SQLException {
+    // takes entries from SQL table that match input node and updates it with a new floor and
+    // location type
+    // input ID
+    this.CSVToJava(csvFile); // t
+    for (int i = 0; i < this.locations.size(); i++) {
+      if (this.locations.get(i).nodeID.equals(nodeID)) {
+        this.locations.get(i).floor = floor;
+        this.locations.get(i).nodeType = nodeType;
+      }
+    }
     this.JavaToSQL(); // t
     this.SQLToJava(); // t
     this.JavaToCSV(csvFile); // t
   }
 
+  /**
+   * Prompts user for the nodeID of a new room and then adds it to the csv file and database
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
   public void addLoc(String csvFile) throws IOException, SQLException {
     // add a new entry to the SQL table
     // prompt for ID
@@ -252,6 +318,23 @@ public class LocationDaoImpl implements LocationDao {
     this.JavaToCSV(csvFile);
   }
 
+  public void addLoc(String nodeID, String csvFile) throws IOException, SQLException {
+    // add a new entry to the SQL table
+    Location newLocation = new Location(nodeID);
+    this.locations.add(newLocation);
+    this.JavaToSQL();
+    this.SQLToJava();
+    this.JavaToCSV(csvFile);
+  }
+
+  /**
+   * Prompts user for the nodeID of the room they wish to remove and then removes that room from the
+   * database and csv file
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
   public void removeLoc(String csvFile) throws IOException, SQLException {
     // removes entries from SQL table that match input node
     // prompt for ID
@@ -268,14 +351,47 @@ public class LocationDaoImpl implements LocationDao {
     this.JavaToCSV(csvFile);
   }
 
+  public void removeLoc(String nodeID, String csvFile) throws IOException, SQLException {
+    // removes entries from SQL table that match input node
+    for (int i = this.locations.size() - 1; i >= 0; i--) {
+      if (this.locations.get(i).nodeID.equals(nodeID)) {
+        this.locations.remove(i);
+      }
+    }
+    this.JavaToSQL();
+    this.SQLToJava();
+    this.JavaToCSV(csvFile);
+  }
+
+  /**
+   * Prompts user for the name of a new file and then creates the new file in the project folder
+   * then it copies the database table: Locations into the CSV file
+   *
+   * @throws SQLException
+   */
   public void saveLocTableAsCSV() throws SQLException {
     // takes entries from SQL table and an input name, from there it makes a new CSV file
+    // prompt for user input
     Scanner s = new Scanner(System.in);
 
     System.out.println("Enter CSV file location name");
 
     String CSVName = s.nextLine();
     String csvFilePath = "./" + CSVName + ".csv";
+
+    try {
+      new File(csvFilePath);
+      this.SQLToJava();
+      this.JavaToCSV(csvFilePath);
+
+    } catch (IOException e) {
+      System.out.println(e.fillInStackTrace());
+    }
+  }
+
+  public void saveLocTableAsCSV(String locationName) throws SQLException {
+    // takes entries from SQL table and an input name, from there it makes a new CSV file
+    String csvFilePath = "./" + locationName + ".csv";
 
     try {
       new File(csvFilePath);
