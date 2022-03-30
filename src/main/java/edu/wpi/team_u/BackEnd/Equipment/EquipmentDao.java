@@ -44,20 +44,24 @@ public interface EquipmentDao {
    */
   public void printEquipTableInTerm(String csvFile) throws IOException;
 
-
-  //-------------------------------Start of frontend to backend functions------------------------------------------//
+  // -------------------------------Start of frontend to backend
+  // functions------------------------------------------//
 
   /**
-   * Asks user for name of item they wish to edit and then ask to change
-   * the total amount and the amount in use, Then changes the values in the database and csv file
+   * Asks user for name of item they wish to edit and then ask to change the total amount and the
+   * amount in use, Then changes the values in the database and csv file
+   *
    * @param csvFile
    * @throws IOException
    * @throws SQLException
    */
-  public void editEquipValue(String csvFile, String inputName, String inputNewAmount, String inputInUse) throws IOException, SQLException;
+  public void editEquipValue(
+      String csvFile, String inputName, String inputNewAmount, String inputInUse)
+      throws IOException, SQLException;
 
   /**
    * Prompts user for the name of a new item and then adds it to the csv file and database
+   *
    * @param csvFile
    * @throws IOException
    * @throws SQLException
@@ -65,8 +69,9 @@ public interface EquipmentDao {
   public void addEquip(String csvFile, String newName) throws IOException, SQLException;
 
   /**
-   * Prompts user for the name of the item they wish to remove and then removes that item
-   * from the database and csv file
+   * Prompts user for the name of the item they wish to remove and then removes that item from the
+   * database and csv file
+   *
    * @param csvFile
    * @throws IOException
    * @throws SQLException
@@ -76,16 +81,16 @@ public interface EquipmentDao {
   /**
    * Prompts user for the name of a new file and then creates the new file in the project folder
    * then it copies the database table: EquipmentList into the CSV file
+   *
    * @throws SQLException
    */
   public void saveEquipTableAsCSV(String CSVName) throws SQLException;
 
-  //-------------------------------End of frontend to backend functions------------------------------------------//
+  // -------------------------------End of frontend to backend
+  // functions------------------------------------------//
 
-
-
-
-  //-------------------------------Start of debugging backend functions------------------------------------------//
+  // -------------------------------Start of debugging backend
+  // functions------------------------------------------//
 
   /**
    * Asks user for name of item they wish to edit and then ask to change the total amount and the
@@ -123,6 +128,4 @@ public interface EquipmentDao {
    * @throws SQLException
    */
   public void saveEquipTableAsCSV() throws SQLException;
-
-
 }

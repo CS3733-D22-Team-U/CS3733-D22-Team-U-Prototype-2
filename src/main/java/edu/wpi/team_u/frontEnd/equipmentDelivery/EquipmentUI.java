@@ -6,11 +6,26 @@ public class EquipmentUI {
   private int amountAvailable;
   private int totalAmount;
 
+  private int requestAmount;
+  private String requestDate;
+  private String requestTime;
+
   public EquipmentUI(String name, int inUse, int available, int total) {
     equipmentName = name;
     amountInUse = inUse;
     amountAvailable = available;
     totalAmount = total;
+  }
+
+  public EquipmentUI(String name, int request, String date, String timestamp) {
+    equipmentName = name;
+    requestAmount = request;
+    requestDate = date;
+    requestTime = timestamp;
+  }
+
+  public int getRequestAmount() {
+    return requestAmount;
   }
 
   public String getEquipmentName() {
@@ -39,5 +54,13 @@ public class EquipmentUI {
 
   public void setTotalAmount(int totalAmount) {
     this.totalAmount = totalAmount;
+  }
+
+  public String getRequestDate() {
+    return requestDate;
+  }
+
+  public String getRequestTime() {
+    return requestTime;
   }
 }

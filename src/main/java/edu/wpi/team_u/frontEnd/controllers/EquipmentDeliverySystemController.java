@@ -1,6 +1,8 @@
 package edu.wpi.team_u.frontEnd.controllers;
 
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import edu.wpi.team_u.BackEnd.Equipment.Equipment;
 import edu.wpi.team_u.BackEnd.Udb;
@@ -10,7 +12,12 @@ import edu.wpi.team_u.frontEnd.services.IService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,15 +25,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
@@ -43,9 +49,25 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
   @FXML TableColumn<EquipmentUI, Integer> available;
   @FXML TableColumn<EquipmentUI, Integer> total;
   @FXML TableView<EquipmentUI> table;
-  ObservableList<EquipmentUI> equipmentUI = FXCollections.observableArrayList();
+  @FXML VBox requestHolder;
+  @FXML Text requestText;
+  @FXML Button clearButton;
+  @FXML Button submitButton;
+  @FXML TableColumn<EquipmentUI, String> activeReqName;
+  @FXML TableColumn<EquipmentUI, Integer> activeReqAmount;
+  @FXML TableColumn<EquipmentUI, String> activeDate;
+  @FXML TableColumn<EquipmentUI, String> activeTime;
+  @FXML TableView<EquipmentUI> activeRequestTable;
+  @FXML VBox inputFields;
 
+  ObservableList<EquipmentUI> equipmentUI = FXCollections.observableArrayList();
+  ObservableList<JFXCheckBox> checkBoxes = FXCollections.observableArrayList();
+  ObservableList<JFXTextArea> checkBoxesInput = FXCollections.observableArrayList();
+
+  ObservableList<EquipmentUI> equipmentUIRequests = FXCollections.observableArrayList();
   Udb udb = new Udb();
+
+  private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
   @SneakyThrows
   @Override
@@ -77,28 +99,138 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
             assistPane.setDisable(false);
           }
         });
-    setUpTable();
+    setUpAllEquipment();
+    setUpActiveRequests();
+    for (Node checkBox : requestHolder.getChildren()) {
+      checkBoxes.add((JFXCheckBox) checkBox);
+    }
+
+    for (Node textArea : inputFields.getChildren()) {
+      checkBoxesInput.add((JFXTextArea) textArea);
+    }
+
+    for (int i = 0; i < checkBoxesInput.size(); i++) {
+      int finalI = i;
+      checkBoxesInput
+          .get(i)
+          .disableProperty()
+          .bind(
+              Bindings.createBooleanBinding(
+                  () -> !checkBoxes.get(finalI).isSelected(),
+                  checkBoxes.stream().map(CheckBox::selectedProperty).toArray(Observable[]::new)));
+    }
+    clearButton
+        .disableProperty()
+        .bind(
+            Bindings.createBooleanBinding(
+                () -> checkBoxes.stream().noneMatch(JFXCheckBox::isSelected),
+                checkBoxes.stream().map(CheckBox::selectedProperty).toArray(Observable[]::new)));
+
+    submitButton
+        .disableProperty()
+        .bind(
+            Bindings.createBooleanBinding(
+                () -> checkBoxes.stream().noneMatch(JFXCheckBox::isSelected),
+                checkBoxes.stream().map(CheckBox::selectedProperty).toArray(Observable[]::new)));
   }
 
-  private void setUpTable() {
+  private void setUpAllEquipment() {
     nameCol.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("equipmentName"));
     inUse.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("amountInUse"));
     available.setCellValueFactory(
         new PropertyValueFactory<EquipmentUI, Integer>("amountAvailable"));
     total.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("totalAmount"));
-
     table.setItems(getEquipmentList());
   }
 
   public void increase(ActionEvent actionEvent) throws IOException {
     try {
-      udb.EquipmentImpl.editEquipValue("src/main/resources/TowerEquipment.csv", "Masks", 1, 4);
+
+      udb.EquipmentImpl.editEquipValue(
+          "src/main/resources/TowerEquipment.csv",
+          "Masks",
+          udb.EquipmentImpl.EquipmentList.get(1).getAmount() + 1,
+          udb.EquipmentImpl.EquipmentList.get(1).getInUse() + 1);
       System.out.println(udb.EquipmentImpl.EquipmentList.get(1).getAmount());
       getEquipmentList();
     } catch (SQLException e) {
       e.printStackTrace();
     }
     table.refresh();
+  }
+
+  public void submitRequest(ActionEvent actionEvent) {
+    String request = "Your request for : ";
+    String endRequest = " has been placed successfully";
+    int requestAmount = 0;
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+    for (JFXCheckBox checkBox : checkBoxes) {
+      if (checkBox.isSelected()) {
+        String input = checkBoxesInput.get(checkBoxes.indexOf(checkBox)).getText();
+        if (input.equals("")) {
+          input = "0";
+        }
+        requestAmount = Integer.parseInt(input);
+
+        request += " " + checkBox.getText();
+        activeRequestTable.setItems(
+            newRequest(
+                checkBox.getText(),
+                requestAmount,
+                sdf3.format(timestamp).substring(0, 10),
+                sdf3.format(timestamp).substring(11)));
+      }
+    }
+    requestText.setText(request + endRequest);
+    requestText.setVisible(true);
+    new Thread(
+            () -> {
+              try {
+                Thread.sleep(3500); // milliseconds
+                Platform.runLater(
+                    () -> {
+                      requestText.setVisible(false);
+                    });
+              } catch (InterruptedException ie) {
+              }
+            })
+        .start();
+  }
+
+  private void setUpActiveRequests() {
+    activeReqName.setCellValueFactory(
+        new PropertyValueFactory<EquipmentUI, String>("equipmentName"));
+    activeReqAmount.setCellValueFactory(
+        new PropertyValueFactory<EquipmentUI, Integer>("requestAmount"));
+    activeDate.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("requestDate"));
+    activeTime.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("requestTime"));
+  }
+
+  private ObservableList<EquipmentUI> newRequest(
+      String name, int amount, String date, String time) {
+    equipmentUIRequests.add(new EquipmentUI(name, amount, date, time));
+    return equipmentUIRequests;
+  }
+
+  public void clearRequest(ActionEvent actionEvent) {
+    for (JFXCheckBox checkBox : checkBoxes) {
+      checkBox.setSelected(false);
+      requestText.setText("Cleared Requests!");
+    }
+    requestText.setVisible(true);
+    new Thread(
+            () -> {
+              try {
+                Thread.sleep(1500); // milliseconds
+                Platform.runLater(
+                    () -> {
+                      requestText.setVisible(false);
+                    });
+              } catch (InterruptedException ie) {
+              }
+            })
+        .start();
   }
 
   private ObservableList<EquipmentUI> getEquipmentList() {
