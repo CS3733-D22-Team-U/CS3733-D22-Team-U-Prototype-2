@@ -282,7 +282,8 @@ public class LocationDaoImpl implements LocationDao {
     this.JavaToCSV(csvFile);
   }
 
-  public void editLocValue(String nodeID, String floor, String nodeType, String csvFile) throws IOException, SQLException {
+  public void editLocValue(String nodeID, String floor, String nodeType, String csvFile)
+      throws IOException, SQLException {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
     // input ID

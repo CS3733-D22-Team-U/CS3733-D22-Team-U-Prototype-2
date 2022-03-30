@@ -177,8 +177,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
   }
 
-
-  //-----------------------------Start of debugging backend functions------------------------------//
+  // -----------------------------Start of debugging backend
+  // functions------------------------------//
 
   /**
    * editEmployee: makes a SQL table from the given CSV filepath, then prompts for an ID and updates
@@ -284,16 +284,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
   }
 
-  //-----------------------------End of debugging backend functions------------------------------//
+  // -----------------------------End of debugging backend functions------------------------------//
 
-
-
-
-
-
-
-
-  //-----------------------------Start of frontend backend functions------------------------------//
+  // -----------------------------Start of frontend backend
+  // functions------------------------------//
 
   /**
    * editEmployee: makes a SQL table from the given CSV filepath, then prompts for an ID and updates
@@ -304,7 +298,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
    * @throws IOException
    * @throws SQLException
    */
-  public void editEmployee(String csvFile, String inputEmployeeID, String inputNewOccupation, int inputNewReports) throws IOException, SQLException {
+  public void editEmployee(
+      String csvFile, String inputEmployeeID, String inputNewOccupation, int inputNewReports)
+      throws IOException, SQLException {
     // takes entries from SQL table that match input id and updates it with
     // a new occupation
     // a new number of reports
@@ -348,7 +344,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
    * @throws IOException
    * @throws SQLException
    */
-  public void removeEmployee(String csvFile, String userEmployeeID) throws IOException, SQLException {
+  public void removeEmployee(String csvFile, String userEmployeeID)
+      throws IOException, SQLException {
     // removes entries from SQL table that match input node
     // prompt for ID
 
