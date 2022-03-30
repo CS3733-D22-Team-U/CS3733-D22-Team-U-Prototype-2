@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import edu.wpi.team_u.frontEnd.services.IService;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,20 +20,27 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class MedicineDeliveryController implements Initializable {
-  @FXML
-  private JFXCheckBox Advil;
-  private JFXCheckBox Alprozalam;
-  private JFXCheckBox AmphetamineSalt;
-  private JFXCheckBox Atorvastatin;
-  private JFXCheckBox Lisinopril;
-  private JFXCheckBox Metforminl;
+public class MedicineDeliveryController implements Initializable, IService {
 
-  private TextArea specialReq;
-  private TextField patientName;
-  private TextField staffName;
+  @FXML JFXCheckBox Advil;
+  @FXML JFXCheckBox Alprozalam;
+  @FXML JFXCheckBox AmphetamineSalt;
+  @FXML JFXCheckBox Atorvastatin;
+  @FXML JFXCheckBox Lisinopril;
+  @FXML JFXCheckBox Metformin;
+  @FXML JFXCheckBox specialCheck;
+
+  @FXML TextArea specialReq;
+  @FXML TextField patientName;
+  @FXML TextField staffName;
+  @FXML
+  Text resetDone;
+  @FXML
+  Text processText;
+  //Text status;
 
 
 
@@ -42,6 +51,66 @@ public class MedicineDeliveryController implements Initializable {
   JFXHamburger hamburger;
   @FXML
   VBox vBoxPane;
+
+  public void clear(){
+    Advil.setSelected(false);
+    Alprozalam.setSelected(false);
+    AmphetamineSalt.setSelected(false);
+    Atorvastatin.setSelected(false);
+    Lisinopril.setSelected(false);
+    Metformin.setSelected(false);
+    specialCheck.setSelected(false);
+
+    specialReq.setText("");
+    patientName.setText("");
+    staffName.setText("");
+
+    resetDone.setText("Cleared requests!");
+    resetDone.setVisible(true);
+    new Thread(
+            () -> {
+              try {
+                Thread.sleep(1500); // milliseconds
+                Platform.runLater(
+                        () -> {
+                          resetDone.setVisible(false);
+                        });
+              } catch (InterruptedException ie) {
+              }
+            })
+            .start();
+  }
+
+public void process(){
+    processText.setText("Processing...");
+    processText.setVisible(true);
+  new Thread(
+          () -> {
+            try {
+              Thread.sleep(4000); // milliseconds
+              Platform.runLater(
+                      () -> {
+                        processText.setText("Done!");
+                      });
+            } catch (InterruptedException ie) {
+            }
+          })
+          .start();
+}
+/*
+  public void checkFields(){
+    if(patientName.equals("") || staffName.equals("") ){
+      status.setText("Fill out all required fields!");
+      status.setVisible(true);
+    }
+    if((Advil.isSelected() && Atorvastatin.isSelected() && Alprozalam.isSelected() && AmphetamineSalt.isSelected() && Lisinopril.isSelected() && Metformin.isSelected() && specialCheck.isSelected()) == false){
+      status.setText("Fill out all required fields!");
+      status.setVisible(true);
+    }
+
+  }
+
+ */
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -56,8 +125,36 @@ public class MedicineDeliveryController implements Initializable {
             });
   }
 
+  @Override
+  public void addRequest() {
+
+  }
+
+  @Override
+  public void removeRequest() {
+
+  }
+
+  @Override
+  public void updateRequest() {
+
+  }
+
+  @Override
+  public void displayRequest() {
+
+  }
+
   public void toHome(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
+
+  @Override
+  public void toLabRequest(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/labRequestService.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
@@ -83,12 +180,34 @@ public class MedicineDeliveryController implements Initializable {
     appStage.setScene(scene);
   }
 
+  @Override
+  public void toMap(ActionEvent actionEvent) throws IOException {
+
+  }
+
   public void toMealDelivery(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/mealDelivery.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
   }
+
+  @Override
+  public void toGiftAndFloral(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/giftFloralService.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
+
+  @Override
+  public void toLaundry(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/laundryService.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
+
 
   public void togiftFloralService(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/giftFloralService.fxml");
@@ -111,10 +230,7 @@ public class MedicineDeliveryController implements Initializable {
     appStage.show();
   }
 
-  public void toServicePage(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
+
+
+
 }
