@@ -185,10 +185,8 @@ public class EquipmentDaoImpl implements EquipmentDao {
     // menu
   }
 
-
-
-
-  //-------------------------------Start of debugging backend functions------------------------------------------//
+  // -------------------------------Start of debugging backend
+  // functions------------------------------------------//
 
   /**
    * Asks user for name of item they wish to edit and then ask to change the total amount and the
@@ -293,25 +291,23 @@ public class EquipmentDaoImpl implements EquipmentDao {
     }
   }
 
-  //-------------------------------End of debugging backend functions------------------------------------------//
+  // -------------------------------End of debugging backend
+  // functions------------------------------------------//
 
-
-
-
-
-
-
-
-  //-------------------------------Start of frontend to backend functions------------------------------------------//
+  // -------------------------------Start of frontend to backend
+  // functions------------------------------------------//
 
   /**
-   * Asks user for name of item they wish to edit and then ask to change
-   * the total amount and the amount in use, Then changes the values in the database and csv file
+   * Asks user for name of item they wish to edit and then ask to change the total amount and the
+   * amount in use, Then changes the values in the database and csv file
+   *
    * @param csvFile
    * @throws IOException
    * @throws SQLException
    */
-  public void editEquipValue(String csvFile, String inputName, String inputNewAmount, String inputInUse) throws IOException, SQLException {
+  public void editEquipValue(
+      String csvFile, String inputName, String inputNewAmount, String inputInUse)
+      throws IOException, SQLException {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
     // input ID
@@ -331,6 +327,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
 
   /**
    * Prompts user for the name of a new item and then adds it to the csv file and database
+   *
    * @param csvFile
    * @throws IOException
    * @throws SQLException
@@ -347,8 +344,9 @@ public class EquipmentDaoImpl implements EquipmentDao {
   }
 
   /**
-   * Prompts user for the name of the item they wish to remove and then removes that item
-   * from the database and csv file
+   * Prompts user for the name of the item they wish to remove and then removes that item from the
+   * database and csv file
+   *
    * @param csvFile
    * @throws IOException
    * @throws SQLException
@@ -370,6 +368,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
   /**
    * Prompts user for the name of a new file and then creates the new file in the project folder
    * then it copies the database table: EquipmentList into the CSV file
+   *
    * @throws SQLException
    */
   public void saveEquipTableAsCSV(String CSVName) throws SQLException {

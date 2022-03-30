@@ -6,18 +6,33 @@ import edu.wpi.team_u.Uapp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LaundryController implements Initializable {
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
+  @FXML Text laundryStatus;
+  @FXML CheckBox hangCB;
+  @FXML CheckBox machineCB;
+  @FXML CheckBox hypoCB;
+  @FXML TextField patientNameLaundry;
+  @FXML TextField employeeNameLaundry;
+  @FXML TextField locationLaundry;
+  @FXML TextField dropOffTF;
+  @FXML TextField pickUpTF;
+  @FXML TextArea notesLaundryTA;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -30,13 +45,6 @@ public class LaundryController implements Initializable {
           closeTransition.play();
           vBoxPane.setVisible(!vBoxPane.isVisible());
         });
-  }
-
-  public void backToServicePage(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
   }
 
   public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
@@ -52,36 +60,8 @@ public class LaundryController implements Initializable {
     appStage.show();
   }
 
-  public void toSecurityService(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/labRequestServices.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  public void toServicePage(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
   public void toHome(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  public void togiftFloralService(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/giftFloralService.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  public void toDeliverEquipmentController(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/equipmentDelivery.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
@@ -92,5 +72,39 @@ public class LaundryController implements Initializable {
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
+  }
+
+  public void placeLaundryRequest(ActionEvent actionEvent) {
+    laundryStatus.setText("Processing...");
+    laundryStatus.setVisible(true);
+    new Thread(
+            () -> {
+              try {
+                Thread.sleep(1500); // milliseconds
+                Platform.runLater(
+                    () -> {
+                      laundryStatus.setText("Done");
+                    });
+                Thread.sleep(1500); // milliseconds
+                Platform.runLater(
+                    () -> {
+                      laundryStatus.setVisible(false);
+                    });
+              } catch (InterruptedException ie) {
+              }
+            })
+        .start();
+  }
+
+  public void clearLaundryRequest(ActionEvent actionEvent) {
+    hangCB.setSelected(false);
+    machineCB.setSelected(false);
+    hypoCB.setSelected(false);
+    patientNameLaundry.setText("");
+    employeeNameLaundry.setText("");
+    locationLaundry.setText("");
+    dropOffTF.setText("");
+    pickUpTF.setText("");
+    notesLaundryTA.setText("");
   }
 }

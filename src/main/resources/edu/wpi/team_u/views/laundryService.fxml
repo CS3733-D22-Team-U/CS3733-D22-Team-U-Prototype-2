@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
@@ -12,6 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -24,11 +27,6 @@
                   <Image url="@../icons/laundryIcon.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" layoutX="240.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Laundry Services" wrappingWidth="645.65234375">
-               <font>
-                  <Font name="System Bold" size="60.0" />
-               </font>
-            </Text>
          </children>
          <effect>
             <DropShadow />
@@ -121,34 +119,33 @@
                   </VBox>
                </children>
             </JFXHamburger>
-            <Group layoutX="244.0" layoutY="192.0" translateY="-12.0">
+            <Group layoutX="809.0" layoutY="507.0" translateY="-12.0">
                <children>
-                  <Text layoutX="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status (Processing or Done) " translateX="2.0" wrappingWidth="223.9365234375">
+                  <Text layoutX="-59.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" translateX="2.0" wrappingWidth="74.6031494140625">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="24.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="4.0" layoutY="10.0" />
                </children>
             </Group>
-            <Group layoutX="287.0" layoutY="313.0" translateX="-25.0" translateY="-70.0">
+            <Group layoutX="287.0" layoutY="262.0" translateX="-25.0" translateY="-70.0">
                <children>
                   <Text layoutX="-16.0" layoutY="-5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Member Assigned">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="-12.0" layoutY="10.0" />
+                  <TextField fx:id="employeeNameLaundry" layoutX="-12.0" layoutY="10.0" />
                </children>
             </Group>
-            <Group layoutX="271.0" layoutY="418.0" translateX="-22.0" translateY="-110.0">
+            <Group layoutX="271.0" layoutY="362.0" translateX="-22.0" translateY="-110.0">
                <children>
                   <Text layoutX="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField layoutY="10.0" />
+                  <TextField fx:id="locationLaundry" layoutY="10.0" />
                </children>
             </Group>
             <Group layoutX="274.0" layoutY="252.0" translateX="-25.0" translateY="-130.0">
@@ -158,7 +155,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField layoutY="10.0" />
+                  <TextField fx:id="patientNameLaundry" layoutY="10.0" />
                </children>
             </Group>
             <TextArea id="placingOrder" layoutX="336.0" layoutY="321.0" prefHeight="111.0" prefWidth="433.0" text="Placing Order..." visible="false">
@@ -166,7 +163,80 @@
                   <Font size="48.0" />
                </font>
             </TextArea>
+            <Text fill="WHITE" layoutX="305.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Laundry Services" wrappingWidth="514.0">
+               <font>
+                  <Font name="System Bold" size="60.0" />
+               </font>
+            </Text>
+            <Group layoutX="249.0" layoutY="311.0">
+               <children>
+                  <Text layoutX="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop Off Date (MM/DD/YYYY)">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="dropOffTF" layoutY="10.0" />
+               </children>
+            </Group>
+            <Group layoutX="249.0" layoutY="370.0">
+               <children>
+                  <Text layoutX="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick Up Date (MM/DD/YYYY)">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="pickUpTF" layoutY="10.0" />
+               </children>
+            </Group>
+            <Text layoutX="248.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check specific services to request:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <JFXCheckBox fx:id="hangCB" layoutX="249.0" layoutY="476.0" text="Hang-Dry">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="machineCB" layoutX="365.0" layoutY="477.0" text="Machine-Dry">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="hypoCB" layoutX="507.0" layoutY="478.0" text="Hypo-allergenic">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXCheckBox>
+            <Text layoutX="629.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Additional Notes:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <JFXTextArea fx:id="notesLaundryTA" layoutX="629.0" layoutY="178.0" prefHeight="176.0" prefWidth="299.0" style="-fx-background-color: WHITE;" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="40.0" layoutX="828.0" layoutY="567.0" stroke="BLACK" strokeType="INSIDE" width="168.0" />
+            <Text fx:id="laundryStatus" layoutX="834.0" layoutY="598.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="132.333251953125">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
+      <Button alignment="CENTER" layoutX="576.0" layoutY="645.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#clearLaundryRequest" prefHeight="59.0" prefWidth="122.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #89D7BF;" text="Clear">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button fx:id="placeLaundryRequest" alignment="CENTER" layoutX="430.0" layoutY="646.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#placeLaundryRequest" prefHeight="59.0" prefWidth="122.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #89D7BF;" text="OK">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>
