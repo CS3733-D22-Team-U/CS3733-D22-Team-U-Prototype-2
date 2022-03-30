@@ -40,7 +40,15 @@ public class EquipmentDeliverySystemController implements Initializable {
     appStage.show();
   }
 
-  /*
+    public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
+        Scene scene = Uapp.getScene("edu/wpi/team_u/views/medicineDelivery.fxml");
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        appStage.setScene(scene);
+    }
+
+
+    /*
+
   public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -55,11 +63,7 @@ public class EquipmentDeliverySystemController implements Initializable {
     appStage.show();
   }
 
-  public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/medicineDelivery.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-  }
+
 
   public void toMealDelivery(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/team_u/views/mealDelivery.fxml");
