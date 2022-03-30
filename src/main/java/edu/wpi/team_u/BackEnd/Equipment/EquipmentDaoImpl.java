@@ -186,7 +186,6 @@ public class EquipmentDaoImpl implements EquipmentDao {
   }
 
   @Override
-
   // -------------------------------Start of debugging backend
   // functions------------------------------------------//
 

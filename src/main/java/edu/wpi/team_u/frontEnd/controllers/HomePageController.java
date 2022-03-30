@@ -22,6 +22,13 @@ public class HomePageController {
     appStage.setScene(scene);
     appStage.show();
   }
+
+  public void togiftFloralService(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/team_u/views/giftFloralService.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
   /*
   public Button laundryService;
   public Button equipmentDelivery;
