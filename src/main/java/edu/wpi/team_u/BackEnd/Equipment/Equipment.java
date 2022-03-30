@@ -8,6 +8,7 @@ public class Equipment {
 
   /**
    * Contructor for Equipment datatype that only takes a name
+   *
    * @param name
    */
   public Equipment(String name) {
@@ -19,6 +20,7 @@ public class Equipment {
 
   /**
    * Contructor for Equipment datatype that take in name, amount, in use
+   *
    * @param name
    * @param amount
    * @param inuse
@@ -32,6 +34,7 @@ public class Equipment {
 
   /**
    * Return Equipment name
+   *
    * @return String
    */
   public String getName() {
@@ -40,6 +43,7 @@ public class Equipment {
 
   /**
    * return Equipment amount
+   *
    * @return int
    */
   public int getAmount() {
@@ -48,6 +52,7 @@ public class Equipment {
 
   /**
    * return InUse
+   *
    * @return int
    */
   public int getInUse() {
@@ -56,6 +61,7 @@ public class Equipment {
 
   /**
    * return available
+   *
    * @return int
    */
   public int getAvailable() {

@@ -11,13 +11,12 @@ public class Location {
   String longName;
   String shortName;
 
-  /**
-   * Empty constructor
-   */
+  /** Empty constructor */
   public Location() {}
 
   /**
    * Location constuctor that only take in the nodeID
+   *
    * @param nodeID
    */
   public Location(String nodeID) {
@@ -33,6 +32,7 @@ public class Location {
 
   /**
    * Location constructor that takes in all attributes
+   *
    * @param nodeID
    * @param xcoord
    * @param ycoord
@@ -63,6 +63,7 @@ public class Location {
 
   /**
    * Method that rturn the locations header
+   *
    * @return String
    */
   @Override

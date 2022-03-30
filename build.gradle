@@ -24,6 +24,7 @@ javafx {
 
 dependencies {
     implementation(
+          //  'io.freefair.gradle:lombok-plugin:5.3.3.3',
             'com.jfoenix:jfoenix:9.0.10',
 
             // You may comment out the database dependency you do not use
