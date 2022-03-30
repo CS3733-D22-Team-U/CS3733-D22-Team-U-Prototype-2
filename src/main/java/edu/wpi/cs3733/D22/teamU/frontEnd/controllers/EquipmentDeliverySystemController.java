@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
+import static edu.wpi.cs3733.D22.teamU.BackEnd.Udb.copyFile;
+
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextArea;
@@ -11,6 +13,7 @@ import edu.wpi.cs3733.D22.teamU.frontEnd.services.IService;
 import edu.wpi.team_u.BackEnd.EquipmentRequest.RequestEquip;
 import edu.wpi.team_u.frontEnd.equipmentDelivery.EquipmentUI;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -74,12 +77,31 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
-    String csvLocationFile = "edu/wpi/cs3733/D22/teamU/csvTables/TowerLocations.csv";
-    String csvEmployee = "edu/wpi/cs3733/D22/teamU/csvTables/TowerEmployees.csv";
-    String csvEquipment = "edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipment.csv";
-    String csvEquipmentRequest = "edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipmentRequests.csv";
+    InputStream csvLocationFile =
+        Udb.class
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/team_u/csvTables/TowerLocations.csv");
+    String towerLocations = copyFile(csvLocationFile, "csvTables/TowerLocations.csv");
 
-    String[] CSVfiles = {csvLocationFile, csvEmployee, csvEquipment, csvEquipmentRequest};
+    InputStream csvEmployee =
+        Udb.class
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/team_u/csvTables/TowerEmployees.csv");
+    String employees = copyFile(csvEmployee, "csvTables/TowerEmployees.csv");
+
+    InputStream csvEquipment =
+        Udb.class
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/team_u/csvTables/TowerEquipment.csv");
+    String equipment = copyFile(csvEquipment, "csvTables/TowerEquipment.csv");
+
+    InputStream csvEquipmentRequest =
+        Udb.class
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/team_u/csvTables/TowerEquipmentRequests.csv");
+    String equipmentRequest = copyFile(csvEquipmentRequest, "csvTables/TowerEquipmentRequests.csv");
+
+    String[] CSVfiles = {towerLocations, employees, equipment, equipmentRequest};
 
     udb.start("admin", "admin", CSVfiles);
     closeTransition.setRate(-1);
