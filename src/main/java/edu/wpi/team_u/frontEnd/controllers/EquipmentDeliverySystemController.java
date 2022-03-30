@@ -91,8 +91,7 @@ public class EquipmentDeliverySystemController implements Initializable {
 
   public void increase(ActionEvent actionEvent) throws IOException {
     try {
-      udb.EquipmentImpl.editEquipValue(
-          "src/main/resources/TowerEquipment.csv", "Masks", 10000, 101);
+      udb.EquipmentImpl.editEquipValue("src/main/resources/TowerEquipment.csv", "Masks", 1, 4);
       System.out.println(udb.EquipmentImpl.EquipmentList.get(1).getAmount());
       getEquipmentList();
     } catch (SQLException e) {
