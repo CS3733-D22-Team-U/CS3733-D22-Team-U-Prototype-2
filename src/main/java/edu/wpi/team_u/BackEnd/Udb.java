@@ -10,9 +10,9 @@ import java.util.Scanner;
 public class Udb {
 
   public String DB_LOC = "jdbc:derby:UDB;";
-  private LocationDaoImpl locationImpl = new LocationDaoImpl(DB_LOC);
-  private EquipmentDaoImpl EquipmentImpl = new EquipmentDaoImpl(DB_LOC);
-  private EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
+  public LocationDaoImpl locationImpl = new LocationDaoImpl(DB_LOC);
+  public EquipmentDaoImpl EquipmentImpl = new EquipmentDaoImpl(DB_LOC);
+  public EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
 
   public static void main(String[] args) throws IOException, SQLException {
     Udb udb = new Udb();
@@ -81,7 +81,7 @@ public class Udb {
     EquipmentImpl.CSVToJava(CSVfiles[2]);
     EquipmentImpl.JavaToSQL();
 
-    menu(CSVfiles);
+    // menu(CSVfiles);
   }
 
   // This function is called in main the starts the menu where a client can access and or change

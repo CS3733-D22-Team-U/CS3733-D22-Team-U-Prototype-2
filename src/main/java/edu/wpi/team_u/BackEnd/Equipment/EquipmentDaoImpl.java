@@ -151,6 +151,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
     // menu
   }
 
+  @Override
   public void editEquipValue(String csvFile) throws IOException, SQLException {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
@@ -169,6 +170,33 @@ public class EquipmentDaoImpl implements EquipmentDao {
       if (this.EquipmentList.get(i).getName().equals(inputName)) {
         this.EquipmentList.get(i).Amount = Integer.parseInt(inputNewAmount);
         this.EquipmentList.get(i).InUse = Integer.parseInt(inputInUse);
+      }
+    }
+    this.JavaToSQL();
+    ; // t
+    this.SQLToJava(); // t
+    // this.JavaToCSV(csvFile); // t
+  }
+
+  public void editEquipValue(String csvFile, String inputName, int inputNewAmount, int inputInUse)
+      throws IOException, SQLException {
+    // takes entries from SQL table that match input node and updates it with a new floor and
+    // location type
+    // input ID
+    // Scanner s = new Scanner(System.in);
+    // System.out.println("Please input the name: ");
+    // String inputName = s.nextLine();
+    // input new floor
+    // System.out.println("New Amount: ");
+    // String inputNewAmount = s.nextLine();
+    // input new location type
+    // System.out.println("New In Use type");
+    // String inputInUse = s.nextLine();
+    // this.CSVToJava(csvFile); // t
+    for (int i = 0; i < this.EquipmentList.size(); i++) {
+      if (this.EquipmentList.get(i).getName().equals(inputName)) {
+        this.EquipmentList.get(i).Amount = inputNewAmount;
+        this.EquipmentList.get(i).InUse = inputInUse;
       }
     }
     this.JavaToSQL();
