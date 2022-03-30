@@ -9,10 +9,21 @@ public class EquipmentDaoImpl implements EquipmentDao {
   public String DB_LOC;
   public ArrayList<Equipment> EquipmentList = new ArrayList<Equipment>();
 
+  /**
+   * Constructor for EquipmentDaoImpl
+   *
+   * @param db_loc
+   */
   public EquipmentDaoImpl(String db_loc) {
     this.DB_LOC = db_loc;
   }
 
+  /**
+   * Reads CSV file and puts the Equipment into an array list: EquipmentList
+   *
+   * @param csvFile
+   * @throws IOException
+   */
   public void CSVToJava(String csvFile) throws IOException {
     EquipmentList = new ArrayList<Equipment>();
     String s;
@@ -28,6 +39,11 @@ public class EquipmentDaoImpl implements EquipmentDao {
     }
   }
 
+  /**
+   * Reads the array list: EquipmentList, then opens up a connection to the UDB database, then it
+   * creates a new table called in the UDB database table: EquipmentList. It then inserts the array
+   * list: EquipmentList into the UDB database table: EquipmentList
+   */
   public void JavaToSQL() {
 
     try {
@@ -72,6 +88,12 @@ public class EquipmentDaoImpl implements EquipmentDao {
     }
   }
 
+  /**
+   * Clears the array list: EquipmentList and then reads the UDB database table: EquipmentList then
+   * copies the to the cleared array list
+   *
+   * @throws SQLException
+   */
   public void SQLToJava() throws SQLException {
     EquipmentList = new ArrayList<Equipment>();
 
@@ -105,6 +127,12 @@ public class EquipmentDaoImpl implements EquipmentDao {
     }
   }
 
+  /**
+   * Copies the array list: EquipmentList and writes it into the CSV file
+   *
+   * @param csvFile
+   * @throws IOException
+   */
   public void JavaToCSV(String csvFile) throws IOException {
     PrintWriter fw = new PrintWriter(new File(csvFile));
 
@@ -132,6 +160,12 @@ public class EquipmentDaoImpl implements EquipmentDao {
     fw.close();
   }
 
+  /**
+   * Prints out the Contents of the CSV file TowerEquipment.csv
+   *
+   * @param csvFile
+   * @throws IOException
+   */
   public void printEquipTableInTerm(String csvFile) throws IOException {
     // csv to java
     this.CSVToJava(csvFile);
@@ -151,6 +185,19 @@ public class EquipmentDaoImpl implements EquipmentDao {
     // menu
   }
 
+
+
+
+  //-------------------------------Start of debugging backend functions------------------------------------------//
+
+  /**
+   * Asks user for name of item they wish to edit and then ask to change the total amount and the
+   * amount in use, Then changes the values in the database and csv file
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
   public void editEquipValue(String csvFile) throws IOException, SQLException {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
@@ -162,7 +209,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
     System.out.println("New Amount: ");
     String inputNewAmount = s.nextLine();
     // input new location type
-    System.out.println("New In Use type");
+    System.out.println("How many in use? ");
     String inputInUse = s.nextLine();
     this.CSVToJava(csvFile); // t
     for (int i = 0; i < this.EquipmentList.size(); i++) {
@@ -177,6 +224,13 @@ public class EquipmentDaoImpl implements EquipmentDao {
     this.JavaToCSV(csvFile); // t
   }
 
+  /**
+   * Prompts user for the name of a new item and then adds it to the csv file and database
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
   public void addEquip(String csvFile) throws IOException, SQLException {
     // add a new entry to the SQL table
     // prompt for ID
@@ -190,6 +244,14 @@ public class EquipmentDaoImpl implements EquipmentDao {
     this.JavaToCSV(csvFile);
   }
 
+  /**
+   * Prompts user for the name of the item they wish to remove and then removes that item from the
+   * database and csv file
+   *
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
   public void removeEquip(String csvFile) throws IOException, SQLException {
     // removes entries from SQL table that match input node
     // prompt for ID
@@ -206,6 +268,12 @@ public class EquipmentDaoImpl implements EquipmentDao {
     this.JavaToCSV(csvFile);
   }
 
+  /**
+   * Prompts user for the name of a new file and then creates the new file in the project folder
+   * then it copies the database table: EquipmentList into the CSV file
+   *
+   * @throws SQLException
+   */
   public void saveEquipTableAsCSV() throws SQLException {
     // takes entries from SQL table and an input name, from there it makes a new CSV file
     Scanner s = new Scanner(System.in);
@@ -213,6 +281,100 @@ public class EquipmentDaoImpl implements EquipmentDao {
     System.out.println("Enter CSV file location name");
 
     String CSVName = s.nextLine();
+    String csvFilePath = "./" + CSVName + ".csv";
+
+    try {
+      new File(csvFilePath);
+      this.SQLToJava();
+      this.JavaToCSV(csvFilePath);
+
+    } catch (IOException e) {
+      System.out.println(e.fillInStackTrace());
+    }
+  }
+
+  //-------------------------------End of debugging backend functions------------------------------------------//
+
+
+
+
+
+
+
+
+  //-------------------------------Start of frontend to backend functions------------------------------------------//
+
+  /**
+   * Asks user for name of item they wish to edit and then ask to change
+   * the total amount and the amount in use, Then changes the values in the database and csv file
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
+  public void editEquipValue(String csvFile, String inputName, String inputNewAmount, String inputInUse) throws IOException, SQLException {
+    // takes entries from SQL table that match input node and updates it with a new floor and
+    // location type
+    // input ID
+
+    this.CSVToJava(csvFile); // t
+    for (int i = 0; i < this.EquipmentList.size(); i++) {
+      if (this.EquipmentList.get(i).getName().equals(inputName)) {
+        this.EquipmentList.get(i).Amount = Integer.parseInt(inputNewAmount);
+        this.EquipmentList.get(i).InUse = Integer.parseInt(inputInUse);
+      }
+    }
+    this.JavaToSQL();
+    ; // t
+    this.SQLToJava(); // t
+    this.JavaToCSV(csvFile); // t
+  }
+
+  /**
+   * Prompts user for the name of a new item and then adds it to the csv file and database
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
+  public void addEquip(String csvFile, String newName) throws IOException, SQLException {
+    // add a new entry to the SQL table
+    // prompt for ID
+
+    Equipment newEquipment = new Equipment(newName);
+    this.EquipmentList.add(newEquipment);
+    this.JavaToSQL();
+    this.SQLToJava();
+    this.JavaToCSV(csvFile);
+  }
+
+  /**
+   * Prompts user for the name of the item they wish to remove and then removes that item
+   * from the database and csv file
+   * @param csvFile
+   * @throws IOException
+   * @throws SQLException
+   */
+  public void removeEquip(String csvFile, String userNodeID) throws IOException, SQLException {
+    // removes entries from SQL table that match input node
+    // prompt for ID
+
+    for (int i = this.EquipmentList.size() - 1; i >= 0; i--) {
+      if (this.EquipmentList.get(i).getName().equals(userNodeID)) {
+        this.EquipmentList.remove(i);
+      }
+    }
+    this.JavaToSQL();
+    this.SQLToJava();
+    this.JavaToCSV(csvFile);
+  }
+
+  /**
+   * Prompts user for the name of a new file and then creates the new file in the project folder
+   * then it copies the database table: EquipmentList into the CSV file
+   * @throws SQLException
+   */
+  public void saveEquipTableAsCSV(String CSVName) throws SQLException {
+    // takes entries from SQL table and an input name, from there it makes a new CSV file
+
     String csvFilePath = "./" + CSVName + ".csv";
 
     try {
