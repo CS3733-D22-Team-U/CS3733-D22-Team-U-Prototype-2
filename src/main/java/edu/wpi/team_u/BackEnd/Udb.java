@@ -1,5 +1,11 @@
 package edu.wpi.team_u.BackEnd;
 
+/**
+ * ask about Harsh's override idea to simplify all the functions
+ * the tower locations master CSV does NOT have unique nodes
+ * ask about changing all of our array lists to hash maps
+ */
+
 import edu.wpi.team_u.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.team_u.BackEnd.Equipment.EquipmentDaoImpl;
 import edu.wpi.team_u.BackEnd.Location.LocationDaoImpl;
@@ -87,6 +93,7 @@ public class Udb {
   // This function is called in main the starts the menu where a client can access and or change
   // data in our SQL data base
   // This calls all of our private functions
+
   private void menu(String[] CSVfiles) throws IOException, SQLException {
 
     Scanner userInput = new Scanner(System.in);
@@ -231,4 +238,5 @@ public class Udb {
         break;
     }
   }
+
 }
