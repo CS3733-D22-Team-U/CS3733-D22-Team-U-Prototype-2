@@ -118,11 +118,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                 </JFXHamburger>
-            <TextField layoutX="228.0" layoutY="198.0">
+            <TextField fx:id="patientNameField" layoutX="228.0" layoutY="198.0">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <TextField layoutX="228.0" layoutY="256.0">
+            <TextField fx:id="staffMemberField" layoutX="228.0" layoutY="256.0">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
@@ -139,7 +139,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <CheckBox layoutX="420.0" layoutY="340.0" mnemonicParsing="false" text="Blood Test">
+            <CheckBox fx:id="bloodTest" layoutX="420.0" layoutY="340.0" mnemonicParsing="false" text="Blood Test">
                <font>
                   <Font size="14.0" />
                </font>
@@ -147,7 +147,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </CheckBox>
-            <CheckBox layoutX="420.0" layoutY="366.0" mnemonicParsing="false" text="COVID-19 Test">
+            <CheckBox fx:id="covidTest" layoutX="420.0" layoutY="366.0" mnemonicParsing="false" text="COVID-19 Test">
                <font>
                   <Font size="14.0" />
                </font>
@@ -155,7 +155,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </CheckBox>
-            <CheckBox layoutX="550.0" layoutY="340.0" mnemonicParsing="false" text="Urine Test">
+            <CheckBox fx:id="urineTest" layoutX="550.0" layoutY="340.0" mnemonicParsing="false" text="Urine Test">
                <font>
                   <Font size="14.0" />
                </font>
@@ -163,7 +163,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </CheckBox>
-            <CheckBox layoutX="550.0" layoutY="366.0" mnemonicParsing="false" text="Drug Screen Test">
+            <CheckBox fx:id="drugScreenTest" layoutX="550.0" layoutY="366.0" mnemonicParsing="false" text="Drug Screen Test">
                <font>
                   <Font size="14.0" />
                </font>
@@ -171,7 +171,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </CheckBox>
-            <CheckBox layoutX="420.0" layoutY="394.0" mnemonicParsing="false" text="Pregnancy Test">
+            <CheckBox fx:id="pregnancyTest" layoutX="420.0" layoutY="394.0" mnemonicParsing="false" text="Pregnancy Test">
                <font>
                   <Font size="14.0" />
                </font>
@@ -184,7 +184,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" layoutX="767.0" layoutY="408.0" mnemonicParsing="false" onAction="#backToServicePage" prefHeight="39.0" prefWidth="149.0" style="-fx-background-radius: 15; -fx-border-radius: 15px; -fx-background-color: #89D7BF;" text="Order" textAlignment="CENTER">
+            <Button alignment="CENTER" layoutX="767.0" layoutY="408.0" mnemonicParsing="false" onAction="#orderButton" prefHeight="39.0" prefWidth="149.0" style="-fx-background-radius: 15; -fx-border-radius: 15px; -fx-background-color: #89D7BF;" text="Order" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
@@ -198,7 +198,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <CheckBox layoutX="550.0" layoutY="395.0" mnemonicParsing="false" text="Other">
+            <CheckBox fx:id="otherCheck" layoutX="550.0" layoutY="395.0" mnemonicParsing="false" text="Other">
                <font>
                   <Font size="14.0" />
                </font>
@@ -206,8 +206,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </CheckBox>
-            <TextArea layoutX="417.0" layoutY="454.0" prefHeight="95.0" prefWidth="241.0" />
-            <Button layoutX="767.0" layoutY="461.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="149.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15; -fx-border-radius: 15;" text="Clear" textAlignment="CENTER">
+            <TextArea fx:id="otherField" layoutX="417.0" layoutY="454.0" prefHeight="95.0" prefWidth="241.0" />
+            <Button layoutX="767.0" layoutY="461.0" mnemonicParsing="false" onAction="#clearButton" prefHeight="39.0" prefWidth="149.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15; -fx-border-radius: 15;" text="Clear" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
@@ -220,7 +220,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
         </Pane>
-      <Label layoutX="779.0" layoutY="567.0" text="Request processing...">
+      <Label fx:id="requestProcessing" layoutX="779.0" layoutY="564.0" text="Request processing..." textAlignment="CENTER" visible="false">
          <font>
             <Font size="14.0" />
          </font>

@@ -6,12 +6,13 @@ import edu.wpi.team_u.Uapp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,6 +20,17 @@ import javafx.stage.Stage;
 public class labRequestServices implements Initializable {
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
+  @FXML Label requestProcessing;
+
+  @FXML CheckBox bloodTest;
+  @FXML CheckBox covidTest;
+  @FXML CheckBox pregnancyTest;
+  @FXML CheckBox urineTest;
+  @FXML CheckBox drugScreenTest;
+  @FXML CheckBox otherCheck;
+  @FXML TextArea otherField;
+  @FXML TextField patientNameField;
+  @FXML TextField staffMemberField;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -67,6 +79,35 @@ public class labRequestServices implements Initializable {
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
+  }
+
+  public void orderButton(ActionEvent actionEvent) throws IOException {
+    requestProcessing.setText("Request processing...");
+    requestProcessing.setVisible(true);
+    new Thread(
+            () -> {
+              try {
+                Thread.sleep(1500); // milliseconds
+                Platform.runLater(
+                    () -> {
+                      requestProcessing.setVisible(false);
+                    });
+              } catch (InterruptedException ie) {
+              }
+            })
+        .start();
+  }
+
+  public void clearButton(ActionEvent actionEvent) throws IOException {
+    bloodTest.setSelected(false);
+    covidTest.setSelected(false);
+    pregnancyTest.setSelected(false);
+    otherCheck.setSelected(false);
+    drugScreenTest.setSelected(false);
+    urineTest.setSelected(false);
+    patientNameField.setText("");
+    staffMemberField.setText("");
+    otherField.setText("");
   }
 
   public void togiftFloralService(ActionEvent actionEvent) throws IOException {
