@@ -1,19 +1,17 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
-import static edu.wpi.cs3733.D22.teamU.BackEnd.Udb.copyFile;
-
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
+import edu.wpi.cs3733.D22.teamU.BackEnd.EquipmentRequest.RequestEquip;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
+import edu.wpi.cs3733.D22.teamU.DBController;
 import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
+import edu.wpi.cs3733.D22.teamU.frontEnd.equipmentDelivery.EquipmentUI;
 import edu.wpi.cs3733.D22.teamU.frontEnd.services.IService;
-import edu.wpi.team_u.BackEnd.EquipmentRequest.RequestEquip;
-import edu.wpi.team_u.frontEnd.equipmentDelivery.EquipmentUI;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -69,7 +67,7 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
   ObservableList<JFXTextArea> checkBoxesInput = FXCollections.observableArrayList();
 
   ObservableList<EquipmentUI> equipmentUIRequests = FXCollections.observableArrayList();
-  Udb udb = new Udb();
+  Udb udb = DBController.udb;
 
   private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -77,33 +75,10 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
-    InputStream csvLocationFile =
-        Udb.class
-            .getClassLoader()
-            .getResourceAsStream("edu/wpi/team_u/csvTables/TowerLocations.csv");
-    String towerLocations = copyFile(csvLocationFile, "csvTables/TowerLocations.csv");
 
-    InputStream csvEmployee =
-        Udb.class
-            .getClassLoader()
-            .getResourceAsStream("edu/wpi/team_u/csvTables/TowerEmployees.csv");
-    String employees = copyFile(csvEmployee, "csvTables/TowerEmployees.csv");
+    // String[] CSVfiles = {towerLocations, employees, equipment, equipmentRequest};
 
-    InputStream csvEquipment =
-        Udb.class
-            .getClassLoader()
-            .getResourceAsStream("edu/wpi/team_u/csvTables/TowerEquipment.csv");
-    String equipment = copyFile(csvEquipment, "csvTables/TowerEquipment.csv");
-
-    InputStream csvEquipmentRequest =
-        Udb.class
-            .getClassLoader()
-            .getResourceAsStream("edu/wpi/team_u/csvTables/TowerEquipmentRequests.csv");
-    String equipmentRequest = copyFile(csvEquipmentRequest, "csvTables/TowerEquipmentRequests.csv");
-
-    String[] CSVfiles = {towerLocations, employees, equipment, equipmentRequest};
-
-    udb.start("admin", "admin", CSVfiles);
+    // udb.start("admin", "admin", CSVfiles);
     closeTransition.setRate(-1);
     hamburger.addEventHandler(
         MouseEvent.MOUSE_CLICKED,
@@ -244,7 +219,7 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
                 sdf3.format(timestamp).substring(11)));
         try {
           udb.requestEquipImpl.addRequest(
-              "edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipmentRequests.csv",
+              "csvTables/TowerEquipmentRequests.csv",
               checkBox.getText(),
               Integer.parseInt(checkBoxesInput.get(checkBoxes.indexOf(checkBox)).getText()),
               sdf3.format(timestamp).substring(0, 10),

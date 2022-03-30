@@ -6,8 +6,8 @@ package edu.wpi.cs3733.D22.teamU.BackEnd;
  */
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.EquipmentDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.EquipmentRequest.RequestDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
-import edu.wpi.team_u.BackEnd.EquipmentRequest.RequestDaoImpl;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -22,34 +22,6 @@ public class Udb {
   public EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
   public RequestDaoImpl requestEquipImpl = new RequestDaoImpl(DB_LOC);
 
-  public static void main(String[] args) throws IOException, SQLException {
-    Udb udb = new Udb();
-    String username = args[0];
-    String password = args[1];
-
-    File folder = new File("csvTables");
-    folder.mkdir();
-    InputStream csvLocationFile =
-        Udb.class
-            .getClassLoader()
-            .getResourceAsStream("edu/wpi/team_u/csvTables/TowerLocations.csv");
-    String location = copyFile(csvLocationFile, "csvTables/TowerLocations.csv");
-    InputStream csvEmployee =
-        Udb.class
-            .getClassLoader()
-            .getResourceAsStream("edu/wpi/team_u/csvTables/TowerEmployees.csv");
-    String employee = copyFile(csvEmployee, "csvTables/TowerEmployees.csv");
-    InputStream csvEquipment =
-        Udb.class
-            .getClassLoader()
-            .getResourceAsStream("edu/wpi/team_u/csvTables/TowerEquipment.csv");
-    String equipment = copyFile(csvEquipment, "csvTables/TowerEquipment.csv");
-
-    String[] CSVfiles = {location, employee, equipment};
-
-    udb.start(username, password, CSVfiles);
-  }
-
   public static String copyFile(InputStream inputPath, String outputPath) throws IOException {
     File f = new File(outputPath);
     f.createNewFile();
@@ -58,8 +30,7 @@ public class Udb {
     return outputPath;
   }
 
-  public void start(String username, String password, String[] CSVfiles)
-      throws IOException, SQLException {
+  public Udb(String username, String password, String[] CSVfiles) throws IOException, SQLException {
     locationImpl.DB_LOC = locationImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EmployeeImpl.DB_LOC = EmployeeImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EquipmentImpl.DB_LOC =

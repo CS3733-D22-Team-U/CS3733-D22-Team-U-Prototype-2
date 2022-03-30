@@ -1,4 +1,4 @@
-package edu.wpi.team_u.frontEnd.equipmentDelivery;
+package edu.wpi.cs3733.D22.teamU.frontEnd.equipmentDelivery;
 
 public class EquipmentUI {
   private String equipmentName;

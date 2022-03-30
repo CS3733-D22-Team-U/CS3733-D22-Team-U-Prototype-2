@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.D22.teamU;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,6 +8,7 @@ import java.nio.file.Files;
 import java.sql.SQLException;
 
 public class DBController {
+  public static Udb udb;
 
   public static void main(String[] args) throws IOException, SQLException {
     String username, password;
@@ -35,10 +37,15 @@ public class DBController {
             .getClassLoader()
             .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipment.csv");
     String equipment = copyFile(csvEquipment, "csvTables/TowerEquipment.csv");
+    InputStream csvRequest =
+        Main.class
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipmentRequests.csv");
+    String request = copyFile(csvRequest, "csvTables/TowerEquipmentRequests.csv");
 
-    String[] CSVfiles = {location, employee, equipment};
+    String[] CSVfiles = {location, employee, equipment, request};
 
-    // Udb udb = new Udb(username, password, CSVfiles);
+    udb = new Udb(username, password, CSVfiles);
 
     // udb.menu(CSVfiles); //Uncomment this to start terminal menu
   }
@@ -47,7 +54,8 @@ public class DBController {
     File f = new File(outputPath);
     // f.createNewFile();
     try {
-      Files.copy(inputPath, f.getAbsoluteFile().toPath());
+      Files.copy(
+          inputPath, f.getAbsoluteFile().toPath()); // todo remove replace existing after testing
     } catch (Exception e) {
       // Doesn't override if files already exist
     }

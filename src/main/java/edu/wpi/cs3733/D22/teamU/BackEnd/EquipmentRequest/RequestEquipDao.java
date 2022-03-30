@@ -1,4 +1,4 @@
-package edu.wpi.team_u.BackEnd.EquipmentRequest;
+package edu.wpi.cs3733.D22.teamU.BackEnd.EquipmentRequest;
 
 import java.io.IOException;
 import java.sql.SQLException;

@@ -1,4 +1,4 @@
-package edu.wpi.team_u.BackEnd.EquipmentRequest;
+package edu.wpi.cs3733.D22.teamU.BackEnd.EquipmentRequest;
 
 public class RequestEquip {
   String name;
