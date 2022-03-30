@@ -84,7 +84,6 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
     hamburger.addEventHandler(
         MouseEvent.MOUSE_CLICKED,
         e -> {
-          // if (((e.getY() <= 25) && (e.getY() >= 0)) && ((e.getX() <= 25) && (e.getX() >= 0))) {
           closeTransition.setRate(closeTransition.getRate() * -1);
           closeTransition.play();
           vBoxPane.setVisible(!vBoxPane.isVisible());
@@ -135,15 +134,14 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
   }
 
   private void setUpAllEquipment() {
-    nameCol.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("equipmentName"));
-    inUse.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("amountInUse"));
-    available.setCellValueFactory(
-        new PropertyValueFactory<EquipmentUI, Integer>("amountAvailable"));
-    total.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("totalAmount"));
+    nameCol.setCellValueFactory(new PropertyValueFactory<>("equipmentName"));
+    inUse.setCellValueFactory(new PropertyValueFactory<>("amountInUse"));
+    available.setCellValueFactory(new PropertyValueFactory<>("amountAvailable"));
+    total.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
     table.setItems(getEquipmentList());
   }
 
-  public void increase(ActionEvent actionEvent) throws IOException {
+  public void increase() throws IOException {
     try {
 
       udb.EquipmentImpl.editEquipValue(
@@ -151,6 +149,7 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
           "Masks",
           udb.EquipmentImpl.EquipmentList.get(1).getAmount() + 1,
           udb.EquipmentImpl.EquipmentList.get(1).getInUse() + 1);
+
       System.out.println(udb.EquipmentImpl.EquipmentList.get(1).getAmount());
       getEquipmentList();
     } catch (SQLException e) {
@@ -159,12 +158,12 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
     table.refresh();
   }
 
-  public void submitRequest(ActionEvent actionEvent) {
-    String request = "Your request for : ";
+  public void submitRequest() {
     String endRequest = " has been placed successfully";
-    int requestAmount = 0;
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
+    StringBuilder request = new StringBuilder("Your request for : ");
+    int requestAmount = 0;
     for (JFXCheckBox checkBox : checkBoxes) {
       if (checkBox.isSelected()) {
         String input = checkBoxesInput.get(checkBoxes.indexOf(checkBox)).getText();
@@ -173,7 +172,7 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
         }
         requestAmount = Integer.parseInt(input);
 
-        request += " " + checkBox.getText();
+        request.append(" ").append(checkBox.getText());
         activeRequestTable.setItems(
             newRequest(
                 checkBox.getText(),
@@ -199,12 +198,10 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
   }
 
   private void setUpActiveRequests() {
-    activeReqName.setCellValueFactory(
-        new PropertyValueFactory<EquipmentUI, String>("equipmentName"));
-    activeReqAmount.setCellValueFactory(
-        new PropertyValueFactory<EquipmentUI, Integer>("requestAmount"));
-    activeDate.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("requestDate"));
-    activeTime.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("requestTime"));
+    activeReqName.setCellValueFactory(new PropertyValueFactory<>("equipmentName"));
+    activeReqAmount.setCellValueFactory(new PropertyValueFactory<>("requestAmount"));
+    activeDate.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
+    activeTime.setCellValueFactory(new PropertyValueFactory<>("requestTime"));
   }
 
   private ObservableList<EquipmentUI> newRequest(
@@ -213,11 +210,11 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
     return equipmentUIRequests;
   }
 
-  public void clearRequest(ActionEvent actionEvent) {
+  public void clearRequest() {
     for (JFXCheckBox checkBox : checkBoxes) {
       checkBox.setSelected(false);
-      requestText.setText("Cleared Requests!");
     }
+    requestText.setText("Cleared Requests!");
     requestText.setVisible(true);
     new Thread(
             () -> {
