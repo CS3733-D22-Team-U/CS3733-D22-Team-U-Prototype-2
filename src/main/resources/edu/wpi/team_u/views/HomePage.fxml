@@ -64,7 +64,7 @@
       </ButtonBar>
       <ButtonBar layoutX="213.0" layoutY="432.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="56.0" prefWidth="733.0">
          <buttons>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Laundry" textFill="WHITE">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#toLaundry" prefHeight="40.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Laundry" textFill="WHITE">
                <font>
                   <Font size="26.0" />
                </font>
@@ -102,5 +102,13 @@
             </Button>
          </buttons>
       </ButtonBar>
+      <Button alignment="CENTER" layoutX="870.0" layoutY="669.0" mnemonicParsing="false" onAction="#toCloseApp" prefHeight="40.0" prefWidth="209.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Exit" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>

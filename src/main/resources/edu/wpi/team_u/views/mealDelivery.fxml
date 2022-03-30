@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -21,7 +25,7 @@
                   <Image url="@../icons/mealIcon.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" layoutX="227.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Meal Delivery" wrappingWidth="645.65234375">
+            <Text fill="WHITE" layoutX="240.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Meal Delivery" wrappingWidth="645.65234375">
                <font>
                   <Font name="System Bold" size="60.0" />
                </font>
@@ -72,7 +76,7 @@
                         </Button>
                         <Button fx:id="home1" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toEquipmentDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Equipment Delivery" textFill="WHITE">
                            <font>
-                              <Font size="26.0" />
+                              <Font size="18.0" />
                            </font>
                            <effect>
                               <DropShadow />
@@ -92,7 +96,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Laundry" textFill="WHITE">
+                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLaundry" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Laundry" textFill="WHITE">
                            <font>
                               <Font size="26.0" />
                            </font>
@@ -118,7 +122,109 @@
                   </VBox>
                </children>
             </JFXHamburger>
+            <Group layoutX="244.0" layoutY="192.0" translateY="-12.0">
+               <children>
+                  <Text layoutX="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status (Processing or Done) " translateX="2.0" wrappingWidth="223.9365234375">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField layoutX="4.0" layoutY="10.0" />
+               </children>
+            </Group>
+            <Group layoutX="287.0" layoutY="313.0" translateX="-25.0" translateY="-70.0">
+               <children>
+                  <Text layoutX="-16.0" layoutY="-5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Member Assigned">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField layoutX="-12.0" layoutY="10.0" />
+               </children>
+            </Group>
+            <Group layoutX="271.0" layoutY="418.0" translateX="-22.0" translateY="-110.0">
+               <children>
+                  <Text layoutX="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField layoutY="10.0" />
+               </children>
+            </Group>
+            <Group layoutX="274.0" layoutY="252.0" translateX="-25.0" translateY="-130.0">
+               <children>
+                  <Text layoutX="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField layoutY="10.0" />
+               </children>
+            </Group>
+            <VBox layoutX="681.0" layoutY="165.0" prefHeight="224.0" prefWidth="207.0">
+               <children>
+                  <JFXCheckBox prefWidth="143.0" text="Vegan">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox prefWidth="143.0" text="Vegetarian">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox prefWidth="143.0" text="Gluten-Free">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox prefWidth="143.0" text="Kosher">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox prefWidth="143.0" text="Halal">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox prefWidth="143.0" text="Lactose-intolerant">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox prefWidth="143.0" text="No Nuts">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox prefWidth="143.0" text="No Shellfish">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXCheckBox>
+               </children>
+            </VBox>
+            <Text layoutX="637.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dietary Restrictions ">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <TextArea id="placingOrder" layoutX="336.0" layoutY="321.0" prefHeight="111.0" prefWidth="433.0" text="Placing Order..." visible="false">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </TextArea>
          </children>
       </Pane>
+      <Button fx:id="placeMealRequest" alignment="CENTER" layoutX="433.0" layoutY="624.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#placeMealRequest" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Place Request" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>
