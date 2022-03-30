@@ -1,5 +1,11 @@
 package edu.wpi.team_u.BackEnd;
 
+/**
+ * ask about Harsh's override idea to simplify all the functions
+ * the tower locations master CSV does NOT have unique nodes
+ * ask about changing all of our array lists to hash maps
+ */
+
 import edu.wpi.team_u.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.team_u.BackEnd.Equipment.EquipmentDaoImpl;
 import edu.wpi.team_u.BackEnd.Location.LocationDaoImpl;
@@ -87,125 +93,150 @@ public class Udb {
   // This function is called in main the starts the menu where a client can access and or change
   // data in our SQL data base
   // This calls all of our private functions
+
   private void menu(String[] CSVfiles) throws IOException, SQLException {
-    System.out.println(
-        "1 - print+ Information\n"
-            + "2 – Change Floor and Type\n"
-            + "3 – Enter Location\n"
-            + "4 – Delete Location\n"
-            + "5 – Save Locations to CSV file\n"
-            + "6 – Exit Program");
 
     Scanner userInput = new Scanner(System.in);
-    int inputNumber = Integer.parseInt(userInput.nextLine());
-    switch (inputNumber) {
-      case 1:
-        System.out.println(
-            "What database would you like to chose: \n"
-                + " 1 - Locations\n"
-                + " 2 - Employees\n"
-                + " 3 - Equipment");
 
-        switch (userInput.nextInt()) {
-          case 1:
-            locationImpl.printLocTableInTerm(CSVfiles[0]);
-            break;
-          case 2:
-            EmployeeImpl.printEmployeeTableInTerm(CSVfiles[1]);
-            break;
-          case 3:
-            EquipmentImpl.printEquipTableInTerm(CSVfiles[2]);
-            break;
-        }
-        menu(CSVfiles);
+    System.out.println(
+        "What database would you like to chose: \n"
+            + "1 - Locations\n"
+            + "2 - Employees\n"
+            + "3 - Equipment\n"
+            + "4 - Quit");
+
+    switch (userInput.nextInt()) {
+      case 1:
+        locationMenu(CSVfiles);
         break;
       case 2:
-        System.out.println(
-            "What database would you like to chose: \n"
-                + " 1 - Locations\n"
-                + " 2 - Employees\n"
-                + " 3 - Equipment");
-
-        switch (userInput.nextInt()) {
-          case 1:
-            locationImpl.editLocValue(CSVfiles[0]);
-            break;
-          case 2:
-            EmployeeImpl.editEmployee(CSVfiles[1]);
-            break;
-          case 3:
-            EquipmentImpl.editEquipValue(CSVfiles[2]);
-            break;
-        }
-        menu(CSVfiles);
+        employeesMenu(CSVfiles);
         break;
       case 3:
-        System.out.println(
-            "What database would you like to chose: \n"
-                + " 1 - Locations\n"
-                + " 2 - Employees\n"
-                + " 3 - Equipment");
-
-        switch (userInput.nextInt()) {
-          case 1:
-            locationImpl.addLoc(CSVfiles[0]);
-            break;
-          case 2:
-            EmployeeImpl.addEmployee(CSVfiles[1]);
-            break;
-          case 3:
-            EquipmentImpl.addEquip(CSVfiles[2]);
-            break;
-        }
-
-        menu(CSVfiles);
+        equipmentMenu(CSVfiles);
         break;
       case 4:
-        System.out.println(
-            "What database would you like to chose: \n"
-                + " 1 - Locations\n"
-                + " 2 - Employees\n"
-                + " 3 - Equipment");
+        // exits whole menu
+        break;
+    }
+  }
 
-        switch (userInput.nextInt()) {
-          case 1:
-            locationImpl.removeLoc(CSVfiles[0]);
-            break;
-          case 2:
-            EmployeeImpl.removeEmployee(CSVfiles[1]);
-            break;
-          case 3:
-            EquipmentImpl.removeEquip(CSVfiles[2]);
-            break;
-        }
-        menu(CSVfiles);
+  private void locationMenu(String[] CSVfiles) throws SQLException, IOException {
+    Scanner locationsInput = new Scanner(System.in);
+
+    System.out.println(
+        "1 - List Location Information\n"
+            + "2 - Change Location Floor and Type\n"
+            + "3 - Enter New Location\n"
+            + "4 - Delete Location \n"
+            + "5 - Save Location Information to CSV file\n"
+            + "6 - Return to Main Menu");
+
+    switch (locationsInput.nextInt()) {
+      case 1:
+        locationImpl.printLocTableInTerm(CSVfiles[0]);
+        locationMenu(CSVfiles);
+        break;
+      case 2:
+        locationImpl.editLocValue(CSVfiles[0]);
+        locationMenu(CSVfiles);
+        break;
+      case 3:
+        locationImpl.addLoc(CSVfiles[0]);
+        locationMenu(CSVfiles);
+        break;
+      case 4:
+        locationImpl.removeLoc(CSVfiles[0]);
+        locationMenu(CSVfiles);
         break;
       case 5:
-        System.out.println(
-            "What database would you like to chose: \n"
-                + " 1 - Locations\n"
-                + " 2 - Employees\n"
-                + " 3 - Equipment");
-
-        switch (userInput.nextInt()) {
-          case 1:
-            locationImpl.saveLocTableAsCSV();
-            break;
-          case 2:
-            EmployeeImpl.saveEmployeeTableAsCSV();
-            break;
-          case 3:
-            EquipmentImpl.saveEquipTableAsCSV();
-            break;
-        }
-        menu(CSVfiles);
+        locationImpl.saveLocTableAsCSV();
+        locationMenu(CSVfiles);
         break;
       case 6:
-        // exits the whole menu
+        // menu
+        menu(CSVfiles);
         break;
       default:
+        System.out.println("Something went wrong");
+        break;
+    }
+  }
+
+  private void employeesMenu(String[] CSVfiles) throws SQLException, IOException {
+    Scanner employeeInput = new Scanner(System.in);
+
+    System.out.println(
+        "1 - List Employee Information\n"
+            + "2 - Edit Employee Information\n"
+            + "3 - Enter New Employee\n"
+            + "4 - Delete Employee\n"
+            + "5 - Save Employee Information to CSV\n"
+            + "6 - Return to Main Menu");
+    switch (employeeInput.nextInt()) {
+      case 1:
+        EmployeeImpl.printEmployeeTableInTerm(CSVfiles[1]);
+        employeesMenu(CSVfiles);
+        break;
+      case 2:
+        EmployeeImpl.editEmployee(CSVfiles[1]);
+        employeesMenu(CSVfiles);
+        break;
+      case 3:
+        EmployeeImpl.addEmployee(CSVfiles[1]);
+        employeesMenu(CSVfiles);
+        break;
+      case 4:
+        EmployeeImpl.removeEmployee(CSVfiles[1]);
+        employeesMenu(CSVfiles);
+        break;
+      case 5:
+        EmployeeImpl.saveEmployeeTableAsCSV();
+        employeesMenu(CSVfiles);
+        break;
+      case 6:
+        // menu
         menu(CSVfiles);
         break;
     }
   }
+
+  private void equipmentMenu(String[] CSVfiles) throws SQLException, IOException {
+    Scanner equipmentInput = new Scanner(System.in);
+
+    System.out.println(
+        "1 - List Equipment Information\n"
+            + "2 - Edit Equipment Information\n"
+            + "3 - Enter New Equipment\n"
+            + "4 - Delete Equipment\n"
+            + "5 - Save Equipment Information to CSV\n"
+            + "6 - Return to Main Menu");
+    switch (equipmentInput.nextInt()) {
+      case 1:
+        EquipmentImpl.printEquipTableInTerm(CSVfiles[2]);
+        equipmentMenu(CSVfiles);
+        break;
+      case 2:
+        EquipmentImpl.editEquipValue(CSVfiles[2]);
+        equipmentMenu(CSVfiles);
+        break;
+      case 3:
+        EquipmentImpl.addEquip(CSVfiles[2]);
+        equipmentMenu(CSVfiles);
+        break;
+      case 4:
+        EquipmentImpl.removeEquip(CSVfiles[2]);
+        equipmentMenu(CSVfiles);
+        break;
+      case 5:
+        EquipmentImpl.saveEquipTableAsCSV();
+        equipmentMenu(CSVfiles);
+        break;
+      case 6:
+        // menu
+        menu(CSVfiles);
+        break;
+    }
+  }
+
 }
