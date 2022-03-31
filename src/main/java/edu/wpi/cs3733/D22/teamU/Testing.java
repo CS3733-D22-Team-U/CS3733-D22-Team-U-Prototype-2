@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,12 +48,11 @@ public class Testing {
     assertEquals(udb.locationImpl.locations.get(0), answer);
     // System.out.println();
     assertEquals(0, 0);
+    /*String[] answer = {
+      "FDEPT00101", "1617", "825", "1", "Tower", "DEPT", "Center for International Medicine", "CIM"
+    };
     assertEquals(udb.locationImpl.locations.get(0).getNodeID(), answer[0]);
     // System.out.println();
-    assertEquals(true, true);
-    /*for (int i = 0; i < 8; i++) {
-      assertEquals(locationImpl.locations.get(0), answer);
-    }*/
   }
 
   @Test
@@ -60,11 +62,18 @@ public class Testing {
     String[] answer = {"TEST", "100", "200", "HELL", "jjjj", "jUNIT", "jUNITSUCKS"};
 <<<<<<< HEAD
 =======
+=======
+    File file = new File(CSVfiles[4]);
+    udb.locationImpl.JavaToCSV(CSVfiles[4]);
+    String[] answer = {
+      "FDEPT00101", "1617", "825", "1", "Tower", "DEPT", "Center for International Medicine", "CIM"
+    };
+>>>>>>> b44cfc0692bc42026b4a4ed09830c36777e40920
     BufferedReader br = new BufferedReader(new FileReader(file));
     br.readLine();
     String s = br.readLine();
     String[] row = s.split(",");
-    assertEquals(answer, row);*/
+    assertEquals(answer[0], row[0]);
   }
 
   @Test
@@ -98,6 +107,50 @@ public class Testing {
   public void locAddTest() {
   }
 /*
+=======
+  public void locAddTest() throws SQLException, IOException {
+    String testAddLocation = "newTestPoint";
+    udb.locationImpl.addLoc(testAddLocation, CSVfiles[4]);
+    Location comparingAddedLocation =
+        new Location("newTestPoint", 0, 0, "N/A", "N/A", "N/A", "N/A", "N/A");
+    ArrayList<Location> locations = new ArrayList<>();
+
+    String s;
+    File file = new File(CSVfiles[4]);
+    BufferedReader br = new BufferedReader(new FileReader(file));
+    br.readLine();
+    while ((s = br.readLine()) != null) {
+      String[] row = s.split(",");
+      if (row.length == 8)
+        locations.add(
+            new Location(
+                row[0],
+                Integer.parseInt(row[1]),
+                Integer.parseInt(row[2]),
+                row[3],
+                row[4],
+                row[5],
+                row[6],
+                row[7]));
+    }
+
+    Location newAddedLocationFromCSV =
+        new Location(
+            locations.get(locations.size() - 1).getNodeID(),
+            locations.get(locations.size() - 1).getXcoord(),
+            locations.get(locations.size() - 1).getYcoord(),
+            locations.get(locations.size() - 1).getFloor(),
+            locations.get(locations.size() - 1).getBuilding(),
+            locations.get(locations.size() - 1).getNodeType(),
+            locations.get(locations.size() - 1).getLongName(),
+            locations.get(locations.size() - 1).getShortName());
+
+    assertEquals(newAddedLocationFromCSV.getNodeID(), comparingAddedLocation.getNodeID());
+    assertEquals(newAddedLocationFromCSV.getXcoord(), comparingAddedLocation.getXcoord());
+    assertEquals(newAddedLocationFromCSV.getYcoord(), comparingAddedLocation.getYcoord());
+  }
+
+>>>>>>> b44cfc0692bc42026b4a4ed09830c36777e40920
   @Test
   public void locRemoveTest() throws SQLException, IOException {
 <<<<<<<HEAD
