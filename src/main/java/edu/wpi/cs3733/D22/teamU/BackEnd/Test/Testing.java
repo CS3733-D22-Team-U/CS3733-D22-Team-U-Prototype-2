@@ -1,9 +1,14 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Test;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 
 public class Testing {
 
+    public String DB_LOC = "jdbc:derby:UDB;";
+    public LocationDaoImpl locationImpl = new LocationDaoImpl(DB_LOC);
     @Test
     public void locCSVToJavaTest(){
 
@@ -36,7 +41,6 @@ public class Testing {
 
     @Test
     public void locRemoveTest(){
-
     }
 
     @Test
