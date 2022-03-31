@@ -42,6 +42,13 @@ public class HomePageController {
     appStage.setScene(scene);
     appStage.show();
   }
+
+  public void toLabRequest(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/labRequestServices.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
   /*
   public Button laundryService;
   public Button equipmentDelivery;
