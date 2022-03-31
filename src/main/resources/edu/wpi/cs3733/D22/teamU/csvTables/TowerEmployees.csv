@@ -1,0 +1,10 @@
+employeeID,occupation,reports,onDuty
+test1,lol,2,false
+test2,lol,3,false
+test3,new,0,true
+test4,older,9,true
+,N/A,0,false
+,N/A,0,false
+test5,walk,4,false
+test6,N/A,0,false
+18282,N/A,0,false
