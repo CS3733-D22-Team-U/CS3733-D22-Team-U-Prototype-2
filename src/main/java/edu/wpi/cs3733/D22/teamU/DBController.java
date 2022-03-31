@@ -48,12 +48,13 @@ public class DBController {
         Main.class
             .getClassLoader()
             .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TESTTowerLocations.csv");
-    String locationTest = copyFile(csvLocationFile, "csvTables/TESTTowerLocations.csv");
+    String locationTest = copyFile(csvLocationFileTest, "csvTables/TESTTowerLocations.csv");
     InputStream csvEquipmentTest =
         Main.class
             .getClassLoader()
             .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TESTTowerEquipment.csv");
     String equipmentTest = copyFile(csvEquipment, "csvTables/TESTTowerEquipment.csv");
+
 
     String[] CSVfiles = {location, employee, equipment, request, locationTest, equipmentTest};
 

@@ -44,7 +44,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Lab Request" textFill="WHITE">
+            <Button fx:id="labRequest" alignment="CENTER" mnemonicParsing="false" onAction="#toLabRequest" prefHeight="40.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Lab Request" textFill="WHITE">
                <font>
                   <Font size="26.0" />
                </font>
