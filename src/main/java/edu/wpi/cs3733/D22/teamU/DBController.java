@@ -59,7 +59,9 @@ public class DBController {
 
     udb = new Udb(username, password, CSVfiles);
 
-    Testing testing = new Testing(CSVfiles, udb);
+    //Testing testing = new Testing(CSVfiles, udb);
+    // Testing testing = new Testing(CSVfiles, udb);
+
     // udb.menu(CSVfiles); //Uncomment this to start terminal menu
   }
 
@@ -69,10 +71,11 @@ public class DBController {
     try {
       Files.copy(
           inputPath, f.getAbsoluteFile().toPath()); // todo remove replace existing after testing
+      inputPath.close();
     } catch (Exception e) {
       // Doesn't override if files already exist
     }
-    inputPath.close();
+
     return outputPath;
   }
 }
