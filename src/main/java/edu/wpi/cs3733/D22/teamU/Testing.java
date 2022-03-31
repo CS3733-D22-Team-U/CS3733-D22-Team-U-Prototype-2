@@ -3,6 +3,10 @@ package edu.wpi.cs3733.D22.teamU;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
@@ -27,7 +31,20 @@ public class Testing {
   public void locJavaToCSVTest() {}
 
   @Test
-  public void locJavaToSQLTest() {}
+  public void locJavaToSQLTest() throws SQLException {
+    locationImpl.JavaToSQL();
+
+    Connection connection = null;
+    connection = DriverManager.getConnection(DB_LOC);
+
+    Statement locTestStatement = connection.createStatement();
+
+    try {
+      locTestStatement.executeQuery("SELECT nodeID FROM Locations WHERE nodeID = 'TEST'");
+    } catch (Exception e) {
+
+    }
+  }
 
   @Test
   public void locSQLToJavaTest() {}
@@ -48,4 +65,44 @@ public class Testing {
 
   @Test
   public void locMakeCSVTest() {}
+
+  //----------------------- Equipment test
+  @Test
+  public void equipmentCSVToJavaTest() throws IOException {
+    locationImpl.CSVToJava(locTestCSV);
+  }
+
+  @Test
+  public void equipmentJavaToCSVTest() {}
+
+  @Test
+  public void equipmentJavaToSQLTest() throws SQLException {
+    locationImpl.JavaToSQL();
+
+    Connection connection = null;
+    connection = DriverManager.getConnection(DB_LOC);
+
+    Statement locTestStatement = connection.createStatement();
+
+    try {
+      locTestStatement.executeQuery("SELECT nodeID FROM Locations WHERE nodeID = 'TEST'");
+    } catch (Exception e) {
+
+    }
+  }
+
+  @Test
+  public void equipmentSQLToJavaTest() {}
+
+  @Test
+  public void equipmentEditTest() {}
+
+  @Test
+  public void equipmentAddTest() {}
+
+  @Test
+  public void equipmentRemoveTest() {}
+
+  @Test
+  public void equipmentMakeCSVTest() {}
 }
