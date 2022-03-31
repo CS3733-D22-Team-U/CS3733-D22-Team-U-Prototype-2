@@ -65,6 +65,14 @@ public class RequestDaoImpl implements RequestEquipDao {
     fw.close();
   }
 
+  public void JavaToSQL() {
+    // add later
+  }
+
+  public void SQLToJava() throws SQLException {
+    // add later
+  }
+
   public void editEquipValue(
       String csvFile, String inputName, int inputNewAmount, String date, String time)
       throws IOException, SQLException {
