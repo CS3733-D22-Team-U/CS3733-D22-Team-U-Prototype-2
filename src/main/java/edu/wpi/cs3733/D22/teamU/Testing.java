@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.D22.teamU;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
 import java.io.IOException;
@@ -83,17 +81,18 @@ public class Testing {
     locationImpl.JavaToSQL();
 
     Connection connection = null;
-   // connection = DriverManager.getConnection(DB_LOC + "user=" + username + ";password=" + password + ";");
+    // connection = DriverManager.getConnection(DB_LOC + "user=" + username + ";password=" +
+    // password + ";");
 
     Statement locTestStatement = connection.createStatement();
 
     try {
       locTestStatement.executeQuery("SELECT nodeID FROM Locations WHERE nodeID = 'TEST1'");
     } catch (Exception e) {
-      //testResults = false;
+      // testResults = false;
     }
 
-    //assertEquals(true, testResults);
+    // assertEquals(true, testResults);
   }
 
   @Test

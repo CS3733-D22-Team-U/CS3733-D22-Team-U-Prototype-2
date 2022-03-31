@@ -13,9 +13,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,17 +52,19 @@ public class MapController implements Initializable, IService {
           closeTransition.play();
           vBoxPane.setVisible(!vBoxPane.isVisible());
         });
+
+    setUpMap();
   }
 
   public void setUpMap() {
-    nodeID.setCellValueFactory(new PropertyValueFactory<MapUI, String>("nodeId"));
-    x.setCellValueFactory(new PropertyValueFactory<MapUI, Integer>("xCoord"));
-    y.setCellValueFactory(new PropertyValueFactory<MapUI, Integer>("yCoord"));
-    floor.setCellValueFactory(new PropertyValueFactory<MapUI, String>("floor"));
-    building.setCellValueFactory(new PropertyValueFactory<MapUI, String>("building"));
-    nodeType.setCellValueFactory(new PropertyValueFactory<MapUI, String>("nodeType"));
-    longName.setCellValueFactory(new PropertyValueFactory<MapUI, String>("longName"));
-    shortName.setCellValueFactory(new PropertyValueFactory<MapUI, String>("shortName"));
+    nodeID.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
+    x.setCellValueFactory(new PropertyValueFactory<>("x"));
+    y.setCellValueFactory(new PropertyValueFactory<>("y"));
+    floor.setCellValueFactory(new PropertyValueFactory<>("floor"));
+    building.setCellValueFactory(new PropertyValueFactory<>("building"));
+    nodeType.setCellValueFactory(new PropertyValueFactory<>("nodeType"));
+    longName.setCellValueFactory(new PropertyValueFactory<>("longName"));
+    shortName.setCellValueFactory(new PropertyValueFactory<>("shortName"));
     mapTable.setItems(getMapList());
   }
 

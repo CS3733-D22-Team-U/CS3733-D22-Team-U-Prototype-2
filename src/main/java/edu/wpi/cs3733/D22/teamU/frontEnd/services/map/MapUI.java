@@ -2,8 +2,8 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.services.map;
 
 public class MapUI {
   private String nodeID;
-  private int xCoord;
-  private int yCoord;
+  private int x;
+  private int y;
   private String floor;
   private String building;
   private String nodeType;
@@ -20,8 +20,8 @@ public class MapUI {
       String longName,
       String shortName) {
     this.nodeID = nodeID;
-    this.xCoord = xCoord;
-    this.yCoord = yCoord;
+    this.x = xCoord;
+    this.y = yCoord;
     this.floor = floor;
     this.building = building;
     this.nodeType = nodeType;
@@ -37,20 +37,12 @@ public class MapUI {
     this.nodeID = nodeID;
   }
 
-  public int getxCoord() {
-    return xCoord;
+  public int getX() {
+    return x;
   }
 
-  public void setxCoord(int xCoord) {
-    this.xCoord = xCoord;
-  }
-
-  public int getyCoord() {
-    return yCoord;
-  }
-
-  public void setyCoord(int yCoord) {
-    this.yCoord = yCoord;
+  public int getY() {
+    return y;
   }
 
   public String getFloor() {
