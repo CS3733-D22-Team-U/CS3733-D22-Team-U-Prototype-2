@@ -9,14 +9,15 @@ import edu.wpi.cs3733.D22.teamU.BackEnd.EquipmentRequest.RequestEquip;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
 import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
-import edu.wpi.cs3733.D22.teamU.frontEnd.equipmentDelivery.EquipmentUI;
 import edu.wpi.cs3733.D22.teamU.frontEnd.services.IService;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+import edu.wpi.cs3733.D22.teamU.frontEnd.equipmentDelivery.EquipmentUI;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -40,294 +41,318 @@ import lombok.SneakyThrows;
 
 public class EquipmentDeliverySystemController implements Initializable, IService {
 
-  @FXML JFXHamburger hamburger;
-  @FXML VBox vBoxPane;
-  @FXML TabPane tabPane;
-  @FXML Pane backgroundPane;
-  @FXML AnchorPane anchor;
-  @FXML Pane assistPane;
-  @FXML TableColumn<EquipmentUI, String> nameCol;
-  @FXML TableColumn<EquipmentUI, Integer> inUse;
-  @FXML TableColumn<EquipmentUI, Integer> available;
-  @FXML TableColumn<EquipmentUI, Integer> total;
-  @FXML TableView<EquipmentUI> table;
-  @FXML VBox requestHolder;
-  @FXML Text requestText;
-  @FXML Button clearButton;
-  @FXML Button submitButton;
-  @FXML TableColumn<EquipmentUI, String> activeReqName;
-  @FXML TableColumn<EquipmentUI, Integer> activeReqAmount;
-  @FXML TableColumn<EquipmentUI, String> activeDate;
-  @FXML TableColumn<EquipmentUI, String> activeTime;
-  @FXML TableView<EquipmentUI> activeRequestTable;
-  @FXML VBox inputFields;
+	@FXML
+	JFXHamburger hamburger;
+	@FXML
+	VBox vBoxPane;
+	@FXML
+	TabPane tabPane;
+	@FXML
+	Pane backgroundPane;
+	@FXML
+	AnchorPane anchor;
+	@FXML
+	Pane assistPane;
+	@FXML
+	TableColumn<EquipmentUI, String> nameCol;
+	@FXML
+	TableColumn<EquipmentUI, Integer> inUse;
+	@FXML
+	TableColumn<EquipmentUI, Integer> available;
+	@FXML
+	TableColumn<EquipmentUI, Integer> total;
+	@FXML
+	TableView<EquipmentUI> table;
+	@FXML
+	VBox requestHolder;
+	@FXML
+	Text requestText;
+	@FXML
+	Button clearButton;
+	@FXML
+	Button submitButton;
+	@FXML
+	TableColumn<EquipmentUI, String> activeReqName;
+	@FXML
+	TableColumn<EquipmentUI, Integer> activeReqAmount;
+	@FXML
+	TableColumn<EquipmentUI, String> activeDate;
+	@FXML
+	TableColumn<EquipmentUI, String> activeTime;
+	@FXML
+	TableView<EquipmentUI> activeRequestTable;
+	@FXML
+	VBox inputFields;
 
-  ObservableList<EquipmentUI> equipmentUI = FXCollections.observableArrayList();
-  ObservableList<JFXCheckBox> checkBoxes = FXCollections.observableArrayList();
-  ObservableList<JFXTextArea> checkBoxesInput = FXCollections.observableArrayList();
+	ObservableList<EquipmentUI> equipmentUI = FXCollections.observableArrayList();
+	ObservableList<JFXCheckBox> checkBoxes = FXCollections.observableArrayList();
+	ObservableList<JFXTextArea> checkBoxesInput = FXCollections.observableArrayList();
 
-  ObservableList<EquipmentUI> equipmentUIRequests = FXCollections.observableArrayList();
-  Udb udb = DBController.udb;
+	ObservableList<EquipmentUI> equipmentUIRequests = FXCollections.observableArrayList();
+	Udb udb = DBController.udb;
 
-  private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-  @SneakyThrows
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
+	@SneakyThrows
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
 
-    // String[] CSVfiles = {towerLocations, employees, equipment, equipmentRequest};
+		// String[] CSVfiles = {towerLocations, employees, equipment, equipmentRequest};
 
-    // udb.start("admin", "admin", CSVfiles);
-    closeTransition.setRate(-1);
-    hamburger.addEventHandler(
-        MouseEvent.MOUSE_CLICKED,
-        e -> {
-          closeTransition.setRate(closeTransition.getRate() * -1);
-          closeTransition.play();
-          vBoxPane.setVisible(!vBoxPane.isVisible());
-          tabPane.setDisable(!tabPane.isDisable());
-          if (tabPane.isDisable()) {
-            hamburger.setPrefWidth(200);
-            tabPane.setEffect(new GaussianBlur(10));
-            assistPane.setDisable(true);
-          } else {
-            tabPane.setEffect(null);
-            hamburger.setPrefWidth(77);
-            assistPane.setDisable(false);
-          }
-        });
-    setUpAllEquipment();
-    setUpActiveRequests();
-    for (Node checkBox : requestHolder.getChildren()) {
-      checkBoxes.add((JFXCheckBox) checkBox);
-    }
+		// udb.start("admin", "admin", CSVfiles);
+		closeTransition.setRate(-1);
+		hamburger.addEventHandler(
+				MouseEvent.MOUSE_CLICKED,
+				e -> {
+					closeTransition.setRate(closeTransition.getRate() * -1);
+					closeTransition.play();
+					vBoxPane.setVisible(!vBoxPane.isVisible());
+					tabPane.setDisable(!tabPane.isDisable());
+					if (tabPane.isDisable()) {
+						hamburger.setPrefWidth(200);
+						tabPane.setEffect(new GaussianBlur(10));
+						assistPane.setDisable(true);
+					} else {
+						tabPane.setEffect(null);
+						hamburger.setPrefWidth(77);
+						assistPane.setDisable(false);
+					}
+				});
+		setUpAllEquipment();
+		setUpActiveRequests();
+		for (Node checkBox : requestHolder.getChildren()) {
+			checkBoxes.add((JFXCheckBox) checkBox);
+		}
 
-    for (Node textArea : inputFields.getChildren()) {
-      checkBoxesInput.add((JFXTextArea) textArea);
-    }
+		for (Node textArea : inputFields.getChildren()) {
+			checkBoxesInput.add((JFXTextArea) textArea);
+		}
 
-    for (int i = 0; i < checkBoxesInput.size(); i++) {
-      int finalI = i;
-      checkBoxesInput
-          .get(i)
-          .disableProperty()
-          .bind(
-              Bindings.createBooleanBinding(
-                  () -> !checkBoxes.get(finalI).isSelected(),
-                  checkBoxes.stream().map(CheckBox::selectedProperty).toArray(Observable[]::new)));
-    }
-    clearButton
-        .disableProperty()
-        .bind(
-            Bindings.createBooleanBinding(
-                () -> checkBoxes.stream().noneMatch(JFXCheckBox::isSelected),
-                checkBoxes.stream().map(CheckBox::selectedProperty).toArray(Observable[]::new)));
+		for (int i = 0; i < checkBoxesInput.size(); i++) {
+			int finalI = i;
+			checkBoxesInput
+					.get(i)
+					.disableProperty()
+					.bind(
+							Bindings.createBooleanBinding(
+									() -> !checkBoxes.get(finalI).isSelected(),
+									checkBoxes.stream().map(CheckBox::selectedProperty).toArray(Observable[]::new)));
+		}
+		clearButton
+				.disableProperty()
+				.bind(
+						Bindings.createBooleanBinding(
+								() -> checkBoxes.stream().noneMatch(JFXCheckBox::isSelected),
+								checkBoxes.stream().map(CheckBox::selectedProperty).toArray(Observable[]::new)));
 
-    submitButton
-        .disableProperty()
-        .bind(
-            Bindings.createBooleanBinding(
-                () -> checkBoxes.stream().noneMatch(JFXCheckBox::isSelected),
-                checkBoxes.stream().map(CheckBox::selectedProperty).toArray(Observable[]::new)));
-  }
+		submitButton
+				.disableProperty()
+				.bind(
+						Bindings.createBooleanBinding(
+								() -> checkBoxes.stream().noneMatch(JFXCheckBox::isSelected),
+								checkBoxes.stream().map(CheckBox::selectedProperty).toArray(Observable[]::new)));
+	}
 
-  private void setUpAllEquipment() {
-    nameCol.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("equipmentName"));
-    inUse.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("amountInUse"));
-    available.setCellValueFactory(
-        new PropertyValueFactory<EquipmentUI, Integer>("amountAvailable"));
-    total.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("totalAmount"));
-    table.setItems(getEquipmentList());
-  }
+	private void setUpAllEquipment() {
+		nameCol.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("equipmentName"));
+		inUse.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("amountInUse"));
+		available.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("amountAvailable"));
+		total.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("totalAmount"));
+		table.setItems(getEquipmentList());
+	}
 
-  private void setUpActiveRequests() {
-    activeReqName.setCellValueFactory(new PropertyValueFactory<>("equipmentName"));
-    activeReqAmount.setCellValueFactory(new PropertyValueFactory<>("requestAmount"));
-    activeDate.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
-    activeTime.setCellValueFactory(new PropertyValueFactory<>("requestTime"));
-    activeRequestTable.setItems(getActiveRequestList());
-  }
+	private void setUpActiveRequests() {
+		activeReqName.setCellValueFactory(new PropertyValueFactory<>("equipmentName"));
+		activeReqAmount.setCellValueFactory(new PropertyValueFactory<>("requestAmount"));
+		activeDate.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
+		activeTime.setCellValueFactory(new PropertyValueFactory<>("requestTime"));
+		activeRequestTable.setItems(getActiveRequestList());
+	}
 
-  private ObservableList<EquipmentUI> newRequest(
-      String name, int amount, String date, String time) {
-    equipmentUIRequests.add(new EquipmentUI(name, amount, date, time));
-    return equipmentUIRequests;
-  }
+	private ObservableList<EquipmentUI> newRequest(
+			String name, int amount, String date, String time) {
+		equipmentUIRequests.add(new EquipmentUI(name, amount, date, time));
+		return equipmentUIRequests;
+	}
 
-  private ObservableList<EquipmentUI> getEquipmentList() {
-    equipmentUI.clear();
-    for (Equipment equipment : udb.EquipmentImpl.EquipmentList) {
-      equipmentUI.add(
-          new EquipmentUI(
-              equipment.getName(),
-              equipment.getInUse(),
-              equipment.getAvailable(),
-              equipment.getAmount()));
-    }
+	private ObservableList<EquipmentUI> getEquipmentList() {
+		equipmentUI.clear();
+		for (Equipment equipment : udb.EquipmentImpl.EquipmentList) {
+			equipmentUI.add(
+					new EquipmentUI(
+							equipment.getName(),
+							equipment.getInUse(),
+							equipment.getAvailable(),
+							equipment.getAmount()));
+		}
 
-    return equipmentUI;
-  }
+		return equipmentUI;
+	}
 
-  private ObservableList<EquipmentUI> getActiveRequestList() {
-    for (RequestEquip request : udb.requestEquipImpl.requestEquipList) {
-      equipmentUIRequests.add(
-          new EquipmentUI(
-              request.getName(), request.getAmount(), request.getDate(), request.getTime()));
-    }
-    return equipmentUIRequests;
-  }
+	private ObservableList<EquipmentUI> getActiveRequestList() {
+		for (RequestEquip request : udb.requestEquipImpl.requestEquipList) {
+			equipmentUIRequests.add(
+					new EquipmentUI(
+							request.getName(), request.getAmount(), request.getDate(), request.getTime()));
+		}
+		return equipmentUIRequests;
+	}
 
-  public void increase() throws IOException {
-    try {
+	public void increase() throws IOException {
+		try {
 
-      udb.EquipmentImpl.editEquipValue(
-          "edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipment.csv",
-          "Masks",
-          udb.EquipmentImpl.EquipmentList.get(1).getAmount() + 1,
-          udb.EquipmentImpl.EquipmentList.get(1).getInUse() + 1);
+			udb.EquipmentImpl.editEquipValue(
+					"edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipment.csv",
+					"Masks",
+					udb.EquipmentImpl.EquipmentList.get(1).getAmount() + 1,
+					udb.EquipmentImpl.EquipmentList.get(1).getInUse() + 1);
 
-      System.out.println(udb.EquipmentImpl.EquipmentList.get(1).getAmount());
-      getEquipmentList();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    table.refresh();
-  }
+			System.out.println(udb.EquipmentImpl.EquipmentList.get(1).getAmount());
+			getEquipmentList();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		table.refresh();
+	}
 
-  public void submitRequest() {
-    String request = "Your request for : ";
+	public void submitRequest() {
+		String request = "Your request for : ";
 
-    String endRequest = " has been placed successfully";
-    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		String endRequest = " has been placed successfully";
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-    int requestAmount = 0;
-    for (int i = 0; i < checkBoxes.size(); i++) {
-      if (checkBoxes.get(i).isSelected()) {
-        String inputString = "";
-        if (checkBoxesInput.get(i).getText().trim().equals("")) {
-          inputString = "0";
-        } else {
-          inputString = checkBoxesInput.get(i).getText().trim();
-        }
+		int requestAmount = 0;
+		for (int i = 0; i < checkBoxes.size(); i++) {
+			if (checkBoxes.get(i).isSelected()) {
+				String inputString = "";
+				if (checkBoxesInput.get(i).getText().trim().equals("")) {
+					inputString = "0";
+				} else {
+					inputString = checkBoxesInput.get(i).getText().trim();
+				}
 
-        requestAmount = Integer.parseInt(inputString);
+				requestAmount = Integer.parseInt(inputString);
 
-        request += requestAmount + " " + checkBoxes.get(i).getText() + "(s), ";
+				request += requestAmount + " " + checkBoxes.get(i).getText() + "(s), ";
 
-        activeRequestTable.setItems(
-            newRequest(
-                checkBoxes.get(i).getText(),
-                requestAmount,
-                sdf3.format(timestamp).substring(0, 10),
-                sdf3.format(timestamp).substring(11)));
-        try {
-          udb.requestEquipImpl.addRequest(
-              "csvTables/TowerEquipmentRequests.csv",
-              checkBoxes.get(i).getText(),
-              Integer.parseInt(checkBoxesInput.get(i).getText()),
-              sdf3.format(timestamp).substring(0, 10),
-              sdf3.format(timestamp).substring(11));
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-    }
+				activeRequestTable.setItems(
+						newRequest(
+								checkBoxes.get(i).getText(),
+								requestAmount,
+								sdf3.format(timestamp).substring(0, 10),
+								sdf3.format(timestamp).substring(11)));
+				try {
+					udb.requestEquipImpl.addRequest(
+							"csvTables/TowerEquipmentRequests.csv",
+							checkBoxes.get(i).getText(),
+							Integer.parseInt(checkBoxesInput.get(i).getText()),
+							sdf3.format(timestamp).substring(0, 10),
+							sdf3.format(timestamp).substring(11));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
-    requestText.setText(request + endRequest);
-    requestText.setVisible(true);
-    new Thread(
-            () -> {
-              try {
-                Thread.sleep(3500); // milliseconds
-                Platform.runLater(
-                    () -> {
-                      requestText.setVisible(false);
-                    });
-              } catch (InterruptedException ie) {
-              }
-            })
-        .start();
-  }
+		requestText.setText(request + endRequest);
+		requestText.setVisible(true);
+		new Thread(
+				() -> {
+					try {
+						Thread.sleep(3500); // milliseconds
+						Platform.runLater(
+								() -> {
+									requestText.setVisible(false);
+								});
+					} catch (InterruptedException ie) {
+					}
+				})
+				.start();
+	}
 
-  public void clearRequest() {
-    for (JFXCheckBox checkBox : checkBoxes) {
-      checkBox.setSelected(false);
-    }
-    requestText.setText("Cleared Requests!");
-    requestText.setVisible(true);
-    new Thread(
-            () -> {
-              try {
-                Thread.sleep(1500); // milliseconds
-                Platform.runLater(
-                    () -> {
-                      requestText.setVisible(false);
-                    });
-              } catch (InterruptedException ie) {
-              }
-            })
-        .start();
-  }
+	public void clearRequest() {
+		for (JFXCheckBox checkBox : checkBoxes) {
+			checkBox.setSelected(false);
+		}
+		requestText.setText("Cleared Requests!");
+		requestText.setVisible(true);
+		new Thread(
+				() -> {
+					try {
+						Thread.sleep(1500); // milliseconds
+						Platform.runLater(
+								() -> {
+									requestText.setVisible(false);
+								});
+					} catch (InterruptedException ie) {
+					}
+				})
+				.start();
+	}
 
-  @Override
-  public void addRequest() {}
+	@Override
+	public void addRequest() {
+	}
 
-  @Override
-  public void removeRequest() {}
+	@Override
+	public void removeRequest() {
+	}
 
-  @Override
-  public void updateRequest() {}
+	@Override
+	public void updateRequest() {
+	}
 
-  @Override
-  public void displayRequest() {}
+	@Override
+	public void displayRequest() {
+	}
 
-  public void toHome(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/HomePage.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
+	public void toHome(ActionEvent actionEvent) throws IOException {
+		Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/HomePage.fxml");
+		Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		appStage.setScene(scene);
+		appStage.show();
+	}
 
-  public void toLabRequest(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/labRequestServices.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
+	public void toLabRequest(ActionEvent actionEvent) throws IOException {
+		Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/labRequestServices.fxml");
+		Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		appStage.setScene(scene);
+		appStage.show();
+	}
 
-  public void toMealDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/mealDelivery.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
+	public void toMealDelivery(ActionEvent actionEvent) throws IOException {
+		Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/mealDelivery.fxml");
+		Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		appStage.setScene(scene);
+		appStage.show();
+	}
 
-  public void toGiftAndFloral(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/giftFloralService.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
+	public void toGiftAndFloral(ActionEvent actionEvent) throws IOException {
+		Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/giftFloralService.fxml");
+		Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		appStage.setScene(scene);
+		appStage.show();
+	}
 
-  public void toLaundry(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/laundryService.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
+	public void toLaundry(ActionEvent actionEvent) throws IOException {
+		Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/laundryService.fxml");
+		Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		appStage.setScene(scene);
+		appStage.show();
+	}
 
-  public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/medicineDelivery.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
+	public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
+		Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/medicineDelivery.fxml");
+		Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		appStage.setScene(scene);
+		appStage.show();
+	}
 
-  public void toMap(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/map.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
+	public void toMap(ActionEvent actionEvent) throws IOException {
+		Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/map.fxml");
+		Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		appStage.setScene(scene);
+		appStage.show();
+	}
 }
