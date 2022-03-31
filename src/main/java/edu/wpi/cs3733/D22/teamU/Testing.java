@@ -1,7 +1,11 @@
 package edu.wpi.cs3733.D22.teamU;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 public class Testing {
@@ -33,10 +37,16 @@ public class Testing {
   public void locEditTest() {}
 
   @Test
-  public void locAddTest() {}
+  public void locAddTest() {
+  }
 
   @Test
-  public void locRemoveTest() {}
+  public void locRemoveTest() throws SQLException, IOException {
+    locationImpl.removeLoc(locTestCSV);
+    ArrayList<Location> testLocationArray = locationImpl.locations;
+    // remove TEST node
+    assertNull()
+  }
 
   @Test
   public void locMakeCSVTest() {}
