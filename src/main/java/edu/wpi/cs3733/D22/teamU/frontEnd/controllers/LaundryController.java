@@ -2,7 +2,7 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
-import edu.wpi.team_u.Uapp;
+import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,27 +48,27 @@ public class LaundryController implements Initializable {
   }
 
   public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/medicineDelivery.fxml");
+    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/medicineDelivery.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
   }
 
   public void toMealDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/mealDelivery.fxml");
+    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/mealDelivery.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
   }
 
   public void toHome(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/HomePage.fxml");
+    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/HomePage.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
   }
 
   public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/team_u/views/equipmentDelivery.fxml");
+    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/equipmentDelivery.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
