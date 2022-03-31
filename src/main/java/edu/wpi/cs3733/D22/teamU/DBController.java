@@ -59,6 +59,7 @@ public class DBController {
 
     udb = new Udb(username, password, CSVfiles);
 
+    Testing testing = new Testing (CSVfiles, udb);
     // udb.menu(CSVfiles); //Uncomment this to start terminal menu
   }
 
