@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: 89D7BF89D7BF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.giftFloralController">
+    <children>
+      <Pane layoutX="310.0" layoutY="-1.0" prefHeight="538.0" prefWidth="790.0">
+         <children>
+              <CheckBox layoutX="79.0" layoutY="311.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Balloons">
+                  <font>
+                      <Font name="Lucida Grande" size="11.0" />
+                  </font>
+              </CheckBox>
+              <CheckBox layoutX="79.0" layoutY="262.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Gift Basket">
+                  <font>
+                      <Font name="Lucida Grande" size="11.0" />
+                  </font>
+              </CheckBox>
+              <CheckBox layoutX="79.0" layoutY="336.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Plants">
+                  <font>
+                      <Font name="Lucida Grande" size="11.0" />
+                  </font>
+              </CheckBox>
+              <CheckBox layoutX="79.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Flowers">
+                  <font>
+                      <Font name="Lucida Grande" size="11.0" />
+                  </font>
+              </CheckBox>
+            <Pane layoutX="-329.0" layoutY="-6.0" prefHeight="95.0" prefWidth="1122.0" style="-fx-background-color: #044e9a #044e9a;">
+               <children>
+                  <Text fill="WHITE" layoutX="301.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gift &amp; Floral Delivery" wrappingWidth="645.65234375">
+                     <font>
+                        <Font name="System Bold" size="60.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="67.0" fitWidth="73.0" layoutX="219.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/flowerIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Text layoutX="57.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sender" />
+            <Text layoutX="57.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select which of the following you would like to send" />
+            <TextField layoutX="110.0" layoutY="120.0" />
+            <Text layoutX="57.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insert a gift message " />
+            <JFXTextArea layoutX="57.0" layoutY="441.0" style="-fx-background-color: #FFFFFF#FFFFFF;" />
+            <Text layoutX="362.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reciever" />
+            <TextField layoutX="420.0" layoutY="119.0" />
+            <Text layoutX="57.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Member Assigned" />
+            <TextField layoutX="210.0" layoutY="151.0" />
+            <Text layoutX="57.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Delivery #" />
+            <TextField layoutX="166.0" layoutY="185.0" />
+         </children>
+      </Pane>
+      <JFXHamburger layoutX="13.0" layoutY="119.0">
+         <children>
+            <VBox fx:id="vBoxPane" prefHeight="462.0" prefWidth="232.0">
+               <children>
+                  <Button fx:id="home" alignment="CENTER" layoutX="10.0" layoutY="86.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#toHome" prefHeight="56.0" prefWidth="190.0" style="-fx-background-color: #044e9a #044e9a; -fx-border-color: #b5b5b5; -fx-background-radius: 15; -fx-border-radius: 15px;" text="Home" textAlignment="RIGHT" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button lineSpacing="5.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-background-color: #044e9a #044e9a; -fx-border-radius: 15px; -fx-background-radius: 15;" text="Map" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="equipmentDelivery" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toDeliverEquipmentController" prefHeight="56.0" prefWidth="190.0" style="-fx-background-color: #044e9a #044e9a; -fx-background-radius: 15; -fx-border-radius: 15px;" text="Equipment Delivery" textAlignment="RIGHT" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toSecurityService" prefHeight="56.0" prefWidth="190.0" style="-fx-background-color: #044e9a #044e9a; -fx-background-radius: 15; -fx-border-radius: 15px;" text="Lab Request" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="mealDelivery" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMealDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-background-color: #044e9a #044e9a; -fx-background-radius: 15; -fx-border-radius: 15px;" text="Meal Delivery" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="giftFloral" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#togiftFloralService" prefHeight="56.0" prefWidth="190.0" style="-fx-background-color: #044e9a #044e9a; -fx-background-radius: 15; -fx-border-radius: 15px;" text="Gift and Floral " textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="26.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="laundryService" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLaundryService" prefHeight="56.0" prefWidth="190.0" style="-fx-background-color: #044e9a #044e9a; -fx-border-radius: 15px; -fx-background-radius: 15;" text="Laundry" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="medicineDelivery" alignment="CENTER" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-background-color: #044e9a #044e9a; -fx-background-radius: 15; -fx-border-radius: 15px;" text="Medicine Delivery" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.7098039388656616" green="0.7098039388656616" blue="0.7098039388656616" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </VBox>
+         </children>
+      </JFXHamburger>
+      <ImageView fitHeight="62.0" fitWidth="68.0" layoutX="995.0" layoutY="657.0" opacity="0.29" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/unicornLogo.png" />
+         </image>
+      </ImageView>
+        <Button layoutX="619.0" layoutY="643.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="OK" />
+    </children>
+</AnchorPane>
