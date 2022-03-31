@@ -26,10 +26,10 @@ public class Testing {
   @Test
   public void locCSVToJavaTest() throws IOException, NullPointerException {
 
+    // djd
     // System.out.println("Testing location csv to java");
     udb.locationImpl.CSVToJava(CSVfiles[4]);
     String[] answer = {"TEST", "100", "200", "HELL", "jjjj", "jUNIT", "jUNITSUCKS"};
-    // int count = 0;
     assertEquals(udb.locationImpl.locations.get(0).getNodeID(), answer[0]);
     // System.out.println();
     assertEquals(true, true);
