@@ -32,7 +32,7 @@
       </Pane>
       <ButtonBar layoutX="213.0" layoutY="272.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="56.0" prefWidth="733.0">
         <buttons>
-            <Button fx:id="EquipmentDelivery" alignment="CENTER" mnemonicParsing="false" onAction="#toEquipmentDelivery" prefHeight="75.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Medicine Delivery" textFill="WHITE">
+            <Button fx:id="EquipmentDelivery" alignment="CENTER" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="75.0" prefWidth="212.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Medicine Delivery" textFill="WHITE">
                <font>
                   <Font size="21.0" />
                </font>

@@ -133,10 +133,11 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
   }
 
   private void setUpAllEquipment() {
-    nameCol.setCellValueFactory(new PropertyValueFactory<>("equipmentName"));
-    inUse.setCellValueFactory(new PropertyValueFactory<>("amountInUse"));
-    available.setCellValueFactory(new PropertyValueFactory<>("amountAvailable"));
-    total.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
+    nameCol.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("equipmentName"));
+    inUse.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("amountInUse"));
+    available.setCellValueFactory(
+        new PropertyValueFactory<EquipmentUI, Integer>("amountAvailable"));
+    total.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("totalAmount"));
     table.setItems(getEquipmentList());
   }
 
@@ -156,7 +157,6 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
 
   private ObservableList<EquipmentUI> getEquipmentList() {
     equipmentUI.clear();
-    equipmentUI.add(new EquipmentUI("bandiad", 23, 25, 26));
     for (Equipment equipment : udb.EquipmentImpl.EquipmentList) {
       equipmentUI.add(
           new EquipmentUI(
@@ -196,32 +196,36 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
   }
 
   public void submitRequest() {
-    StringBuilder request = new StringBuilder("Your request for : ");
+    String request = "Your request for : ";
 
     String endRequest = " has been placed successfully";
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
     int requestAmount = 0;
-    for (JFXCheckBox checkBox : checkBoxes) {
-      if (checkBox.isSelected()) {
-        String input = checkBoxesInput.get(checkBoxes.indexOf(checkBox)).getText();
-        if (input.equals("")) {
-          input = "0";
+    for (int i = 0; i < checkBoxes.size(); i++) {
+      if (checkBoxes.get(i).isSelected()) {
+        String inputString = "";
+        if (checkBoxesInput.get(i).getText().trim().equals("")) {
+          inputString = "0";
+        } else {
+          inputString = checkBoxesInput.get(i).getText().trim();
         }
-        requestAmount = Integer.parseInt(input);
 
-        request.append(" ").append(checkBox.getText());
+        requestAmount = Integer.parseInt(inputString);
+
+        request += requestAmount + " " + checkBoxes.get(i).getText() + "(s), ";
+
         activeRequestTable.setItems(
             newRequest(
-                checkBox.getText(),
+                checkBoxes.get(i).getText(),
                 requestAmount,
                 sdf3.format(timestamp).substring(0, 10),
                 sdf3.format(timestamp).substring(11)));
         try {
           udb.requestEquipImpl.addRequest(
               "csvTables/TowerEquipmentRequests.csv",
-              checkBox.getText(),
-              Integer.parseInt(checkBoxesInput.get(checkBoxes.indexOf(checkBox)).getText()),
+              checkBoxes.get(i).getText(),
+              Integer.parseInt(checkBoxesInput.get(i).getText()),
               sdf3.format(timestamp).substring(0, 10),
               sdf3.format(timestamp).substring(11));
         } catch (IOException e) {
@@ -229,6 +233,7 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
         }
       }
     }
+
     requestText.setText(request + endRequest);
     requestText.setVisible(true);
     new Thread(
