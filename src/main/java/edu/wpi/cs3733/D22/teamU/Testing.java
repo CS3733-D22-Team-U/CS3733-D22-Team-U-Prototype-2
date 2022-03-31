@@ -2,34 +2,53 @@ package edu.wpi.cs3733.D22.teamU;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import org.junit.jupiter.api.Test;
 
 public class Testing {
 
   String locTestCSV;
+  Udb udb;
 
-  public Testing(String[] CSVfiles) {
+  public Testing(String[] CSVfiles, Udb udb) {
     this.locTestCSV = CSVfiles[4];
+    this.udb = udb;
   }
 
   public String DB_LOC = "jdbc:derby:UDB;";
-  public LocationDaoImpl locationImpl = new LocationDaoImpl(DB_LOC);
 
   @Test
   public void locCSVToJavaTest() throws IOException {
-    locationImpl.CSVToJava(locTestCSV);
+
+    // System.out.println("Testing location csv to java");
+    udb.locationImpl.CSVToJava(locTestCSV);
+    String[] answer = {"TEST", "100", "200", "HELL", "jjjj", "jUNIT", "jUNITSUCKS"};
+    int count = 0;
+    assertEquals(udb.locationImpl.locations.get(0), answer);
+    //System.out.println();
+    assertEquals(0, 0);
+    /*for (int i = 0; i < 8; i++) {
+      assertEquals(locationImpl.locations.get(0), answer);
+    }*/
   }
 
   @Test
-  public void locJavaToCSVTest() {}
+  public void locJavaToCSVTest() throws IOException {
+    File file = new File(locTestCSV);
+    udb.locationImpl.JavaToCSV(locTestCSV);
+    String[] answer = {"TEST", "100", "200", "HELL", "jjjj", "jUNIT", "jUNITSUCKS"};
+
+  }
 
   @Test
   public void locJavaToSQLTest() throws SQLException {
