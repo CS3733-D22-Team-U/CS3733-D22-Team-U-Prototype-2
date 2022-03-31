@@ -1,22 +1,14 @@
 package edu.wpi.cs3733.D22.teamU;
 
-<<<<<<< HEAD
-import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
-=======
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
->>>>>>> 6cccf554686417a503f44ff87cce03d2da1d84ee
-import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import org.junit.jupiter.api.Test;
 
 public class Testing {
@@ -39,7 +31,7 @@ public class Testing {
     String[] answer = {"TEST", "100", "200", "HELL", "jjjj", "jUNIT", "jUNITSUCKS"};
     int count = 0;
     assertEquals(udb.locationImpl.locations.get(0), answer);
-    //System.out.println();
+    // System.out.println();
     assertEquals(0, 0);
     /*for (int i = 0; i < 8; i++) {
       assertEquals(locationImpl.locations.get(0), answer);
@@ -51,12 +43,11 @@ public class Testing {
     File file = new File(locTestCSV);
     udb.locationImpl.JavaToCSV(locTestCSV);
     String[] answer = {"TEST", "100", "200", "HELL", "jjjj", "jUNIT", "jUNITSUCKS"};
-
   }
 
   @Test
   public void locJavaToSQLTest() throws SQLException {
-    locationImpl.JavaToSQL();
+    // locationImpl.JavaToSQL();
     boolean testResults = true;
 
     Connection connection = null;
@@ -82,8 +73,8 @@ public class Testing {
 
   @Test
   public void locRemoveTest() throws SQLException, IOException {
-    locationImpl.removeLoc(locTestCSV);
-    ArrayList<Location> testLocationArray = locationImpl.locations;
+    // locationImpl.removeLoc(locTestCSV);
+    // ArrayList<Location> testLocationArray = locationImpl.locations;
     // remove TEST node
     // assertNull();
     // assertNull()
@@ -95,7 +86,7 @@ public class Testing {
   // ----------------------- Equipment test
   @Test
   public void equipmentCSVToJavaTest() throws IOException {
-    locationImpl.CSVToJava(locTestCSV);
+    //// locationImpl.CSVToJava(locTestCSV);
   }
 
   @Test
@@ -103,7 +94,7 @@ public class Testing {
 
   @Test
   public void equipmentJavaToSQLTest() throws SQLException {
-    locationImpl.JavaToSQL();
+    // locationImpl.JavaToSQL();
 
     Connection connection = null;
     // connection = DriverManager.getConnection(DB_LOC + "user=" + username + ";password=" +

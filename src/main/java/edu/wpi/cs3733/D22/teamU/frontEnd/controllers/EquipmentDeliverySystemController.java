@@ -13,7 +13,6 @@ import edu.wpi.cs3733.D22.teamU.frontEnd.services.IService;
 import edu.wpi.cs3733.D22.teamU.frontEnd.services.equipmentDelivery.EquipmentUI;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
@@ -76,9 +75,6 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
   public void initialize(URL location, ResourceBundle resources) {
     HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
 
-    // String[] CSVfiles = {towerLocations, employees, equipment, equipmentRequest};
-
-    // udb.start("admin", "admin", CSVfiles);
     closeTransition.setRate(-1);
     hamburger.addEventHandler(
         MouseEvent.MOUSE_CLICKED,
@@ -178,23 +174,6 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
     return equipmentUIRequests;
   }
 
-  public void increase() throws IOException {
-    try {
-
-      udb.EquipmentImpl.editEquipValue(
-          "edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipment.csv",
-          "Masks",
-          udb.EquipmentImpl.EquipmentList.get(1).getAmount() + 1,
-          udb.EquipmentImpl.EquipmentList.get(1).getInUse() + 1);
-
-      System.out.println(udb.EquipmentImpl.EquipmentList.get(1).getAmount());
-      getEquipmentList();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    table.refresh();
-  }
-
   public void submitRequest() {
     String request = "Your request for : ";
 
@@ -288,6 +267,9 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
     appStage.setScene(scene);
     appStage.show();
   }
+
+  @Override
+  public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {}
 
   public void toLabRequest(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/labRequestServices.fxml");

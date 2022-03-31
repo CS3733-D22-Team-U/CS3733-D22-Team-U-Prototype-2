@@ -33,93 +33,8 @@
                 <DropShadow />
             </effect>
         </Pane>
-        <Pane prefHeight="750.0" prefWidth="1100.0">
+        <Pane fx:id="pane" prefHeight="750.0" prefWidth="1100.0">
             <children>
-                <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="108.0" prefHeight="486.0" prefWidth="228.0">
-                    <children>
-                        <VBox fx:id="vBoxPane" prefHeight="462.0" prefWidth="232.0" visible="false">
-                            <children>
-                                <Button fx:id="home" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toHome" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Home" textFill="WHITE">
-                                    <font>
-                                        <Font size="26.0" />
-                                    </font>
-                                    <effect>
-                                        <DropShadow />
-                                    </effect>
-                                    <VBox.margin>
-                                        <Insets top="10.0" />
-                                    </VBox.margin>
-                                </Button>
-                                <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMealDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Meal Delivery" textFill="WHITE">
-                                    <font>
-                                        <Font size="26.0" />
-                                    </font>
-                                    <effect>
-                                        <DropShadow />
-                                    </effect>
-                                    <VBox.margin>
-                                        <Insets top="10.0" />
-                                    </VBox.margin>
-                                </Button>
-                                <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Lab Request" textFill="WHITE">
-                                    <font>
-                                        <Font size="26.0" />
-                                    </font>
-                                    <effect>
-                                        <DropShadow />
-                                    </effect>
-                                    <VBox.margin>
-                                        <Insets top="10.0" />
-                                    </VBox.margin>
-                                </Button>
-                                <Button fx:id="home1" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toEquipmentDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Equipment Delivery" textFill="WHITE">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                    <effect>
-                                        <DropShadow />
-                                    </effect>
-                                    <VBox.margin>
-                                        <Insets top="10.0" />
-                                    </VBox.margin>
-                                </Button>
-                                <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Gift &amp; Floral" textFill="WHITE">
-                                    <font>
-                                        <Font size="26.0" />
-                                    </font>
-                                    <effect>
-                                        <DropShadow />
-                                    </effect>
-                                    <VBox.margin>
-                                        <Insets top="10.0" />
-                                    </VBox.margin>
-                                </Button>
-                                <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLaundry" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Laundry" textFill="WHITE">
-                                    <font>
-                                        <Font size="26.0" />
-                                    </font>
-                                    <effect>
-                                        <DropShadow />
-                                    </effect>
-                                    <VBox.margin>
-                                        <Insets top="10.0" />
-                                    </VBox.margin>
-                                </Button>
-                                <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Medicine Delivery" textFill="WHITE">
-                                    <font>
-                                        <Font size="20.0" />
-                                    </font>
-                                    <effect>
-                                        <DropShadow />
-                                    </effect>
-                                    <VBox.margin>
-                                        <Insets top="10.0" />
-                                    </VBox.margin>
-                                </Button>
-                            </children>
-                        </VBox>
-                    </children>
-                </JFXHamburger>
             <TableView fx:id="mapTable" layoutX="103.0" layoutY="133.0" prefHeight="536.0" prefWidth="895.0">
               <columns>
                 <TableColumn fx:id="nodeID" prefWidth="117.0" text="NodeId" />
@@ -134,5 +49,101 @@
             </TableView>
             </children>
         </Pane>
+      <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">
+         <children>
+            <VBox fx:id="vBoxPane" prefHeight="462.0" prefWidth="232.0" visible="false">
+               <children>
+                  <Button fx:id="home" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toHome" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Home" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="home2" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Equipment Request" textFill="WHITE">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLabRequest" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Lab Request" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Medicine Delivery" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMap" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #89D7BF;" text="Map" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="home1" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMealDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Meal Delivery" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toGiftAndFloral" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Gift &amp; Floral" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLaundry" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Laundry" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </JFXHamburger>
     </children>
 </AnchorPane>

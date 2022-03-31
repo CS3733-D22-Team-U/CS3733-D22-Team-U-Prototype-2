@@ -21,7 +21,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -37,13 +39,15 @@ public class MapController implements Initializable, IService {
   @FXML TableColumn<MapUI, String> nodeType;
   @FXML TableColumn<MapUI, String> longName;
   @FXML TableColumn<MapUI, String> shortName;
-
+  @FXML Pane pane;
+  @FXML Pane assistPane;
   ObservableList<MapUI> mapUI = FXCollections.observableArrayList();
   Udb udb = DBController.udb;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
+
     closeTransition.setRate(-1);
     hamburger.addEventHandler(
         MouseEvent.MOUSE_CLICKED,
@@ -51,6 +55,16 @@ public class MapController implements Initializable, IService {
           closeTransition.setRate(closeTransition.getRate() * -1);
           closeTransition.play();
           vBoxPane.setVisible(!vBoxPane.isVisible());
+          pane.setDisable(!pane.isDisable());
+          if (pane.isDisable()) {
+            hamburger.setPrefWidth(200);
+            pane.setEffect(new GaussianBlur(10));
+            assistPane.setDisable(true);
+          } else {
+            pane.setEffect(null);
+            hamburger.setPrefWidth(77);
+            assistPane.setDisable(false);
+          }
         });
 
     setUpMap();
@@ -93,7 +107,12 @@ public class MapController implements Initializable, IService {
   }
 
   @Override
-  public void toLabRequest(ActionEvent actionEvent) throws IOException {}
+  public void toLabRequest(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/labRequestService.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
 
   public void toMealDelivery(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/mealDelivery.fxml");
@@ -103,10 +122,20 @@ public class MapController implements Initializable, IService {
   }
 
   @Override
-  public void toGiftAndFloral(ActionEvent actionEvent) throws IOException {}
+  public void toGiftAndFloral(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/giftFloralService.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
 
   @Override
-  public void toLaundry(ActionEvent actionEvent) throws IOException {}
+  public void toLaundry(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/laundryService.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
 
   public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/equipmentDelivery.fxml");
@@ -116,7 +145,12 @@ public class MapController implements Initializable, IService {
   }
 
   @Override
-  public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {}
+  public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/medicineDelivery.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
+  }
 
   @Override
   public void toMap(ActionEvent actionEvent) throws IOException {}
