@@ -37,6 +37,7 @@ public class labRequestServices {
     Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/medicineDelivery.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
+    appStage.show();
   }
 
   public void toMealDelivery(ActionEvent actionEvent) throws IOException {
