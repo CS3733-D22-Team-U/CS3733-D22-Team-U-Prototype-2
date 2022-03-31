@@ -1,10 +1,13 @@
 package edu.wpi.cs3733.D22.teamU;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 public class Testing {
@@ -77,12 +80,12 @@ public class Testing {
   public void locAddTest() {}
 
   @Test
-  public void locRemoveTest() {
-    /*locationImpl.removeLoc(locTestCSV);
-    ArrayList<Location> testLocationArray = locationImpl.locations;
+  public void locRemoveTest() throws SQLException, IOException {
+    ArrayList<Location> baseLocationArray = udb.locationImpl.locations;
+    udb.locationImpl.removeLoc("TEST", CSVfiles[4]);
+    ArrayList<Location> testLocationArray = udb.locationImpl.locations;
     // remove TEST node
-    // assertNull();
-    // assertNull()*/
+    assertNotEquals(baseLocationArray, testLocationArray, "hasn't deleted");
   }
 
   @Test
