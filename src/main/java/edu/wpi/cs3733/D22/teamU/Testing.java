@@ -2,17 +2,9 @@ package edu.wpi.cs3733.D22.teamU;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
-import java.io.File;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
+import java.io.IOException;
+import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
 public class Testing {
@@ -38,8 +30,7 @@ public class Testing {
     udb.locationImpl.CSVToJava(CSVfiles[4]);
     String[] answer = {"TEST", "100", "200", "HELL", "jjjj", "jUNIT", "jUNITSUCKS"};
     // int count = 0;
-    System.out.println(udb.locationImpl.locations.get(0).getNodeID());
-    assertEquals(udb.locationImpl.locations.get(0), answer);
+    assertEquals(udb.locationImpl.locations.get(0).getNodeID(), answer[0]);
     // System.out.println();
     assertEquals(true, true);
     /*for (int i = 0; i < 8; i++) {
