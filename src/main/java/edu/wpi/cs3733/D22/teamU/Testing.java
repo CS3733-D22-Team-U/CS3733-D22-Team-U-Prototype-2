@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
@@ -66,7 +65,7 @@ public class Testing {
   @Test
   public void locMakeCSVTest() {}
 
-  //----------------------- Equipment test
+  // ----------------------- Equipment test
   @Test
   public void equipmentCSVToJavaTest() throws IOException {
     locationImpl.CSVToJava(locTestCSV);

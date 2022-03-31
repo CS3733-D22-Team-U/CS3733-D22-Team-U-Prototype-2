@@ -2,23 +2,44 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
+import edu.wpi.cs3733.D22.teamU.DBController;
 import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
+import edu.wpi.cs3733.D22.teamU.frontEnd.services.IService;
+import edu.wpi.cs3733.D22.teamU.frontEnd.services.map.MapUI;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class MapController implements Initializable {
+public class MapController implements Initializable, IService {
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
+  @FXML TableView<MapUI> mapTable;
+  @FXML TableColumn<MapUI, String> nodeID;
+  @FXML TableColumn<MapUI, Integer> x;
+  @FXML TableColumn<MapUI, Integer> y;
+  @FXML TableColumn<MapUI, String> floor;
+  @FXML TableColumn<MapUI, String> building;
+  @FXML TableColumn<MapUI, String> nodeType;
+  @FXML TableColumn<MapUI, String> longName;
+  @FXML TableColumn<MapUI, String> shortName;
+
+  ObservableList<MapUI> mapUI = FXCollections.observableArrayList();
+  Udb udb = DBController.udb;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -33,12 +54,44 @@ public class MapController implements Initializable {
         });
   }
 
+  public void setUpMap() {
+    nodeID.setCellValueFactory(new PropertyValueFactory<MapUI, String>("nodeId"));
+    x.setCellValueFactory(new PropertyValueFactory<MapUI, Integer>("xCoord"));
+    y.setCellValueFactory(new PropertyValueFactory<MapUI, Integer>("yCoord"));
+    floor.setCellValueFactory(new PropertyValueFactory<MapUI, String>("floor"));
+    building.setCellValueFactory(new PropertyValueFactory<MapUI, String>("building"));
+    nodeType.setCellValueFactory(new PropertyValueFactory<MapUI, String>("nodeType"));
+    longName.setCellValueFactory(new PropertyValueFactory<MapUI, String>("longName"));
+    shortName.setCellValueFactory(new PropertyValueFactory<MapUI, String>("shortName"));
+    mapTable.setItems(getMapList());
+  }
+
+  private ObservableList<MapUI> getMapList() {
+    mapUI.clear();
+    for (Location location : udb.locationImpl.locations) {
+      mapUI.add(
+          new MapUI(
+              location.getNodeID(),
+              location.getXcoord(),
+              location.getYcoord(),
+              location.getFloor(),
+              location.getBuilding(),
+              location.getNodeType(),
+              location.getLongName(),
+              location.getShortName()));
+    }
+    return mapUI;
+  }
+
   public void toHome(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/HomePage.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
     appStage.show();
   }
+
+  @Override
+  public void toLabRequest(ActionEvent actionEvent) throws IOException {}
 
   public void toMealDelivery(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/mealDelivery.fxml");
@@ -47,6 +100,12 @@ public class MapController implements Initializable {
     appStage.show();
   }
 
+  @Override
+  public void toGiftAndFloral(ActionEvent actionEvent) throws IOException {}
+
+  @Override
+  public void toLaundry(ActionEvent actionEvent) throws IOException {}
+
   public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/equipmentDelivery.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -54,10 +113,21 @@ public class MapController implements Initializable {
     appStage.show();
   }
 
-  public void toLaundry(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/laundryService.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
+  @Override
+  public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {}
+
+  @Override
+  public void toMap(ActionEvent actionEvent) throws IOException {}
+
+  @Override
+  public void addRequest() {}
+
+  @Override
+  public void removeRequest() {}
+
+  @Override
+  public void updateRequest() {}
+
+  @Override
+  public void displayRequest() {}
 }
