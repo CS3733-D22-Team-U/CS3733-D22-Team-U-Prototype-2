@@ -3,10 +3,10 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'com.diffplug.gradle.spotless' version '3.27.1'
-    id "io.freefair.lombok" version "5.0.0-rc6"
+    id "io.freefair.lombok" version "5.3.3.3"
     id 'org.openjfx.javafxplugin' version '0.0.10'
 }
-mainClassName = 'edu.wpi.team_u.BackEnd.Udb'
+mainClassName = 'edu.wpi.cs3733.D22.teamU.Main'
 
 repositories {
     mavenCentral()
@@ -24,6 +24,7 @@ javafx {
 
 dependencies {
     implementation(
+          //  'io.freefair.gradle:lombok-plugin:5.3.3.3',
             'com.jfoenix:jfoenix:9.0.10',
 
             // You may comment out the database dependency you do not use
@@ -47,9 +48,6 @@ jar {
     duplicatesStrategy = 'exclude'
     manifest {
         attributes "Main-Class": "$mainClassName"
-    }
-    from('src/main') {
-        include  '/resources/'
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
