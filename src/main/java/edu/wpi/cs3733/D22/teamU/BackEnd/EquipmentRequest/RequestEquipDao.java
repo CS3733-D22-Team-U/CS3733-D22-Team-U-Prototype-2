@@ -20,6 +20,21 @@ public interface RequestEquipDao {
    */
   public void JavaToCSV(String csvFile) throws IOException;
 
+  /**
+   * Reads the array list: locations, then opens up a connection to the UDB database, then it
+   * creates a new table called in the UDB database table: Locations. It then inserts the array
+   * list: Locations into the UDB database table: Locations
+   */
+  public void JavaToSQL();
+
+  /**
+   * Clears the array list: locations and then reads the UDB database table: Locations then copies
+   * the to the cleared array list
+   *
+   * @throws SQLException
+   */
+  public void SQLToJava() throws SQLException;
+
   // -------------------------------Start of frontend to backend
   // functions------------------------------------------//
 
