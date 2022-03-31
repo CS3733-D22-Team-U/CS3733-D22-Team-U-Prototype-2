@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 
 public class Testing {
@@ -54,15 +53,14 @@ public class Testing {
   public void locEditTest() {}
 
   @Test
-  public void locAddTest() {
-  }
+  public void locAddTest() {}
 
   @Test
   public void locRemoveTest() throws SQLException, IOException {
     locationImpl.removeLoc(locTestCSV);
     ArrayList<Location> testLocationArray = locationImpl.locations;
     // remove TEST node
-    assertNull()
+    // assertNull()
   }
 
   @Test
