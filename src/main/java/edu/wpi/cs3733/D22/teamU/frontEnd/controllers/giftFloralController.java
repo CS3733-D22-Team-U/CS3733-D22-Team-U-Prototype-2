@@ -22,8 +22,8 @@ public class giftFloralController implements Initializable, IService {
 
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
-  @FXML Pane assistPane;
   @FXML Pane pane;
+  @FXML Pane assistPane;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
