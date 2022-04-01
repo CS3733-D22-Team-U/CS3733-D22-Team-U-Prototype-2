@@ -31,6 +31,8 @@ public class Udb {
   }
 
   public Udb(String username, String password, String[] CSVfiles) throws IOException, SQLException {
+    locationImpl = new LocationDaoImpl(DB_LOC, CSVfiles[0]);
+
     locationImpl.DB_LOC = locationImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EmployeeImpl.DB_LOC = EmployeeImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EquipmentImpl.DB_LOC =
@@ -132,15 +134,15 @@ public class Udb {
 
     switch (locationsInput.nextInt()) {
       case 1:
-        locationImpl.printLocTableInTerm(CSVfiles[0]);
+        locationImpl.printTable();
         locationMenu(CSVfiles);
         break;
       case 2:
-        locationImpl.editLocValue(CSVfiles[0]);
+        locationImpl.edit(CSVfiles[0]);
         locationMenu(CSVfiles);
         break;
       case 3:
-        locationImpl.addLoc(CSVfiles[0]);
+        locationImpl.add(CSVfiles[0]);
         locationMenu(CSVfiles);
         break;
       case 4:
