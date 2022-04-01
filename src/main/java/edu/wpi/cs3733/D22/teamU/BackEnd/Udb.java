@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Udb {
 
   public String DB_LOC = "jdbc:derby:UDB;";
-  public LocationDaoImpl locationImpl = new LocationDaoImpl(DB_LOC);
+  public LocationDaoImpl locationImpl;
   public EquipmentDaoImpl EquipmentImpl = new EquipmentDaoImpl(DB_LOC);
   public EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
   public RequestDaoImpl requestEquipImpl = new RequestDaoImpl(DB_LOC);
@@ -73,8 +73,9 @@ public class Udb {
       System.out.println("Wrong Username/Password");
       return;
     }
+    locationImpl = new LocationDaoImpl(DB_LOC, CSVfiles[0]);
 
-    locationImpl.CSVToJava(CSVfiles[0]);
+    locationImpl.CSVToJava();
     locationImpl.JavaToSQL();
 
     EmployeeImpl.CSVToJava(CSVfiles[1]);

@@ -1,33 +1,37 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Location;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
+
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class LocationDaoImpl implements LocationDao {
+public class LocationDaoImpl implements DataDao<Location> {
 
   // make constant in locationDao
   public String DB_LOC;
   public ArrayList<Location> locations = new ArrayList<Location>();
+  public String csvFile;
 
   /**
    * Contructor for LocationDaoImpl
    *
    * @param db_loc
    */
-  public LocationDaoImpl(String db_loc) {
+  public LocationDaoImpl(String db_loc, String csvFile) {
     DB_LOC = db_loc;
+    this.csvFile = csvFile;
   }
 
   // Takes in a CSV file and converts it to java objects
   /**
    * Reads CSV file and puts the Locations into an array list: locations
    *
-   * @param csvFile
    * @throws IOException
    */
-  public void CSVToJava(String csvFile) throws IOException {
+  @Override
+  public void CSVToJava() throws IOException {
     locations = new ArrayList<Location>();
     String s;
     File file = new File(csvFile);
@@ -51,6 +55,11 @@ public class LocationDaoImpl implements LocationDao {
 
   // This function converts all of the CSV information that is stored in Java objects and
   // puts them into the the SQL database
+
+  @Override
+  public ArrayList<Location> list() {
+    return locations;
+  }
 
   /**
    * Reads the array list: locations, then opens up a connection to the UDB database, then it
@@ -119,7 +128,8 @@ public class LocationDaoImpl implements LocationDao {
    *
    * @throws SQLException
    */
-  public void SQLToJava() throws SQLException {
+  @Override
+  public void SQLToJava() {
     locations = new ArrayList<Location>();
 
     try {
@@ -165,6 +175,31 @@ public class LocationDaoImpl implements LocationDao {
     }
   }
 
+  @Override
+  public void printTable() {
+
+  }
+
+  @Override
+  public void edit(Location data) {
+
+  }
+
+  @Override
+  public void add(Location data) {
+
+  }
+
+  @Override
+  public void remove(Location data) {
+
+  }
+
+  @Override
+  public void search(Location data) {
+
+  }
+
   // This function converts the java objects of our CSV data into a new CSV file
   /**
    * Copies the array list: locations and writes it into the CSV file
@@ -172,6 +207,7 @@ public class LocationDaoImpl implements LocationDao {
    * @param csvFile
    * @throws IOException
    */
+  @Override
   public void JavaToCSV(String csvFile) throws IOException {
     PrintWriter fw = new PrintWriter(new File(csvFile));
 
