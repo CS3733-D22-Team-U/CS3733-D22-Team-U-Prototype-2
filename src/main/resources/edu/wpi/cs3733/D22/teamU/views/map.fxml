@@ -64,7 +64,8 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="home2" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Equipment Request" textFill="WHITE">
+                  <Button fx:id="home2" onAction="#toEquipmentDelivery" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false"
+                          prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Equipment Request" textFill="WHITE">
                      <font>
                         <Font size="19.0" />
                      </font>
