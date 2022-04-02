@@ -19,7 +19,7 @@ public class Udb {
   public String DB_LOC = "jdbc:derby:UDB;";
   public LocationDaoImpl locationImpl;
   public EquipmentDaoImpl EquipmentImpl;
-  public EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
+  public EmployeeDaoImpl EmployeeImpl;
   public RequestDaoImpl requestEquipImpl = new RequestDaoImpl(DB_LOC);
 
   public static String copyFile(InputStream inputPath, String outputPath) throws IOException {
@@ -33,8 +33,7 @@ public class Udb {
   public Udb(String username, String password, String[] CSVfiles) throws IOException, SQLException {
     String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
     locationImpl = new LocationDaoImpl(authentication, CSVfiles[0]);
-
-    EmployeeImpl.DB_LOC = EmployeeImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
+    EmployeeImpl = new EmployeeDaoImpl(authentication, CSVfiles[1]);
     EquipmentImpl = new EquipmentDaoImpl(authentication, CSVfiles[2]);
 
     try {
@@ -78,10 +77,10 @@ public class Udb {
     locationImpl.CSVToJava();
     locationImpl.JavaToSQL();
 
-    EmployeeImpl.CSVToJava(CSVfiles[1]);
+    EmployeeImpl.CSVToJava();
     EmployeeImpl.JavaToSQL();
 
-    EquipmentImpl.CSVToJava(CSVfiles[2]);
+    EquipmentImpl.CSVToJava();
     EquipmentImpl.JavaToSQL();
     requestEquipImpl.CSVToJava(CSVfiles[3]);
 
@@ -173,7 +172,7 @@ public class Udb {
             + "6 - Return to Main Menu");
     switch (employeeInput.nextInt()) {
       case 1:
-        EmployeeImpl.printEmployeeTableInTerm(CSVfiles[1]);
+        EmployeeImpl.printTable();
         employeesMenu(CSVfiles);
         break;
       case 2:
