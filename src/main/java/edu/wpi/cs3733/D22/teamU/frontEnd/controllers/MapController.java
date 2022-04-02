@@ -19,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,6 +29,7 @@ import javafx.scene.text.Font;
 public class MapController extends ServiceController {
   public ScrollPane imagesPane;
   public AnchorPane floor1Pane;
+  @FXML ImageView image;
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
   @FXML TableView<MapUI> mapTable;
@@ -41,8 +43,11 @@ public class MapController extends ServiceController {
   @FXML TableColumn<MapUI, String> shortName;
   @FXML Pane pane;
   @FXML Pane assistPane;
+
   ObservableList<MapUI> mapUI = FXCollections.observableArrayList();
   Udb udb = DBController.udb;
+
+  private int startScale;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -134,6 +139,7 @@ public class MapController extends ServiceController {
           }
         });
 
+    super.initialize(location, resources);
     setUpMap();
   }
 
@@ -156,7 +162,6 @@ public class MapController extends ServiceController {
   private ObservableList<MapUI> getMapList() {
     mapUI.clear();
     for (Location location : udb.locationImpl.locations) {
-
       mapUI.add(
           new MapUI(
               location.getNodeID(),
