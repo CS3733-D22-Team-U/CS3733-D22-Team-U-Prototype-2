@@ -62,6 +62,10 @@ public class MapController extends ServiceController {
     setUpMap();
   }
 
+  public void test() {
+    System.out.println("test");
+  }
+
   public void setUpMap() {
     nodeID.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
     x.setCellValueFactory(new PropertyValueFactory<>("x"));
