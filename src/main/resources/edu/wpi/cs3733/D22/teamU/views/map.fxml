@@ -147,11 +147,12 @@
          </children>
       </JFXHamburger>
       <Pane fx:id="assistPane" layoutX="11.0" layoutY="169.0" prefHeight="584.0" prefWidth="93.0" />
-      <ScrollPane layoutX="126.0" layoutY="159.0" onZoom="#test" prefHeight="533.0" prefWidth="916.0">
+      <ScrollPane layoutX="126.0" layoutY="159.0" prefHeight="533.0" prefWidth="916.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1944.0" prefWidth="2832.0">
                <children>
-                  <ImageView fitHeight="1944.0" fitWidth="3384.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image" fitHeight="1944.0" fitWidth="3384.0" pickOnBounds="true"
+                             preserveRatio="true">
                      <image>
                         <Image url="@../hospitalFloors/01_thefirstfloor.png" />
                      </image>
