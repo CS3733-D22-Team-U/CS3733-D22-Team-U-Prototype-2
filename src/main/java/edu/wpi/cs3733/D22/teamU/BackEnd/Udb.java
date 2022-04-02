@@ -18,7 +18,7 @@ public class Udb {
 
   public String DB_LOC = "jdbc:derby:UDB;";
   public LocationDaoImpl locationImpl;
-  public EquipmentDaoImpl EquipmentImpl = new EquipmentDaoImpl(DB_LOC);
+  public EquipmentDaoImpl EquipmentImpl;
   public EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
   public RequestDaoImpl requestEquipImpl = new RequestDaoImpl(DB_LOC);
 
@@ -35,8 +35,7 @@ public class Udb {
     locationImpl = new LocationDaoImpl(authentication, CSVfiles[0]);
 
     EmployeeImpl.DB_LOC = EmployeeImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
-    EquipmentImpl.DB_LOC =
-        EquipmentImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
+    EquipmentImpl = new EquipmentDaoImpl(authentication, CSVfiles[2]);
 
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
