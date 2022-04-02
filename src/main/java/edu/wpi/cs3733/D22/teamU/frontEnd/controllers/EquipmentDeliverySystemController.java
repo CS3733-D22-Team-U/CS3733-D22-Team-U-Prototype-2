@@ -1,15 +1,11 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
 import edu.wpi.cs3733.D22.teamU.BackEnd.EquipmentRequest.RequestEquip;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
-import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
-import edu.wpi.cs3733.D22.teamU.frontEnd.services.IService;
 import edu.wpi.cs3733.D22.teamU.frontEnd.services.equipmentDelivery.EquipmentUI;
 import java.io.IOException;
 import java.net.URL;
@@ -21,30 +17,17 @@ import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
-public class EquipmentDeliverySystemController implements Initializable, IService {
+public class EquipmentDeliverySystemController extends ServiceController {
 
-  @FXML JFXHamburger hamburger;
-  @FXML VBox vBoxPane;
   @FXML TabPane tabPane;
-  @FXML Pane backgroundPane;
-  @FXML AnchorPane anchor;
-  @FXML Pane assistPane;
   @FXML TableColumn<EquipmentUI, String> nameCol;
   @FXML TableColumn<EquipmentUI, Integer> inUse;
   @FXML TableColumn<EquipmentUI, Integer> available;
@@ -73,26 +56,7 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
   @SneakyThrows
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
-
-    closeTransition.setRate(-1);
-    hamburger.addEventHandler(
-        MouseEvent.MOUSE_CLICKED,
-        e -> {
-          closeTransition.setRate(closeTransition.getRate() * -1);
-          closeTransition.play();
-          vBoxPane.setVisible(!vBoxPane.isVisible());
-          tabPane.setDisable(!tabPane.isDisable());
-          if (tabPane.isDisable()) {
-            hamburger.setPrefWidth(200);
-            tabPane.setEffect(new GaussianBlur(10));
-            assistPane.setDisable(true);
-          } else {
-            tabPane.setEffect(null);
-            hamburger.setPrefWidth(77);
-            assistPane.setDisable(false);
-          }
-        });
+    super.initialize(location, resources);
     setUpAllEquipment();
     setUpActiveRequests();
     for (Node checkBox : requestHolder.getChildren()) {
@@ -174,7 +138,8 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
     return equipmentUIRequests;
   }
 
-  public void submitRequest() {
+  @Override
+  public void addRequest() {
     String request = "Your request for : ";
 
     String endRequest = " has been placed successfully";
@@ -229,6 +194,12 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
         .start();
   }
 
+  @Override
+  public void removeRequest() {}
+
+  @Override
+  public void updateRequest() {}
+
   public void clearRequest() {
     for (JFXCheckBox checkBox : checkBoxes) {
       checkBox.setSelected(false);
@@ -247,69 +218,5 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
               }
             })
         .start();
-  }
-
-  @Override
-  public void addRequest() {}
-
-  @Override
-  public void removeRequest() {}
-
-  @Override
-  public void updateRequest() {}
-
-  @Override
-  public void displayRequest() {}
-
-  public void toHome(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/HomePage.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  @Override
-  public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {}
-
-  public void toLabRequest(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/labRequestServices.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  public void toMealDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/mealDelivery.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  public void toGiftAndFloral(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/giftFloralService.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  public void toLaundry(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/laundryService.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/medicineDelivery.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  public void toMap(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/map.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
   }
 }

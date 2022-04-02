@@ -143,7 +143,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button fx:id="placeLaundryRequest" alignment="CENTER" layoutX="523.0" layoutY="615.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#placeLaundryRequest" prefHeight="59.0" prefWidth="122.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #89D7BF;" text="OK">
+            <Button fx:id="placeLaundryRequest" alignment="CENTER" layoutX="523.0" layoutY="615.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#addRequest" prefHeight="59.0" prefWidth="122.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #89D7BF;" text="OK">
                <font>
                   <Font size="18.0" />
                </font>
@@ -249,5 +249,6 @@
             </VBox>
          </children>
       </JFXHamburger>
+      <Pane fx:id="assistPane" layoutX="11.0" layoutY="184.0" prefHeight="569.0" prefWidth="93.0" />
    </children>
 </AnchorPane>
