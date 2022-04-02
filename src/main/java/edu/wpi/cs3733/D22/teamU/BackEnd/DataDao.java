@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public interface DataDao<T> {
   String csvFile = null;
-
+  // ArrayList<T> list;
   ArrayList<T> list();
 
   void CSVToJava() throws IOException;

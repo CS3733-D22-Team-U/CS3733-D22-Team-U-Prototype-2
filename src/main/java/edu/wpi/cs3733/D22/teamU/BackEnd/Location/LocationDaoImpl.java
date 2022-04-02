@@ -24,6 +24,7 @@ public class LocationDaoImpl implements DataDao<Location> {
   }
 
   // Takes in a CSV file and converts it to java objects
+
   /**
    * Reads CSV file and puts the Locations into an array list: locations
    *
@@ -121,6 +122,7 @@ public class LocationDaoImpl implements DataDao<Location> {
   }
 
   // This function takes all of the SQL database information into java objects
+
   /**
    * Clears the array list: locations and then reads the UDB database table: Locations then copies
    * the to the cleared array list
@@ -140,16 +142,16 @@ public class LocationDaoImpl implements DataDao<Location> {
       try {
         ResultSet results;
         results = exampleStatement.executeQuery("SELECT * FROM Locations");
-
+        results.getString("nodeType");
+        String longName = results.getString("longName");
+        String shortName = results.getString("shortName");
         while (results.next()) {
           String nodeID = results.getString("nodeID");
           int xcoord = results.getInt("xcoord");
           int ycoord = results.getInt("ycoord");
           String floor = results.getString("floor");
           String building = results.getString("building");
-          String nodeType = results.getString("nodeType");
-          String longName = results.getString("longName");
-          String shortName = results.getString("shortName");
+          String nodeType = results.getString("shortName");
 
           Location SQLRow = new Location();
           SQLRow.nodeID = nodeID;
@@ -175,6 +177,7 @@ public class LocationDaoImpl implements DataDao<Location> {
   }
 
   // This function converts the java objects of our CSV data into a new CSV file
+
   /**
    * Copies the array list: locations and writes it into the CSV file
    *
@@ -293,16 +296,13 @@ public class LocationDaoImpl implements DataDao<Location> {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
     // input ID
-    this.CSVToJava(); // t
-    for (int i = 0; i < this.locations.size(); i++) {
-      if (this.locations.get(i).nodeID.equals(data.nodeID)) {
-        this.locations.get(i).floor = data.floor;
-        this.locations.get(i).nodeType = data.nodeType;
-      }
+    try {
+      list().set(search(data.nodeID), data);
+      this.JavaToSQL(); // t
+      this.JavaToCSV(csvFile); // t
+    } catch (Exception e) {
+      System.out.println("This Object Does Not Exist");
     }
-    this.JavaToSQL(); // t
-    this.SQLToJava(); // t
-    this.JavaToCSV(csvFile); // t
   }
 
   /**
@@ -328,11 +328,15 @@ public class LocationDaoImpl implements DataDao<Location> {
   @Override
   public void add(Location data) throws IOException {
     // add a new entry to the SQL table
-    Location newLocation = data;
-    this.locations.add(newLocation);
-    this.JavaToSQL();
-    this.SQLToJava();
-    this.JavaToCSV(csvFile);
+    try {
+      locations.get(search(data.nodeID));
+      System.out.println("An Object With This ID Already Exists");
+    } catch (Exception e) {
+      Location newLocation = data;
+      this.locations.add(newLocation);
+      this.JavaToSQL();
+      this.JavaToCSV(csvFile);
+    }
   }
 
   /**
@@ -362,19 +366,20 @@ public class LocationDaoImpl implements DataDao<Location> {
   @Override
   public void remove(Location data) throws IOException {
     // removes entries from SQL table that match input node
-    for (int i = this.locations.size() - 1; i >= 0; i--) {
-      if (this.locations.get(i).nodeID.equals(data.nodeID)) {
-        this.locations.remove(i);
-      }
+    try {
+      this.locations.remove(search(data.nodeID));
+      this.JavaToSQL();
+      this.JavaToCSV(csvFile);
+    } catch (Exception e) {
+      System.out.println("This Data Point Was Not Found");
     }
-    this.JavaToSQL();
-    this.SQLToJava();
-    this.JavaToCSV(csvFile);
   }
 
   @Override
   public int search(String id) { // TODO search
-    return 0;
+    int index = -1;
+    for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).nodeID)) index = i;
+    return index;
   }
 
   /**

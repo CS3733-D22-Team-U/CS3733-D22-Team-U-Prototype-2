@@ -31,9 +31,9 @@ public class Udb {
   }
 
   public Udb(String username, String password, String[] CSVfiles) throws IOException, SQLException {
-    locationImpl = new LocationDaoImpl(DB_LOC, CSVfiles[0]);
+    String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
+    locationImpl = new LocationDaoImpl(authentication, CSVfiles[0]);
 
-    locationImpl.DB_LOC = locationImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EmployeeImpl.DB_LOC = EmployeeImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EquipmentImpl.DB_LOC =
         EquipmentImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
@@ -75,7 +75,6 @@ public class Udb {
       System.out.println("Wrong Username/Password");
       return;
     }
-    locationImpl = new LocationDaoImpl(DB_LOC, CSVfiles[0]);
 
     locationImpl.CSVToJava();
     locationImpl.JavaToSQL();
