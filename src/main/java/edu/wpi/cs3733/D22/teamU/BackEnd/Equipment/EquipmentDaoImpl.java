@@ -1,21 +1,24 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Equipment;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class EquipmentDaoImpl implements EquipmentDao {
+public class EquipmentDaoImpl implements DataDao<Equipment> {
   public String DB_LOC;
   public ArrayList<Equipment> EquipmentList = new ArrayList<Equipment>();
+  public String csvFile;
 
   /**
    * Constructor for EquipmentDaoImpl
    *
    * @param db_loc
    */
-  public EquipmentDaoImpl(String db_loc) {
+  public EquipmentDaoImpl(String db_loc, String csvFile) {
     this.DB_LOC = db_loc;
+    this.csvFile = csvFile;
   }
 
   /**
@@ -25,6 +28,27 @@ public class EquipmentDaoImpl implements EquipmentDao {
    * @throws IOException
    */
   public void CSVToJava(String csvFile) throws IOException {
+    EquipmentList = new ArrayList<Equipment>();
+    String s;
+    File file = new File(csvFile);
+    BufferedReader br = new BufferedReader(new FileReader(file));
+    br.readLine();
+    while ((s = br.readLine()) != null) {
+      String[] row = s.split(",");
+      if (row.length == 4) {
+        EquipmentList.add(
+            new Equipment(row[0], Integer.parseInt(row[1]), Integer.parseInt(row[2])));
+      }
+    }
+  }
+
+  @Override
+  public ArrayList<Equipment> list() {
+    return EquipmentList;
+  }
+
+  @Override
+  public void CSVToJava() throws IOException {
     EquipmentList = new ArrayList<Equipment>();
     String s;
     File file = new File(csvFile);
@@ -94,7 +118,8 @@ public class EquipmentDaoImpl implements EquipmentDao {
    *
    * @throws SQLException
    */
-  public void SQLToJava() throws SQLException {
+  @Override
+  public void SQLToJava() {
     EquipmentList = new ArrayList<Equipment>();
 
     try {
@@ -119,9 +144,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
       } catch (SQLException e) {
         System.out.println(e);
       }
-
       connection.close();
-
     } catch (SQLException e) {
       System.out.println("Database does not exist.");
     }
@@ -160,6 +183,57 @@ public class EquipmentDaoImpl implements EquipmentDao {
     fw.close();
   }
 
+  @Override
+  public void printTable() throws IOException {
+    // csv to java
+    CSVToJava();
+    // display equipment and attributes
+    System.out.println("Name |\t Amount |\t In Use |\t Available");
+    for (Equipment equipment : this.EquipmentList) {
+      System.out.println(
+          equipment.getName()
+              + " | \t"
+              + equipment.getAmount()
+              + " | \t"
+              + equipment.getInUse()
+              + " | \t"
+              + equipment.getAvailable()
+              + " | \t");
+    }
+  }
+
+  @Override
+  public void add(Equipment data) throws IOException {
+    // adds entry to SQL table
+    try {
+      EquipmentList.get(search(data.Name));
+      System.out.println("An Equipment With This Name ALready Exists");
+    } catch (Exception e) {
+      Equipment newEquipment = data;
+      this.EquipmentList.add(newEquipment);
+      this.JavaToSQL();
+      this.JavaToCSV(csvFile);
+    }
+  }
+
+  @Override
+  public void remove(Equipment data) throws IOException {
+    try {
+      this.EquipmentList.remove(search(data.Name));
+      this.JavaToSQL();
+      this.JavaToCSV(csvFile);
+    } catch (Exception e) {
+      System.out.println("This Equipment Was Not Found");
+    }
+  }
+
+  @Override
+  public int search(String name) { // Searches for Equipment w/ matching String Name
+    int index = -1;
+    for (int i = 0; i < list().size(); i++) if (name.equals(list().get(i).Name)) index = i;
+    return index;
+  }
+
   /**
    * Prints out the Contents of the CSV file TowerEquipment.csv
    *
@@ -185,7 +259,6 @@ public class EquipmentDaoImpl implements EquipmentDao {
     // menu
   }
 
-  @Override
   // -------------------------------Start of debugging backend
   // functions------------------------------------------//
 
@@ -225,19 +298,6 @@ public class EquipmentDaoImpl implements EquipmentDao {
 
   public void editEquipValue(String csvFile, String inputName, int inputNewAmount, int inputInUse)
       throws IOException, SQLException {
-    // takes entries from SQL table that match input node and updates it with a new floor and
-    // location type
-    // input ID
-    // Scanner s = new Scanner(System.in);
-    // System.out.println("Please input the name: ");
-    // String inputName = s.nextLine();
-    // input new floor
-    // System.out.println("New Amount: ");
-    // String inputNewAmount = s.nextLine();
-    // input new location type
-    // System.out.println("New In Use type");
-    // String inputInUse = s.nextLine();
-    // this.CSVToJava(csvFile); // t
     for (int i = 0; i < this.EquipmentList.size(); i++) {
       if (this.EquipmentList.get(i).getName().equals(inputName)) {
         this.EquipmentList.get(i).Amount = inputNewAmount;
@@ -248,6 +308,18 @@ public class EquipmentDaoImpl implements EquipmentDao {
     ; // t
     this.SQLToJava(); // t
     this.JavaToCSV(csvFile); // t
+  }
+
+  @Override
+  public void edit(Equipment data) throws IOException {
+    // takes entries from SQL table that match input node and updates it amount and it's use
+    try {
+      list().set(search(data.Name), data);
+      this.JavaToSQL();
+      this.JavaToCSV(csvFile);
+    } catch (Exception e) {
+      System.out.println("This Equipment Does Not Exist");
+    }
   }
 
   /**
@@ -351,46 +423,6 @@ public class EquipmentDaoImpl implements EquipmentDao {
     ; // t
     this.SQLToJava(); // t
     this.JavaToCSV(csvFile); // t
-  }
-
-  /**
-   * Prompts user for the name of a new item and then adds it to the csv file and database
-   *
-   * @param csvFile
-   * @throws IOException
-   * @throws SQLException
-   */
-  public void addEquip(String csvFile, String newName) throws IOException, SQLException {
-    // add a new entry to the SQL table
-    // prompt for ID
-
-    Equipment newEquipment = new Equipment(newName);
-    this.EquipmentList.add(newEquipment);
-    this.JavaToSQL();
-    this.SQLToJava();
-    this.JavaToCSV(csvFile);
-  }
-
-  /**
-   * Prompts user for the name of the item they wish to remove and then removes that item from the
-   * database and csv file
-   *
-   * @param csvFile
-   * @throws IOException
-   * @throws SQLException
-   */
-  public void removeEquip(String csvFile, String userNodeID) throws IOException, SQLException {
-    // removes entries from SQL table that match input node
-    // prompt for ID
-
-    for (int i = this.EquipmentList.size() - 1; i >= 0; i--) {
-      if (this.EquipmentList.get(i).getName().equals(userNodeID)) {
-        this.EquipmentList.remove(i);
-      }
-    }
-    this.JavaToSQL();
-    this.SQLToJava();
-    this.JavaToCSV(csvFile);
   }
 
   /**

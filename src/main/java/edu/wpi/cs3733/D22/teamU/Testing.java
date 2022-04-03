@@ -28,7 +28,7 @@ public class Testing {
 
     // djd
     // System.out.println("Testing location csv to java");
-    udb.locationImpl.CSVToJava(CSVfiles[4]);
+    udb.locationImpl.CSVToJava();
     String[] answer = {"TEST", "100", "200", "HELL", "jjjj", "jUNIT", "jUNITSUCKS"};
     int count = 0;
     assertEquals(udb.locationImpl.locations.get(0), answer);
