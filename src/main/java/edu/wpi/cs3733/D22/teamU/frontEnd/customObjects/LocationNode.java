@@ -75,8 +75,11 @@ public class LocationNode extends Circle {
     EventHandler<MouseEvent> event =
         new EventHandler<MouseEvent>() {
           public void handle(MouseEvent e) {
-            if (pane.getChildren().contains(popupPane)) pane.getChildren().remove(popupPane);
-            else pane.getChildren().add(popupPane);
+            if (pane.getChildren().contains(popupPane)) {
+              pane.getChildren().remove(popupPane);
+            } else {
+              pane.getChildren().add(popupPane);
+            }
           }
         };
 

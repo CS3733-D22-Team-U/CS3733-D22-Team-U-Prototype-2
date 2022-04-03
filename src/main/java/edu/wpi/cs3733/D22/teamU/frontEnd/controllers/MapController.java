@@ -49,20 +49,6 @@ public class MapController extends ServiceController {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    for (Location loc : udb.locationImpl.locations) {
-      if (loc.getFloor().equals("1")) {
-        // System.out.println(floor1Pane.getPrefHeight());
-        // System.out.println(floor1Pane.getPrefWidth());
-        double x = floor1Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
-        double y = floor1Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
-        try {
-          floor1Pane.getChildren().add(new LocationNode(loc, x, y, floor1Pane));
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-    }
-
     HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
 
     closeTransition.setRate(-1);
@@ -84,7 +70,19 @@ public class MapController extends ServiceController {
           }
         });
 
-    super.initialize(location, resources);
+    for (Location loc : udb.locationImpl.locations) {
+      if (loc.getFloor().equals("1")) {
+        // System.out.println(floor1Pane.getPrefHeight());
+        // System.out.println(floor1Pane.getPrefWidth());
+        double x = floor1Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
+        double y = floor1Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
+        try {
+          floor1Pane.getChildren().add(new LocationNode(loc, x, y, floor1Pane));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
     setUpMap();
   }
 

@@ -22,6 +22,7 @@ public class LocationPopupController {
   public Button remove;
 
   public void Exit(ActionEvent actionEvent) {
+    pane.setDisable(true);
     ((Pane) pane.getParent()).getChildren().remove(pane);
   }
 
