@@ -142,16 +142,16 @@ public class LocationDaoImpl implements DataDao<Location> {
       try {
         ResultSet results;
         results = exampleStatement.executeQuery("SELECT * FROM Locations");
-        results.getString("nodeType");
-        String longName = results.getString("longName");
-        String shortName = results.getString("shortName");
+
         while (results.next()) {
           String nodeID = results.getString("nodeID");
           int xcoord = results.getInt("xcoord");
           int ycoord = results.getInt("ycoord");
           String floor = results.getString("floor");
           String building = results.getString("building");
-          String nodeType = results.getString("shortName");
+          String nodeType = results.getString("nodeType");
+          String longName = results.getString("longName");
+          String shortName = results.getString("shortName");
 
           Location SQLRow = new Location();
           SQLRow.nodeID = nodeID;
