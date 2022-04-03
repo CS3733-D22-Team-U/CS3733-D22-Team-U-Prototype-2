@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.D22.teamU.frontEnd.customObjects;
+package edu.wpi.cs3733.D22.teamU.frontEnd.javaFXObjects;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import java.io.IOException;

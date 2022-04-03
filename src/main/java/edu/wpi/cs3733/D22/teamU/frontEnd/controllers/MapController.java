@@ -5,7 +5,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
-import edu.wpi.cs3733.D22.teamU.frontEnd.customObjects.LocationNode;
+import edu.wpi.cs3733.D22.teamU.frontEnd.javaFXObjects.LocationNode;
 import edu.wpi.cs3733.D22.teamU.frontEnd.services.map.MapUI;
 import java.io.IOException;
 import java.net.URL;
@@ -70,6 +70,7 @@ public class MapController extends ServiceController {
           }
         });
 
+    setUpMap();
     for (Location loc : udb.locationImpl.locations) {
       if (loc.getFloor().equals("1")) {
         // System.out.println(floor1Pane.getPrefHeight());
@@ -83,7 +84,6 @@ public class MapController extends ServiceController {
         }
       }
     }
-    setUpMap();
   }
 
   public void test() {
