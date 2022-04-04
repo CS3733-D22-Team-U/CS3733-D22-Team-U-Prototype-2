@@ -13,7 +13,8 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ScrollPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,11 +24,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 public class MapController extends ServiceController {
-  //@FXML ScrollPane imagesPane;
+  // @FXML ScrollPane imagesPane;
   @FXML AnchorPane lowerLevel1Pane;
   @FXML AnchorPane lowerLevel2Pane;
   @FXML AnchorPane floor1Pane;
@@ -47,11 +46,13 @@ public class MapController extends ServiceController {
   @FXML TableColumn<MapUI, String> shortName;
   @FXML Pane pane;
   @FXML Pane assistPane;
+  @FXML Button addBTN;
+  AnchorPane popupPane;
 
   ObservableList<MapUI> mapUI = FXCollections.observableArrayList();
   Udb udb = DBController.udb;
 
-  //private int startScale;
+  // private int startScale;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -59,23 +60,22 @@ public class MapController extends ServiceController {
 
     closeTransition.setRate(-1);
     hamburger.addEventHandler(
-            MouseEvent.MOUSE_CLICKED,
-            e -> {
-              closeTransition.setRate(closeTransition.getRate() * -1);
-              closeTransition.play();
-              vBoxPane.setVisible(!vBoxPane.isVisible());
-              pane.setDisable(!pane.isDisable());
-              if (pane.isDisable()) {
-                hamburger.setPrefWidth(200);
-                pane.setEffect(new GaussianBlur(10));
-                assistPane.setDisable(true);
-              } else {
-                pane.setEffect(null);
-                hamburger.setPrefWidth(77);
-                assistPane.setDisable(false);
-              }
-            });
-
+        MouseEvent.MOUSE_CLICKED,
+        e -> {
+          closeTransition.setRate(closeTransition.getRate() * -1);
+          closeTransition.play();
+          vBoxPane.setVisible(!vBoxPane.isVisible());
+          pane.setDisable(!pane.isDisable());
+          if (pane.isDisable()) {
+            hamburger.setPrefWidth(200);
+            pane.setEffect(new GaussianBlur(10));
+            assistPane.setDisable(true);
+          } else {
+            pane.setEffect(null);
+            hamburger.setPrefWidth(77);
+            assistPane.setDisable(false);
+          }
+        });
 
     setUpMap();
 
@@ -91,7 +91,7 @@ public class MapController extends ServiceController {
         } catch (IOException e) {
           e.printStackTrace();
         }
-      } else  if (loc.getFloor().equals("L2")) {
+      } else if (loc.getFloor().equals("L2")) {
         double x = lowerLevel2Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
         double y = lowerLevel2Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
         try {
@@ -99,7 +99,7 @@ public class MapController extends ServiceController {
         } catch (IOException e) {
           e.printStackTrace();
         }
-      } else  if (loc.getFloor().equals("1")) {
+      } else if (loc.getFloor().equals("1")) {
         double x = floor1Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
         double y = floor1Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
         try {
@@ -107,7 +107,7 @@ public class MapController extends ServiceController {
         } catch (IOException e) {
           e.printStackTrace();
         }
-      } else  if (loc.getFloor().equals("2")) {
+      } else if (loc.getFloor().equals("2")) {
         double x = floor2Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
         double y = floor2Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
         try {
@@ -115,7 +115,7 @@ public class MapController extends ServiceController {
         } catch (IOException e) {
           e.printStackTrace();
         }
-      } else  if (loc.getFloor().equals("3")) {
+      } else if (loc.getFloor().equals("3")) {
         double x = floor3Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
         double y = floor3Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
         try {
@@ -125,12 +125,22 @@ public class MapController extends ServiceController {
         }
       }
     }
+
+    popupPane = new AnchorPane();
+    try {
+      popupPane
+          .getChildren()
+          .add(
+              FXMLLoader.load(
+                  getClass()
+                      .getClassLoader()
+                      .getResource("edu/wpi/cs3733/D22/teamU/views/addLocPopUp.fxml")));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    popupPane.setLayoutX(200);
+    popupPane.setLayoutY(200);
   }
-
-
-
-
-
 
   public void test() {
     System.out.println("test");
@@ -173,4 +183,14 @@ public class MapController extends ServiceController {
 
   @Override
   public void updateRequest() {}
+
+  public void popUpAdd(MouseEvent mouseEvent) throws IOException {
+
+    Pane pane = (Pane) addBTN.getParent();
+    if (pane.getChildren().contains(popupPane)) {
+      pane.getChildren().remove(popupPane);
+    } else {
+      pane.getChildren().add(popupPane);
+    }
+  }
 }
