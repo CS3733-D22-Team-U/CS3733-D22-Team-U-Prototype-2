@@ -1,36 +1,42 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Employee;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class EmployeeDaoImpl implements EmployeeDao {
+public class EmployeeDaoImpl implements DataDao<Employee> {
 
   // make constant in locationDao
   public String DB_LOC;
-  public ArrayList<Employee> employees = new ArrayList<Employee>();
+  public String CSVfile;
+  public ArrayList<Employee> List = new ArrayList<Employee>();
 
-  public EmployeeDaoImpl(String db_loc) {
+  public EmployeeDaoImpl(String db_loc, String CSVfile) {
     this.DB_LOC = db_loc;
+    this.CSVfile = CSVfile;
+  }
+
+  public ArrayList<Employee> list() {
+    return this.List;
   }
 
   /**
    * CSVToJava: converts the CSV file at the given filepath into a list of Java objects
    *
-   * @param csvFile
    * @throws IOException
    */
-  public void CSVToJava(String csvFile) throws IOException {
-    employees = new ArrayList<Employee>();
+  public void CSVToJava() throws IOException {
+    List = new ArrayList<Employee>();
     String s;
-    File file = new File(csvFile);
+    File file = new File(CSVfile);
     BufferedReader br = new BufferedReader(new FileReader(file));
     br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == 4)
-        employees.add(
+        List.add(
             new Employee(
                 row[0].trim(),
                 row[1].trim(),
@@ -59,8 +65,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
               + "reports int not null,"
               + "onDuty boolean not null)");
 
-      for (int j = 0; j < employees.size(); j++) {
-        Employee currEmp = employees.get(j);
+      for (int j = 0; j < List.size(); j++) {
+        Employee currEmp = List.get(j);
         exampleStatement.execute(
             "INSERT INTO Employees VALUES('"
                 + currEmp.employeeID
@@ -82,13 +88,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
   }
 
-  /**
-   * SQLToJava: takes the SQL database and overwrites the global list of Java objects
-   *
-   * @throws SQLException
-   */
-  public void SQLToJava() throws SQLException {
-    employees = new ArrayList<Employee>();
+  /** SQLToJava: takes the SQL database and overwrites the global list of Java objects */
+  public void SQLToJava() {
+    List = new ArrayList<Employee>();
 
     try {
       Connection connection = null;
@@ -108,7 +110,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
           Employee SQLRow = new Employee(employeeID, occupation, reports, onDuty);
 
-          employees.add(SQLRow);
+          List.add(SQLRow);
         }
       } catch (SQLException e) {
         System.out.println("Locations not found");
@@ -140,14 +142,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
     fw.append("onDuty");
     fw.append("\n");
 
-    for (int i = 0; i < employees.size(); i++) {
-      fw.append(employees.get(i).employeeID);
+    for (int i = 0; i < List.size(); i++) {
+      fw.append(List.get(i).employeeID);
       fw.append(",");
-      fw.append(employees.get(i).occupation);
+      fw.append(List.get(i).occupation);
       fw.append(",");
-      fw.append(Integer.toString(employees.get(i).reports));
+      fw.append(Integer.toString(List.get(i).reports));
       fw.append(",");
-      fw.append(Boolean.toString(employees.get(i).onDuty));
+      fw.append(Boolean.toString(List.get(i).onDuty));
       fw.append("\n");
     }
     fw.close();
@@ -157,15 +159,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
    * printEmployeeTableInTerm: prints out the Employees from the given CSV filepath, printing a
    * table with each Employee's attributes
    *
-   * @param csvFile
    * @throws IOException
    */
-  public void printEmployeeTableInTerm(String csvFile) throws IOException {
+  public void printTable() throws IOException {
     // csv to java
-    CSVToJava(csvFile);
+    CSVToJava();
     // display locations and attributes
     System.out.println("Employee ID |\t Occupation |\t Reports |\t On Duty");
-    for (Employee employee : employees) {
+    for (Employee employee : List) {
       System.out.println(
           employee.employeeID
               + " | \t"
@@ -204,11 +205,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
     System.out.println("Number of new reports: ");
     int inputNewReports = s.nextInt();
 
-    CSVToJava(csvFile); // t
-    for (int i = 0; i < this.employees.size(); i++) {
-      if (this.employees.get(i).employeeID.equals(inputEmployeeID)) {
-        this.employees.get(i).occupation = inputNewOccupation;
-        this.employees.get(i).reports = inputNewReports;
+    CSVToJava(); // t
+    for (int i = 0; i < this.List.size(); i++) {
+      if (this.List.get(i).employeeID.equals(inputEmployeeID)) {
+        this.List.get(i).occupation = inputNewOccupation;
+        this.List.get(i).reports = inputNewReports;
       }
     }
     this.JavaToSQL(); // t
@@ -231,7 +232,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     System.out.println("Enter the new employee ID");
     String newEmployeeID = s.nextLine();
     Employee newEmployee = new Employee(newEmployeeID);
-    this.employees.add(newEmployee);
+    this.List.add(newEmployee);
     this.JavaToSQL();
     this.SQLToJava();
     this.JavaToCSV(csvFile);
@@ -251,9 +252,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
     Scanner s = new Scanner(System.in);
     System.out.println("Input ID for to delete employee: ");
     String userEmployeeID = s.nextLine(); // remove locations that match user input
-    for (int i = this.employees.size() - 1; i >= 0; i--) {
-      if (this.employees.get(i).employeeID.equals(userEmployeeID)) {
-        this.employees.remove(i);
+    for (int i = this.List.size() - 1; i >= 0; i--) {
+      if (this.List.get(i).employeeID.equals(userEmployeeID)) {
+        this.List.remove(i);
       }
     }
     this.JavaToSQL();
@@ -294,69 +295,60 @@ public class EmployeeDaoImpl implements EmployeeDao {
    * the employee with the matching ID, then converts the modified SQL table into a CSV, storing at
    * the original filepath
    *
-   * @param csvFile
+   * @param data
    * @throws IOException
-   * @throws SQLException
    */
-  public void editEmployee(
-      String csvFile, String inputEmployeeID, String inputNewOccupation, int inputNewReports)
-      throws IOException, SQLException {
-    // takes entries from SQL table that match input id and updates it with
-    // a new occupation
-    // a new number of reports
+  public void edit(Employee data) throws IOException {
 
-    CSVToJava(csvFile); // t
-    for (int i = 0; i < this.employees.size(); i++) {
-      if (this.employees.get(i).employeeID.equals(inputEmployeeID)) {
-        this.employees.get(i).occupation = inputNewOccupation;
-        this.employees.get(i).reports = inputNewReports;
+    CSVToJava(); // t
+    for (int i = 0; i < this.List.size(); i++) {
+      if (this.List.get(i).employeeID.equals(data.getEmployeeID())) {
+        this.List.get(i).occupation = data.getOccupation();
+        this.List.get(i).reports = data.getReports();
       }
     }
     this.JavaToSQL(); // t
     this.SQLToJava(); // t
-    this.JavaToCSV(csvFile); // t
+    this.JavaToCSV(CSVfile); // t
   }
 
   /**
    * addEmployee: adds a new employee with the prompted ID to the global Java list, then updates the
    * SQL table and the CSV file at the given filepath
    *
-   * @param csvFile
+   * @param data
    * @throws IOException
-   * @throws SQLException
    */
-  public void addEmployee(String csvFile, String newEmployeeID) throws IOException, SQLException {
+  public void add(Employee data) throws IOException {
     // add a new entry to the SQL table
     // prompt for ID
 
-    Employee newEmployee = new Employee(newEmployeeID);
-    this.employees.add(newEmployee);
+    Employee newEmployee = new Employee(data.getEmployeeID());
+    this.List.add(newEmployee);
     this.JavaToSQL();
     this.SQLToJava();
-    this.JavaToCSV(csvFile);
+    this.JavaToCSV(CSVfile);
   }
 
   /**
    * removeEmployee: removes the new employee with the prompted ID from the global Java list, then
    * updates the SQL table and the CSV file at the given filepath
    *
-   * @param csvFile
+   * @param data
    * @throws IOException
-   * @throws SQLException
    */
-  public void removeEmployee(String csvFile, String userEmployeeID)
-      throws IOException, SQLException {
+  public void remove(Employee data) throws IOException {
     // removes entries from SQL table that match input node
     // prompt for ID
 
-    for (int i = this.employees.size() - 1; i >= 0; i--) {
-      if (this.employees.get(i).employeeID.equals(userEmployeeID)) {
-        this.employees.remove(i);
+    for (int i = this.List.size() - 1; i >= 0; i--) {
+      if (this.List.get(i).employeeID.equals(data.getEmployeeID())) {
+        this.List.remove(i);
       }
     }
     this.JavaToSQL();
     this.SQLToJava();
-    this.JavaToCSV(csvFile);
+    this.JavaToCSV(CSVfile);
   }
 
   /**
@@ -376,5 +368,17 @@ public class EmployeeDaoImpl implements EmployeeDao {
     } catch (IOException e) {
       System.out.println(e.fillInStackTrace());
     }
+  }
+
+  /**
+   * Search for index with the employee ID
+   *
+   * @param id
+   * @return int
+   */
+  public int search(String id) {
+    int index = -1;
+    for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).getEmployeeID())) index = i;
+    return index;
   }
 }
