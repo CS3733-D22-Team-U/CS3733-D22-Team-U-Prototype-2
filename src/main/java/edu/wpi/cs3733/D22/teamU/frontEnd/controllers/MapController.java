@@ -23,10 +23,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class MapController extends ServiceController {
-  public ScrollPane imagesPane;
-  public AnchorPane floor1Pane;
+  //@FXML ScrollPane imagesPane;
+  @FXML AnchorPane lowerLevel1Pane;
+  @FXML AnchorPane lowerLevel2Pane;
+  @FXML AnchorPane floor1Pane;
+  @FXML AnchorPane floor2Pane;
+  @FXML AnchorPane floor3Pane;
   @FXML ImageView image;
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
@@ -45,7 +51,7 @@ public class MapController extends ServiceController {
   ObservableList<MapUI> mapUI = FXCollections.observableArrayList();
   Udb udb = DBController.udb;
 
-  private int startScale;
+  //private int startScale;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -53,28 +59,47 @@ public class MapController extends ServiceController {
 
     closeTransition.setRate(-1);
     hamburger.addEventHandler(
-        MouseEvent.MOUSE_CLICKED,
-        e -> {
-          closeTransition.setRate(closeTransition.getRate() * -1);
-          closeTransition.play();
-          vBoxPane.setVisible(!vBoxPane.isVisible());
-          pane.setDisable(!pane.isDisable());
-          if (pane.isDisable()) {
-            hamburger.setPrefWidth(200);
-            pane.setEffect(new GaussianBlur(10));
-            assistPane.setDisable(true);
-          } else {
-            pane.setEffect(null);
-            hamburger.setPrefWidth(77);
-            assistPane.setDisable(false);
-          }
-        });
+            MouseEvent.MOUSE_CLICKED,
+            e -> {
+              closeTransition.setRate(closeTransition.getRate() * -1);
+              closeTransition.play();
+              vBoxPane.setVisible(!vBoxPane.isVisible());
+              pane.setDisable(!pane.isDisable());
+              if (pane.isDisable()) {
+                hamburger.setPrefWidth(200);
+                pane.setEffect(new GaussianBlur(10));
+                assistPane.setDisable(true);
+              } else {
+                pane.setEffect(null);
+                hamburger.setPrefWidth(77);
+                assistPane.setDisable(false);
+              }
+            });
+
 
     setUpMap();
+
     for (Location loc : udb.locationImpl.locations) {
-      if (loc.getFloor().equals("1")) {
+
+      if (loc.getFloor().equals("L1")) {
         // System.out.println(floor1Pane.getPrefHeight());
         // System.out.println(floor1Pane.getPrefWidth());
+        double x = lowerLevel1Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
+        double y = lowerLevel1Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
+        try {
+          lowerLevel1Pane.getChildren().add(new LocationNode(loc, x, y, lowerLevel1Pane));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      } else  if (loc.getFloor().equals("L2")) {
+        double x = lowerLevel2Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
+        double y = lowerLevel2Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
+        try {
+          lowerLevel2Pane.getChildren().add(new LocationNode(loc, x, y, lowerLevel2Pane));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      } else  if (loc.getFloor().equals("1")) {
         double x = floor1Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
         double y = floor1Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
         try {
@@ -82,9 +107,30 @@ public class MapController extends ServiceController {
         } catch (IOException e) {
           e.printStackTrace();
         }
+      } else  if (loc.getFloor().equals("2")) {
+        double x = floor2Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
+        double y = floor2Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
+        try {
+          floor2Pane.getChildren().add(new LocationNode(loc, x, y, floor2Pane));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      } else  if (loc.getFloor().equals("3")) {
+        double x = floor3Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
+        double y = floor3Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
+        try {
+          floor3Pane.getChildren().add(new LocationNode(loc, x, y, floor3Pane));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       }
     }
   }
+
+
+
+
+
 
   public void test() {
     System.out.println("test");
