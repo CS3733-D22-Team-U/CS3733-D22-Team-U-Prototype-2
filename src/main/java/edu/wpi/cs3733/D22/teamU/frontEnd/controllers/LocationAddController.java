@@ -38,7 +38,8 @@ public class LocationAddController {
           "EXIT", "RETL", "SERV");
 
   ObservableList<String> buildingList = FXCollections.observableArrayList("Tower");
-  ObservableList<String> floorList = FXCollections.observableArrayList("1", "2", "3");
+  ObservableList<String> floorList =
+      FXCollections.observableArrayList("G", "L1", "L2", "1", "2", "3");
 
   public void initialize() {
     buildingCombo.setItems(buildingList);
