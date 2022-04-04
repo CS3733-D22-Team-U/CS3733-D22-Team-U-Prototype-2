@@ -17,9 +17,9 @@ import java.util.Scanner;
 public class Udb {
 
   public String DB_LOC = "jdbc:derby:UDB;";
-  public LocationDaoImpl locationImpl = new LocationDaoImpl(DB_LOC);
-  public EquipmentDaoImpl EquipmentImpl = new EquipmentDaoImpl(DB_LOC);
-  public EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
+  public LocationDaoImpl locationImpl;
+  public EquipmentDaoImpl EquipmentImpl;
+  public EmployeeDaoImpl EmployeeImpl;
   public RequestDaoImpl requestEquipImpl = new RequestDaoImpl(DB_LOC);
 
   public static String copyFile(InputStream inputPath, String outputPath) throws IOException {
@@ -31,10 +31,10 @@ public class Udb {
   }
 
   public Udb(String username, String password, String[] CSVfiles) throws IOException, SQLException {
-    locationImpl.DB_LOC = locationImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
-    EmployeeImpl.DB_LOC = EmployeeImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
-    EquipmentImpl.DB_LOC =
-        EquipmentImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
+    String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
+    locationImpl = new LocationDaoImpl(authentication, CSVfiles[0]);
+    EmployeeImpl = new EmployeeDaoImpl(authentication, CSVfiles[1]);
+    EquipmentImpl = new EquipmentDaoImpl(authentication, CSVfiles[2]);
 
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -74,13 +74,13 @@ public class Udb {
       return;
     }
 
-    locationImpl.CSVToJava(CSVfiles[0]);
+    locationImpl.CSVToJava();
     locationImpl.JavaToSQL();
 
-    EmployeeImpl.CSVToJava(CSVfiles[1]);
+    EmployeeImpl.CSVToJava();
     EmployeeImpl.JavaToSQL();
 
-    EquipmentImpl.CSVToJava(CSVfiles[2]);
+    EquipmentImpl.CSVToJava();
     EquipmentImpl.JavaToSQL();
     requestEquipImpl.CSVToJava(CSVfiles[3]);
 
@@ -131,15 +131,15 @@ public class Udb {
 
     switch (locationsInput.nextInt()) {
       case 1:
-        locationImpl.printLocTableInTerm(CSVfiles[0]);
+        locationImpl.printTable();
         locationMenu(CSVfiles);
         break;
       case 2:
-        locationImpl.editLocValue(CSVfiles[0]);
+        locationImpl.edit(CSVfiles[0]);
         locationMenu(CSVfiles);
         break;
       case 3:
-        locationImpl.addLoc(CSVfiles[0]);
+        locationImpl.add(CSVfiles[0]);
         locationMenu(CSVfiles);
         break;
       case 4:
@@ -172,7 +172,7 @@ public class Udb {
             + "6 - Return to Main Menu");
     switch (employeeInput.nextInt()) {
       case 1:
-        EmployeeImpl.printEmployeeTableInTerm(CSVfiles[1]);
+        EmployeeImpl.printTable();
         employeesMenu(CSVfiles);
         break;
       case 2:
