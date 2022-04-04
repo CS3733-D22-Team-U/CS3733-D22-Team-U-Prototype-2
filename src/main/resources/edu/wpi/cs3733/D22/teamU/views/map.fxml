@@ -162,7 +162,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Lower Level 1">
+          <Tab  text="Lower Level 1">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -186,7 +186,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Lower Level 2">
+            <Tab  text="Lower Level 2">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -211,7 +211,7 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab fx:id="floor1Pane" text="First Floor">
+            <Tab  text="First Floor">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -236,7 +236,7 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Second Floor">
+            <Tab  text="Second Floor">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -261,7 +261,7 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Third Floor">
+            <Tab  text="Third Floor">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
