@@ -60,7 +60,7 @@ public class DBController {
             .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TESTTowerEquipment.csv");
     String equipmentTest = copyFile(csvEquipment, "csvTables/TESTTowerEquipment.csv");
 
-    String[] CSVfiles = {location, employee, equipment, request, locationTest, equipmentTest};
+    String[] CSVfiles = {location, employee, equipment, request, LabRequest, locationTest, equipmentTest};
 
     udb = new Udb(username, password, CSVfiles);
 

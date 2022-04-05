@@ -88,6 +88,7 @@ public class Udb {
     EquipmentImpl.JavaToSQL();
 
     requestImpl.CSVToJava();
+    requestImpl.JavaToSQL();
 
     labRequestImpl.CSVToJava();
     labRequestImpl.JavaToSQL();
