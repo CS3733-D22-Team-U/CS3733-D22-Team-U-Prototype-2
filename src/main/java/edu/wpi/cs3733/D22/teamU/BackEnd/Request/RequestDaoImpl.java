@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
-import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
-
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,7 +35,16 @@ public class RequestDaoImpl implements DataDao<Request> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == 8) {
-        requestList.add(new Request(row[0], row[1], Integer.parseInt(row[2]), row[3], row[4], row[5], row[6], Integer.parseInt(row[7])));
+        requestList.add(
+            new Request(
+                row[0],
+                row[1],
+                Integer.parseInt(row[2]),
+                row[3],
+                row[4],
+                row[5],
+                row[6],
+                Integer.parseInt(row[7])));
       }
     }
   }
@@ -105,37 +112,37 @@ public class RequestDaoImpl implements DataDao<Request> {
       }
 
       exampleStatement.execute(
-              "CREATE TABLE Request("
-                      + "ID varchar(10) not null,"
-                      + "name varchar(50) not null, "
-                      + "amount int not null,"
-                      + "typeOfRequest varchar(10),"
-                      + "destination varchar(10) not null,"
-                      + "date varchar(10) not null,"
-                      + "time varchar(10) not null,"
-                      + "pri int not null)");
+          "CREATE TABLE Request("
+              + "ID varchar(10) not null,"
+              + "name varchar(50) not null, "
+              + "amount int not null,"
+              + "typeOfRequest varchar(10),"
+              + "destination varchar(10) not null,"
+              + "date varchar(10) not null,"
+              + "time varchar(10) not null,"
+              + "pri int not null)");
 
       for (int j = 0; j < requestList.size(); j++) {
         Request currReq = requestList.get(j);
         exampleStatement.execute(
-                "INSERT INTO Request VALUES("
-                        + "'"
-                        + currReq.getID()
-                        + "','"
-                        + currReq.getName()
-                        + "',"
-                        + currReq.getAmount()
-                        + ",'"
-                        + currReq.getType()
-                        + "','"
-                        + currReq.getDestination()
-                        + "','"
-                        + currReq.getDate()
-                        + "','"
-                        + currReq.getTime()
-                        + "',"
-                        + currReq.getPri()
-                        + ")");
+            "INSERT INTO Request VALUES("
+                + "'"
+                + currReq.getID()
+                + "','"
+                + currReq.getName()
+                + "',"
+                + currReq.getAmount()
+                + ",'"
+                + currReq.getType()
+                + "','"
+                + currReq.getDestination()
+                + "','"
+                + currReq.getDate()
+                + "','"
+                + currReq.getTime()
+                + "',"
+                + currReq.getPri()
+                + ")");
       }
 
       connection.close();
@@ -190,29 +197,38 @@ public class RequestDaoImpl implements DataDao<Request> {
     CSVToJava();
     // display locations and attributes
     System.out.println(
-            "ID |\t Name |\t Amount |\t Type |\t Destination |\t Date |\t Time |\t Priority");
+        "ID |\t Name |\t Amount |\t Type |\t Destination |\t Date |\t Time |\t Priority");
     for (Request request : this.requestList) {
-      System.out.println(request.ID
-                      + " | \t"
-                      + request.name
-                      + " | \t"
-                      + request.amount
-                      + " | \t"
-                      + request.typeOfRequest
-                      + " | \t"
-                      + request.destination
-                      + " | \t"
-                      + request.date
-                      + " | \t"
-                      + request.time
-                      + " | \t"
-                      + request.pri );
+      System.out.println(
+          request.ID
+              + " | \t"
+              + request.name
+              + " | \t"
+              + request.amount
+              + " | \t"
+              + request.typeOfRequest
+              + " | \t"
+              + request.destination
+              + " | \t"
+              + request.date
+              + " | \t"
+              + request.time
+              + " | \t"
+              + request.pri);
     }
     // menu
   }
 
   public void edit(
-      String csvFile, String inputID,String inputName, int inputNewAmount, String newType, String newDestination, String date, String time, int pri)
+      String csvFile,
+      String inputID,
+      String inputName,
+      int inputNewAmount,
+      String newType,
+      String newDestination,
+      String date,
+      String time,
+      int pri)
       throws IOException, SQLException {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
@@ -262,12 +278,22 @@ public class RequestDaoImpl implements DataDao<Request> {
    * @param csvFile
    * @throws IOException
    */
-  public void add(String csvFile, String id, String newName, int amount, String newType, String newDestination, String date, String time, int pri)
+  public void add(
+      String csvFile,
+      String id,
+      String newName,
+      int amount,
+      String newType,
+      String newDestination,
+      String date,
+      String time,
+      int pri)
       throws IOException {
     // add a new entry to the SQL table
     // prompt for ID
 
-    Request newEquipment = new Request(id, newName, amount, newType, newDestination, date, time, pri);
+    Request newEquipment =
+        new Request(id, newName, amount, newType, newDestination, date, time, pri);
     this.requestList.add(newEquipment);
     this.JavaToCSV(csvFile);
   }

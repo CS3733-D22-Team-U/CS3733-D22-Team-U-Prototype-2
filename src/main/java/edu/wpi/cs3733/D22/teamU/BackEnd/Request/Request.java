@@ -10,8 +10,15 @@ public class Request {
   String time;
   int pri;
 
-
-  public Request(String ID, String name, int amount, String typeOfRequest, String destination, String date, String time, int pri) {
+  public Request(
+      String ID,
+      String name,
+      int amount,
+      String typeOfRequest,
+      String destination,
+      String date,
+      String time,
+      int pri) {
     this.ID = ID;
     this.name = name;
     this.amount = amount;
@@ -54,19 +61,35 @@ public class Request {
     this.time = time;
   }
 
-  public String getType() { return this.typeOfRequest;}
+  public String getType() {
+    return this.typeOfRequest;
+  }
 
-  public String getDestination() { return this.destination;}
+  public String getDestination() {
+    return this.destination;
+  }
 
-  public void setType(String newType) { this.typeOfRequest = newType; }
+  public void setType(String newType) {
+    this.typeOfRequest = newType;
+  }
 
-  public void setDestination(String newDestination) { this.destination = newDestination; }
+  public void setDestination(String newDestination) {
+    this.destination = newDestination;
+  }
 
-  public String getID() { return this.ID; }
+  public String getID() {
+    return this.ID;
+  }
 
-  public void setID(String newID) { this.ID = newID; }
+  public void setID(String newID) {
+    this.ID = newID;
+  }
 
-  public int getPri() {return this.pri;}
+  public int getPri() {
+    return this.pri;
+  }
 
-  public void setPri(int newPri) { this.pri = newPri; }
+  public void setPri(int newPri) {
+    this.pri = newPri;
+  }
 }

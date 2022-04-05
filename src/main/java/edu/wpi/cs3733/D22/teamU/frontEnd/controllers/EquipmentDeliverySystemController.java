@@ -201,21 +201,25 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
                 sdf3.format(timestamp).substring(0, 10),
                 sdf3.format(timestamp).substring(11)));
         try {
-          udb.requestImpl.add(new Request("Test123",checkBoxes.get(i).getText(), //TODO Have random ID and enter Room Destination
-                          Integer.parseInt(checkBoxesInput.get(i).getText()), "EQUIPMENT",
-                          "GENERIC ROOM",
-                          sdf3.format(timestamp).substring(0, 10),
-                          sdf3.format(timestamp).substring(11)
-                          )
+          udb.requestImpl.add(
+              new Request(
+                  "Test123",
+                  checkBoxes.get(i).getText(), // TODO Have random ID and enter Room Destination
+                  Integer.parseInt(checkBoxesInput.get(i).getText()),
+                  "EQUIPMENT",
+                  "GENERIC ROOM",
+                  sdf3.format(timestamp).substring(0, 10),
+                  sdf3.format(timestamp).substring(11),
+                  1)
 
-                  /*
+              /*
               "csvTables/TowerEquipmentRequests.csv",
               checkBoxes.get(i).getText(),
               Integer.parseInt(checkBoxesInput.get(i).getText()),
               sdf3.format(timestamp).substring(0, 10),
               sdf3.format(timestamp).substring(11)
               */
-          );
+              );
 
         } catch (IOException e) {
           e.printStackTrace();
