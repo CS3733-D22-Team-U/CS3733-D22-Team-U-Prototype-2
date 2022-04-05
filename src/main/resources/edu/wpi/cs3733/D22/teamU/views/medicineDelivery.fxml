@@ -136,11 +136,11 @@
       <Text layoutX="479.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please describe the special request below:" />
       <Button defaultButton="true" layoutX="866.0" layoutY="150.0" mnemonicParsing="false" onAction="#process" prefHeight="71.0" prefWidth="152.0" style="-fx-background-radius: 15px; -fx-background-color: #89D7BF; -fx-text-fill: #ffffff;" text="Place Order" textFill="WHITE" />
       <Button defaultButton="true" layoutX="880.0" layoutY="239.0" mnemonicParsing="false" onAction="#clear" prefHeight="57.0" prefWidth="124.0" style="-fx-background-radius: 15px; -fx-background-color: #89D7BF; -fx-text-fill: #ffffff;" text="Reset" textFill="WHITE" />
-      <Text layoutX="908.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Status:" underline="true">
+      <Text layoutX="908.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Status:" underline="true">
          <font>
             <Font name="Apple Symbols" size="21.0" />
          </font></Text>
-      <TextArea fx:id="specialReq1" layoutX="865.0" layoutY="390.0" prefHeight="272.0" prefWidth="185.0">
+      <TextArea fx:id="specialReq1" layoutX="844.0" layoutY="395.0" prefHeight="272.0" prefWidth="226.0">
          <font>
             <Font size="9.0" />
          </font></TextArea>
@@ -208,7 +208,7 @@
          </image>
       </ImageView>
       <Text fx:id="reset" layoutX="271.0" layoutY="402.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Cleared requests!&quot;" visible="false" />
-      <Text fx:id="processText" layoutX="906.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Processing..." visible="false">
+      <Text fx:id="processText" layoutX="855.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Processing..." visible="false">
          <font>
             <Font size="15.0" />
          </font>
