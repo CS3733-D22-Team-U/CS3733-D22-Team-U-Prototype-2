@@ -40,8 +40,8 @@ public class DBController {
     InputStream csvRequest =
         Main.class
             .getClassLoader()
-            .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipmentRequests.csv");
-    String request = copyFile(csvRequest, "csvTables/TowerEquipmentRequests.csv");
+            .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TowerRequests.csv");
+    String request = copyFile(csvRequest, "csvTables/TowerRequests.csv");
 
     // -----------------------Test Files----------------------
     InputStream csvLocationFileTest =
@@ -62,7 +62,7 @@ public class DBController {
     // Testing testing = new Testing(CSVfiles, udb);
     // Testing testing = new Testing(CSVfiles, udb);
 
-    // udb.menu(CSVfiles); //Uncomment this to start terminal menu
+    //udb.menu(CSVfiles); // Uncomment this to start terminal menu
   }
 
   public static String copyFile(InputStream inputPath, String outputPath) throws IOException {
