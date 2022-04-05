@@ -294,7 +294,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
      *
      * @throws IOException
      */
-    public void removeRequest(String id) throws IOException {
+    /*public void removeRequest(String id) throws IOException {
         // removes entries from SQL table that match input node
         // prompt for ID
 
@@ -316,7 +316,6 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
         } catch (Exception e) {
             System.out.println("This Data Point Was Not Found");
         }
-    }
     }
 
     public void saveLocTableAsCSV() {
