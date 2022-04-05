@@ -78,7 +78,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
             fw.append(",");
             fw.append(labRequestsList.get(i).getPatient());
             fw.append(",");
-            fw.append(labRequestsList.get(i).getStaff();
+            fw.append(labRequestsList.get(i).getStaff());
             fw.append(",");
             fw.append(labRequestsList.get(i).getLabType());
             fw.append(",");
