@@ -2,10 +2,13 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -25,25 +28,32 @@ public class MedicineDeliveryController extends ServiceController {
   @FXML JFXCheckBox Lisinopril;
   @FXML JFXCheckBox Metformin;
   @FXML JFXCheckBox specialCheck;
+  @FXML Button clearButton;
 
   @FXML TextArea specialReq;
   @FXML TextField patientName;
   @FXML TextField staffName;
-
   @FXML TextField advilTxt;
+
+
+
+  @FXML TextField IDtxt;
   @FXML TextField alproTxt;
   @FXML TextField saltTxt;
   @FXML TextField atorvTxt;
   @FXML TextField lisinTxt;
   @FXML TextField metTxt;
   @FXML TextArea specialReqTxt;
-  @FXML Text resetDone;
+  @FXML Text reset;
   @FXML Text processText;
   // Text status;
+
 
   public Button backButton;
 
   @FXML JFXHamburger hamburger;
+  @FXML VBox medVbox;
+  @FXML VBox nameVbox;
   @FXML VBox vBoxPane;
   @FXML Pane pane;
   @FXML Pane assistPane;
@@ -59,7 +69,7 @@ public class MedicineDeliveryController extends ServiceController {
       }
 
       if(AmphetamineSalt.isSelected()){
-          advilTxt.setDisable(false);
+          saltTxt.setDisable(false);
       }
 
       if(Atorvastatin.isSelected()){
@@ -75,7 +85,7 @@ public class MedicineDeliveryController extends ServiceController {
       }
 
       if(specialCheck.isSelected()){
-          advilTxt.setDisable(false);
+          specialReqTxt.setDisable(false);
       }
 
   }
@@ -89,19 +99,30 @@ public class MedicineDeliveryController extends ServiceController {
     Metformin.setSelected(false);
     specialCheck.setSelected(false);
 
-    specialReq.setText("");
+
     patientName.setText("");
     staffName.setText("");
+    IDtxt.setText("");
 
-    resetDone.setText("Cleared requests!");
-    resetDone.setVisible(true);
+    advilTxt.setText("");
+    alproTxt.setText("");
+    saltTxt.setText("");
+    atorvTxt.setText("");
+    lisinTxt.setText("");
+    metTxt.setText("");
+    specialReqTxt.setText("");
+
+    reset.setText("Cleared requests!");
+    reset.setVisible(true);
+
+
     new Thread(
             () -> {
               try {
                 Thread.sleep(1500); // milliseconds
                 Platform.runLater(
                     () -> {
-                      resetDone.setVisible(false);
+                      reset.setVisible(false);
                     });
               } catch (InterruptedException ie) {
               }
@@ -115,7 +136,7 @@ public class MedicineDeliveryController extends ServiceController {
     new Thread(
             () -> {
               try {
-                Thread.sleep(4000); // milliseconds
+                Thread.sleep(2000); // milliseconds
                 Platform.runLater(
                     () -> {
                       processText.setText("Done!");

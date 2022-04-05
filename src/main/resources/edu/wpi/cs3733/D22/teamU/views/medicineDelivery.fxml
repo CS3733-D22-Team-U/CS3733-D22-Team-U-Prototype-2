@@ -138,15 +138,14 @@
       <Button defaultButton="true" layoutX="880.0" layoutY="239.0" mnemonicParsing="false" onAction="#clear" prefHeight="57.0" prefWidth="124.0" style="-fx-background-radius: 15px; -fx-background-color: #89D7BF; -fx-text-fill: #ffffff;" text="Reset" textFill="WHITE" />
       <Text layoutX="906.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Status:" />
       <TextArea fx:id="specialReq1" layoutX="819.0" layoutY="390.0" prefHeight="95.0" prefWidth="246.0" />
-      <Text fx:id="resetDone" layoutX="271.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Cleared requests!&quot;" visible="false" />
-      <VBox layoutX="240.0" layoutY="167.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+      <VBox fx:id="nameVbox" layoutX="240.0" layoutY="167.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter ID:" wrappingWidth="140.931640625">
                <font>
                   <Font size="17.0" />
                </font>
             </Text>
-            <TextField fx:id="staffName1" />
+            <TextField fx:id="IDtxt" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Assigned Staff Member:" wrappingWidth="175.931640625">
                <font>
                   <Font size="17.0" />
@@ -174,7 +173,7 @@
                   <JFXCheckBox fx:id="specialCheck" onAction="#enableTxt" text="Special Request?" />
                </children>
             </VBox>
-            <VBox layoutX="143.0" layoutY="56.0" prefHeight="330.0" prefWidth="100.0" spacing="22.0">
+            <VBox fx:id="medVbox" layoutX="143.0" layoutY="56.0" prefHeight="330.0" prefWidth="100.0" spacing="22.0">
                <children>
                   <TextField fx:id="advilTxt" disable="true" />
                   <TextField fx:id="alproTxt" disable="true" />
@@ -197,11 +196,12 @@
             <Image url="@../icons/unicornLogo.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="223.0" fitWidth="237.0" layoutX="213.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="200.0" fitWidth="223.0" layoutX="228.0" layoutY="448.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/med2-removebg-preview.png" />
          </image>
       </ImageView>
+      <Text fx:id="reset" layoutX="271.0" layoutY="402.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Cleared requests!&quot;" visible="false" />
       <Text fx:id="processText" layoutX="889.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Processing..." visible="false">
          <font>
             <Font size="20.0" />
