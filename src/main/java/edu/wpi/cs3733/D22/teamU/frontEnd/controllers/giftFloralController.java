@@ -1,14 +1,20 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class giftFloralController extends ServiceController {
 
@@ -16,6 +22,17 @@ public class giftFloralController extends ServiceController {
   @FXML VBox vBoxPane;
   @FXML Pane pane;
   @FXML Pane assistPane;
+  @FXML TextField senderField;
+  @FXML TextField recieverField;
+  @FXML TextField staffField;
+  @FXML TextField roomField;
+  @FXML TextField requestID;
+  @FXML Text processingText;
+  @FXML JFXTextArea messageText;
+  @FXML CheckBox balloonBox;
+  @FXML CheckBox flowerBox;
+  @FXML CheckBox plantBox;
+  @FXML CheckBox basketBox;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -39,6 +56,41 @@ public class giftFloralController extends ServiceController {
             assistPane.setDisable(false);
           }
         });
+  }
+
+  public void submit(ActionEvent actionEvent) {
+    processingText.setText("Processing...");
+    processingText.setVisible(true);
+    new Thread(
+            () -> {
+              try {
+                Thread.sleep(1500); // milliseconds
+                Platform.runLater(
+                    () -> {
+                      processingText.setText("Done");
+                    });
+                Thread.sleep(1500); // milliseconds
+                Platform.runLater(
+                    () -> {
+                      processingText.setVisible(false);
+                    });
+              } catch (InterruptedException ie) {
+              }
+            })
+        .start();
+  }
+
+  public void clear(ActionEvent actionEvent) {
+    balloonBox.setSelected(false);
+    plantBox.setSelected(false);
+    flowerBox.setSelected(false);
+    basketBox.setSelected(false);
+    senderField.setText("");
+    recieverField.setText("");
+    staffField.setText("");
+    roomField.setText("");
+    requestID.setText("");
+    messageText.setText("");
   }
 
   @Override

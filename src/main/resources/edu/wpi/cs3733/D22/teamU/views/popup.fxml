@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<AnchorPane fx:id="pane" prefHeight="277.0" prefWidth="284.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.LocationPopupController">
+<AnchorPane fx:id="pane" prefHeight="277.0" prefWidth="284.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.LocationPopupController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="288.0" stroke="BLACK" strokeType="INSIDE" width="284.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#054f99f1" height="288.0" stroke="#044e9a" strokeType="INSIDE" width="284.0" />
         <!--<Button fx:id="exit" layoutX="473.0" layoutY="45.0" mnemonicParsing="false" onAction="#Exit" text="X" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />-->
         <GridPane layoutX="14.0" layoutY="10.0" prefHeight="165.0" prefWidth="197.0">
             <columnConstraints>
@@ -29,14 +24,14 @@
                 <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label prefHeight="17.0" prefWidth="85.0" text="nodeID" textAlignment="RIGHT" />
-                <Label prefHeight="18.0" prefWidth="77.0" text="xcoord" textAlignment="RIGHT" GridPane.rowIndex="1" />
-                <Label prefHeight="18.0" prefWidth="76.0" text="ycoord" textAlignment="RIGHT" GridPane.rowIndex="2" />
-                <Label prefHeight="18.0" prefWidth="76.0" text="floor" GridPane.rowIndex="3" />
-                <Label prefHeight="18.0" prefWidth="80.0" text="building" GridPane.rowIndex="4" />
-                <Label prefHeight="18.0" prefWidth="123.0" text="nodeType" GridPane.rowIndex="5" />
-                <Label prefHeight="18.0" prefWidth="127.0" text="longName" GridPane.rowIndex="6" />
-                <Label prefHeight="18.0" prefWidth="83.0" text="shortName" textAlignment="RIGHT" GridPane.rowIndex="7" />
+                <Label prefHeight="17.0" prefWidth="85.0" text="nodeID" textAlignment="RIGHT" textFill="WHITE" />
+                <Label prefHeight="18.0" prefWidth="77.0" text="xcoord" textAlignment="RIGHT" textFill="WHITE" GridPane.rowIndex="1" />
+                <Label prefHeight="18.0" prefWidth="76.0" text="ycoord" textAlignment="RIGHT" textFill="WHITE" GridPane.rowIndex="2" />
+                <Label prefHeight="18.0" prefWidth="76.0" text="floor" textFill="WHITE" GridPane.rowIndex="3" />
+                <Label prefHeight="18.0" prefWidth="80.0" text="building" textFill="WHITE" GridPane.rowIndex="4" />
+                <Label prefHeight="18.0" prefWidth="123.0" text="nodeType" textFill="WHITE" GridPane.rowIndex="5" />
+                <Label prefHeight="18.0" prefWidth="127.0" text="longName" textFill="WHITE" GridPane.rowIndex="6" />
+                <Label prefHeight="18.0" prefWidth="83.0" text="shortName" textAlignment="RIGHT" textFill="WHITE" GridPane.rowIndex="7" />
                 <TextField fx:id="nodeID" GridPane.columnIndex="1" />
                 <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="xcoord" />
                 <TextField fx:id="floor" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -57,8 +52,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button fx:id="edit" mnemonicParsing="false" onMouseClicked="#edit" prefHeight="31.0" prefWidth="69.0" text="Edit" />
-                <Button fx:id="remove" mnemonicParsing="false" onMouseClicked="#remove" prefHeight="31.0" prefWidth="97.0" text="Remove" GridPane.columnIndex="2" />
+                <Button fx:id="edit" mnemonicParsing="false" onMouseClicked="#edit" prefHeight="31.0" prefWidth="69.0" style="-fx-background-color: #89D7BF;" text="Edit" textFill="WHITE" />
+                <Button fx:id="remove" mnemonicParsing="false" onMouseClicked="#remove" prefHeight="31.0" prefWidth="97.0" style="-fx-background-color: #89D7BF;" text="Remove" textFill="WHITE" GridPane.columnIndex="2" />
             </children>
         </GridPane>
     </children>
