@@ -129,7 +129,23 @@ public class MedicineDeliveryController extends ServiceController {
             })
         .start();
   }
+//
+    //    lisinTxt.equals("") && metTxt.equals("") && specialReqTxt.equals(""))
+    public void reqFields(){
 
+        if(staffName.getText().equals("") ||patientName.getText().equals("") || IDtxt.getText().equals("")
+                || (advilTxt.getText().equals("") && alproTxt.getText().equals("") && saltTxt.getText().equals("")) &&
+                atorvTxt.getText().equals("") && lisinTxt.getText().equals("") &&
+                metTxt.getText().equals("") && specialReqTxt.getText().equals("")){
+            processText.setText("Please fill out all required fields!");
+            processText.setVisible(true);
+        }
+        else
+        {
+            process();
+        }
+
+    }
 
   public void process() {
     processText.setText("Processing...");
@@ -160,6 +176,9 @@ public class MedicineDeliveryController extends ServiceController {
             })
         .start();
   }
+
+
+
 
     private String request() {
       String request = "";
