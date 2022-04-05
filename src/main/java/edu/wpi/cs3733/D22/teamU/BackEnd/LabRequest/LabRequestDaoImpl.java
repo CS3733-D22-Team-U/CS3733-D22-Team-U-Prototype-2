@@ -291,7 +291,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
      *
      * @throws IOException
      */
-    public void removeRequest(String id) throws IOException {
+    /*public void removeRequest(String id) throws IOException {
         // removes entries from SQL table that match input node
         // prompt for ID
 
