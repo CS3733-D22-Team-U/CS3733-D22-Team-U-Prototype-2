@@ -29,6 +29,14 @@ public class MedicineDeliveryController extends ServiceController {
   @FXML TextArea specialReq;
   @FXML TextField patientName;
   @FXML TextField staffName;
+
+  @FXML TextField advilTxt;
+  @FXML TextField alproTxt;
+  @FXML TextField saltTxt;
+  @FXML TextField atorvTxt;
+  @FXML TextField lisinTxt;
+  @FXML TextField metTxt;
+  @FXML TextArea specialReqTxt;
   @FXML Text resetDone;
   @FXML Text processText;
   // Text status;
@@ -39,6 +47,38 @@ public class MedicineDeliveryController extends ServiceController {
   @FXML VBox vBoxPane;
   @FXML Pane pane;
   @FXML Pane assistPane;
+
+  public void enableTxt(){
+
+      if(Advil.isSelected()) {
+          advilTxt.setDisable(false);
+      }
+
+      if(Alprozalam.isSelected()) {
+          alproTxt.setDisable(false);
+      }
+
+      if(AmphetamineSalt.isSelected()){
+          advilTxt.setDisable(false);
+      }
+
+      if(Atorvastatin.isSelected()){
+          atorvTxt.setDisable(false);
+      }
+
+      if(Lisinopril.isSelected()){
+          lisinTxt.setDisable(false);
+      }
+
+      if(Metformin.isSelected()){
+          metTxt.setDisable(false);
+      }
+
+      if(specialCheck.isSelected()){
+          advilTxt.setDisable(false);
+      }
+
+  }
 
   public void clear() {
     Advil.setSelected(false);
