@@ -1,29 +1,38 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
-import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
-import edu.wpi.cs3733.D22.teamU.frontEnd.services.IService;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
-public class giftFloralController implements Initializable, IService {
+public class giftFloralController extends ServiceController {
 
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
   @FXML Pane pane;
   @FXML Pane assistPane;
+  @FXML TextField senderField;
+  @FXML TextField recieverField;
+  @FXML TextField staffField;
+  @FXML TextField roomField;
+  @FXML TextField requestID;
+  @FXML Text processingText;
+  @FXML JFXTextArea messageText;
+  @FXML CheckBox balloonBox;
+  @FXML CheckBox flowerBox;
+  @FXML CheckBox plantBox;
+  @FXML CheckBox basketBox;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -49,29 +58,39 @@ public class giftFloralController implements Initializable, IService {
         });
   }
 
-  @Override
-  public void toMedicineDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/medicineDelivery.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
+  public void submit(ActionEvent actionEvent) {
+    processingText.setText("Processing...");
+    processingText.setVisible(true);
+    new Thread(
+            () -> {
+              try {
+                Thread.sleep(1500); // milliseconds
+                Platform.runLater(
+                    () -> {
+                      processingText.setText("Done");
+                    });
+                Thread.sleep(1500); // milliseconds
+                Platform.runLater(
+                    () -> {
+                      processingText.setVisible(false);
+                    });
+              } catch (InterruptedException ie) {
+              }
+            })
+        .start();
   }
 
-  @Override
-  public void toMap(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/map.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-  }
-
-  @Override
-  public void toGiftAndFloral(ActionEvent actionEvent) throws IOException {}
-
-  @Override
-  public void toLaundry(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/laundryService.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
+  public void clear(ActionEvent actionEvent) {
+    balloonBox.setSelected(false);
+    plantBox.setSelected(false);
+    flowerBox.setSelected(false);
+    basketBox.setSelected(false);
+    senderField.setText("");
+    recieverField.setText("");
+    staffField.setText("");
+    roomField.setText("");
+    requestID.setText("");
+    messageText.setText("");
   }
 
   @Override
@@ -82,38 +101,4 @@ public class giftFloralController implements Initializable, IService {
 
   @Override
   public void updateRequest() {}
-
-  @Override
-  public void displayRequest() {}
-
-  public void toHome(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/HomePage.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  @Override
-  public void toEquipmentDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/equipmentDelivery.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  @Override
-  public void toLabRequest(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/labRequestServices.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
-
-  @Override
-  public void toMealDelivery(ActionEvent actionEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/mealDelivery.fxml");
-    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
 }
