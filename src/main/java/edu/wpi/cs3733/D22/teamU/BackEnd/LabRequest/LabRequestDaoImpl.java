@@ -312,15 +312,16 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     }
 
     @Override
-    public void remove(Request data) throws IOException {
+    public void remove(LabRequest data) throws IOException {
         // removes entries from SQL table that match input node
         try {
-            this.requestList.remove(search(data.ID));
+            this.labRequestsList.remove(search(data.ID));
             this.JavaToSQL();
             this.JavaToCSV(csvFile);
         } catch (Exception e) {
             System.out.println("This Data Point Was Not Found");
         }
+    }
     }
 
     public void saveLocTableAsCSV() {
