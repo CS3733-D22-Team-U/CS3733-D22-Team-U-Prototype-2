@@ -6,6 +6,7 @@ package edu.wpi.cs3733.D22.teamU.BackEnd;
  */
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.EquipmentDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest.LabRequestDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Request.RequestDaoImpl;
 import java.io.*;
@@ -21,6 +22,7 @@ public class Udb {
   public EquipmentDaoImpl EquipmentImpl;
   public EmployeeDaoImpl EmployeeImpl;
   public RequestDaoImpl requestImpl;
+  //public LabRequestDaoImpl labRequestImpl;
 
   public static String copyFile(InputStream inputPath, String outputPath) throws IOException {
     File f = new File(outputPath);
@@ -36,6 +38,7 @@ public class Udb {
     EmployeeImpl = new EmployeeDaoImpl(authentication, CSVfiles[1]);
     EquipmentImpl = new EquipmentDaoImpl(authentication, CSVfiles[2]);
     requestImpl = new RequestDaoImpl(authentication, CSVfiles[3]);
+    //labRequestImpl = new LabRequestDaoImpl(authentication, CSVfiles[4]);
 
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -83,7 +86,11 @@ public class Udb {
 
     EquipmentImpl.CSVToJava();
     EquipmentImpl.JavaToSQL();
+
     requestImpl.CSVToJava();
+
+    //labRequestImpl.CSVToJava();
+    //labRequestImpl.JavaToSQL();
   }
 
   // This function is called in main the starts the menu where a client can access and or change
@@ -100,7 +107,8 @@ public class Udb {
             + "2 - Employees\n"
             + "3 - Equipment\n"
             + "4 - Request\n"
-            + "5 - Quit");
+            + "5 - Lab Request\n"
+            + "6 - Quit");
 
     switch (userInput.nextInt()) {
       case 1:
@@ -115,7 +123,13 @@ public class Udb {
       case 4:
         requestMenu(CSVfiles);
         break;
+        /*
       case 5:
+        labRequestMenu(CSVfiles);
+        break;
+        */
+
+      case 6:
         // exits whole menu
         break;
     }
@@ -239,6 +253,7 @@ public class Udb {
     }
   }
 
+
   private void requestMenu(String[] CSVfiles) throws IOException, SQLException {
     Scanner requestInput = new Scanner(System.in);
 
@@ -300,4 +315,50 @@ public class Udb {
         break;
     }
   }
+
+  /*
+  private void labRequestMenu(String[] CSVfiles) throws SQLException, IOException {
+    Scanner locationsInput = new Scanner(System.in);
+
+    System.out.println(
+            "1 - List Location Information\n"
+                    + "2 - Change Location Floor and Type\n"
+                    + "3 - Enter New Location\n"
+                    + "4 - Delete Location \n"
+                    + "5 - Save Location Information to CSV file\n"
+                    + "6 - Return to Main Menu");
+
+    switch (locationsInput.nextInt()) {
+      case 1:
+        locationImpl.printTable();
+        locationMenu(CSVfiles);
+        break;
+      case 2:
+        locationImpl.edit(CSVfiles[0]);
+        locationMenu(CSVfiles);
+        break;
+      case 3:
+        locationImpl.add(CSVfiles[0]);
+        locationMenu(CSVfiles);
+        break;
+      case 4:
+        locationImpl.removeLoc(CSVfiles[0]);
+        locationMenu(CSVfiles);
+        break;
+      case 5:
+        locationImpl.saveLocTableAsCSV();
+        locationMenu(CSVfiles);
+        break;
+      case 6:
+        // menu
+        menu(CSVfiles);
+        break;
+      default:
+        System.out.println("Something went wrong");
+        break;
+    }
+  }
+*/
+
+
 }
