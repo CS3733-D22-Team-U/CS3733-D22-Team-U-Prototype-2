@@ -216,15 +216,8 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
         // menu
     }
 
-    public void edit(
-            String inputID,
-            String inputName,
-            int inputNewAmount,
-            String newType,
-            String newDestination,
-            String date,
-            String time,
-            int pri)
+    /*
+    public void edit(String ID, String patient, String staff, String labType, String date, String time)
             throws IOException, SQLException {
         // takes entries from SQL table that match input node and updates it with a new floor and
         // location type
@@ -239,23 +232,21 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
         // System.out.println("New In Use type");
         // String inputInUse = s.nextLine();
         // this.CSVToJava(csvFile); // t
-        for (int i = 0; i < this.requestList.size(); i++) {
-            if (this.requestList.get(i).getID().equals(inputID)) {
-                this.requestList.get(i).name = inputName;
-                this.requestList.get(i).amount = inputNewAmount;
-                this.requestList.get(i).typeOfRequest = newType;
-                this.requestList.get(i).destination = newDestination;
-                this.requestList.get(i).date = date;
-                this.requestList.get(i).time = time;
-                this.requestList.get(i).pri = pri;
+        for (int i = 0; i < this.labRequestsList.size(); i++) {
+            if (this.labRequestsList.get(i).getID().equals(ID)) {
+                this.labRequestsList.get(i).patient = patient;
+                this.labRequestsList.get(i).staff = staff;
+                this.labRequestsList.get(i).labType = labType;
+                this.labRequestsList.get(i).date = date;
+                this.labRequestsList.get(i).time = time;
             }
         }
-        ; // t
-        this.JavaToCSV(csvFile); // t
+        this.JavaToCSV(csvFile);
     }
+    */
 
     @Override
-    public void edit(Request data) throws IOException {
+    public void edit(LabRequest data) throws IOException {
         // takes entries from SQL table that match input node and updates it with a new floor and
         // location type
         // input ID
