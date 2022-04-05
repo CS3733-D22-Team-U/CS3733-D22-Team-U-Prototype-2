@@ -255,39 +255,34 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     }
 
     /**
-     * Prompts user for the name of a new item and then adds it to the csv file and database
+     * Prompts user for the information of a new lab request and then adds it to the csv file and database
      *
      * @param csvFile
      * @throws IOException
      */
-    public void add(
-            String id,
-            String newName,
-            int amount,
-            String newType,
-            String newDestination,
-            String date,
-            String time,
-            int pri)
+    /*public void add(
+                    String id,
+                    String patient,
+                    String staff,
+                    String labType,
+                    String date,
+                    String time)
             throws IOException {
-        // add a new entry to the SQL table
-        // prompt for ID
-
-        Request newEquipment =
-                new Request(id, newName, amount, newType, newDestination, date, time, pri);
-        this.requestList.add(newEquipment);
+        LabRequest newLabRequest =
+                new LabRequest(id, patient, staff, labType, date, time);
+        this.labRequestsList.add(newLabRequest);
         this.JavaToCSV(csvFile);
-    }
+    }*/
 
     @Override
-    public void add(Request data) throws IOException {
+    public void add(LabRequest data) throws IOException {
         // add a new entry to the SQL table
         try {
-            requestList.get(search(data.ID));
-            System.out.println("An Object With This ID Already Exists");
+            labRequestsList.get(search(data.ID));
+            System.out.println("A Request With This ID Already Exists");
         } catch (Exception e) {
-            Request newRequest = data;
-            this.requestList.add(newRequest);
+            LabRequest newLabRequest = data;
+            this.labRequestsList.add(newLabRequest);
             this.JavaToSQL();
             this.JavaToCSV(csvFile);
         }
@@ -309,7 +304,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
             }
         }
         this.JavaToCSV(csvFile);
-    }
+    }*/
 
     @Override
     public void remove(Request data) throws IOException {
