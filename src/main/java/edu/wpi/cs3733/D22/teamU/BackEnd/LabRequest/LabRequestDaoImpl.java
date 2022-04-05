@@ -31,10 +31,11 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     String s;
     File file = new File(csvFile);
     BufferedReader br = new BufferedReader(new FileReader(file));
-    br.readLine();
+    String[] header = br.readLine().split(",");
+    int columns = header.length;
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
-      if (row.length == 3) {
+      if (row.length == columns) {
         labRequestsList.add(new LabRequest(row[0], row[1], row[2], row[3], row[4], row[5]));
       }
     }
