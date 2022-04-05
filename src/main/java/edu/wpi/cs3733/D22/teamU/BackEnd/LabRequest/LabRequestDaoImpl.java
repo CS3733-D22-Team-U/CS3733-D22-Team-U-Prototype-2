@@ -20,7 +20,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
     @Override
     public ArrayList<LabRequest> list() {
-        return labRequestList;
+        return labRequestsList;
     }
 
     /**
@@ -29,24 +29,19 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
      * @throws IOException
      */
     public void CSVToJava() throws IOException {
-        requestList = new ArrayList<Request>();
+        labRequestsList = new ArrayList<LabRequest>();
         String s;
         File file = new File(csvFile);
         BufferedReader br = new BufferedReader(new FileReader(file));
         br.readLine();
         while ((s = br.readLine()) != null) {
             String[] row = s.split(",");
-            if (row.length == 8) {
-                requestList.add(
-                        new Request(
+            if (row.length == 3) {
+                labRequestsList.add(
+                        new LabRequest(
                                 row[0],
                                 row[1],
-                                Integer.parseInt(row[2]),
-                                row[3],
-                                row[4],
-                                row[5],
-                                row[6],
-                                Integer.parseInt(row[7])));
+                                row[2]));
             }
         }
     }
@@ -78,13 +73,13 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
         fw.append("\n");
 
         for (int i = 0;
-             i < requestList.size();
+             i < labRequestsList.size();
              i++) { // ask about how this was working without and = sign
-            fw.append(requestList.get(i).getID());
+            fw.append(labRequestsList.get(i).getPatient());
             fw.append(",");
-            fw.append(requestList.get(i).getName());
+            fw.append(labRequestsList.get(i).getStaff());
             fw.append(",");
-            fw.append(Integer.toString(requestList.get(i).getAmount()));
+            fw.append(Integer.toString(labRequestsList.get(i).getPatient());
             fw.append(",");
             fw.append(requestList.get(i).getType());
             fw.append(",");
