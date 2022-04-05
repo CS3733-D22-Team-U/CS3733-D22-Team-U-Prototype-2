@@ -66,7 +66,7 @@
             </rowConstraints>
             <children>
                 <Button layoutX="20.0" layoutY="5.0" mnemonicParsing="false" onMouseClicked="#addRequest" prefHeight="31.0" prefWidth="67.0" style="-fx-background-color: #89D7BF;" text="Add" textFill="WHITE" />
-            <Button mnemonicParsing="false" onMouseClicked="#toMap" prefHeight="31.0" prefWidth="75.0" style="-fx-background-color: #89D7BF;" text="Close" textFill="WHITE" GridPane.columnIndex="2" />
+           <!-- <Button mnemonicParsing="false" onMouseClicked="#toMap" prefHeight="31.0" prefWidth="75.0" style="-fx-background-color: #89D7BF;" text="Close" textFill="WHITE" GridPane.columnIndex="2" />-->
             </children>
         </GridPane>
     </children>
