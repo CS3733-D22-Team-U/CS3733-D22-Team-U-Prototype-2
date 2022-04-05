@@ -36,8 +36,8 @@ public class RequestDaoImpl implements DataDao<Request> {
     br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
-      if (row.length == 7) {
-        requestList.add(new Request(row[0], row[1], Integer.parseInt(row[2]), row[3], row[4], row[5], row[6]));
+      if (row.length == 8) {
+        requestList.add(new Request(row[0], row[1], Integer.parseInt(row[2]), row[3], row[4], row[5], row[6], Integer.parseInt(row[7])));
       }
     }
   }
@@ -64,6 +64,8 @@ public class RequestDaoImpl implements DataDao<Request> {
     fw.append("Date");
     fw.append(",");
     fw.append("Time");
+    fw.append(",");
+    fw.append("Priority");
     fw.append("\n");
 
     for (int i = 0;
@@ -82,6 +84,8 @@ public class RequestDaoImpl implements DataDao<Request> {
       fw.append(requestList.get(i).getDate());
       fw.append(",");
       fw.append(requestList.get(i).getTime());
+      fw.append(",");
+      fw.append(Integer.toString(requestList.get(i).getPri()));
       fw.append("\n");
     }
     fw.close();
@@ -108,7 +112,8 @@ public class RequestDaoImpl implements DataDao<Request> {
                       + "typeOfRequest varchar(10),"
                       + "destination varchar(10) not null,"
                       + "date varchar(10) not null,"
-                      + "time varchar(10) not null)");
+                      + "time varchar(10) not null,"
+                      + "pri int not null)");
 
       for (int j = 0; j < requestList.size(); j++) {
         Request currReq = requestList.get(j);
@@ -128,7 +133,9 @@ public class RequestDaoImpl implements DataDao<Request> {
                         + currReq.getDate()
                         + "','"
                         + currReq.getTime()
-                        + "')");
+                        + "',"
+                        + currReq.getPri()
+                        + ")");
       }
 
       connection.close();
@@ -161,8 +168,9 @@ public class RequestDaoImpl implements DataDao<Request> {
           String destination = results.getString("destination");
           String date = results.getString("date");
           String time = results.getString("time");
+          int pri = results.getInt("pri");
 
-          Request SQLRow = new Request(id, name, amount, type, destination, date, time);
+          Request SQLRow = new Request(id, name, amount, type, destination, date, time, pri);
 
           requestList.add(SQLRow);
         }
@@ -182,7 +190,7 @@ public class RequestDaoImpl implements DataDao<Request> {
     CSVToJava();
     // display locations and attributes
     System.out.println(
-            "ID |\t Name |\t Amount |\t Type |\t Destination |\t Date |\t Time");
+            "ID |\t Name |\t Amount |\t Type |\t Destination |\t Date |\t Time |\t Priority");
     for (Request request : this.requestList) {
       System.out.println(request.ID
                       + " | \t"
@@ -196,13 +204,15 @@ public class RequestDaoImpl implements DataDao<Request> {
                       + " | \t"
                       + request.date
                       + " | \t"
-                      + request.time);
+                      + request.time
+                      + " | \t"
+                      + request.pri );
     }
     // menu
   }
 
   public void edit(
-      String csvFile, String inputID,String inputName, int inputNewAmount, String newType, String newDestination, String date, String time)
+      String csvFile, String inputID,String inputName, int inputNewAmount, String newType, String newDestination, String date, String time, int pri)
       throws IOException, SQLException {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
@@ -225,6 +235,7 @@ public class RequestDaoImpl implements DataDao<Request> {
         this.requestList.get(i).destination = newDestination;
         this.requestList.get(i).date = date;
         this.requestList.get(i).time = time;
+        this.requestList.get(i).pri = pri;
       }
     }
     ; // t
@@ -251,12 +262,12 @@ public class RequestDaoImpl implements DataDao<Request> {
    * @param csvFile
    * @throws IOException
    */
-  public void add(String csvFile, String id, String newName, int amount, String newType, String newDestination, String date, String time)
+  public void add(String csvFile, String id, String newName, int amount, String newType, String newDestination, String date, String time, int pri)
       throws IOException {
     // add a new entry to the SQL table
     // prompt for ID
 
-    Request newEquipment = new Request(id, newName, amount, newType, newDestination, date, time);
+    Request newEquipment = new Request(id, newName, amount, newType, newDestination, date, time, pri);
     this.requestList.add(newEquipment);
     this.JavaToCSV(csvFile);
   }
