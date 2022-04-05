@@ -15,6 +15,7 @@ FHALL00401,1973,910,1,Tower,HALL,Shattuck Street Lobby 2,Hallway F00401
 FHALL00501,1950,910,1,Tower,HALL,Shattuck Street Lobby 3,Hallway F00501
 FHALL00601,1869,930,1,Tower,HALL,Tower Lobby Entrance 1,Tower Entrance
 FHALL00701,1758,930,1,Tower,HALL,Tower Elevator Entrance,Hallway F00701
+FHALL00801,1758,850,1,Tower,HALL,Tower Hallway 1,Hallway F00801
 FHALL00901,1627,850,1,Tower,HALL,Tower Hallway 2,Hallway F00901
 FHALL01001,1627,802,1,Tower,HALL,Tower Hallway 3,Hallway F01001
 FHALL01101,1627,930,1,Tower,HALL,Tower Hallway 4,Hallway F01101
@@ -123,29 +124,29 @@ WELEV00LL2,1785,924,L2,Tower,ELEV,Elevator L Floor L2,Elevator LL2
 WELEV00ML2,1820,1280,L2,Tower,ELEV,Elevator M Floor L2,Elevator ML2
 WHALL001L2,1745,1524,L2,Tower,HALL,Hallway Connector 1 Floor L2,Hallway W01L2
 uSTOR0L1,1628,860,L1,Tower,STOR,OR Bed Park,ORBP
-uSTOR00101,56,285,1,Tower,STOR,West Plaza,West Plaza
-uSTOR02903,163,164,3,Tower,STOR,Clean Equipment Storage Pod B,CESB
-uSTOR02603,156,433,3,Tower,STOR,Clean Equipment Storage Pod C,CESC
-uDIRT00103,171,288,3,Tower,DIRT ,Dirty Equipment Storage,DES
-uPATI03103,122,197,3,Tower,PATI,Patient Room Pod B,PRB
-uPATI03203,83,186,3,Tower,PATI,Patient Room Pod B,PRB
-uPATI03303,70,158,3,Tower,PATI,Patient Room Pod B,PRB
-uPATI03403,68,129,3,Tower,PATI,Patient Room Pod B,PRB
-uPATI03503,76,99,3,Tower,PATI,Patient Room Pod B,PRB
-uPATI03603,98,79,3,Tower,PATI,Patient Room Pod B,PRB
-uPATI03703,129,67,3,Tower,PATI,Patient Room Pod B,PRB
-uPATI03803,166,71,3,Tower,PATI,Patient Room Pod B,PRB
-uPATI03903,191,92,3,Tower,PATI,Patient Room Pod B,PRB
-uPATI04003,195,127,3,Tower,PATI,Patient Room Pod B,PRB
-uPATI05103,115,383,3,Tower,PATI,Patient Room Pod C,PRC
-uPATI05203,92,390,3,Tower,PATI,Patient Room Pod C,PRC
-uPATI05303,70,427,3,Tower,PATI,Patient Room Pod C,PRC
-uPATI05403,70,457,3,Tower,PATI,Patient Room Pod C,PRC
-uPATI05503,78,484,3,Tower,PATI,Patient Room Pod C,PRC
-uPATI05603,102,504,3,Tower,PATI,Patient Room Pod C,PRC
-uPATI05703,131,512,3,Tower,PATI,Patient Room Pod C,PRC
-uPATI05803,157,512,3,Tower,PATI,Patient Room Pod C,PRC
-uPATI05903,198,486,3,Tower,PATI,Patient Room Pod C,PRC
-uPATI06003,197,457,3,Tower,PATI,Patient Room Pod C,PRC
-uHALL01003,297,181,3,Tower,HALL,Bed and Reciner Parking A-B,BRPAB
-uHALL02003,287,386,3,Tower,HALL,Bed and Recliner Parking C-D,BRPCD
+uSTOR00101,1460,931,1,Tower,STOR,West Plaza,West Plaza
+uSTOR02903,1526,762,3,Tower,STOR,Clean Equipment Storage Pod B,CESB
+uSTOR02603,1520,1090,3,Tower,STOR,Clean Equipment Storage Pod C,CESC
+uDIRT00103,1560,932,3,Tower,DIRT ,Dirty Equipment Storage,DES
+uPATI03103,1519,833,3,Tower,PATI,Patient Room Pod B,PRB
+uPATI03203,1492,831,3,Tower,PATI,Patient Room Pod B,PRB
+uPATI03303,1463,807,3,Tower,PATI,Patient Room Pod B,PRB
+uPATI03403,1455,770,3,Tower,PATI,Patient Room Pod B,PRB
+uPATI03503,1461,739,3,Tower,PATI,Patient Room Pod B,PRB
+uPATI03603,1486,718,3,Tower,PATI,Patient Room Pod B,PRB
+uPATI03703,1519,701,3,Tower,PATI,Patient Room Pod B,PRB
+uPATI03803,1552,707,3,Tower,PATI,Patient Room Pod B,PRB
+uPATI03903,1584,726,3,Tower,PATI,Patient Room Pod B,PRB
+uPATI04003,1585,755,3,Tower,PATI,Patient Room Pod B,PRB
+uPATI05103,1539,1029,3,Tower,PATI,Patient Room Pod C,PRC
+uPATI05203,1489,1023,3,Tower,PATI,Patient Room Pod C,PRC
+uPATI05303,1459,1060,3,Tower,PATI,Patient Room Pod C,PRC
+uPATI05403,1458,1088,3,Tower,PATI,Patient Room Pod C,PRC
+uPATI05503,1465,1117,3,Tower,PATI,Patient Room Pod C,PRC
+uPATI05603,1484,1134,3,Tower,PATI,Patient Room Pod C,PRC
+uPATI05703,1515,1150,3,Tower,PATI,Patient Room Pod C,PRC
+uPATI05803,1557,1146,3,Tower,PATI,Patient Room Pod C,PRC
+uPATI05903,1586,1123,3,Tower,PATI,Patient Room Pod C,PRC
+uPATI06003,1588,1093,3,Tower,PATI,Patient Room Pod C,PRC
+uHALL01003,1700,817,3,Tower,HALL,Bed and Reciner Parking A-B,BRPAB
+uHALL02003,1700,1033,3,Tower,HALL,Bed and Recliner Parking C-D,BRPCD
