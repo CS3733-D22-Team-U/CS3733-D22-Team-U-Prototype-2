@@ -130,6 +130,7 @@ public class MedicineDeliveryController extends ServiceController {
         .start();
   }
 
+
   public void process() {
     processText.setText("Processing...");
     processText.setVisible(true);
@@ -139,7 +140,20 @@ public class MedicineDeliveryController extends ServiceController {
                 Thread.sleep(2000); // milliseconds
                 Platform.runLater(
                     () -> {
-                      processText.setText("Done!");
+                        processText.setText("Staff Name: " + staffName.getText() + "\n" +
+                                            "Patient Name: " + patientName.getText() + "\n" +
+                                            "Order ID: " + IDtxt.getText() + "\n" +
+                                             ""     + "\n" +
+                                             "Medicine Order: " + "\n" +
+                                             ""     + "\n" +
+                                             "Advil: " + advilTxt.getText() + "\n" +
+                                             "Alprozalam: " + alproTxt.getText() + "\n" +
+                                             "Amphetamine Salt: " + saltTxt.getText() + "\n" +
+                                             "Atorvastatin: " + atorvTxt.getText() + "\n" +
+                                             "Lisinopril: " + lisinTxt.getText() + "\n" +
+                                             "Metformin: " + metTxt.getText() + "\n" +
+                                             "Special Request: " + request());
+
                     });
               } catch (InterruptedException ie) {
               }
@@ -147,7 +161,19 @@ public class MedicineDeliveryController extends ServiceController {
         .start();
   }
 
-  @Override
+    private String request() {
+      String request = "";
+      if(specialReqTxt.equals("")){
+          request = "No response";
+      }
+      else
+      {
+          request = specialReqTxt.getText();
+      }
+      return request;
+    }
+
+    @Override
   public void initialize(URL location, ResourceBundle resources) {
     HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
 
