@@ -30,7 +30,7 @@ public class Udb {
     return outputPath;
   }
 
-  public Udb(String username, String password, String[] CSVfiles) throws IOException, SQLException {
+  public Udb(String username, String password, String[] CSVfiles) throws IOException {
     String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
     locationImpl = new LocationDaoImpl(authentication, CSVfiles[0]);
     EmployeeImpl = new EmployeeDaoImpl(authentication, CSVfiles[1]);
@@ -77,10 +77,11 @@ public class Udb {
 
     locationImpl.CSVToJava();
     locationImpl.JavaToSQL();
+
     EmployeeImpl.CSVToJava();
     EmployeeImpl.JavaToSQL();
 
-    EquipmentImpl.CSVToJava();
+    EquipmentImpl.CSVToJava(locationImpl.list());
     EquipmentImpl.JavaToSQL();
     requestImpl.CSVToJava();
   }

@@ -1,13 +1,12 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.javaFXObjects;
 
-import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
 import java.io.IOException;
-import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -15,26 +14,36 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
-public class LocationNode extends Circle {
+public class LocationNode extends Group {
   private Location location;
   private Udb udb = DBController.udb;
 
   public LocationNode(Location location, double x, double y, AnchorPane pane) throws IOException {
     super();
     this.location = location;
-    setCenterX(x);
-    setCenterY(y);
-    setColor();
 
-    setRadius(5);
-    ArrayList<Equipment> equipment = udb.EquipmentImpl.list();
-    for (Equipment e : equipment) {
-      if (e.getLocationID().equals(location.getNodeID())) {
-        setStrokeWidth(1);
-        setStroke(Color.BLACK);
-        break;
-      }
+    if (location.getEquipment().size() > 0) {
+      Rectangle r = new Rectangle();
+      r.setX(x - 5);
+      r.setWidth(10);
+      r.setHeight(10);
+      r.setY(y - 5);
+      setColor(r);
+      r.setStroke(Color.BLACK);
+      r.setStrokeWidth(1);
+      getChildren().add(r);
+    }else{
+      Circle c = new Circle();
+      c.setCenterY(y);
+      c.setCenterX(x);
+      c.setRadius(5);
+      setColor(c);
+      c.setStroke(Color.BLACK);
+      c.setStrokeWidth(1);
+      getChildren().add(c);
     }
 
     AnchorPane popupPane = new AnchorPane();
@@ -100,53 +109,53 @@ public class LocationNode extends Circle {
     setOnMouseClicked(event);
   }
 
-  private void setColor() {
+  private void setColor(Shape s) {
 
     switch (location.getNodeType()) {
       case "PATI":
-        setFill(Color.RED);
+        s.setFill(Color.RED);
         break;
       case "STOR":
-        setFill(Color.ORANGE);
+        s.setFill(Color.ORANGE);
         break;
       case "DIRT":
-        setFill(Color.YELLOW);
+        s.setFill(Color.YELLOW);
         break;
       case "HALL":
-        setFill(Color.GREEN);
+        s.setFill(Color.GREEN);
         break;
       case "ELEV":
-        setFill(Color.BLUE);
+        s.setFill(Color.BLUE);
         break;
       case "REST":
-        setFill(Color.BLUEVIOLET);
+        s.setFill(Color.BLUEVIOLET);
         break;
       case "STAI":
-        setFill(Color.PURPLE);
+        s.setFill(Color.PURPLE);
         break;
       case "DEPT":
-        setFill(Color.ROSYBROWN);
+        s.setFill(Color.ROSYBROWN);
         break;
       case "LABS":
-        setFill(Color.SILVER);
+        s.setFill(Color.SILVER);
         break;
       case "INFO":
-        setFill(Color.WHEAT);
+        s.setFill(Color.WHEAT);
         break;
       case "CONF":
-        setFill(Color.BLACK);
+        s.setFill(Color.BLACK);
         break;
       case "EXIT":
-        setFill(Color.DARKRED);
+        s.setFill(Color.DARKRED);
         break;
       case "RETL":
-        setFill(Color.MAGENTA);
+        s.setFill(Color.MAGENTA);
         break;
       case "SERV":
-        setFill(Color.INDIANRED);
+        s.setFill(Color.INDIANRED);
         break;
       default:
-        setFill(Color.YELLOWGREEN);
+        s.setFill(Color.YELLOWGREEN);
     }
   }
 

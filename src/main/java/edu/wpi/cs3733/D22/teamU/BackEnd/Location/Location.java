@@ -2,6 +2,7 @@ package edu.wpi.cs3733.D22.teamU.BackEnd.Location;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Location {
 
@@ -164,5 +165,22 @@ public class Location {
 
   public void addEquipment(Equipment e) {
     equipment.add(e);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Location location = (Location) o;
+    return Objects.equals(nodeID, location.nodeID);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nodeID);
+  }
+
+  public ArrayList<Equipment> getEquipment() {
+    return equipment;
   }
 }

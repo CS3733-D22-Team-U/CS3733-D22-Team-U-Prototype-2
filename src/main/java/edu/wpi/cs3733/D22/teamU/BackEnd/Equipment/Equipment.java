@@ -1,11 +1,13 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Equipment;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
+
 public class Equipment {
   String Name;
   int Amount;
   int InUse;
   int Available;
-  // Location location;
+  Location location;
   String locationID;
   /**
    * Contructor for Equipment datatype that only takes a name
@@ -73,5 +75,13 @@ public class Equipment {
 
   public String getLocationID() {
     return locationID;
+  }
+
+  public Location getLocation() {
+    return location;
+  }
+
+  public void setLocation(Location location) {
+    this.location = location;
   }
 }
