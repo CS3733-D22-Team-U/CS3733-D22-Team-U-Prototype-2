@@ -64,7 +64,7 @@ public class RequestDaoImpl implements DataDao<Request> {
     fw.append(",");
     fw.append("Amount");
     fw.append(",");
-    fw.append("Type of Request");
+    fw.append("Type");
     fw.append(",");
     fw.append("Destination");
     fw.append(",");
@@ -220,7 +220,6 @@ public class RequestDaoImpl implements DataDao<Request> {
   }
 
   public void edit(
-      String csvFile,
       String inputID,
       String inputName,
       int inputNewAmount,
@@ -279,7 +278,6 @@ public class RequestDaoImpl implements DataDao<Request> {
    * @throws IOException
    */
   public void add(
-      String csvFile,
       String id,
       String newName,
       int amount,
@@ -316,10 +314,9 @@ public class RequestDaoImpl implements DataDao<Request> {
    * Prompts user for the name of the item they wish to remove and then removes that item from the
    * database and csv file
    *
-   * @param csvFile
    * @throws IOException
    */
-  public void removeRequest(String csvFile, String id) throws IOException {
+  public void removeRequest(String id) throws IOException {
     // removes entries from SQL table that match input node
     // prompt for ID
 

@@ -84,8 +84,6 @@ public class Udb {
     EquipmentImpl.CSVToJava();
     EquipmentImpl.JavaToSQL();
     requestImpl.CSVToJava();
-
-    // menu(CSVfiles);
   }
 
   // This function is called in main the starts the menu where a client can access and or change
@@ -101,7 +99,8 @@ public class Udb {
             + "1 - Locations\n"
             + "2 - Employees\n"
             + "3 - Equipment\n"
-            + "4 - Quit");
+            + "4 - Request\n"
+            + "5 - Quit");
 
     switch (userInput.nextInt()) {
       case 1:
@@ -114,6 +113,9 @@ public class Udb {
         equipmentMenu(CSVfiles);
         break;
       case 4:
+        requestMenu(CSVfiles);
+        break;
+      case 5:
         // exits whole menu
         break;
     }
@@ -229,6 +231,68 @@ public class Udb {
       case 5:
         EquipmentImpl.saveEquipTableAsCSV();
         equipmentMenu(CSVfiles);
+        break;
+      case 6:
+        // menu
+        menu(CSVfiles);
+        break;
+    }
+  }
+
+  private void requestMenu(String[] CSVfiles) throws IOException, SQLException {
+    Scanner requestInput = new Scanner(System.in);
+
+    System.out.println(
+        "1 - List Equipment Information\n"
+            + "2 - Edit Equipment Information\n"
+            + "3 - Enter New Equipment\n"
+            + "4 - Delete Equipment\n"
+            + "5 - Save Equipment Information to CSV\n"
+            + "6 - Return to Main Menu");
+    switch (requestInput.nextInt()) {
+      case 1:
+        requestImpl.printTable();
+        requestMenu(CSVfiles);
+        break;
+      case 2:
+        String inputID;
+        String name;
+        int pri;
+        System.out.println("Input request ID: ");
+        inputID = requestInput.nextLine();
+
+        System.out.println("Input request name: ");
+        name = requestInput.nextLine();
+
+        System.out.println("Input request pri: ");
+        pri = requestInput.nextInt();
+
+        requestImpl.edit(inputID, name, 1, "N/A", "N/A", "N/A", "N/A", pri);
+        requestMenu(CSVfiles);
+        break;
+      case 3:
+        System.out.println("Input request ID: ");
+        inputID = requestInput.nextLine();
+
+        System.out.println("Input request name: ");
+        name = requestInput.nextLine();
+
+        System.out.println("Input request pri: ");
+        pri = requestInput.nextInt();
+
+        requestImpl.add(inputID, name, 1, "N/A", "N/A", "N/A", "N/A", pri);
+        requestMenu(CSVfiles);
+        break;
+      case 4:
+        System.out.println("Input request ID: ");
+        inputID = requestInput.nextLine();
+
+        requestImpl.removeRequest(inputID);
+        requestMenu(CSVfiles);
+        break;
+      case 5:
+        requestImpl.saveLocTableAsCSV();
+        requestMenu(CSVfiles);
         break;
       case 6:
         // menu
