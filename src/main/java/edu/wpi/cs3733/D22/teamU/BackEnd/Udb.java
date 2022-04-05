@@ -22,7 +22,7 @@ public class Udb {
   public EquipmentDaoImpl EquipmentImpl;
   public EmployeeDaoImpl EmployeeImpl;
   public RequestDaoImpl requestImpl;
-  //public LabRequestDaoImpl labRequestImpl;
+  public LabRequestDaoImpl labRequestImpl;
 
   public static String copyFile(InputStream inputPath, String outputPath) throws IOException {
     File f = new File(outputPath);
@@ -38,7 +38,7 @@ public class Udb {
     EmployeeImpl = new EmployeeDaoImpl(authentication, CSVfiles[1]);
     EquipmentImpl = new EquipmentDaoImpl(authentication, CSVfiles[2]);
     requestImpl = new RequestDaoImpl(authentication, CSVfiles[3]);
-    //labRequestImpl = new LabRequestDaoImpl(authentication, CSVfiles[4]);
+    labRequestImpl = new LabRequestDaoImpl(authentication, CSVfiles[4]);
 
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -89,8 +89,8 @@ public class Udb {
 
     requestImpl.CSVToJava();
 
-    //labRequestImpl.CSVToJava();
-    //labRequestImpl.JavaToSQL();
+    labRequestImpl.CSVToJava();
+    labRequestImpl.JavaToSQL();
   }
 
   // This function is called in main the starts the menu where a client can access and or change
@@ -123,11 +123,9 @@ public class Udb {
       case 4:
         requestMenu(CSVfiles);
         break;
-        /*
       case 5:
         labRequestMenu(CSVfiles);
         break;
-        */
 
       case 6:
         // exits whole menu
@@ -316,16 +314,16 @@ public class Udb {
     }
   }
 
-  /*
+
   private void labRequestMenu(String[] CSVfiles) throws SQLException, IOException {
     Scanner locationsInput = new Scanner(System.in);
 
     System.out.println(
-            "1 - List Location Information\n"
-                    + "2 - Change Location Floor and Type\n"
-                    + "3 - Enter New Location\n"
-                    + "4 - Delete Location \n"
-                    + "5 - Save Location Information to CSV file\n"
+            "1 - List Lab Request Information\n"
+                    + "2 - Change Lab Request\n"
+                    + "3 - Enter New Lab Request\n"
+                    + "4 - Delete Lab Request\n"
+                    + "5 - Save Lab Request Information to CSV file\n"
                     + "6 - Return to Main Menu");
 
     switch (locationsInput.nextInt()) {
@@ -358,7 +356,7 @@ public class Udb {
         break;
     }
   }
-*/
+
 
 
 }

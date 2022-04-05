@@ -42,6 +42,11 @@ public class DBController {
             .getClassLoader()
             .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TowerRequests.csv");
     String request = copyFile(csvRequest, "csvTables/TowerRequests.csv");
+    InputStream csvLabRequest =
+        Main.class
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TowerLabRequests.csv");
+    String LabRequest = copyFile(csvLabRequest, "csvTables/TowerLabRequests.csv");
 
     // -----------------------Test Files----------------------
     InputStream csvLocationFileTest =
