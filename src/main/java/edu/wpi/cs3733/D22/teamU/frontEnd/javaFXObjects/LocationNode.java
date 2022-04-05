@@ -35,7 +35,7 @@ public class LocationNode extends Group {
       r.setStroke(Color.BLACK);
       r.setStrokeWidth(1);
       getChildren().add(r);
-    }else{
+    } else {
       Circle c = new Circle();
       c.setCenterY(y);
       c.setCenterX(x);
