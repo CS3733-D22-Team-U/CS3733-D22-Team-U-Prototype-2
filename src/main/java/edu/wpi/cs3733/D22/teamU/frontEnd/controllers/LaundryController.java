@@ -23,6 +23,7 @@ public class LaundryController extends ServiceController {
   @FXML CheckBox hangCB;
   @FXML CheckBox machineCB;
   @FXML CheckBox hypoCB;
+  @FXML TextField requestID;
   @FXML TextField patientNameLaundry;
   @FXML TextField employeeNameLaundry;
   @FXML TextField locationLaundry;
@@ -83,6 +84,7 @@ public class LaundryController extends ServiceController {
     hangCB.setSelected(false);
     machineCB.setSelected(false);
     hypoCB.setSelected(false);
+    requestID.setText("");
     patientNameLaundry.setText("");
     employeeNameLaundry.setText("");
     locationLaundry.setText("");

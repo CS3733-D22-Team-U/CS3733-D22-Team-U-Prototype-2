@@ -30,6 +30,7 @@ public class MealDeliveryController extends ServiceController {
   @FXML CheckBox lactoseCheckbox;
   @FXML CheckBox nutsCheckbox;
   @FXML CheckBox shellfishCheckbox;
+  @FXML TextField requestID;
   @FXML TextField patientNameMeal;
   @FXML TextField employeeNameMeal;
   @FXML TextField locationMeal;
@@ -91,6 +92,7 @@ public class MealDeliveryController extends ServiceController {
     lactoseCheckbox.setSelected(false);
     nutsCheckbox.setSelected(false);
     shellfishCheckbox.setSelected(false);
+    requestID.setText("");
     patientNameMeal.setText("");
     employeeNameMeal.setText("");
     locationMeal.setText("");
