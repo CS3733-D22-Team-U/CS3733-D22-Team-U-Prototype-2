@@ -60,13 +60,15 @@ public class DBController {
             .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TESTTowerEquipment.csv");
     String equipmentTest = copyFile(csvEquipment, "csvTables/TESTTowerEquipment.csv");
 
-    String[] CSVfiles = {location, employee, equipment, request, LabRequest, locationTest, equipmentTest};
+    String[] CSVfiles = {
+      location, employee, equipment, request, LabRequest, locationTest, equipmentTest
+    };
 
     udb = new Udb(username, password, CSVfiles);
 
     // Testing testing = new Testing(CSVfiles, udb);
     // Testing testing = new Testing(CSVfiles, udb);
-    // udb.menu(CSVfiles); // Uncomment this to start terminal menu
+    udb.menu(CSVfiles); // Uncomment this to start terminal menu
   }
 
   public static String copyFile(InputStream inputPath, String outputPath) throws IOException {

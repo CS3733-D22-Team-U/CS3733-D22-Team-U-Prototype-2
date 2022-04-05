@@ -257,7 +257,6 @@ public class RequestDaoImpl implements DataDao<Request> {
     this.JavaToCSV(csvFile); // t
   }
 
-
   @Override
   public void edit(Request data) throws IOException {
     // takes entries from SQL table that match input node and updates it with a new floor and
@@ -271,7 +270,6 @@ public class RequestDaoImpl implements DataDao<Request> {
       System.out.println("This Object Does Not Exist");
     }
   }
-
 
   /**
    * Prompts user for the name of a new item and then adds it to the csv file and database

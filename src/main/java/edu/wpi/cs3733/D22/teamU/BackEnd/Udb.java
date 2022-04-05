@@ -252,7 +252,6 @@ public class Udb {
     }
   }
 
-
   private void requestMenu(String[] CSVfiles) throws IOException, SQLException {
     Scanner requestInput = new Scanner(System.in);
 
@@ -315,38 +314,38 @@ public class Udb {
     }
   }
 
-
   private void labRequestMenu(String[] CSVfiles) throws SQLException, IOException {
-    Scanner locationsInput = new Scanner(System.in);
+
+    Scanner labMenu = new Scanner(System.in);
 
     System.out.println(
-            "1 - List Lab Request Information\n"
-                    + "2 - Change Lab Request\n"
-                    + "3 - Enter New Lab Request\n"
-                    + "4 - Delete Lab Request\n"
-                    + "5 - Save Lab Request Information to CSV file\n"
-                    + "6 - Return to Main Menu");
+        "1 - List Lab Request Information\n"
+            + "2 - Change Lab Request\n"
+            + "3 - Enter New Lab Request\n"
+            + "4 - Delete Lab Request\n"
+            + "5 - Save Lab Request Information to CSV file\n"
+            + "6 - Return to Main Menu");
 
-    switch (locationsInput.nextInt()) {
+    switch (labMenu.nextInt()) {
       case 1:
-        locationImpl.printTable();
-        locationMenu(CSVfiles);
+        labRequestImpl.printTable();
+        labRequestMenu(CSVfiles);
         break;
       case 2:
-        locationImpl.edit(CSVfiles[0]);
-        locationMenu(CSVfiles);
+        labRequestImpl.edit(labRequestImpl.askUser());
+        labRequestMenu(CSVfiles);
         break;
       case 3:
-        locationImpl.add(CSVfiles[0]);
-        locationMenu(CSVfiles);
+        labRequestImpl.add(labRequestImpl.askUser());
+        labRequestMenu(CSVfiles);
         break;
       case 4:
-        locationImpl.removeLoc(CSVfiles[0]);
-        locationMenu(CSVfiles);
+        labRequestImpl.remove(labRequestImpl.askUser());
+        labRequestMenu(CSVfiles);
         break;
       case 5:
-        locationImpl.saveLocTableAsCSV();
-        locationMenu(CSVfiles);
+        labRequestImpl.saveLocTableAsCSV();
+        labRequestMenu(CSVfiles);
         break;
       case 6:
         // menu
@@ -357,7 +356,4 @@ public class Udb {
         break;
     }
   }
-
-
-
 }
