@@ -35,9 +35,9 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
     br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
-      if (row.length == 4) {
+      if (row.length == 5) {
         EquipmentList.add(
-            new Equipment(row[0], Integer.parseInt(row[1]), Integer.parseInt(row[2])));
+            new Equipment(row[0], Integer.parseInt(row[1]), Integer.parseInt(row[2]), row[4]));
       }
     }
   }
@@ -56,9 +56,11 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
     br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
-      if (row.length == 4) {
-        EquipmentList.add(
-            new Equipment(row[0], Integer.parseInt(row[1]), Integer.parseInt(row[2])));
+      if (row.length == 5) {
+        Equipment e =
+            new Equipment(row[0], Integer.parseInt(row[1]), Integer.parseInt(row[2]), row[4]);
+
+        EquipmentList.add(e);
       }
     }
   }
@@ -86,7 +88,8 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
           "CREATE TABLE EquipmentList(name varchar(18) not null, "
               + "amount int not null,"
               + "inUse int not null,"
-              + "available int not null)");
+              + "available int not null,"
+              + "locationID varchar(18) not null)");
 
       for (int j = 0; j < EquipmentList.size(); j++) {
         Equipment currLoc = EquipmentList.get(j);
@@ -100,7 +103,9 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
                 + currLoc.getInUse()
                 + ","
                 + currLoc.getAvailable()
-                + ")");
+                + ",'"
+                + currLoc.getLocationID()
+                + "')");
       }
 
       connection.close();
@@ -136,8 +141,9 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
           String name = results.getString("Name");
           int amount = results.getInt("Amount");
           int inUse = results.getInt("InUse");
+          String locationID = results.getString("locationID");
 
-          Equipment SQLRow = new Equipment(name, amount, inUse);
+          Equipment SQLRow = new Equipment(name, amount, inUse, locationID);
 
           EquipmentList.add(SQLRow);
         }
@@ -335,7 +341,9 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
     Scanner s = new Scanner(System.in);
     System.out.println("Enter the new equipment name");
     String newName = s.nextLine();
-    Equipment newEquipment = new Equipment(newName);
+    System.out.println("Enter the location Node ID");
+    String nodeId = s.nextLine();
+    Equipment newEquipment = new Equipment(newName, nodeId);
     this.EquipmentList.add(newEquipment);
     this.JavaToSQL();
     this.SQLToJava();

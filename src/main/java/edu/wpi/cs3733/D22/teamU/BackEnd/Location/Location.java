@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Location;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
+import java.util.ArrayList;
+
 public class Location {
 
   String nodeID;
@@ -10,6 +13,7 @@ public class Location {
   String nodeType;
   String longName;
   String shortName;
+  ArrayList<Equipment> equipment = new ArrayList<>();
 
   /** Empty constructor */
   public Location() {}
@@ -156,5 +160,9 @@ public class Location {
 
   public void setShortName(String shortName) {
     this.shortName = shortName;
+  }
+
+  public void addEquipment(Equipment e) {
+    equipment.add(e);
   }
 }

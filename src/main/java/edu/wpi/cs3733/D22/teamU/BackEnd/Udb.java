@@ -77,7 +77,6 @@ public class Udb {
 
     locationImpl.CSVToJava();
     locationImpl.JavaToSQL();
-
     EmployeeImpl.CSVToJava();
     EmployeeImpl.JavaToSQL();
 

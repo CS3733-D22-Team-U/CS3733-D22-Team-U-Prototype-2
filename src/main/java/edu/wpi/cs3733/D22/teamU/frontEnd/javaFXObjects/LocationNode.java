@@ -1,7 +1,11 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.javaFXObjects;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
+import edu.wpi.cs3733.D22.teamU.DBController;
 import java.io.IOException;
+import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,6 +18,7 @@ import javafx.scene.shape.Circle;
 
 public class LocationNode extends Circle {
   private Location location;
+  private Udb udb = DBController.udb;
 
   public LocationNode(Location location, double x, double y, AnchorPane pane) throws IOException {
     super();
@@ -21,7 +26,16 @@ public class LocationNode extends Circle {
     setCenterX(x);
     setCenterY(y);
     setColor();
+
     setRadius(5);
+    ArrayList<Equipment> equipment = udb.EquipmentImpl.list();
+    for (Equipment e : equipment) {
+      if (e.getLocationID().equals(location.getNodeID())) {
+        setStrokeWidth(1);
+        setStroke(Color.BLACK);
+        break;
+      }
+    }
 
     AnchorPane popupPane = new AnchorPane();
     popupPane
