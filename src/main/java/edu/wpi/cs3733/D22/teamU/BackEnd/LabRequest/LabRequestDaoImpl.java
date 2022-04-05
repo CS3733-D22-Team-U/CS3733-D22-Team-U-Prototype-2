@@ -98,43 +98,37 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
             Statement exampleStatement = connection.createStatement();
             try {
-                exampleStatement.execute("Drop table Request");
+                exampleStatement.execute("Drop table LabRequest");
             } catch (Exception e) {
                 System.out.println("didn't drop table");
             }
 
             exampleStatement.execute(
-                    "CREATE TABLE Request("
+                    "CREATE TABLE LabRequest("
                             + "ID varchar(10) not null,"
-                            + "name varchar(50) not null, "
-                            + "amount int not null,"
-                            + "typeOfRequest varchar(10),"
-                            + "destination varchar(10) not null,"
+                            + "patient varchar(50) not null, "
+                            + "staff varchar(50) not null,"
+                            + "labType varchar(50),"
                             + "date varchar(10) not null,"
-                            + "time varchar(10) not null,"
-                            + "pri int not null)");
+                            + "time varchar(10) not null)");
 
-            for (int j = 0; j < requestList.size(); j++) {
-                Request currReq = requestList.get(j);
+            for (int j = 0; j < labRequestsList.size(); j++) {
+                LabRequest currLab = labRequestsList.get(j);
                 exampleStatement.execute(
-                        "INSERT INTO Request VALUES("
+                        "INSERT INTO LabRequest VALUES("
                                 + "'"
-                                + currReq.getID()
+                                + currLab.getID()
                                 + "','"
-                                + currReq.getName()
-                                + "',"
-                                + currReq.getAmount()
-                                + ",'"
-                                + currReq.getType()
+                                + currLab.getPatient()
                                 + "','"
-                                + currReq.getDestination()
+                                + currLab.getStaff()
                                 + "','"
-                                + currReq.getDate()
+                                + currLab.getLabType()
                                 + "','"
-                                + currReq.getTime()
-                                + "',"
-                                + currReq.getPri()
-                                + ")");
+                                + currLab.getDate()
+                                + "','"
+                                + currLab.getTime()
+                                + "')");
             }
 
             connection.close();
@@ -147,7 +141,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     }
 
     public void SQLToJava() {
-        requestList = new ArrayList<Request>();
+        labRequestsList = new ArrayList<LabRequest>();
 
         try {
             Connection connection = null;
@@ -157,21 +151,19 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
             try {
                 ResultSet results;
-                results = exampleStatement.executeQuery("SELECT * FROM Request");
+                results = exampleStatement.executeQuery("SELECT * FROM LabRequest");
 
                 while (results.next()) {
                     String id = results.getString("ID");
-                    String name = results.getString("name");
-                    int amount = results.getInt("amount");
-                    String type = results.getString("typeOfRequest");
-                    String destination = results.getString("destination");
+                    String patient = results.getString("patient");
+                    String staff = results.getString("staff");
+                    String labType = results.getString("labType");
                     String date = results.getString("date");
                     String time = results.getString("time");
-                    int pri = results.getInt("pri");
 
-                    Request SQLRow = new Request(id, name, amount, type, destination, date, time, pri);
+                    LabRequest SQLRow = new LabRequest(id, patient, staff, labType, date, time);
 
-                    requestList.add(SQLRow);
+                    labRequestsList.add(SQLRow);
                 }
             } catch (SQLException e) {
                 System.out.println("request not found");
