@@ -181,24 +181,21 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
         CSVToJava();
         // display locations and attributes
         System.out.println(
-                "ID |\t Name |\t Amount |\t Type |\t Destination |\t Date |\t Time |\t Priority");
-        for (Request request : this.requestList) {
+                "ID |\t Patient |\t Staff |\t Lab Type |\t Date |\t Time");
+        for (LabRequest request : this.labRequestsList) {
             System.out.println(
                     request.ID
                             + " | \t"
-                            + request.name
+                            + request.patient
                             + " | \t"
-                            + request.amount
+                            + request.staff
                             + " | \t"
-                            + request.typeOfRequest
-                            + " | \t"
-                            + request.destination
+                            + request.labType
                             + " | \t"
                             + request.date
                             + " | \t"
                             + request.time
-                            + " | \t"
-                            + request.pri);
+                           );
         }
         // menu
     }
@@ -286,7 +283,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
      *
      * @throws IOException
      */
-    public void removeRequest(String id) throws IOException {
+    /*public void removeRequest(String id) throws IOException {
         // removes entries from SQL table that match input node
         // prompt for ID
 
@@ -308,7 +305,6 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
         } catch (Exception e) {
             System.out.println("This Data Point Was Not Found");
         }
-    }
     }
 
     public void saveLocTableAsCSV() {
