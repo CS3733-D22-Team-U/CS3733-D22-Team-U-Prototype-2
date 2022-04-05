@@ -41,7 +41,10 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
                         new LabRequest(
                                 row[0],
                                 row[1],
-                                row[2]));
+                                row[2],
+                                row[3],
+                                row[4],
+                                row[5]));
             }
         }
     }
@@ -57,39 +60,31 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
         fw.append("ID");
         fw.append(",");
-        fw.append("Name");
+        fw.append("Patient");
         fw.append(",");
-        fw.append("Amount");
+        fw.append("Staff");
         fw.append(",");
-        fw.append("Type");
-        fw.append(",");
-        fw.append("Destination");
+        fw.append("LabType");
         fw.append(",");
         fw.append("Date");
         fw.append(",");
         fw.append("Time");
-        fw.append(",");
-        fw.append("Priority");
         fw.append("\n");
 
         for (int i = 0;
              i < labRequestsList.size();
              i++) { // ask about how this was working without and = sign
+            fw.append(labRequestsList.get(i).getID());
+            fw.append(",");
             fw.append(labRequestsList.get(i).getPatient());
             fw.append(",");
-            fw.append(labRequestsList.get(i).getStaff());
+            fw.append(labRequestsList.get(i).getStaff();
             fw.append(",");
-            fw.append(Integer.toString(labRequestsList.get(i).getPatient());
+            fw.append(labRequestsList.get(i).getLabType());
             fw.append(",");
-            fw.append(requestList.get(i).getType());
+            fw.append(labRequestsList.get(i).getDate());
             fw.append(",");
-            fw.append(requestList.get(i).getDestination());
-            fw.append(",");
-            fw.append(requestList.get(i).getDate());
-            fw.append(",");
-            fw.append(requestList.get(i).getTime());
-            fw.append(",");
-            fw.append(Integer.toString(requestList.get(i).getPri()));
+            fw.append(labRequestsList.get(i).getTime());
             fw.append("\n");
         }
         fw.close();
