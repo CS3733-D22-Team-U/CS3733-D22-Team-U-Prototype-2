@@ -75,8 +75,7 @@ public class DBController {
     File f = new File(outputPath);
     // f.createNewFile();
     try {
-      Files.copy(
-          inputPath, f.getAbsoluteFile().toPath()); // todo remove replace existing after testing
+      Files.copy(inputPath, f.getAbsoluteFile().toPath());
       inputPath.close();
     } catch (Exception e) {
       // Doesn't override if files already exist
