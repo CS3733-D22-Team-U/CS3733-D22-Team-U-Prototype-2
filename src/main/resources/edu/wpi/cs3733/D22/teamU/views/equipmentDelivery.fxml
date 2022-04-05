@@ -308,10 +308,14 @@
                            <children>
                               <TableView fx:id="activeRequestTable" prefHeight="547.0" prefWidth="912.0">
                                 <columns>
+                                    <TableColumn fx:id="activeReqID" prefWidth="75.0" text="ID" />
                                   <TableColumn fx:id="activeReqName" prefWidth="75.0" text="Name" />
                                   <TableColumn fx:id="activeReqAmount" prefWidth="75.0" text="Amount Requested" />
-                                    <TableColumn fx:id="activeDate" prefWidth="75.0" text="Date Requested" />
-                                    <TableColumn fx:id="activeTime" prefWidth="75.0" text="Timestamp" />
+                                    <TableColumn fx:id="activeReqType" prefWidth="75.0" text="Type" />
+                                    <TableColumn fx:id="activeReqDestination" prefWidth="75.0" text="Destination" />
+                                    <TableColumn fx:id="activeDate" prefWidth="75.0" text="Date" />
+                                    <TableColumn fx:id="activeTime" prefWidth="75.0" text="Time" />
+                                    <TableColumn fx:id="activePriority" prefWidth="75.0" text="Priority" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

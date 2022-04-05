@@ -1,14 +1,18 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.services.equipmentDelivery;
 
 public class EquipmentUI {
+  private String id;
   private String equipmentName;
   private int amountInUse;
   private int amountAvailable;
   private int totalAmount;
-
+  private final String type = "Equipment";
+  private String destination;
   private int requestAmount;
   private String requestDate;
   private String requestTime;
+
+  private int priority;
 
   public EquipmentUI(String name, int inUse, int available, int total) {
     equipmentName = name;
@@ -17,11 +21,21 @@ public class EquipmentUI {
     totalAmount = total;
   }
 
-  public EquipmentUI(String name, int request, String date, String timestamp) {
+  public EquipmentUI(
+      String id,
+      String name,
+      int request,
+      String destination,
+      String date,
+      String timestamp,
+      int priority) {
+    this.id = id;
     equipmentName = name;
     requestAmount = request;
+    this.destination = destination;
     requestDate = date;
     requestTime = timestamp;
+    this.priority = priority;
   }
 
   public int getRequestAmount() {
@@ -62,5 +76,33 @@ public class EquipmentUI {
 
   public String getRequestTime() {
     return requestTime;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public String getDestination() {
+    return destination;
+  }
+
+  public void setDestination(String destination) {
+    this.destination = destination;
+  }
+
+  public int getPriority() {
+    return priority;
+  }
+
+  public void setPriority(int priority) {
+    this.priority = priority;
   }
 }

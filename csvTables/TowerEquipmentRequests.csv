@@ -1,4 +1,2 @@
-Name,Amount,Date,Time
-First Aid Kit,3,2022-04-02,16:58:09
-Body Bag,123,2022-04-02,16:58:09
-Oxygen Mask,1,2022-04-02,16:58:09
+ID,Name,Amount,Type,Destination,Date,Time,Priority
+Test123,First Aid Kit,213,EQUIPMENT,GENERIC ROOM,2022-04-04,21:44:37,1

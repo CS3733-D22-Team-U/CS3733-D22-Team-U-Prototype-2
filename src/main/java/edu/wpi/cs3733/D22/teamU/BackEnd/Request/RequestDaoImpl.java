@@ -64,7 +64,7 @@ public class RequestDaoImpl implements DataDao<Request> {
     fw.append(",");
     fw.append("Amount");
     fw.append(",");
-    fw.append("Type of Request");
+    fw.append("Type");
     fw.append(",");
     fw.append("Destination");
     fw.append(",");
