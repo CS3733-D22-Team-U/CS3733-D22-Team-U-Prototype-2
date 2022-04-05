@@ -3,7 +3,7 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
-import edu.wpi.cs3733.D22.teamU.BackEnd.EquipmentRequest.RequestEquip;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
 import edu.wpi.cs3733.D22.teamU.frontEnd.services.equipmentDelivery.EquipmentUI;
@@ -130,7 +130,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
   }
 
   private ObservableList<EquipmentUI> getActiveRequestList() {
-    for (RequestEquip request : udb.requestEquipImpl.requestEquipList) {
+    for (Request request : udb.requestImpl.requestList) {
       equipmentUIRequests.add(
           new EquipmentUI(
               request.getName(), request.getAmount(), request.getDate(), request.getTime()));
@@ -166,12 +166,26 @@ public class EquipmentDeliverySystemController extends ServiceController {
                 sdf3.format(timestamp).substring(0, 10),
                 sdf3.format(timestamp).substring(11)));
         try {
-          udb.requestEquipImpl.addRequest(
+          udb.requestImpl.add(
+              new Request(
+                  "Test123",
+                  checkBoxes.get(i).getText(), // TODO Have random ID and enter Room Destination
+                  Integer.parseInt(checkBoxesInput.get(i).getText()),
+                  "EQUIPMENT",
+                  "GENERIC ROOM",
+                  sdf3.format(timestamp).substring(0, 10),
+                  sdf3.format(timestamp).substring(11),
+                  1)
+
+              /*
               "csvTables/TowerEquipmentRequests.csv",
               checkBoxes.get(i).getText(),
               Integer.parseInt(checkBoxesInput.get(i).getText()),
               sdf3.format(timestamp).substring(0, 10),
-              sdf3.format(timestamp).substring(11));
+              sdf3.format(timestamp).substring(11)
+              */
+              );
+
         } catch (IOException e) {
           e.printStackTrace();
         }

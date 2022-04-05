@@ -6,8 +6,8 @@ package edu.wpi.cs3733.D22.teamU.BackEnd;
  */
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.EquipmentDaoImpl;
-import edu.wpi.cs3733.D22.teamU.BackEnd.EquipmentRequest.RequestDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.RequestDaoImpl;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -20,7 +20,7 @@ public class Udb {
   public LocationDaoImpl locationImpl;
   public EquipmentDaoImpl EquipmentImpl;
   public EmployeeDaoImpl EmployeeImpl;
-  public RequestDaoImpl requestEquipImpl = new RequestDaoImpl(DB_LOC);
+  public RequestDaoImpl requestImpl;
 
   public static String copyFile(InputStream inputPath, String outputPath) throws IOException {
     File f = new File(outputPath);
@@ -35,6 +35,7 @@ public class Udb {
     locationImpl = new LocationDaoImpl(authentication, CSVfiles[0]);
     EmployeeImpl = new EmployeeDaoImpl(authentication, CSVfiles[1]);
     EquipmentImpl = new EquipmentDaoImpl(authentication, CSVfiles[2]);
+    requestImpl = new RequestDaoImpl(authentication, CSVfiles[3]);
 
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -82,7 +83,7 @@ public class Udb {
 
     EquipmentImpl.CSVToJava();
     EquipmentImpl.JavaToSQL();
-    requestEquipImpl.CSVToJava(CSVfiles[3]);
+    requestImpl.CSVToJava();
 
     // menu(CSVfiles);
   }
