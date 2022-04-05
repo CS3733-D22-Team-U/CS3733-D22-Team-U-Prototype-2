@@ -41,7 +41,10 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
                         new LabRequest(
                                 row[0],
                                 row[1],
-                                row[2]));
+                                row[2],
+                                row[3],
+                                row[4],
+                                row[5]));
             }
         }
     }
@@ -57,39 +60,31 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
         fw.append("ID");
         fw.append(",");
-        fw.append("Name");
+        fw.append("Patient");
         fw.append(",");
-        fw.append("Amount");
+        fw.append("Staff");
         fw.append(",");
-        fw.append("Type");
-        fw.append(",");
-        fw.append("Destination");
+        fw.append("LabType");
         fw.append(",");
         fw.append("Date");
         fw.append(",");
         fw.append("Time");
-        fw.append(",");
-        fw.append("Priority");
         fw.append("\n");
 
         for (int i = 0;
              i < labRequestsList.size();
              i++) { // ask about how this was working without and = sign
+            fw.append(labRequestsList.get(i).getID());
+            fw.append(",");
             fw.append(labRequestsList.get(i).getPatient());
             fw.append(",");
             fw.append(labRequestsList.get(i).getStaff());
             fw.append(",");
-            fw.append(Integer.toString(labRequestsList.get(i).getPatient());
+            fw.append(labRequestsList.get(i).getLabType());
             fw.append(",");
-            fw.append(requestList.get(i).getType());
+            fw.append(labRequestsList.get(i).getDate());
             fw.append(",");
-            fw.append(requestList.get(i).getDestination());
-            fw.append(",");
-            fw.append(requestList.get(i).getDate());
-            fw.append(",");
-            fw.append(requestList.get(i).getTime());
-            fw.append(",");
-            fw.append(Integer.toString(requestList.get(i).getPri()));
+            fw.append(labRequestsList.get(i).getTime());
             fw.append("\n");
         }
         fw.close();
@@ -260,39 +255,34 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     }
 
     /**
-     * Prompts user for the name of a new item and then adds it to the csv file and database
+     * Prompts user for the information of a new lab request and then adds it to the csv file and database
      *
      * @param csvFile
      * @throws IOException
      */
-    public void add(
-            String id,
-            String newName,
-            int amount,
-            String newType,
-            String newDestination,
-            String date,
-            String time,
-            int pri)
+    /*public void add(
+                    String id,
+                    String patient,
+                    String staff,
+                    String labType,
+                    String date,
+                    String time)
             throws IOException {
-        // add a new entry to the SQL table
-        // prompt for ID
-
-        Request newEquipment =
-                new Request(id, newName, amount, newType, newDestination, date, time, pri);
-        this.requestList.add(newEquipment);
+        LabRequest newLabRequest =
+                new LabRequest(id, patient, staff, labType, date, time);
+        this.labRequestsList.add(newLabRequest);
         this.JavaToCSV(csvFile);
-    }
+    }*/
 
     @Override
-    public void add(Request data) throws IOException {
+    public void add(LabRequest data) throws IOException {
         // add a new entry to the SQL table
         try {
-            requestList.get(search(data.ID));
-            System.out.println("An Object With This ID Already Exists");
+            labRequestsList.get(search(data.ID));
+            System.out.println("A Request With This ID Already Exists");
         } catch (Exception e) {
-            Request newRequest = data;
-            this.requestList.add(newRequest);
+            LabRequest newLabRequest = data;
+            this.labRequestsList.add(newLabRequest);
             this.JavaToSQL();
             this.JavaToCSV(csvFile);
         }
@@ -314,18 +304,19 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
             }
         }
         this.JavaToCSV(csvFile);
-    }
+    }*/
 
     @Override
-    public void remove(Request data) throws IOException {
+    public void remove(LabRequest data) throws IOException {
         // removes entries from SQL table that match input node
         try {
-            this.requestList.remove(search(data.ID));
+            this.labRequestsList.remove(search(data.ID));
             this.JavaToSQL();
             this.JavaToCSV(csvFile);
         } catch (Exception e) {
             System.out.println("This Data Point Was Not Found");
         }
+    }
     }
 
     public void saveLocTableAsCSV() {
