@@ -1,107 +1,124 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import com.jfoenix.controls.JFXCheckBox;
+import edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest.LabRequest;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
+import edu.wpi.cs3733.D22.teamU.DBController;
+import edu.wpi.cs3733.D22.teamU.frontEnd.services.lab.LabUI;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 public class labRequestServices extends ServiceController {
-  @FXML JFXHamburger hamburger;
-  @FXML VBox vBoxPane;
-  @FXML Label requestProcessing;
 
-  @FXML CheckBox bloodTest;
-  @FXML CheckBox covidTest;
-  @FXML CheckBox pregnancyTest;
-  @FXML CheckBox urineTest;
-  @FXML CheckBox drugScreenTest;
-  @FXML CheckBox otherCheck;
   @FXML TextArea otherField;
   @FXML TextField patientNameField;
   @FXML TextField staffMemberField;
-  @FXML Pane pane;
-  @FXML Pane assistPane;
+  @FXML TableColumn<LabUI, String> activeReqID;
+  @FXML TableColumn<LabUI, String> patientNameReq;
+  @FXML TableColumn<LabUI, String> activeReqStaff;
+  @FXML TableColumn<LabUI, String> activeReqType;
+  @FXML TableColumn<LabUI, String> activeDate;
+  @FXML TableColumn<LabUI, String> activeTime;
+  @FXML TableView<LabUI> activeRequestTable;
+  @FXML VBox requestHolder;
+
+  ObservableList<LabUI> labUIRequests = FXCollections.observableArrayList();
+  ObservableList<JFXCheckBox> checkBoxes = FXCollections.observableArrayList();
+
+  Udb udb = DBController.udb;
+
+  private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
-
-    closeTransition.setRate(-1);
-    hamburger.addEventHandler(
-        MouseEvent.MOUSE_CLICKED,
-        e -> {
-          closeTransition.setRate(closeTransition.getRate() * -1);
-          closeTransition.play();
-          vBoxPane.setVisible(!vBoxPane.isVisible());
-          pane.setDisable(!pane.isDisable());
-          if (pane.isDisable()) {
-            hamburger.setPrefWidth(200);
-            pane.setEffect(new GaussianBlur(10));
-            assistPane.setDisable(true);
-          } else {
-            pane.setEffect(null);
-            hamburger.setPrefWidth(77);
-            assistPane.setDisable(false);
-          }
-        });
+    super.initialize(location, resources);
+    setUpActiveRequests();
+    for (Node checkbox : requestHolder.getChildren()) {
+      checkBoxes.add((JFXCheckBox) checkbox);
+    }
   }
 
-  public Button backButton;
-
-  public void orderButton(ActionEvent actionEvent) throws IOException {
-    requestProcessing.setText("Request processing...");
-    requestProcessing.setVisible(true);
-    new Thread(
-            () -> {
-              try {
-                Thread.sleep(1500); // milliseconds
-                Platform.runLater(
-                    () -> {
-                      requestProcessing.setText("Request complete.");
-                      bloodTest.setSelected(false);
-                      covidTest.setSelected(false);
-                      pregnancyTest.setSelected(false);
-                      otherCheck.setSelected(false);
-                      drugScreenTest.setSelected(false);
-                      urineTest.setSelected(false);
-                      patientNameField.setText("");
-                      staffMemberField.setText("");
-                      otherField.setText("");
-                    });
-                Thread.sleep(1500);
-                Platform.runLater(
-                    () -> {
-                      requestProcessing.setVisible(false);
-                    });
-              } catch (InterruptedException ie) {
-              }
-            })
-        .start();
+  private void setUpActiveRequests() {
+    activeReqID.setCellValueFactory(new PropertyValueFactory<>("id"));
+    patientNameReq.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+    activeReqStaff.setCellValueFactory(new PropertyValueFactory<>("staffName"));
+    activeReqType.setCellValueFactory(new PropertyValueFactory<>("labType"));
+    activeDate.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
+    activeTime.setCellValueFactory(new PropertyValueFactory<>("requestTime"));
+    activeRequestTable.setItems(getActiveRequestList());
   }
 
-  public void clearButton(ActionEvent actionEvent) throws IOException {
-    bloodTest.setSelected(false);
-    covidTest.setSelected(false);
-    pregnancyTest.setSelected(false);
-    otherCheck.setSelected(false);
-    drugScreenTest.setSelected(false);
-    urineTest.setSelected(false);
-    patientNameField.setText("");
-    staffMemberField.setText("");
-    otherField.setText("");
+  private ObservableList<LabUI> getActiveRequestList() {
+    for (LabRequest request : udb.labRequestImpl.labRequestsList) {
+      labUIRequests.add(
+          new LabUI(
+              request.getID(),
+              request.getPatient(),
+              request.getStaff(),
+              request.getLabType(),
+              request.getDate(),
+              request.getTime()));
+    }
+    return labUIRequests;
   }
 
   @Override
-  public void addRequest() {}
+  public void addRequest() {
+
+    String patientInput = patientNameField.getText().trim();
+    String staffInput = staffMemberField.getText().trim();
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+    for (int i = 0; i < checkBoxes.size(); i++) {
+      if (checkBoxes.get(i).isSelected()) {
+        double rand = Math.random() * 10000;
+        LabUI request =
+            new LabUI(
+                (int) rand + "",
+                patientInput,
+                staffInput,
+                checkBoxes.get(i).getText().trim(),
+                sdf3.format(timestamp).substring(0, 10),
+                sdf3.format(timestamp).substring(11));
+        activeRequestTable.setItems(
+            newRequest(
+                request.getId(),
+                request.getPatientName(),
+                request.getStaffName(),
+                request.getLabType(),
+                request.getRequestDate(),
+                request.getRequestTime()));
+        try {
+          udb.labRequestImpl.add(
+              new LabRequest(
+                  request.getId(),
+                  request.getPatientName(),
+                  request.getStaffName(),
+                  request.getLabType(),
+                  request.getRequestDate(),
+                  request.getRequestTime()));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  private ObservableList<LabUI> newRequest(
+      String id, String patientName, String staffName, String labType, String date, String time) {
+    labUIRequests.add(new LabUI(id, patientName, staffName, labType, date, time));
+    return labUIRequests;
+  }
 
   @Override
   public void removeRequest() {}
