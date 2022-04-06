@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -20,6 +21,8 @@ import javafx.scene.layout.VBox;
 
 public class labRequestServices extends ServiceController {
 
+  public Button clear;
+  public Label submission;
   @FXML TextArea otherField;
   @FXML TextField patientNameField;
   @FXML TextField staffMemberField;
@@ -107,11 +110,14 @@ public class labRequestServices extends ServiceController {
                   request.getLabType(),
                   request.getRequestDate(),
                   request.getRequestTime()));
+          submission.setText("Request for " + checkBoxes.get(i).getText() + " successfully sent.");
         } catch (IOException e) {
           e.printStackTrace();
+          submission.setText("Request for " + checkBoxes.get(i).getText() + " failed.");
         }
       }
     }
+    clear();
   }
 
   private ObservableList<LabUI> newRequest(
@@ -125,4 +131,18 @@ public class labRequestServices extends ServiceController {
 
   @Override
   public void updateRequest() {}
+
+  public void clear(ActionEvent actionEvent) {
+    clear();
+  }
+
+  private void clear() {
+
+    for (int i = 0; i < checkBoxes.size(); i++) {
+      checkBoxes.get(i).setSelected(false);
+    }
+    patientNameField.setText("");
+    otherField.setText("");
+    staffMemberField.setText("");
+  }
 }
