@@ -76,6 +76,18 @@ public class MealDeliveryController extends ServiceController {
                 Platform.runLater(
                     () -> {
                       mealStatus.setVisible(false);
+                      veganCheckbox.setSelected(false);
+                      vegCheckbox.setSelected(false);
+                      glutenCheckbox.setSelected(false);
+                      kosherCheckbox.setSelected(false);
+                      halalCheckbox.setSelected(false);
+                      lactoseCheckbox.setSelected(false);
+                      nutsCheckbox.setSelected(false);
+                      shellfishCheckbox.setSelected(false);
+                      requestID.setText("");
+                      patientNameMeal.setText("");
+                      employeeNameMeal.setText("");
+                      locationMeal.setText("");
                     });
               } catch (InterruptedException ie) {
               }

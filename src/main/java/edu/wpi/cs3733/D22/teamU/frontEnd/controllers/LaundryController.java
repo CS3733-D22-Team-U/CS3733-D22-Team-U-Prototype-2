@@ -73,7 +73,18 @@ public class LaundryController extends ServiceController {
                 Platform.runLater(
                     () -> {
                       laundryStatus.setVisible(false);
+                      hangCB.setSelected(false);
+                      machineCB.setSelected(false);
+                      hypoCB.setSelected(false);
+                      requestID.setText("");
+                      patientNameLaundry.setText("");
+                      employeeNameLaundry.setText("");
+                      locationLaundry.setText("");
+                      dropOffTF.setText("");
+                      pickUpTF.setText("");
+                      notesLaundryTA.setText("");
                     });
+
               } catch (InterruptedException ie) {
               }
             })
