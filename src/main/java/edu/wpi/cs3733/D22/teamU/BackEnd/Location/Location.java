@@ -183,4 +183,8 @@ public class Location {
   public ArrayList<Equipment> getEquipment() {
     return equipment;
   }
+
+  public void setEquipment(ArrayList<Equipment> equipment) {
+    this.equipment = equipment;
+  }
 }
