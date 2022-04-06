@@ -73,6 +73,16 @@ public class giftFloralController extends ServiceController {
                 Platform.runLater(
                     () -> {
                       processingText.setVisible(false);
+                      balloonBox.setSelected(false);
+                      plantBox.setSelected(false);
+                      flowerBox.setSelected(false);
+                      basketBox.setSelected(false);
+                      senderField.setText("");
+                      recieverField.setText("");
+                      staffField.setText("");
+                      roomField.setText("");
+                      requestID.setText("");
+                      messageText.setText("");
                     });
               } catch (InterruptedException ie) {
               }
