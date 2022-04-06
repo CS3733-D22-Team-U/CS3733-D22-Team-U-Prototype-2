@@ -1,5 +1,9 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Location;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Location {
 
   String nodeID;
@@ -10,6 +14,7 @@ public class Location {
   String nodeType;
   String longName;
   String shortName;
+  ArrayList<Equipment> equipment = new ArrayList<>();
 
   /** Empty constructor */
   public Location() {}
@@ -156,5 +161,30 @@ public class Location {
 
   public void setShortName(String shortName) {
     this.shortName = shortName;
+  }
+
+  public void addEquipment(Equipment e) {
+    equipment.add(e);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Location location = (Location) o;
+    return Objects.equals(nodeID, location.nodeID);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nodeID);
+  }
+
+  public ArrayList<Equipment> getEquipment() {
+    return equipment;
+  }
+
+  public void setEquipment(ArrayList<Equipment> equipment) {
+    this.equipment = equipment;
   }
 }

@@ -3,7 +3,7 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
-import edu.wpi.cs3733.D22.teamU.BackEnd.EquipmentRequest.RequestEquip;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
 import edu.wpi.cs3733.D22.teamU.frontEnd.services.equipmentDelivery.EquipmentUI;
@@ -37,16 +37,23 @@ public class EquipmentDeliverySystemController extends ServiceController {
   @FXML Text requestText;
   @FXML Button clearButton;
   @FXML Button submitButton;
+  @FXML TableColumn<EquipmentUI, String> activeReqID;
   @FXML TableColumn<EquipmentUI, String> activeReqName;
   @FXML TableColumn<EquipmentUI, Integer> activeReqAmount;
+  @FXML TableColumn<EquipmentUI, String> activeReqType;
+  @FXML TableColumn<EquipmentUI, String> activeReqDestination;
   @FXML TableColumn<EquipmentUI, String> activeDate;
   @FXML TableColumn<EquipmentUI, String> activeTime;
+  @FXML TableColumn<EquipmentUI, Integer> activePriority;
+
   @FXML TableView<EquipmentUI> activeRequestTable;
   @FXML VBox inputFields;
+  @FXML VBox locationInput;
 
   ObservableList<EquipmentUI> equipmentUI = FXCollections.observableArrayList();
   ObservableList<JFXCheckBox> checkBoxes = FXCollections.observableArrayList();
   ObservableList<JFXTextArea> checkBoxesInput = FXCollections.observableArrayList();
+  ObservableList<JFXTextArea> locInput = FXCollections.observableArrayList();
 
   ObservableList<EquipmentUI> equipmentUIRequests = FXCollections.observableArrayList();
   Udb udb = DBController.udb;
@@ -59,17 +66,27 @@ public class EquipmentDeliverySystemController extends ServiceController {
     super.initialize(location, resources);
     setUpAllEquipment();
     setUpActiveRequests();
+
     for (Node checkBox : requestHolder.getChildren()) {
       checkBoxes.add((JFXCheckBox) checkBox);
     }
-
     for (Node textArea : inputFields.getChildren()) {
       checkBoxesInput.add((JFXTextArea) textArea);
+    }
+    for (Node textArea : locationInput.getChildren()) {
+      locInput.add((JFXTextArea) textArea);
     }
 
     for (int i = 0; i < checkBoxesInput.size(); i++) {
       int finalI = i;
       checkBoxesInput
+          .get(i)
+          .disableProperty()
+          .bind(
+              Bindings.createBooleanBinding(
+                  () -> !checkBoxes.get(finalI).isSelected(),
+                  checkBoxes.stream().map(CheckBox::selectedProperty).toArray(Observable[]::new)));
+      locInput
           .get(i)
           .disableProperty()
           .bind(
@@ -102,16 +119,26 @@ public class EquipmentDeliverySystemController extends ServiceController {
   }
 
   private void setUpActiveRequests() {
+    activeReqID.setCellValueFactory(new PropertyValueFactory<>("id"));
     activeReqName.setCellValueFactory(new PropertyValueFactory<>("equipmentName"));
     activeReqAmount.setCellValueFactory(new PropertyValueFactory<>("requestAmount"));
+    activeReqType.setCellValueFactory(new PropertyValueFactory<>("type"));
+    activeReqDestination.setCellValueFactory(new PropertyValueFactory<>("destination"));
     activeDate.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
     activeTime.setCellValueFactory(new PropertyValueFactory<>("requestTime"));
+    activePriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
     activeRequestTable.setItems(getActiveRequestList());
   }
 
   private ObservableList<EquipmentUI> newRequest(
-      String name, int amount, String date, String time) {
-    equipmentUIRequests.add(new EquipmentUI(name, amount, date, time));
+      String id,
+      String name,
+      int amount,
+      String destination,
+      String date,
+      String time,
+      int priority) {
+    equipmentUIRequests.add(new EquipmentUI(id, name, amount, destination, date, time, priority));
     return equipmentUIRequests;
   }
 
@@ -130,17 +157,23 @@ public class EquipmentDeliverySystemController extends ServiceController {
   }
 
   private ObservableList<EquipmentUI> getActiveRequestList() {
-    for (RequestEquip request : udb.requestEquipImpl.requestEquipList) {
+    for (Request request : udb.requestImpl.requestList) {
       equipmentUIRequests.add(
           new EquipmentUI(
-              request.getName(), request.getAmount(), request.getDate(), request.getTime()));
+              request.getID(),
+              request.getName(),
+              request.getAmount(),
+              request.getDestination(),
+              request.getDate(),
+              request.getTime(),
+              request.getPri()));
     }
     return equipmentUIRequests;
   }
 
   @Override
   public void addRequest() {
-    String request = "Your request for : ";
+    StringBuilder startRequestString = new StringBuilder("Your request for : ");
 
     String endRequest = " has been placed successfully";
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -149,36 +182,70 @@ public class EquipmentDeliverySystemController extends ServiceController {
     for (int i = 0; i < checkBoxes.size(); i++) {
       if (checkBoxes.get(i).isSelected()) {
         String inputString = "";
+
+        // todo find a way to make it so we cant submit when amount or location are empty
+        // not a great way to do it but it sorta works
+        while (locInput.get(i).getText().trim().equals("")) {
+          //
+        }
+
         if (checkBoxesInput.get(i).getText().trim().equals("")) {
           inputString = "0";
         } else {
           inputString = checkBoxesInput.get(i).getText().trim();
         }
+        String room = locInput.get(i).getText();
 
         requestAmount = Integer.parseInt(inputString);
 
-        request += requestAmount + " " + checkBoxes.get(i).getText() + "(s), ";
+        startRequestString
+            .append(requestAmount)
+            .append(" ")
+            .append(checkBoxes.get(i).getText())
+            .append("(s) to room ")
+            .append(room)
+            .append(", ");
+
+        double rand = Math.random() * 10000;
+
+        EquipmentUI request =
+            new EquipmentUI(
+                (int) rand + "",
+                checkBoxes.get(i).getText(),
+                requestAmount,
+                room,
+                sdf3.format(timestamp).substring(0, 10),
+                sdf3.format(timestamp).substring(11),
+                1);
 
         activeRequestTable.setItems(
             newRequest(
-                checkBoxes.get(i).getText(),
-                requestAmount,
-                sdf3.format(timestamp).substring(0, 10),
-                sdf3.format(timestamp).substring(11)));
+                request.getId(),
+                request.getEquipmentName(),
+                request.getRequestAmount(),
+                request.getDestination(),
+                request.getRequestDate(),
+                request.getRequestTime(),
+                1));
         try {
-          udb.requestEquipImpl.addRequest(
-              "csvTables/TowerEquipmentRequests.csv",
-              checkBoxes.get(i).getText(),
-              Integer.parseInt(checkBoxesInput.get(i).getText()),
-              sdf3.format(timestamp).substring(0, 10),
-              sdf3.format(timestamp).substring(11));
+          udb.requestImpl.add( // TODO Have random ID and enter Room Destination
+              new Request(
+                  request.getId(),
+                  request.getEquipmentName(),
+                  request.getRequestAmount(),
+                  request.getType(),
+                  request.getDestination(),
+                  request.getRequestDate(),
+                  request.getRequestTime(),
+                  1));
+
         } catch (IOException e) {
           e.printStackTrace();
         }
       }
     }
 
-    requestText.setText(request + endRequest);
+    requestText.setText(startRequestString + endRequest);
     requestText.setVisible(true);
     new Thread(
             () -> {
@@ -201,8 +268,9 @@ public class EquipmentDeliverySystemController extends ServiceController {
   public void updateRequest() {}
 
   public void clearRequest() {
-    for (JFXCheckBox checkBox : checkBoxes) {
-      checkBox.setSelected(false);
+    for (int i = 0; i < checkBoxes.size(); i++) {
+      checkBoxes.get(i).setSelected(false);
+      checkBoxesInput.get(i).clear();
     }
     requestText.setText("Cleared Requests!");
     requestText.setVisible(true);

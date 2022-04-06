@@ -46,6 +46,14 @@ public class LocationPopupController {
             nodeType.getText(),
             longName.getText(),
             shortName.getText());
+
+    try {
+      Location old = udb.locationImpl.list().get(udb.locationImpl.list().indexOf(l));
+      l.setEquipment(old.getEquipment());
+    } catch (Exception e) {
+
+    }
+
     udb.locationImpl.edit(l);
     toMap(actionEvent);
   }

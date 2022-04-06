@@ -6,8 +6,9 @@ package edu.wpi.cs3733.D22.teamU.BackEnd;
  */
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.EquipmentDaoImpl;
-import edu.wpi.cs3733.D22.teamU.BackEnd.EquipmentRequest.RequestDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest.LabRequestDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.RequestDaoImpl;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -20,7 +21,8 @@ public class Udb {
   public LocationDaoImpl locationImpl;
   public EquipmentDaoImpl EquipmentImpl;
   public EmployeeDaoImpl EmployeeImpl;
-  public RequestDaoImpl requestEquipImpl = new RequestDaoImpl(DB_LOC);
+  public RequestDaoImpl requestImpl;
+  public LabRequestDaoImpl labRequestImpl;
 
   public static String copyFile(InputStream inputPath, String outputPath) throws IOException {
     File f = new File(outputPath);
@@ -30,11 +32,13 @@ public class Udb {
     return outputPath;
   }
 
-  public Udb(String username, String password, String[] CSVfiles) throws IOException, SQLException {
+  public Udb(String username, String password, String[] CSVfiles) throws IOException {
     String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
     locationImpl = new LocationDaoImpl(authentication, CSVfiles[0]);
     EmployeeImpl = new EmployeeDaoImpl(authentication, CSVfiles[1]);
     EquipmentImpl = new EquipmentDaoImpl(authentication, CSVfiles[2]);
+    requestImpl = new RequestDaoImpl(authentication, CSVfiles[3]);
+    labRequestImpl = new LabRequestDaoImpl(authentication, CSVfiles[4]);
 
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -80,11 +84,14 @@ public class Udb {
     EmployeeImpl.CSVToJava();
     EmployeeImpl.JavaToSQL();
 
-    EquipmentImpl.CSVToJava();
+    EquipmentImpl.CSVToJava(locationImpl.list());
     EquipmentImpl.JavaToSQL();
-    requestEquipImpl.CSVToJava(CSVfiles[3]);
 
-    // menu(CSVfiles);
+    requestImpl.CSVToJava();
+    requestImpl.JavaToSQL();
+
+    labRequestImpl.CSVToJava();
+    labRequestImpl.JavaToSQL();
   }
 
   // This function is called in main the starts the menu where a client can access and or change
@@ -100,7 +107,9 @@ public class Udb {
             + "1 - Locations\n"
             + "2 - Employees\n"
             + "3 - Equipment\n"
-            + "4 - Quit");
+            + "4 - Request\n"
+            + "5 - Lab Request\n"
+            + "6 - Quit");
 
     switch (userInput.nextInt()) {
       case 1:
@@ -113,6 +122,13 @@ public class Udb {
         equipmentMenu(CSVfiles);
         break;
       case 4:
+        requestMenu(CSVfiles);
+        break;
+      case 5:
+        labRequestMenu(CSVfiles);
+        break;
+
+      case 6:
         // exits whole menu
         break;
     }
@@ -232,6 +248,111 @@ public class Udb {
       case 6:
         // menu
         menu(CSVfiles);
+        break;
+    }
+  }
+
+  private void requestMenu(String[] CSVfiles) throws IOException, SQLException {
+    Scanner requestInput = new Scanner(System.in);
+
+    System.out.println(
+        "1 - List Equipment Information\n"
+            + "2 - Edit Equipment Information\n"
+            + "3 - Enter New Equipment\n"
+            + "4 - Delete Equipment\n"
+            + "5 - Save Equipment Information to CSV\n"
+            + "6 - Return to Main Menu");
+    switch (requestInput.nextInt()) {
+      case 1:
+        requestImpl.printTable();
+        requestMenu(CSVfiles);
+        break;
+      case 2:
+        String inputID;
+        String name;
+        int pri;
+        System.out.println("Input request ID: ");
+        inputID = requestInput.nextLine();
+
+        System.out.println("Input request name: ");
+        name = requestInput.nextLine();
+
+        System.out.println("Input request pri: ");
+        pri = requestInput.nextInt();
+
+        requestImpl.edit(inputID, name, 1, "N/A", "N/A", "N/A", "N/A", pri);
+        requestMenu(CSVfiles);
+        break;
+      case 3:
+        System.out.println("Input request ID: ");
+        inputID = requestInput.nextLine();
+
+        System.out.println("Input request name: ");
+        name = requestInput.nextLine();
+
+        System.out.println("Input request pri: ");
+        pri = requestInput.nextInt();
+
+        requestImpl.add(inputID, name, 1, "N/A", "N/A", "N/A", "N/A", pri);
+        requestMenu(CSVfiles);
+        break;
+      case 4:
+        System.out.println("Input request ID: ");
+        inputID = requestInput.nextLine();
+
+        requestImpl.removeRequest(inputID);
+        requestMenu(CSVfiles);
+        break;
+      case 5:
+        requestImpl.saveLocTableAsCSV();
+        requestMenu(CSVfiles);
+        break;
+      case 6:
+        // menu
+        menu(CSVfiles);
+        break;
+    }
+  }
+
+  private void labRequestMenu(String[] CSVfiles) throws SQLException, IOException {
+
+    Scanner labMenu = new Scanner(System.in);
+
+    System.out.println(
+        "1 - List Lab Request Information\n"
+            + "2 - Change Lab Request\n"
+            + "3 - Enter New Lab Request\n"
+            + "4 - Delete Lab Request\n"
+            + "5 - Save Lab Request Information to CSV file\n"
+            + "6 - Return to Main Menu");
+
+    switch (labMenu.nextInt()) {
+      case 1:
+        labRequestImpl.printTable();
+        labRequestMenu(CSVfiles);
+        break;
+      case 2:
+        labRequestImpl.edit(labRequestImpl.askUser());
+        labRequestMenu(CSVfiles);
+        break;
+      case 3:
+        labRequestImpl.add(labRequestImpl.askUser());
+        labRequestMenu(CSVfiles);
+        break;
+      case 4:
+        labRequestImpl.remove(labRequestImpl.askUser());
+        labRequestMenu(CSVfiles);
+        break;
+      case 5:
+        labRequestImpl.saveLocTableAsCSV();
+        labRequestMenu(CSVfiles);
+        break;
+      case 6:
+        // menu
+        menu(CSVfiles);
+        break;
+      default:
+        System.out.println("Something went wrong");
         break;
     }
   }

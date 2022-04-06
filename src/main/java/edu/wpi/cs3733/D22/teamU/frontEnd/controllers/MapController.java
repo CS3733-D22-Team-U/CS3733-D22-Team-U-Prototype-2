@@ -56,7 +56,7 @@ public class MapController extends ServiceController {
   public void initialize(URL location, ResourceBundle resources) {
     super.initialize(location, resources);
     setUpMap();
-
+    // System.out.println(udb.locationImpl.locations.size());
     for (Location loc : udb.locationImpl.locations) {
 
       if (loc.getFloor().equals("L1")) {
