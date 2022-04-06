@@ -42,6 +42,11 @@ public class DBController {
             .getClassLoader()
             .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TowerRequests.csv");
     String request = copyFile(csvRequest, "csvTables/TowerRequests.csv");
+    InputStream csvLabRequest =
+        Main.class
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TowerLabRequests.csv");
+    String LabRequest = copyFile(csvLabRequest, "csvTables/TowerLabRequests.csv");
 
     // -----------------------Test Files----------------------
     InputStream csvLocationFileTest =
@@ -55,13 +60,14 @@ public class DBController {
             .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TESTTowerEquipment.csv");
     String equipmentTest = copyFile(csvEquipment, "csvTables/TESTTowerEquipment.csv");
 
-    String[] CSVfiles = {location, employee, equipment, request, locationTest, equipmentTest};
+    String[] CSVfiles = {
+      location, employee, equipment, request, LabRequest, locationTest, equipmentTest
+    };
 
     udb = new Udb(username, password, CSVfiles);
 
     // Testing testing = new Testing(CSVfiles, udb);
     // Testing testing = new Testing(CSVfiles, udb);
-
     // udb.menu(CSVfiles); // Uncomment this to start terminal menu
   }
 
@@ -69,8 +75,7 @@ public class DBController {
     File f = new File(outputPath);
     // f.createNewFile();
     try {
-      Files.copy(
-          inputPath, f.getAbsoluteFile().toPath()); // todo remove replace existing after testing
+      Files.copy(inputPath, f.getAbsoluteFile().toPath());
       inputPath.close();
     } catch (Exception e) {
       // Doesn't override if files already exist
