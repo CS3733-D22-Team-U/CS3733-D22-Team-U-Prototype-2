@@ -3,6 +3,7 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+//import edu.wpi.cs3733.D22.teamU.frontEnd.services.medicine.MedicineUI;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -103,6 +104,7 @@ public class MedicineDeliveryController extends ServiceController {
     lisinTxt.setText("");
     metTxt.setText("");
     specialReqTxt.setText("");
+    processText.setText("");
 
     reset.setText("Cleared requests!");
     reset.setVisible(true);
@@ -225,6 +227,9 @@ public class MedicineDeliveryController extends ServiceController {
             assistPane.setDisable(false);
           }
         });
+
+
+
   }
 
   @Override
