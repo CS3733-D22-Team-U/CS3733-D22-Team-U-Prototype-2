@@ -1,16 +1,21 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
-//import edu.wpi.cs3733.D22.teamU.frontEnd.services.medicine.MedicineUI;
+import edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest.LabRequest;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
+import edu.wpi.cs3733.D22.teamU.DBController;
+import edu.wpi.cs3733.D22.teamU.frontEnd.services.lab.LabUI;
+import edu.wpi.cs3733.D22.teamU.frontEnd.services.medicine.MedicineUI;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -27,12 +32,10 @@ public class MedicineDeliveryController extends ServiceController {
   @FXML JFXCheckBox Metformin;
   @FXML JFXCheckBox specialCheck;
   @FXML Button clearButton;
-
   @FXML TextArea specialReq;
   @FXML TextField patientName;
   @FXML TextField staffName;
   @FXML TextField advilTxt;
-
   @FXML TextField IDtxt;
   @FXML TextField alproTxt;
   @FXML TextField saltTxt;
@@ -43,15 +46,69 @@ public class MedicineDeliveryController extends ServiceController {
   @FXML Text reset;
   @FXML Text processText;
   // Text status;
-
   public Button backButton;
-
-  @FXML JFXHamburger hamburger;
   @FXML VBox medVbox;
   @FXML VBox nameVbox;
   @FXML VBox vBoxPane;
   @FXML Pane pane;
   @FXML Pane assistPane;
+  @FXML
+  TableColumn<LabUI, String> ReqID;
+  @FXML TableColumn<LabUI, String> ReqPatient;
+  @FXML TableColumn<LabUI, String> ReqStaff;
+  @FXML TableColumn<LabUI, String> ReqMed;
+  @FXML TableColumn<LabUI, String> ReqAmount;
+  @FXML TableColumn<LabUI, String> ReqDate;
+  @FXML TableColumn<LabUI, String> ReqTime;
+  @FXML VBox requestHolder;
+  @FXML
+  ObservableList<LabUI> labUIRequests = FXCollections.observableArrayList();
+  ObservableList<JFXCheckBox> checkBoxes = FXCollections.observableArrayList();
+  @FXML TableView<LabUI> activeRequestTable;
+
+  private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+  Udb udb = DBController.udb;
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    super.initialize(location, resources);
+    setUpActiveRequests();
+    for (Node checkbox : requestHolder.getChildren()) {
+      checkBoxes.add((JFXCheckBox) checkbox);
+    }
+
+  }
+
+  private void setUpActiveRequests() {
+    ReqID.setCellValueFactory(new PropertyValueFactory<>("id"));
+    ReqPatient.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+    ReqStaff.setCellValueFactory(new PropertyValueFactory<>("staffName"));
+    ReqMed.setCellValueFactory(new PropertyValueFactory<>("medType"));
+    ReqAmount.setCellValueFactory(new PropertyValueFactory<>("medAmount"));
+    ReqDate.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
+    ReqTime.setCellValueFactory(new PropertyValueFactory<>("requestTime"));
+    //activeRequestTable.setItems(getActiveRequestList());
+  }
+
+  /*
+  private ObservableList<MedicineUI> getActiveRequestList() {
+    for (LabRequest request : udb.Impl.labRequestsList) {
+      labUIRequests.add(
+              new LabUI(
+                      request.getID(),
+                      request.getPatientName(),
+                      request.getStaff(),
+                      request.getLabType(),
+                      request.getDate(),
+                      request.getTime()));
+    }
+    return labUIRequests;
+  }
+
+   */
+
+
 
   public void enableTxt() {
 
@@ -205,32 +262,7 @@ public class MedicineDeliveryController extends ServiceController {
     return request;
   }
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
 
-    closeTransition.setRate(-1);
-    hamburger.addEventHandler(
-        MouseEvent.MOUSE_CLICKED,
-        e -> {
-          closeTransition.setRate(closeTransition.getRate() * -1);
-          closeTransition.play();
-          vBoxPane.setVisible(!vBoxPane.isVisible());
-          pane.setDisable(!pane.isDisable());
-          if (pane.isDisable()) {
-            hamburger.setPrefWidth(200);
-            pane.setEffect(new GaussianBlur(10));
-            assistPane.setDisable(true);
-          } else {
-            pane.setEffect(null);
-            hamburger.setPrefWidth(77);
-            assistPane.setDisable(false);
-          }
-        });
-
-
-
-  }
 
   @Override
   public void addRequest() {}
