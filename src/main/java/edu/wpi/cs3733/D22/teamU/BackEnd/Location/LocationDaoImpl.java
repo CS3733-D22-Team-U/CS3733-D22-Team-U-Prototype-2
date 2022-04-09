@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Location;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
+import edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest.LabRequest;
+
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -406,5 +408,46 @@ public class LocationDaoImpl implements DataDao<Location> {
     } catch (IOException e) {
       System.out.println(e.fillInStackTrace());
     }
+  }
+
+  public Location askUser() {
+    Scanner locationInput = new Scanner(System.in);
+
+    String nodeID = "None";
+    int xcoord = 0;
+    int ycoord = 0;
+    String floor = "N/A";
+    String building = "N/A";
+    String nodeType = "N/A";
+    String longName = "N/A";
+    String shortName = "N/A";
+
+    System.out.println("Input node ID: ");
+    nodeID = locationInput.nextLine();
+
+// You can uncomment the code below if you wise to put in specific values
+
+//    System.out.println("Input X coordinate: ");
+//    xcoord = Integer.parseInt(locationInput.nextLine());
+//
+//    System.out.println("Input Y coordinate: ");
+//    ycoord = Integer.parseInt(locationInput.nextLine());
+//
+//    System.out.println("Input floor: ");
+//    floor = locationInput.nextLine();
+//
+//    System.out.println("Input building: ");
+//    building = locationInput.nextLine();
+//
+//    System.out.println("Input node type: ");
+//    nodeType = locationInput.nextLine();
+//
+//    System.out.println("Input long name: ");
+//    longName = locationInput.nextLine();
+//
+//    System.out.println("Input short name: ");
+//    shortName = locationInput.nextLine();
+
+    return new Location(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName);
   }
 }

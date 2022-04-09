@@ -7,6 +7,7 @@ package edu.wpi.cs3733.D22.teamU.BackEnd;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.EquipmentDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest.LabRequestDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Request.RequestDaoImpl;
 import java.io.*;
@@ -92,6 +93,33 @@ public class Udb {
 
     labRequestImpl.CSVToJava();
     labRequestImpl.JavaToSQL();
+  }
+
+  public void add(Object thingToAdd) throws IOException {
+    switch(String.valueOf(thingToAdd.getClass())) {
+      case "Location":
+        locationImpl.add((Location) thingToAdd);
+        break;
+
+      case "Equipment":
+
+        break;
+
+      case "Employee":
+        break;
+
+      case "Request":
+
+        break;
+
+      case "LabRequest":
+
+        break;
+
+      default:
+        System.out.println("Object not in switch case for udb.add()");
+        break;
+    }
   }
 
   // This function is called in main the starts the menu where a client can access and or change

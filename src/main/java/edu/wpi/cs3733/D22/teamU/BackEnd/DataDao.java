@@ -25,4 +25,6 @@ public interface DataDao<T> {
   void remove(T data) throws IOException;
 
   int search(String id);
+
+//  T askUser();
 }
