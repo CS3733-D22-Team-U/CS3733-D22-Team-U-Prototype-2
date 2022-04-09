@@ -5,9 +5,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.DashboardController">
+<AnchorPane maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.DashboardController">
    <children>
       <ImageView fitHeight="750.0" fitWidth="1177.0" opacity="0.34" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -16,13 +17,55 @@
       </ImageView>
       <Pane layoutX="1010.0" layoutY="19.0" prefHeight="176.0" prefWidth="90.0" style="-fx-background-radius: 0 0 0 35;" styleClass="horizontalLabel" stylesheets="@../css/headersAndLabels.css">
          <children>
-            <Button layoutX="21.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="35.0" style="-fx-background-color: transparent;" textFill="#400808" />
-            <ImageView fitHeight="58.0" fitWidth="71.0" layoutX="25.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icons/dashboardIcons/noun-development-4735544.png" />
-               </image>
-            </ImageView>
+            <Button fx:id="settingsButton" layoutX="21.0" layoutY="113.0" mnemonicParsing="false" onAction="#toSettings" prefHeight="26.0" prefWidth="35.0" style="-fx-background-color: transparent;" textFill="#400808">
+               <graphic>
+                  <ImageView fitHeight="58.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/dashboardIcons/noun-development-4735544.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children></Pane>
+      <Pane layoutX="308.0" layoutY="132.0" prefHeight="63.0" prefWidth="485.0" styleClass="horizontalLabel" stylesheets="@../css/headersAndLabels.css">
+         <children>
+            <Text layoutX="119.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelText" text="Hello Dr.Mann" />
+         </children>
+      </Pane>
+      <AnchorPane fx:id="animatePane" layoutX="-846.0" layoutY="309.0" prefHeight="310.0" prefWidth="936.0" style="-fx-background-color: #efefef; -fx-background-radius: 0 35 35 0; -fx-effect: dropshadow(gaussian, #000000,25,0,0,0);">
+         <children>
+            <Pane layoutX="846.0" prefHeight="310.0" prefWidth="90.0" style="-fx-background-radius: 0 35 35 0;" styleClass="verticalLabel" stylesheets="@../css/headersAndLabels.css">
+               <children>
+                  <Text layoutX="-72.0" layoutY="172.0" rotate="-90.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelText" text="Service Pages" y="5.0">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="navButton" layoutX="22.0" layoutY="-4.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="51.0" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fx:id="navPaneArrow" fitHeight="37.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+                           <image>
+                              <Image url="@../icons/dashboardIcons/noun-arrow-download-4373766.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <Pane layoutY="19.0" prefHeight="176.0" prefWidth="90.0" style="-fx-background-radius: 0 0 35 0;" styleClass="horizontalLabel" stylesheets="@../css/headersAndLabels.css">
+         <children>
+            <Button fx:id="logOutButton" layoutY="113.0" mnemonicParsing="false" onAction="#logOut" prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: transparent;" textFill="#400808">
+               <graphic>
+                  <ImageView fitHeight="58.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/dashboardIcons/noun-log-out-4740898.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
       <Pane prefHeight="132.0" prefWidth="1100.0" styleClass="header" stylesheets="@../css/headersAndLabels.css">
          <children>
             <ImageView fitHeight="114.0" fitWidth="75.0" layoutX="219.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
@@ -33,10 +76,27 @@
             <Text layoutX="294.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="headerText" text="Mass General Brigham" wrappingWidth="511.65234375" />
          </children>
       </Pane>
-      <Pane layoutX="308.0" layoutY="132.0" prefHeight="63.0" prefWidth="485.0" styleClass="horizontalLabel" stylesheets="@../css/headersAndLabels.css">
+      <AnchorPane fx:id="clockPane" layoutX="1010.0" layoutY="309.0" prefHeight="310.0" prefWidth="936.0" style="-fx-background-color: #efefef; -fx-background-radius: 35 0 0 35; -fx-effect: dropshadow(gaussian, #000000,25,0,0,0);">
          <children>
-            <Text layoutX="119.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelText" text="Hello Dr.Mann" />
+            <Pane prefHeight="310.0" prefWidth="90.0" style="-fx-background-radius: 35 0 0 35;" styleClass="verticalLabel" stylesheets="@../css/headersAndLabels.css">
+               <children>
+                  <Text layoutX="-35.0" layoutY="162.0" rotate="90.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelText" text="hh:mm:ss" y="5.0">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="clockButton" layoutX="22.0" layoutY="-4.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="51.0" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fx:id="clockPaneArrow" fitHeight="37.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                           <image>
+                              <Image url="@../icons/dashboardIcons/noun-arrow-download-4373766.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
          </children>
-      </Pane>
+      </AnchorPane>
    </children>
 </AnchorPane>
