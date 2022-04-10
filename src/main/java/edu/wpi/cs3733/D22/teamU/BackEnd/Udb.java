@@ -37,11 +37,8 @@ public class Udb {
 
   public Udb(String username, String password, String[] CSVfiles) throws IOException {
 
-    Statement statement;
+    Statement statement = null;
     String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
-
-
-
 
 
     try {
