@@ -3,10 +3,10 @@ package edu.wpi.cs3733.D22.teamU.BackEnd.Request;
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
 
 public abstract class Request {
-  String ID;
-  String type;
-  String date;
-  String time;
+  public String ID;
+  public String name;
+  public String date;
+  public String time;
 
 
   public String getID() {
@@ -17,12 +17,12 @@ public abstract class Request {
     this.ID = ID;
   }
 
-  public String getType() {
-    return type;
+  public String getName() {
+    return name;
   }
 
-  public void setType(String type) {
-    this.type = type;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getDate() {

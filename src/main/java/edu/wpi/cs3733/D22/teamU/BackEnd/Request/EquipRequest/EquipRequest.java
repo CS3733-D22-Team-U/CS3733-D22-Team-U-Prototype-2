@@ -1,13 +1,11 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest;
 
-public class EquipRequest {
-  String ID;
-  String name;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
+
+public class EquipRequest extends Request {
   int amount;
   String typeOfRequest;
   String destination;
-  String date;
-  String time;
   int pri;
 
   public EquipRequest(
