@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest;
+package edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest;
 
 public class LabRequest {
 

@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.D22.teamU.BackEnd.Request;
+package edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
 import java.io.*;
@@ -6,19 +6,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class RequestDaoImpl implements DataDao<Request> {
+public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
   public Statement statement;
-  public ArrayList<Request> requestList = new ArrayList<Request>();
+  public ArrayList<EquipRequest> equipRequestList = new ArrayList<EquipRequest>();
   public String csvFile;
 
-  public RequestDaoImpl(Statement statement, String csvfile) {
+  public EquipRequestDaoImpl(Statement statement, String csvfile) {
     this.csvFile = csvfile;
     this.statement = statement;
   }
 
   @Override
-  public ArrayList<Request> list() {
-    return requestList;
+  public ArrayList<EquipRequest> list() {
+    return equipRequestList;
   }
 
   /**
@@ -27,7 +27,7 @@ public class RequestDaoImpl implements DataDao<Request> {
    * @throws IOException
    */
   public void CSVToJava() throws IOException {
-    requestList = new ArrayList<Request>();
+    equipRequestList = new ArrayList<EquipRequest>();
     String s;
     File file = new File(csvFile);
     BufferedReader br = new BufferedReader(new FileReader(file));
@@ -35,8 +35,8 @@ public class RequestDaoImpl implements DataDao<Request> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == 8) {
-        requestList.add(
-            new Request(
+        equipRequestList.add(
+            new EquipRequest(
                 row[0],
                 row[1],
                 Integer.parseInt(row[2]),
@@ -76,23 +76,23 @@ public class RequestDaoImpl implements DataDao<Request> {
     fw.append("\n");
 
     for (int i = 0;
-        i < requestList.size();
+        i < equipRequestList.size();
         i++) { // ask about how this was working without and = sign
-      fw.append(requestList.get(i).getID());
+      fw.append(equipRequestList.get(i).getID());
       fw.append(",");
-      fw.append(requestList.get(i).getName());
+      fw.append(equipRequestList.get(i).getName());
       fw.append(",");
-      fw.append(Integer.toString(requestList.get(i).getAmount()));
+      fw.append(Integer.toString(equipRequestList.get(i).getAmount()));
       fw.append(",");
-      fw.append(requestList.get(i).getType());
+      fw.append(equipRequestList.get(i).getType());
       fw.append(",");
-      fw.append(requestList.get(i).getDestination());
+      fw.append(equipRequestList.get(i).getDestination());
       fw.append(",");
-      fw.append(requestList.get(i).getDate());
+      fw.append(equipRequestList.get(i).getDate());
       fw.append(",");
-      fw.append(requestList.get(i).getTime());
+      fw.append(equipRequestList.get(i).getTime());
       fw.append(",");
-      fw.append(Integer.toString(requestList.get(i).getPri()));
+      fw.append(Integer.toString(equipRequestList.get(i).getPri()));
       fw.append("\n");
     }
     fw.close();
@@ -101,14 +101,14 @@ public class RequestDaoImpl implements DataDao<Request> {
   public void JavaToSQL() {
 
     try {
-      statement.execute("Drop table Request");
+      statement.execute("Drop table EquipRequest");
     } catch (Exception e) {
       System.out.println("didn't drop table");
     }
 
     try {
       statement.execute(
-          "CREATE TABLE Request("
+          "CREATE TABLE EquipRequest("
               + "ID varchar(10) not null,"
               + "name varchar(50) not null, "
               + "amount int not null,"
@@ -117,10 +117,10 @@ public class RequestDaoImpl implements DataDao<Request> {
               + "date varchar(10) not null,"
               + "time varchar(10) not null,"
               + "pri int not null)");
-      for (int j = 0; j < requestList.size(); j++) {
-        Request currReq = requestList.get(j);
+      for (int j = 0; j < equipRequestList.size(); j++) {
+        EquipRequest currReq = equipRequestList.get(j);
         statement.execute(
-            "INSERT INTO Request VALUES("
+            "INSERT INTO EquipRequest VALUES("
                 + "'"
                 + currReq.getID()
                 + "','"
@@ -145,10 +145,10 @@ public class RequestDaoImpl implements DataDao<Request> {
   }
 
   public void SQLToJava() {
-    requestList = new ArrayList<Request>();
+    equipRequestList = new ArrayList<EquipRequest>();
     try {
       ResultSet results;
-      results = statement.executeQuery("SELECT * FROM Request");
+      results = statement.executeQuery("SELECT * FROM EquipRequest");
 
       while (results.next()) {
         String id = results.getString("ID");
@@ -160,9 +160,10 @@ public class RequestDaoImpl implements DataDao<Request> {
         String time = results.getString("time");
         int pri = results.getInt("pri");
 
-        Request SQLRow = new Request(id, name, amount, type, destination, date, time, pri);
+        EquipRequest SQLRow =
+            new EquipRequest(id, name, amount, type, destination, date, time, pri);
 
-        requestList.add(SQLRow);
+        equipRequestList.add(SQLRow);
       }
     } catch (SQLException e) {
       System.out.println("request not found");
@@ -175,7 +176,7 @@ public class RequestDaoImpl implements DataDao<Request> {
     // display locations and attributes
     System.out.println(
         "ID |\t Name |\t Amount |\t Type |\t Destination |\t Date |\t Time |\t Priority");
-    for (Request request : this.requestList) {
+    for (EquipRequest request : this.equipRequestList) {
       System.out.println(
           request.ID
               + " | \t"
@@ -196,7 +197,7 @@ public class RequestDaoImpl implements DataDao<Request> {
   }
 
   @Override
-  public void edit(Request data) {
+  public void edit(EquipRequest data) {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
     // input ID
@@ -216,14 +217,14 @@ public class RequestDaoImpl implements DataDao<Request> {
    * @throws IOException
    */
   @Override
-  public void add(Request data) throws IOException {
+  public void add(EquipRequest data) throws IOException {
     // add a new entry to the SQL table
     try {
-      requestList.get(search(data.ID));
+      equipRequestList.get(search(data.ID));
       System.out.println("An Object With This ID Already Exists");
     } catch (Exception e) {
-      Request newRequest = data;
-      this.requestList.add(newRequest);
+      EquipRequest newEquipRequest = data;
+      this.equipRequestList.add(newEquipRequest);
       this.JavaToSQL();
       this.JavaToCSV(csvFile);
     }
@@ -236,10 +237,10 @@ public class RequestDaoImpl implements DataDao<Request> {
    * @throws IOException
    */
   @Override
-  public void remove(Request data) throws IOException {
+  public void remove(EquipRequest data) throws IOException {
     // removes entries from SQL table that match input node
     try {
-      this.requestList.remove(search(data.ID));
+      this.equipRequestList.remove(search(data.ID));
       this.JavaToSQL();
       this.JavaToCSV(csvFile);
     } catch (Exception e) {
@@ -275,7 +276,7 @@ public class RequestDaoImpl implements DataDao<Request> {
     return index;
   }
 
-  public Request askUser() {
+  public EquipRequest askUser() {
     Scanner reqInput = new Scanner(System.in);
 
     String inputID = "None";
@@ -293,7 +294,7 @@ public class RequestDaoImpl implements DataDao<Request> {
     System.out.println("Input name: ");
     inputName = reqInput.nextLine();
 
-    return new Request(
+    return new EquipRequest(
         inputID,
         inputName,
         inputAmount,

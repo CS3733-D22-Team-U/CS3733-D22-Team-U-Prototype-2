@@ -8,12 +8,12 @@ import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.EquipmentDaoImpl;
-import edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest.LabRequest;
-import edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest.LabRequestDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
-import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
-import edu.wpi.cs3733.D22.teamU.BackEnd.Request.RequestDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest.EquipRequest;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest.EquipRequestDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest.LabRequest;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest.LabRequestDaoImpl;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -27,7 +27,7 @@ public class Udb {
   public LocationDaoImpl locationImpl;
   public EquipmentDaoImpl EquipmentImpl;
   public EmployeeDaoImpl EmployeeImpl;
-  public RequestDaoImpl requestImpl;
+  public EquipRequestDaoImpl equipRequestImpl;
   public LabRequestDaoImpl labRequestImpl;
 
   public static String copyFile(InputStream inputPath, String outputPath) throws IOException {
@@ -96,7 +96,7 @@ public class Udb {
     locationImpl = new LocationDaoImpl(statement, CSVfiles[0]);
     EmployeeImpl = new EmployeeDaoImpl(statement, CSVfiles[1]);
     EquipmentImpl = new EquipmentDaoImpl(statement, CSVfiles[2]);
-    requestImpl = new RequestDaoImpl(statement, CSVfiles[3]);
+    equipRequestImpl = new EquipRequestDaoImpl(statement, CSVfiles[3]);
     labRequestImpl = new LabRequestDaoImpl(statement, CSVfiles[4]);
 
     locationImpl.CSVToJava();
@@ -108,8 +108,8 @@ public class Udb {
     EquipmentImpl.CSVToJava(locationImpl.list());
     EquipmentImpl.JavaToSQL();
 
-    requestImpl.CSVToJava();
-    requestImpl.JavaToSQL();
+    equipRequestImpl.CSVToJava();
+    equipRequestImpl.JavaToSQL();
 
     labRequestImpl.CSVToJava();
     labRequestImpl.JavaToSQL();
@@ -138,8 +138,8 @@ public class Udb {
         EmployeeImpl.edit((Employee) thingToAdd);
         break;
 
-      case "Request":
-        requestImpl.edit((Request) thingToAdd);
+      case "EquipRequst":
+        equipRequestImpl.edit((EquipRequest) thingToAdd);
         break;
 
       case "LabRequest":
@@ -167,8 +167,8 @@ public class Udb {
         EmployeeImpl.add((Employee) thingToAdd);
         break;
 
-      case "Request":
-        requestImpl.add((Request) thingToAdd);
+      case "EquipRequest":
+        equipRequestImpl.add((EquipRequest) thingToAdd);
         break;
 
       case "LabRequest":
@@ -196,8 +196,8 @@ public class Udb {
         EmployeeImpl.remove((Employee) thingToAdd);
         break;
 
-      case "Request":
-        requestImpl.remove((Request) thingToAdd);
+      case "EquipRequest":
+        equipRequestImpl.remove((EquipRequest) thingToAdd);
         break;
 
       case "LabRequest":
@@ -226,8 +226,8 @@ public class Udb {
         EmployeeImpl.saveTableAsCSV(nameOfCSV);
         break;
 
-      case "Requests":
-        requestImpl.saveTableAsCSV(nameOfCSV);
+      case "EquipRequests":
+        equipRequestImpl.saveTableAsCSV(nameOfCSV);
         break;
 
       case "LabRequests":
@@ -425,19 +425,19 @@ public class Udb {
             + "6 - Return to Main Menu");
     switch (requestInput.nextInt()) {
       case 1:
-        requestImpl.printTable();
+        equipRequestImpl.printTable();
         requestMenu();
         break;
       case 2:
-        edit(requestImpl.askUser());
+        edit(equipRequestImpl.askUser());
         requestMenu();
         break;
       case 3:
-        add(requestImpl.askUser());
+        add(equipRequestImpl.askUser());
         requestMenu();
         break;
       case 4:
-        remove(requestImpl.askUser());
+        remove(equipRequestImpl.askUser());
         requestMenu();
         break;
       case 5:
