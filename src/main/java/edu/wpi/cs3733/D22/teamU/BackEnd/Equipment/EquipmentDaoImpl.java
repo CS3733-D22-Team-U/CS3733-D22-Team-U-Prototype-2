@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EquipmentDaoImpl implements DataDao<Equipment> {
-  public String DB_LOC;
+  public Statement statement;
   public ArrayList<Equipment> EquipmentList = new ArrayList<Equipment>();
   public String csvFile;
   private Udb udb = DBController.udb;
   /**
    * Constructor for EquipmentDaoImpl
    *
-   * @param db_loc
+   * @param
    */
-  public EquipmentDaoImpl(String db_loc, String csvFile) {
-    this.DB_LOC = db_loc;
+  public EquipmentDaoImpl(Statement statement, String csvFile) {
+    this.statement = statement;
     this.csvFile = csvFile;
   }
 
@@ -105,18 +105,12 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
   public void JavaToSQL() {
 
     try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
-
-      Statement exampleStatement = connection.createStatement();
-      try {
-        exampleStatement.execute("Drop table EquipmentList");
-      } catch (Exception e) {
-        System.out.println("didn't drop table");
-      }
-
-      // do
-      exampleStatement.execute(
+      statement.execute("Drop table EquipmentList");
+    } catch (Exception e) {
+      System.out.println("didn't drop table");
+    }
+    try{
+      statement.execute(
           "CREATE TABLE EquipmentList(name varchar(18) not null, "
               + "amount int not null,"
               + "inUse int not null,"
@@ -125,7 +119,7 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
 
       for (int j = 0; j < EquipmentList.size(); j++) {
         Equipment currLoc = EquipmentList.get(j);
-        exampleStatement.execute(
+        statement.execute(
             "INSERT INTO EquipmentList VALUES("
                 + "'"
                 + currLoc.getName()
@@ -139,13 +133,9 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
                 + currLoc.getLocationID()
                 + "')");
       }
-
-      connection.close();
-
-    } catch (SQLException e) {
+    }catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
-      return;
     }
   }
 
@@ -160,31 +150,21 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
     EquipmentList = new ArrayList<Equipment>();
 
     try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
+      ResultSet results;
+      results = statement.executeQuery("SELECT * FROM EquipmentList");
 
-      Statement exampleStatement = connection.createStatement();
+      while (results.next()) {
+        String name = results.getString("Name");
+        int amount = results.getInt("Amount");
+        int inUse = results.getInt("InUse");
+        String locationID = results.getString("locationID");
 
-      try {
-        ResultSet results;
-        results = exampleStatement.executeQuery("SELECT * FROM EquipmentList");
+        Equipment SQLRow = new Equipment(name, amount, inUse, locationID);
 
-        while (results.next()) {
-          String name = results.getString("Name");
-          int amount = results.getInt("Amount");
-          int inUse = results.getInt("InUse");
-          String locationID = results.getString("locationID");
-
-          Equipment SQLRow = new Equipment(name, amount, inUse, locationID);
-
-          EquipmentList.add(SQLRow);
-        }
-      } catch (SQLException e) {
-        System.out.println(e);
+        EquipmentList.add(SQLRow);
       }
-      connection.close();
     } catch (SQLException e) {
-      System.out.println("Database does not exist.");
+      System.out.println(e);
     }
   }
 

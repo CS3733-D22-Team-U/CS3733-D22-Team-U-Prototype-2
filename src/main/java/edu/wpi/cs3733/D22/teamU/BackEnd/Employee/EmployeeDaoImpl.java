@@ -84,6 +84,7 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
   /** SQLToJava: takes the SQL database and overwrites the global list of Java objects */
   public void SQLToJava() {
     List = new ArrayList<Employee>();
+
     try {
       ResultSet results;
       results = statement.executeQuery("SELECT * FROM Employees");
@@ -98,7 +99,6 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
 
         List.add(SQLRow);
       }
-
     } catch (SQLException e) {
       System.out.println("Database does not exist.");
     }
