@@ -19,6 +19,7 @@ import java.util.Scanner;
 public class Udb {
 
   public String DB_LOC = "jdbc:derby:UDB;";
+  public Connection connection;
   public LocationDaoImpl locationImpl;
   public EquipmentDaoImpl EquipmentImpl;
   public EmployeeDaoImpl EmployeeImpl;
@@ -33,13 +34,28 @@ public class Udb {
     return outputPath;
   }
 
+
   public Udb(String username, String password, String[] CSVfiles) throws IOException {
-    String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
-    locationImpl = new LocationDaoImpl(authentication, CSVfiles[0]);
-    EmployeeImpl = new EmployeeDaoImpl(authentication, CSVfiles[1]);
-    EquipmentImpl = new EquipmentDaoImpl(authentication, CSVfiles[2]);
-    requestImpl = new RequestDaoImpl(authentication, CSVfiles[3]);
-    labRequestImpl = new LabRequestDaoImpl(authentication, CSVfiles[4]);
+
+    Statement statement;
+
+    try {
+      connection = null;
+      connection = DriverManager.getConnection(DB_LOC + "user=" + username + ";password=" + password + ";");
+
+      statement = connection.createStatement();
+    } catch (SQLException e) {
+      System.out.println("Connection failed. Check output console.");
+      e.printStackTrace();
+    }
+
+    locationImpl = new LocationDaoImpl(statement, CSVfiles[0]);
+    EmployeeImpl = new EmployeeDaoImpl(statement, CSVfiles[1]);
+    EquipmentImpl = new EquipmentDaoImpl(statement, CSVfiles[2]);
+    requestImpl = new RequestDaoImpl(statement, CSVfiles[3]);
+    labRequestImpl = new LabRequestDaoImpl(statement, CSVfiles[4]);
+
+
 
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -93,6 +109,10 @@ public class Udb {
 
     labRequestImpl.CSVToJava();
     labRequestImpl.JavaToSQL();
+  }
+
+  public void closeConnection() throws SQLException {
+    connection.close();
   }
 
   public void add(Object thingToAdd) throws IOException {

@@ -9,13 +9,14 @@ import java.util.Scanner;
 public class EmployeeDaoImpl implements DataDao<Employee> {
 
   // make constant in locationDao
-  public String DB_LOC;
+  public Statement statement;
   public String CSVfile;
   public ArrayList<Employee> List = new ArrayList<Employee>();
 
-  public EmployeeDaoImpl(String db_loc, String CSVfile) {
-    this.DB_LOC = db_loc;
+  public EmployeeDaoImpl(Statement statement, String CSVfile)
+  {
     this.CSVfile = CSVfile;
+    this.statement = statement;
   }
 
   public ArrayList<Employee> list() {
@@ -49,74 +50,54 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
   public void JavaToSQL() {
 
     try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
-
-      Statement exampleStatement = connection.createStatement();
-      try {
-        exampleStatement.execute("Drop table Employees");
-      } catch (Exception e) {
-        System.out.println("didn't drop table");
-      }
-
-      exampleStatement.execute(
-          "CREATE TABLE Employees(employeeID varchar(18) not null, "
-              + "occupation varchar(200) not null,"
-              + "reports int not null,"
-              + "onDuty boolean not null)");
+      statement.execute("Drop table Employees");
+    } catch (Exception e) {
+      System.out.println("didn't drop table");
+    }
+    try {
+      statement.execute(
+              "CREATE TABLE Employees(employeeID varchar(18) not null, "
+                      + "occupation varchar(200) not null,"
+                      + "reports int not null,"
+                      + "onDuty boolean not null)");
 
       for (int j = 0; j < List.size(); j++) {
         Employee currEmp = List.get(j);
-        exampleStatement.execute(
-            "INSERT INTO Employees VALUES('"
-                + currEmp.employeeID
-                + "','"
-                + currEmp.occupation
-                + "',"
-                + currEmp.reports
-                + ",'"
-                + currEmp.onDuty
-                + "')");
+        statement.execute(
+                "INSERT INTO Employees VALUES('"
+                        + currEmp.employeeID
+                        + "','"
+                        + currEmp.occupation
+                        + "',"
+                        + currEmp.reports
+                        + ",'"
+                        + currEmp.onDuty
+                        + "')");
       }
-
-      connection.close();
-
-    } catch (SQLException e) {
-      System.out.println("Connection failed. Check output console.");
-      e.printStackTrace();
-      return;
+    }catch(SQLException e)
+    {
+      System.out.println("hsbd");
     }
+
   }
 
   /** SQLToJava: takes the SQL database and overwrites the global list of Java objects */
   public void SQLToJava() {
     List = new ArrayList<Employee>();
-
     try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
+      ResultSet results;
+      results = statement.executeQuery("SELECT * FROM Employees");
 
-      Statement exampleStatement = connection.createStatement();
+      while (results.next()) {
+        String employeeID = results.getString("employeeID");
+        String occupation = results.getString("occupation");
+        int reports = results.getInt("reports");
+        boolean onDuty = results.getBoolean("onDuty");
 
-      try {
-        ResultSet results;
-        results = exampleStatement.executeQuery("SELECT * FROM Employees");
+        Employee SQLRow = new Employee(employeeID, occupation, reports, onDuty);
 
-        while (results.next()) {
-          String employeeID = results.getString("employeeID");
-          String occupation = results.getString("occupation");
-          int reports = results.getInt("reports");
-          boolean onDuty = results.getBoolean("onDuty");
-
-          Employee SQLRow = new Employee(employeeID, occupation, reports, onDuty);
-
-          List.add(SQLRow);
-        }
-      } catch (SQLException e) {
-        System.out.println("Locations not found");
+        List.add(SQLRow);
       }
-
-      connection.close();
 
     } catch (SQLException e) {
       System.out.println("Database does not exist.");
