@@ -35,13 +35,15 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
-      if (row.length == 4)
+      if (row.length == 6)
         List.add(
             new Employee(
                 row[0].trim(),
                 row[1].trim(),
                 Integer.parseInt(row[2].trim()),
-                Boolean.parseBoolean(row[3].trim())));
+                Boolean.parseBoolean(row[3].trim()),
+                row[4].trim(),
+                row[5].trim()));
     }
   }
 
@@ -58,7 +60,9 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
           "CREATE TABLE Employees(employeeID varchar(18) not null, "
               + "occupation varchar(200) not null,"
               + "reports int not null,"
-              + "onDuty boolean not null)");
+              + "onDuty boolean not null,"
+              + "username varchar(20) not null,"
+              + "password varchar(20) not null)");
 
       for (int j = 0; j < List.size(); j++) {
         Employee currEmp = List.get(j);
@@ -69,8 +73,12 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
                 + currEmp.occupation
                 + "',"
                 + currEmp.reports
-                + ",'"
+                + ","
                 + currEmp.onDuty
+                + ",'"
+                + currEmp.username
+                + "','"
+                + currEmp.password
                 + "')");
       }
     } catch (SQLException e) {
@@ -91,8 +99,10 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
         String occupation = results.getString("occupation");
         int reports = results.getInt("reports");
         boolean onDuty = results.getBoolean("onDuty");
+        String username = results.getString("username");
+        String password = results.getString("password");
 
-        Employee SQLRow = new Employee(employeeID, occupation, reports, onDuty);
+        Employee SQLRow = new Employee(employeeID, occupation, reports, onDuty, username, password);
 
         List.add(SQLRow);
       }
@@ -118,6 +128,10 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     fw.append("reports");
     fw.append(",");
     fw.append("onDuty");
+    fw.append(",");
+    fw.append("username");
+    fw.append(",");
+    fw.append("password");
     fw.append("\n");
 
     for (int i = 0; i < List.size(); i++) {
@@ -128,6 +142,10 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
       fw.append(Integer.toString(List.get(i).reports));
       fw.append(",");
       fw.append(Boolean.toString(List.get(i).onDuty));
+      fw.append(",");
+      fw.append(List.get(i).username);
+      fw.append(",");
+      fw.append(List.get(i).password);
       fw.append("\n");
     }
     fw.close();
@@ -143,7 +161,8 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     // csv to java
     CSVToJava();
     // display locations and attributes
-    System.out.println("Employee ID |\t Occupation |\t Reports |\t On Duty");
+    System.out.println(
+        "Employee ID |\t Occupation |\t Reports |\t On Duty |\t Username |\t Password");
     for (Employee employee : List) {
       System.out.println(
           employee.employeeID
@@ -152,7 +171,12 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
               + " | \t"
               + employee.reports
               + " | \t"
-              + employee.onDuty);
+              + employee.onDuty
+              + " | \t"
+              + employee.username
+              + " | \t"
+              + employee.password
+              + " | \t");
     }
   }
 
@@ -171,10 +195,11 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
       if (this.List.get(i).employeeID.equals(data.getEmployeeID())) {
         this.List.get(i).occupation = data.getOccupation();
         this.List.get(i).reports = data.getReports();
+        this.List.get(i).username = data.getUsername();
+        this.List.get(i).password = data.getPassword();
       }
     }
     this.JavaToSQL(); // t
-    this.SQLToJava(); // t
     this.JavaToCSV(CSVfile); // t
   }
 
@@ -189,10 +214,9 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     // add a new entry to the SQL table
     // prompt for ID
 
-    Employee newEmployee = new Employee(data.getEmployeeID());
-    this.List.add(newEmployee);
+    // Employee newEmployee = new Employee(data.getEmployeeID());
+    this.List.add(data);
     this.JavaToSQL();
-    this.SQLToJava();
     this.JavaToCSV(CSVfile);
   }
 
@@ -257,6 +281,8 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     String inputOccupation = "N/A";
     int inputReports = 0;
     boolean inputOnDuty = false;
+    String inputUsername = "N/A";
+    String inputPassword = "N/A";
 
     System.out.println("Input Employee ID: ");
     inputEmployeeID = employeeInput.nextLine();
@@ -264,6 +290,13 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     System.out.println("Input occupation: ");
     inputOccupation = employeeInput.nextLine();
 
-    return new Employee(inputEmployeeID, inputOccupation, inputReports, inputOnDuty);
+    System.out.println("Input Employee Username: ");
+    inputUsername = employeeInput.nextLine();
+    //
+    System.out.println("Input Password: ");
+    inputPassword = employeeInput.nextLine();
+
+    return new Employee(
+        inputEmployeeID, inputOccupation, inputReports, inputOnDuty, inputUsername, inputPassword);
   }
 }
