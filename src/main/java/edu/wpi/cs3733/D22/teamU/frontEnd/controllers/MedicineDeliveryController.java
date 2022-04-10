@@ -1,11 +1,13 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXCheckBox;
-import edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest.LabRequest;
+//import edu.wpi.cs3733.D22.teamU.BackEnd.MedicineRequest.MedicineRequest;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
 import edu.wpi.cs3733.D22.teamU.frontEnd.services.lab.LabUI;
-import edu.wpi.cs3733.D22.teamU.frontEnd.services.medicine.MedicineUI;
+//import edu.wpi.cs3733.D22.teamU.frontEnd.services.medicine.MedicineUI;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
@@ -24,6 +26,8 @@ import javafx.scene.text.Text;
 
 public class MedicineDeliveryController extends ServiceController {
 
+  @FXML
+  JFXHamburger hamburger;
   @FXML JFXCheckBox Advil;
   @FXML JFXCheckBox Alprozalam;
   @FXML JFXCheckBox AmphetamineSalt;
@@ -63,8 +67,9 @@ public class MedicineDeliveryController extends ServiceController {
   @FXML VBox requestHolder;
   @FXML
   ObservableList<LabUI> labUIRequests = FXCollections.observableArrayList();
-  ObservableList<JFXCheckBox> checkBoxes = FXCollections.observableArrayList();
+  //ObservableList<JFXCheckBox> checkBoxes = FXCollections.observableArrayList();
   @FXML TableView<LabUI> activeRequestTable;
+
 
   private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -72,14 +77,35 @@ public class MedicineDeliveryController extends ServiceController {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    super.initialize(location, resources);
-    setUpActiveRequests();
-    for (Node checkbox : requestHolder.getChildren()) {
-      checkBoxes.add((JFXCheckBox) checkbox);
-    }
+
+    HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
+
+    closeTransition.setRate(-1);
+    hamburger.addEventHandler(
+            MouseEvent.MOUSE_CLICKED,
+            e -> {
+              closeTransition.setRate(closeTransition.getRate() * -1);
+              closeTransition.play();
+              vBoxPane.setVisible(!vBoxPane.isVisible());
+              pane.setDisable(!pane.isDisable());
+              if (pane.isDisable()) {
+                hamburger.setPrefWidth(200);
+                pane.setEffect(new GaussianBlur(10));
+                assistPane.setDisable(true);
+              } else {
+                pane.setEffect(null);
+                hamburger.setPrefWidth(77);
+                assistPane.setDisable(false);
+              }
+            });
+    //setUpActiveRequests();
+    //for (Node checkbox : requestHolder.getChildren()) {
+      //checkBoxes.add((JFXCheckBox) checkbox);
+    //}
 
   }
 
+  /*
   private void setUpActiveRequests() {
     ReqID.setCellValueFactory(new PropertyValueFactory<>("id"));
     ReqPatient.setCellValueFactory(new PropertyValueFactory<>("patientName"));
@@ -90,6 +116,8 @@ public class MedicineDeliveryController extends ServiceController {
     ReqTime.setCellValueFactory(new PropertyValueFactory<>("requestTime"));
     //activeRequestTable.setItems(getActiveRequestList());
   }
+
+   */
 
   /*
   private ObservableList<MedicineUI> getActiveRequestList() {
