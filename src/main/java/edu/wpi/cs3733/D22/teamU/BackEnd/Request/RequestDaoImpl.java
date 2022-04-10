@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RequestDaoImpl implements DataDao<Request> {
-  public String DB_LOC;
+  public Statement statement;
   public ArrayList<Request> requestList = new ArrayList<Request>();
   public String csvFile;
 
-  public RequestDaoImpl(String db_loc, String csvfile) {
-    DB_LOC = db_loc;
-    csvFile = csvfile;
+  public RequestDaoImpl(Statement statement, String csvfile) {
+    this.csvFile = csvFile;
+    this.statement = statement;
   }
 
   @Override
@@ -100,18 +100,14 @@ public class RequestDaoImpl implements DataDao<Request> {
 
   public void JavaToSQL() {
 
-    try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
-
-      Statement exampleStatement = connection.createStatement();
       try {
-        exampleStatement.execute("Drop table Request");
+        statement.execute("Drop table Request");
       } catch (Exception e) {
         System.out.println("didn't drop table");
       }
 
-      exampleStatement.execute(
+    try {
+      statement.execute(
           "CREATE TABLE Request("
               + "ID varchar(10) not null,"
               + "name varchar(50) not null, "
@@ -121,10 +117,9 @@ public class RequestDaoImpl implements DataDao<Request> {
               + "date varchar(10) not null,"
               + "time varchar(10) not null,"
               + "pri int not null)");
-
       for (int j = 0; j < requestList.size(); j++) {
         Request currReq = requestList.get(j);
-        exampleStatement.execute(
+        statement.execute(
             "INSERT INTO Request VALUES("
                 + "'"
                 + currReq.getID()
@@ -144,28 +139,16 @@ public class RequestDaoImpl implements DataDao<Request> {
                 + currReq.getPri()
                 + ")");
       }
-
-      connection.close();
-
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
-      e.printStackTrace();
-      return;
     }
   }
 
   public void SQLToJava() {
     requestList = new ArrayList<Request>();
-
-    try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
-
-      Statement exampleStatement = connection.createStatement();
-
       try {
         ResultSet results;
-        results = exampleStatement.executeQuery("SELECT * FROM Request");
+        results = statement.executeQuery("SELECT * FROM Request");
 
         while (results.next()) {
           String id = results.getString("ID");
@@ -184,12 +167,6 @@ public class RequestDaoImpl implements DataDao<Request> {
       } catch (SQLException e) {
         System.out.println("request not found");
       }
-
-      connection.close();
-
-    } catch (SQLException e) {
-      System.out.println("Database does not exist.");
-    }
   }
 
   public void printTable() throws IOException {

@@ -11,18 +11,18 @@ import java.util.Scanner;
 public class LocationDaoImpl implements DataDao<Location> {
 
   // make constant in locationDao
-  public String DB_LOC;
+  public Statement statement;
   public ArrayList<Location> locations = new ArrayList<Location>();
   public String csvFile;
 
   /**
    * Contructor for LocationDaoImpl
    *
-   * @param db_loc
+   * @param
    */
-  public LocationDaoImpl(String db_loc, String csvFile) {
-    DB_LOC = db_loc;
+  public LocationDaoImpl(Statement statement, String csvFile) {
     this.csvFile = csvFile;
+    this.statement = statement;
   }
 
   // Takes in a CSV file and converts it to java objects
@@ -70,18 +70,14 @@ public class LocationDaoImpl implements DataDao<Location> {
    */
   public void JavaToSQL() {
 
-    try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
-
-      Statement exampleStatement = connection.createStatement();
       try {
-        exampleStatement.execute("Drop table Locations");
+        statement.execute("Drop table Locations");
       } catch (Exception e) {
         System.out.println("didn't drop table");
       }
 
-      exampleStatement.execute(
+      try {
+      statement.execute(
           "CREATE TABLE Locations(nodeID varchar(18) not null, "
               + "xcoord int not null,"
               + "ycoord int not null,"
@@ -93,7 +89,7 @@ public class LocationDaoImpl implements DataDao<Location> {
 
       for (int j = 0; j < locations.size(); j++) {
         Location currLoc = locations.get(j);
-        exampleStatement.execute(
+        statement.execute(
             "INSERT INTO Locations VALUES("
                 + "'"
                 + currLoc.nodeID
@@ -113,13 +109,8 @@ public class LocationDaoImpl implements DataDao<Location> {
                 + currLoc.shortName
                 + "')");
       }
-
-      connection.close();
-
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
-      e.printStackTrace();
-      return;
     }
   }
 
@@ -135,15 +126,9 @@ public class LocationDaoImpl implements DataDao<Location> {
   public void SQLToJava() {
     locations = new ArrayList<Location>();
 
-    try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
-
-      Statement exampleStatement = connection.createStatement();
-
       try {
         ResultSet results;
-        results = exampleStatement.executeQuery("SELECT * FROM Locations");
+        results = statement.executeQuery("SELECT * FROM Locations");
 
         while (results.next()) {
           String nodeID = results.getString("nodeID");
@@ -167,14 +152,8 @@ public class LocationDaoImpl implements DataDao<Location> {
 
           locations.add(SQLRow);
         }
-      } catch (SQLException e) {
-        System.out.println("Locations not found");
-      }
-
-      connection.close();
-
     } catch (SQLException e) {
-      System.out.println("Database does not exist.");
+      System.out.println("location does not exist.");
     }
   }
 

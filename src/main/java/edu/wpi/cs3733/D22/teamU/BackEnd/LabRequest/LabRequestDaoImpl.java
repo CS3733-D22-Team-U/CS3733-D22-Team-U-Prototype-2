@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LabRequestDaoImpl implements DataDao<LabRequest> {
-  public String DB_LOC;
-  public ArrayList<LabRequest> labRequestsList = new ArrayList<LabRequest>();
+  public Statement statement;
   public String csvFile;
+  public ArrayList<LabRequest> labRequestsList = new ArrayList<LabRequest>();
 
-  public LabRequestDaoImpl(String db_loc, String csvfile) {
-    DB_LOC = db_loc;
-    csvFile = csvfile;
+  public LabRequestDaoImpl(Statement statement, String csvFile) {
+    this.csvFile = csvFile;
+    this.statement = statement;
   }
 
   @Override
@@ -84,18 +84,14 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
   public void JavaToSQL() {
 
-    try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
-
-      Statement exampleStatement = connection.createStatement();
       try {
-        exampleStatement.execute("Drop table LabRequest");
+        statement.execute("Drop table LabRequest");
       } catch (Exception e) {
         System.out.println("didn't drop table");
       }
 
-      exampleStatement.execute(
+      try {
+      statement.execute(
           "CREATE TABLE LabRequest("
               + "ID varchar(10) not null,"
               + "patient varchar(50) not null, "
@@ -106,7 +102,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
       for (int j = 0; j < labRequestsList.size(); j++) {
         LabRequest currLab = labRequestsList.get(j);
-        exampleStatement.execute(
+        statement.execute(
             "INSERT INTO LabRequest VALUES("
                 + "'"
                 + currLab.getID()
@@ -122,28 +118,16 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
                 + currLab.getTime()
                 + "')");
       }
-
-      connection.close();
-
-    } catch (SQLException e) {
+    } catch(SQLException e) {
       System.out.println("Connection failed. Check output console.");
-      e.printStackTrace();
-      return;
     }
-  }
+    }
 
   public void SQLToJava() {
     labRequestsList = new ArrayList<LabRequest>();
-
-    try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
-
-      Statement exampleStatement = connection.createStatement();
-
       try {
         ResultSet results;
-        results = exampleStatement.executeQuery("SELECT * FROM LabRequest");
+        results = statement.executeQuery("SELECT * FROM LabRequest");
 
         while (results.next()) {
           String id = results.getString("ID");
@@ -157,12 +141,6 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
           labRequestsList.add(SQLRow);
         }
-      } catch (SQLException e) {
-        System.out.println("request not found");
-      }
-
-      connection.close();
-
     } catch (SQLException e) {
       System.out.println("Database does not exist.");
     }
@@ -237,7 +215,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
    * Prompts user for the information of a new lab request and then adds it to the csv file and
    * database
    *
-   * @param csvFile
+   * @param
    * @throws IOException
    */
   /*public void add(

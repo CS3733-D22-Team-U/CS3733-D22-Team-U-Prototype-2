@@ -100,7 +100,7 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
       }
 
     } catch (SQLException e) {
-      System.out.println("Database does not exist.");
+      System.out.println("employee does not exist.");
     }
   }
 
