@@ -451,7 +451,7 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
    *
    * @throws SQLException
    */
-  public void saveEquipTableAsCSV(String CSVName) throws SQLException {
+  public void saveTableAsCSV(String CSVName) throws SQLException {
     // takes entries from SQL table and an input name, from there it makes a new CSV file
 
     String csvFilePath = "./" + CSVName + ".csv";
@@ -464,5 +464,20 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
     } catch (IOException e) {
       System.out.println(e.fillInStackTrace());
     }
+  }
+
+  public Equipment askUser() {
+    Scanner equipInput = new Scanner(System.in);
+
+    String inputName = "None";
+    String inputLocationID = "test";
+
+    System.out.println("Input equipment name: ");
+    inputName = equipInput.nextLine();
+
+    System.out.println("Input valid locationID: ");
+    inputLocationID = equipInput.nextLine();
+
+    return new Equipment(inputName, inputLocationID);
   }
 }

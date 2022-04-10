@@ -276,14 +276,15 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     }
   }
 
-  public void saveLocTableAsCSV() {
+  /**
+   * Prompts user for the name of a new file and then creates the new file in the project folder
+   * then it copies the database table: EquipmentList into the CSV file
+   *
+   * @throws SQLException
+   */
+  public void saveTableAsCSV(String CSVName) throws SQLException {
     // takes entries from SQL table and an input name, from there it makes a new CSV file
-    // prompt for user input
-    Scanner s = new Scanner(System.in);
 
-    System.out.println("Enter CSV file location name");
-
-    String CSVName = s.nextLine();
     String csvFilePath = "./" + CSVName + ".csv";
 
     try {
@@ -306,30 +307,18 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
   public LabRequest askUser() {
     Scanner labInput = new Scanner(System.in);
 
-    String inputID;
-    String inputPatient;
-    String inputStaff;
-    String inputType;
-    String inputDate;
-    String inputTime;
+    String inputID = "None";
+    String inputPatient = "N/A";
+    String inputStaff = "N/A";
+    String inputType = "N/A";
+    String inputDate = "N/A";
+    String inputTime = "N/A";
 
     System.out.println("Input lab ID: ");
     inputID = labInput.nextLine();
 
-    System.out.println("Input lab patient: ");
-    inputPatient = labInput.nextLine();
-
-    System.out.println("Input lab staff: ");
-    inputStaff = labInput.nextLine();
-
-    System.out.println("Input lab labType: ");
+    System.out.println("Input type: ");
     inputType = labInput.nextLine();
-
-    System.out.println("Input lab date: ");
-    inputDate = labInput.nextLine();
-
-    System.out.println("Input lab time: ");
-    inputTime = labInput.nextLine();
 
     return new LabRequest(inputID, inputPatient, inputStaff, inputType, inputDate, inputTime);
   }

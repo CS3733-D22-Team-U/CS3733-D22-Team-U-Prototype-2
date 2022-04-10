@@ -363,18 +363,13 @@ public class LocationDaoImpl implements DataDao<Location> {
 
   /**
    * Prompts user for the name of a new file and then creates the new file in the project folder
-   * then it copies the database table: Locations into the CSV file
+   * then it copies the database table: EquipmentList into the CSV file
    *
    * @throws SQLException
    */
-  public void saveLocTableAsCSV() {
+  public void saveTableAsCSV(String CSVName) throws SQLException {
     // takes entries from SQL table and an input name, from there it makes a new CSV file
-    // prompt for user input
-    Scanner s = new Scanner(System.in);
 
-    System.out.println("Enter CSV file location name");
-
-    String CSVName = s.nextLine();
     String csvFilePath = "./" + CSVName + ".csv";
 
     try {
@@ -402,28 +397,8 @@ public class LocationDaoImpl implements DataDao<Location> {
     System.out.println("Input node ID: ");
     nodeID = locationInput.nextLine();
 
-    // You can uncomment the code below if you wise to put in specific values
-
-    //    System.out.println("Input X coordinate: ");
-    //    xcoord = Integer.parseInt(locationInput.nextLine());
-    //
-    //    System.out.println("Input Y coordinate: ");
-    //    ycoord = Integer.parseInt(locationInput.nextLine());
-    //
-    //    System.out.println("Input floor: ");
-    //    floor = locationInput.nextLine();
-    //
-    //    System.out.println("Input building: ");
-    //    building = locationInput.nextLine();
-    //
-    //    System.out.println("Input node type: ");
-    //    nodeType = locationInput.nextLine();
-    //
-    //    System.out.println("Input long name: ");
-    //    longName = locationInput.nextLine();
-    //
-    //    System.out.println("Input short name: ");
-    //    shortName = locationInput.nextLine();
+    System.out.println("Input floor: ");
+    floor = locationInput.nextLine();
 
     return new Location(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName);
   }

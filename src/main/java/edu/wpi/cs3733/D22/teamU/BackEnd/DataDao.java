@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface DataDao<T> {
@@ -26,5 +27,7 @@ public interface DataDao<T> {
 
   int search(String id);
 
-  //  T askUser();
+  void saveTableAsCSV(String nameOfCSV) throws SQLException;
+
+  T askUser();
 }

@@ -330,12 +330,14 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
   }
 
   /**
-   * saveEmployeeTableAsCSV: Converts the SQL table to a CSV file, saving it with the prompted file
-   * name
+   * Prompts user for the name of a new file and then creates the new file in the project folder
+   * then it copies the database table: EquipmentList into the CSV file
    *
    * @throws SQLException
    */
-  public void saveEmployeeTableAsCSV(String CSVName) throws SQLException {
+  public void saveTableAsCSV(String CSVName) throws SQLException {
+    // takes entries from SQL table and an input name, from there it makes a new CSV file
+
     String csvFilePath = "./" + CSVName + ".csv";
 
     try {
@@ -358,5 +360,22 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     int index = -1;
     for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).getEmployeeID())) index = i;
     return index;
+  }
+
+  public Employee askUser() {
+    Scanner employeeInput = new Scanner(System.in);
+
+    String inputEmployeeID = "None";
+    String inputOccupation = "N/A";
+    int inputReports = 0;
+    boolean inputOnDuty = false;
+
+    System.out.println("Input Employee ID: ");
+    inputEmployeeID = employeeInput.nextLine();
+
+    System.out.println("Input occupation: ");
+    inputOccupation = employeeInput.nextLine();
+
+    return new Employee(inputEmployeeID, inputOccupation, inputReports, inputOnDuty);
   }
 }

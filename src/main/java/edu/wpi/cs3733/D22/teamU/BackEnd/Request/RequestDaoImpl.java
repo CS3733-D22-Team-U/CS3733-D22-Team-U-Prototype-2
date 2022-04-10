@@ -251,7 +251,7 @@ public class RequestDaoImpl implements DataDao<Request> {
   /**
    * Prompts user for the name of a new item and then adds it to the csv file and database
    *
-   * @param csvFile
+   * @param //csvFile
    * @throws IOException
    */
   public void add(
@@ -317,14 +317,15 @@ public class RequestDaoImpl implements DataDao<Request> {
     }
   }
 
-  public void saveLocTableAsCSV() {
+  /**
+   * Prompts user for the name of a new file and then creates the new file in the project folder
+   * then it copies the database table: EquipmentList into the CSV file
+   *
+   * @throws SQLException
+   */
+  public void saveTableAsCSV(String CSVName) throws SQLException {
     // takes entries from SQL table and an input name, from there it makes a new CSV file
-    // prompt for user input
-    Scanner s = new Scanner(System.in);
 
-    System.out.println("Enter CSV file location name");
-
-    String CSVName = s.nextLine();
     String csvFilePath = "./" + CSVName + ".csv";
 
     try {
@@ -342,5 +343,34 @@ public class RequestDaoImpl implements DataDao<Request> {
     int index = -1;
     for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).ID)) index = i;
     return index;
+  }
+
+  public Request askUser() {
+    Scanner reqInput = new Scanner(System.in);
+
+    String inputID = "None";
+    String inputName = "N/A";
+    int inputAmount = 0;
+    String inputType = "N/A";
+    String inputDestination = "N/A";
+    String inputDate = "N/A";
+    String inputTime = "N/A";
+    int inputPriority = 0;
+
+    System.out.println("Input request ID: ");
+    inputID = reqInput.nextLine();
+
+    System.out.println("Input name: ");
+    inputName = reqInput.nextLine();
+
+    return new Request(
+        inputID,
+        inputName,
+        inputAmount,
+        inputType,
+        inputDestination,
+        inputDate,
+        inputTime,
+        inputPriority);
   }
 }
