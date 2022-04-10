@@ -93,7 +93,7 @@ public class Udb {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
     }
-
+    //
     locationImpl = new LocationDaoImpl(statement, CSVfiles[0]);
     EmployeeImpl = new EmployeeDaoImpl(statement, CSVfiles[1]);
     EquipmentImpl = new EquipmentDaoImpl(statement, CSVfiles[2]);
