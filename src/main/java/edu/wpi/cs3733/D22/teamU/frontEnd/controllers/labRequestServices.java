@@ -68,7 +68,7 @@ public class labRequestServices extends ServiceController {
               request.getID(),
               request.getPatient(),
               request.getStaff(),
-              request.getLabType(),
+              request.getName(),
               request.getDate(),
               request.getTime()));
     }

@@ -1,13 +1,10 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request;
 
-import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
-
 public abstract class Request {
   public String ID;
   public String name;
   public String date;
   public String time;
-
 
   public String getID() {
     return ID;

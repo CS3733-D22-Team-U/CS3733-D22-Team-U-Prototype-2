@@ -72,7 +72,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
       fw.append(",");
       fw.append(labRequestsList.get(i).getStaff());
       fw.append(",");
-      fw.append(labRequestsList.get(i).getLabType());
+      fw.append(labRequestsList.get(i).getName());
       fw.append(",");
       fw.append(labRequestsList.get(i).getDate());
       fw.append(",");
@@ -111,7 +111,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
                 + "','"
                 + currLab.getStaff()
                 + "','"
-                + currLab.getLabType()
+                + currLab.getName()
                 + "','"
                 + currLab.getDate()
                 + "','"
@@ -159,7 +159,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
               + " | \t"
               + request.staff
               + " | \t"
-              + request.labType
+              + request.name
               + " | \t"
               + request.date
               + " | \t"
