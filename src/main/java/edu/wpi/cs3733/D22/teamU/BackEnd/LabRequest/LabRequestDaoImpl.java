@@ -165,37 +165,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
               + " | \t"
               + request.time);
     }
-    // menu
   }
-
-  /*
-  public void edit(String ID, String patient, String staff, String labType, String date, String time)
-          throws IOException, SQLException {
-      // takes entries from SQL table that match input node and updates it with a new floor and
-      // location type
-      // input ID
-      // Scanner s = new Scanner(System.in);
-      // System.out.println("Please input the name: ");
-      // String inputName = s.nextLine();
-      // input new floor
-      // System.out.println("New Amount: ");
-      // String inputNewAmount = s.nextLine();
-      // input new location type
-      // System.out.println("New In Use type");
-      // String inputInUse = s.nextLine();
-      // this.CSVToJava(csvFile); // t
-      for (int i = 0; i < this.labRequestsList.size(); i++) {
-          if (this.labRequestsList.get(i).getID().equals(ID)) {
-              this.labRequestsList.get(i).patient = patient;
-              this.labRequestsList.get(i).staff = staff;
-              this.labRequestsList.get(i).labType = labType;
-              this.labRequestsList.get(i).date = date;
-              this.labRequestsList.get(i).time = time;
-          }
-      }
-      this.JavaToCSV(csvFile);
-  }
-  */
 
   @Override
   public void edit(LabRequest data) throws IOException {
@@ -218,20 +188,6 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
    * @param
    * @throws IOException
    */
-  /*public void add(
-                  String id,
-                  String patient,
-                  String staff,
-                  String labType,
-                  String date,
-                  String time)
-          throws IOException {
-      LabRequest newLabRequest =
-              new LabRequest(id, patient, staff, labType, date, time);
-      this.labRequestsList.add(newLabRequest);
-      this.JavaToCSV(csvFile);
-  }*/
-
   @Override
   public void add(LabRequest data) throws IOException {
     // add a new entry to the SQL table
@@ -252,18 +208,6 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
    *
    * @throws IOException
    */
-  /*public void removeRequest(String id) throws IOException {
-      // removes entries from SQL table that match input node
-      // prompt for ID
-
-      for (int i = this.requestList.size() - 1; i >= 0; i--) {
-          if (this.requestList.get(i).getID().equals(id)) {
-              this.requestList.remove(i);
-          }
-      }
-      this.JavaToCSV(csvFile);
-  }*/
-
   @Override
   public void remove(LabRequest data) throws IOException {
     // removes entries from SQL table that match input node

@@ -193,49 +193,10 @@ public class RequestDaoImpl implements DataDao<Request> {
               + " | \t"
               + request.pri);
     }
-    // menu
-  }
-
-  public void edit(
-      String inputID,
-      String inputName,
-      int inputNewAmount,
-      String newType,
-      String newDestination,
-      String date,
-      String time,
-      int pri)
-      throws IOException, SQLException {
-    // takes entries from SQL table that match input node and updates it with a new floor and
-    // location type
-    // input ID
-    // Scanner s = new Scanner(System.in);
-    // System.out.println("Please input the name: ");
-    // String inputName = s.nextLine();
-    // input new floor
-    // System.out.println("New Amount: ");
-    // String inputNewAmount = s.nextLine();
-    // input new location type
-    // System.out.println("New In Use type");
-    // String inputInUse = s.nextLine();
-    // this.CSVToJava(csvFile); // t
-    for (int i = 0; i < this.requestList.size(); i++) {
-      if (this.requestList.get(i).getID().equals(inputID)) {
-        this.requestList.get(i).name = inputName;
-        this.requestList.get(i).amount = inputNewAmount;
-        this.requestList.get(i).typeOfRequest = newType;
-        this.requestList.get(i).destination = newDestination;
-        this.requestList.get(i).date = date;
-        this.requestList.get(i).time = time;
-        this.requestList.get(i).pri = pri;
-      }
-    }
-    ; // t
-    this.JavaToCSV(csvFile); // t
   }
 
   @Override
-  public void edit(Request data) throws IOException {
+  public void edit(Request data) {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
     // input ID
@@ -254,25 +215,6 @@ public class RequestDaoImpl implements DataDao<Request> {
    * @param //csvFile
    * @throws IOException
    */
-  public void add(
-      String id,
-      String newName,
-      int amount,
-      String newType,
-      String newDestination,
-      String date,
-      String time,
-      int pri)
-      throws IOException {
-    // add a new entry to the SQL table
-    // prompt for ID
-
-    Request newEquipment =
-        new Request(id, newName, amount, newType, newDestination, date, time, pri);
-    this.requestList.add(newEquipment);
-    this.JavaToCSV(csvFile);
-  }
-
   @Override
   public void add(Request data) throws IOException {
     // add a new entry to the SQL table
@@ -293,18 +235,6 @@ public class RequestDaoImpl implements DataDao<Request> {
    *
    * @throws IOException
    */
-  public void removeRequest(String id) throws IOException {
-    // removes entries from SQL table that match input node
-    // prompt for ID
-
-    for (int i = this.requestList.size() - 1; i >= 0; i--) {
-      if (this.requestList.get(i).getID().equals(id)) {
-        this.requestList.remove(i);
-      }
-    }
-    this.JavaToCSV(csvFile);
-  }
-
   @Override
   public void remove(Request data) throws IOException {
     // removes entries from SQL table that match input node
