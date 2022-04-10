@@ -230,7 +230,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
                 1));
         try {
           udb.add( // TODO Have random ID and enter Room Destination
-              new Request(
+              new EquipRequest(
                   request.getId(),
                   request.getEquipmentName(),
                   request.getRequestAmount(),
