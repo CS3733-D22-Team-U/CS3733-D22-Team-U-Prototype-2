@@ -6,19 +6,31 @@ public class Employee {
   String occupation;
   int reports;
   boolean onDuty;
-
-  public Employee(String employeeID, String occupation, int reports, boolean onDuty) {
-    this.employeeID = employeeID;
-    this.occupation = occupation;
-    this.onDuty = onDuty;
-    this.reports = reports;
-  }
+  String username;
+  String password;
 
   public Employee(String employeeID) {
     this.employeeID = employeeID;
     this.occupation = "N/A";
     this.reports = 0;
     this.onDuty = false;
+    this.username = "N/A";
+    this.password = "N/A";
+  }
+
+  public Employee(
+      String employeeID,
+      String occupation,
+      int reports,
+      boolean onDuty,
+      String username,
+      String password) {
+    this.employeeID = employeeID;
+    this.occupation = occupation;
+    this.reports = reports;
+    this.onDuty = onDuty;
+    this.username = username;
+    this.password = password;
   }
 
   public String getEmployeeID() {
@@ -51,5 +63,25 @@ public class Employee {
 
   public void setOnDuty(boolean onDuty) {
     this.onDuty = onDuty;
+  }
+
+  public boolean isOnDuty() {
+    return onDuty;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 }
