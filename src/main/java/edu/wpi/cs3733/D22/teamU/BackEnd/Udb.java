@@ -38,22 +38,9 @@ public class Udb {
   public Udb(String username, String password, String[] CSVfiles) throws IOException {
 
     Statement statement;
+    String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
 
-    try {
-      connection = null;
-      connection = DriverManager.getConnection(DB_LOC + "user=" + username + ";password=" + password + ";");
 
-      statement = connection.createStatement();
-    } catch (SQLException e) {
-      System.out.println("Connection failed. Check output console.");
-      e.printStackTrace();
-    }
-
-    locationImpl = new LocationDaoImpl(statement, CSVfiles[0]);
-    EmployeeImpl = new EmployeeDaoImpl(statement, CSVfiles[1]);
-    EquipmentImpl = new EquipmentDaoImpl(statement, CSVfiles[2]);
-    requestImpl = new RequestDaoImpl(statement, CSVfiles[3]);
-    labRequestImpl = new LabRequestDaoImpl(statement, CSVfiles[4]);
 
 
 
@@ -73,8 +60,9 @@ public class Udb {
 
     System.out.println("Apache Derby driver registered!");
 
+    //set username password
     try {
-      Connection connection = DriverManager.getConnection(locationImpl.DB_LOC + "create=true;");
+      Connection connection = DriverManager.getConnection(authentication + "create=true;");
       Statement exampleStatement = connection.createStatement();
 
       exampleStatement.executeUpdate(
@@ -94,6 +82,23 @@ public class Udb {
       System.out.println("Wrong Username/Password");
       return;
     }
+
+    //create connection
+    try {
+      connection = null;
+      connection = DriverManager.getConnection(authentication);
+
+      statement = connection.createStatement();
+    } catch (SQLException e) {
+      System.out.println("Connection failed. Check output console.");
+      e.printStackTrace();
+    }
+
+    locationImpl = new LocationDaoImpl(statement, CSVfiles[0]);
+    EmployeeImpl = new EmployeeDaoImpl(statement, CSVfiles[1]);
+    EquipmentImpl = new EquipmentDaoImpl(statement, CSVfiles[2]);
+    requestImpl = new RequestDaoImpl(statement, CSVfiles[3]);
+    labRequestImpl = new LabRequestDaoImpl(statement, CSVfiles[4]);
 
     locationImpl.CSVToJava();
     locationImpl.JavaToSQL();
