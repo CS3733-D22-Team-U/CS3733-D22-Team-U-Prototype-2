@@ -109,7 +109,7 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
     } catch (Exception e) {
       System.out.println("didn't drop table");
     }
-    try{
+    try {
       statement.execute(
           "CREATE TABLE EquipmentList(name varchar(18) not null, "
               + "amount int not null,"
@@ -133,7 +133,7 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
                 + currLoc.getLocationID()
                 + "')");
       }
-    }catch (SQLException e) {
+    } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
     }

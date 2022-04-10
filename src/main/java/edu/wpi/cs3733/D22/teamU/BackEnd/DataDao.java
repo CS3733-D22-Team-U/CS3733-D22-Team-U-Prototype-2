@@ -26,5 +26,5 @@ public interface DataDao<T> {
 
   int search(String id);
 
-//  T askUser();
+  //  T askUser();
 }

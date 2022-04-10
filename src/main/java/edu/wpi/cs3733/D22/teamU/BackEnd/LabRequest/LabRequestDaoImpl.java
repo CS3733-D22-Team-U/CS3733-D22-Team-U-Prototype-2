@@ -84,13 +84,13 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
   public void JavaToSQL() {
 
-      try {
-        statement.execute("Drop table LabRequest");
-      } catch (Exception e) {
-        System.out.println("didn't drop table");
-      }
+    try {
+      statement.execute("Drop table LabRequest");
+    } catch (Exception e) {
+      System.out.println("didn't drop table");
+    }
 
-      try {
+    try {
       statement.execute(
           "CREATE TABLE LabRequest("
               + "ID varchar(10) not null,"
@@ -118,29 +118,29 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
                 + currLab.getTime()
                 + "')");
       }
-    } catch(SQLException e) {
+    } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
     }
-    }
+  }
 
   public void SQLToJava() {
     labRequestsList = new ArrayList<LabRequest>();
-      try {
-        ResultSet results;
-        results = statement.executeQuery("SELECT * FROM LabRequest");
+    try {
+      ResultSet results;
+      results = statement.executeQuery("SELECT * FROM LabRequest");
 
-        while (results.next()) {
-          String id = results.getString("ID");
-          String patient = results.getString("patient");
-          String staff = results.getString("staff");
-          String labType = results.getString("labType");
-          String date = results.getString("date");
-          String time = results.getString("time");
+      while (results.next()) {
+        String id = results.getString("ID");
+        String patient = results.getString("patient");
+        String staff = results.getString("staff");
+        String labType = results.getString("labType");
+        String date = results.getString("date");
+        String time = results.getString("time");
 
-          LabRequest SQLRow = new LabRequest(id, patient, staff, labType, date, time);
+        LabRequest SQLRow = new LabRequest(id, patient, staff, labType, date, time);
 
-          labRequestsList.add(SQLRow);
-        }
+        labRequestsList.add(SQLRow);
+      }
     } catch (SQLException e) {
       System.out.println("Database does not exist.");
     }

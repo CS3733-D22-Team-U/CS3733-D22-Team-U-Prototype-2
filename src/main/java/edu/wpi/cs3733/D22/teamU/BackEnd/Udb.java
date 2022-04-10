@@ -34,12 +34,10 @@ public class Udb {
     return outputPath;
   }
 
-
   public Udb(String username, String password, String[] CSVfiles) throws IOException {
 
     Statement statement = null;
     String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
-
 
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -57,7 +55,7 @@ public class Udb {
 
     System.out.println("Apache Derby driver registered!");
 
-    //set username password
+    // set username password
     try {
       Connection connection = DriverManager.getConnection(authentication + "create=true;");
       Statement exampleStatement = connection.createStatement();
@@ -80,7 +78,7 @@ public class Udb {
       return;
     }
 
-    //create connection
+    // create connection
     try {
       connection = null;
       connection = DriverManager.getConnection(authentication);
@@ -118,24 +116,21 @@ public class Udb {
   }
 
   public void add(Object thingToAdd) throws IOException {
-    switch(String.valueOf(thingToAdd.getClass())) {
+    switch (String.valueOf(thingToAdd.getClass())) {
       case "Location":
         locationImpl.add((Location) thingToAdd);
         break;
 
       case "Equipment":
-
         break;
 
       case "Employee":
         break;
 
       case "Request":
-
         break;
 
       case "LabRequest":
-
         break;
 
       default:

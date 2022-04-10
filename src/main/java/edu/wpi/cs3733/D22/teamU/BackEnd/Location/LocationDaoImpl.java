@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Location;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
-import edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest.LabRequest;
-
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -70,13 +68,13 @@ public class LocationDaoImpl implements DataDao<Location> {
    */
   public void JavaToSQL() {
 
-      try {
-        statement.execute("Drop table Locations");
-      } catch (Exception e) {
-        System.out.println("didn't drop table");
-      }
+    try {
+      statement.execute("Drop table Locations");
+    } catch (Exception e) {
+      System.out.println("didn't drop table");
+    }
 
-      try {
+    try {
       statement.execute(
           "CREATE TABLE Locations(nodeID varchar(18) not null, "
               + "xcoord int not null,"
@@ -126,32 +124,32 @@ public class LocationDaoImpl implements DataDao<Location> {
   public void SQLToJava() {
     locations = new ArrayList<Location>();
 
-      try {
-        ResultSet results;
-        results = statement.executeQuery("SELECT * FROM Locations");
+    try {
+      ResultSet results;
+      results = statement.executeQuery("SELECT * FROM Locations");
 
-        while (results.next()) {
-          String nodeID = results.getString("nodeID");
-          int xcoord = results.getInt("xcoord");
-          int ycoord = results.getInt("ycoord");
-          String floor = results.getString("floor");
-          String building = results.getString("building");
-          String nodeType = results.getString("nodeType");
-          String longName = results.getString("longName");
-          String shortName = results.getString("shortName");
+      while (results.next()) {
+        String nodeID = results.getString("nodeID");
+        int xcoord = results.getInt("xcoord");
+        int ycoord = results.getInt("ycoord");
+        String floor = results.getString("floor");
+        String building = results.getString("building");
+        String nodeType = results.getString("nodeType");
+        String longName = results.getString("longName");
+        String shortName = results.getString("shortName");
 
-          Location SQLRow = new Location();
-          SQLRow.nodeID = nodeID;
-          SQLRow.xcoord = xcoord;
-          SQLRow.ycoord = ycoord;
-          SQLRow.floor = floor;
-          SQLRow.building = building;
-          SQLRow.nodeType = nodeType;
-          SQLRow.longName = longName;
-          SQLRow.shortName = shortName;
+        Location SQLRow = new Location();
+        SQLRow.nodeID = nodeID;
+        SQLRow.xcoord = xcoord;
+        SQLRow.ycoord = ycoord;
+        SQLRow.floor = floor;
+        SQLRow.building = building;
+        SQLRow.nodeType = nodeType;
+        SQLRow.longName = longName;
+        SQLRow.shortName = shortName;
 
-          locations.add(SQLRow);
-        }
+        locations.add(SQLRow);
+      }
     } catch (SQLException e) {
       System.out.println("location does not exist.");
     }
@@ -404,28 +402,28 @@ public class LocationDaoImpl implements DataDao<Location> {
     System.out.println("Input node ID: ");
     nodeID = locationInput.nextLine();
 
-// You can uncomment the code below if you wise to put in specific values
+    // You can uncomment the code below if you wise to put in specific values
 
-//    System.out.println("Input X coordinate: ");
-//    xcoord = Integer.parseInt(locationInput.nextLine());
-//
-//    System.out.println("Input Y coordinate: ");
-//    ycoord = Integer.parseInt(locationInput.nextLine());
-//
-//    System.out.println("Input floor: ");
-//    floor = locationInput.nextLine();
-//
-//    System.out.println("Input building: ");
-//    building = locationInput.nextLine();
-//
-//    System.out.println("Input node type: ");
-//    nodeType = locationInput.nextLine();
-//
-//    System.out.println("Input long name: ");
-//    longName = locationInput.nextLine();
-//
-//    System.out.println("Input short name: ");
-//    shortName = locationInput.nextLine();
+    //    System.out.println("Input X coordinate: ");
+    //    xcoord = Integer.parseInt(locationInput.nextLine());
+    //
+    //    System.out.println("Input Y coordinate: ");
+    //    ycoord = Integer.parseInt(locationInput.nextLine());
+    //
+    //    System.out.println("Input floor: ");
+    //    floor = locationInput.nextLine();
+    //
+    //    System.out.println("Input building: ");
+    //    building = locationInput.nextLine();
+    //
+    //    System.out.println("Input node type: ");
+    //    nodeType = locationInput.nextLine();
+    //
+    //    System.out.println("Input long name: ");
+    //    longName = locationInput.nextLine();
+    //
+    //    System.out.println("Input short name: ");
+    //    shortName = locationInput.nextLine();
 
     return new Location(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName);
   }

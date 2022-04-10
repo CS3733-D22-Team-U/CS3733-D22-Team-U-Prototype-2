@@ -12,7 +12,7 @@ public class RequestDaoImpl implements DataDao<Request> {
   public String csvFile;
 
   public RequestDaoImpl(Statement statement, String csvfile) {
-    this.csvFile = csvFile;
+    this.csvFile = csvfile;
     this.statement = statement;
   }
 
@@ -100,11 +100,11 @@ public class RequestDaoImpl implements DataDao<Request> {
 
   public void JavaToSQL() {
 
-      try {
-        statement.execute("Drop table Request");
-      } catch (Exception e) {
-        System.out.println("didn't drop table");
-      }
+    try {
+      statement.execute("Drop table Request");
+    } catch (Exception e) {
+      System.out.println("didn't drop table");
+    }
 
     try {
       statement.execute(
@@ -146,27 +146,27 @@ public class RequestDaoImpl implements DataDao<Request> {
 
   public void SQLToJava() {
     requestList = new ArrayList<Request>();
-      try {
-        ResultSet results;
-        results = statement.executeQuery("SELECT * FROM Request");
+    try {
+      ResultSet results;
+      results = statement.executeQuery("SELECT * FROM Request");
 
-        while (results.next()) {
-          String id = results.getString("ID");
-          String name = results.getString("name");
-          int amount = results.getInt("amount");
-          String type = results.getString("typeOfRequest");
-          String destination = results.getString("destination");
-          String date = results.getString("date");
-          String time = results.getString("time");
-          int pri = results.getInt("pri");
+      while (results.next()) {
+        String id = results.getString("ID");
+        String name = results.getString("name");
+        int amount = results.getInt("amount");
+        String type = results.getString("typeOfRequest");
+        String destination = results.getString("destination");
+        String date = results.getString("date");
+        String time = results.getString("time");
+        int pri = results.getInt("pri");
 
-          Request SQLRow = new Request(id, name, amount, type, destination, date, time, pri);
+        Request SQLRow = new Request(id, name, amount, type, destination, date, time, pri);
 
-          requestList.add(SQLRow);
-        }
-      } catch (SQLException e) {
-        System.out.println("request not found");
+        requestList.add(SQLRow);
       }
+    } catch (SQLException e) {
+      System.out.println("request not found");
+    }
   }
 
   public void printTable() throws IOException {

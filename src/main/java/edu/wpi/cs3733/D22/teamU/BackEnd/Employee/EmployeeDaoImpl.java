@@ -13,8 +13,7 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
   public String CSVfile;
   public ArrayList<Employee> List = new ArrayList<Employee>();
 
-  public EmployeeDaoImpl(Statement statement, String CSVfile)
-  {
+  public EmployeeDaoImpl(Statement statement, String CSVfile) {
     this.CSVfile = CSVfile;
     this.statement = statement;
   }
@@ -56,29 +55,27 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     }
     try {
       statement.execute(
-              "CREATE TABLE Employees(employeeID varchar(18) not null, "
-                      + "occupation varchar(200) not null,"
-                      + "reports int not null,"
-                      + "onDuty boolean not null)");
+          "CREATE TABLE Employees(employeeID varchar(18) not null, "
+              + "occupation varchar(200) not null,"
+              + "reports int not null,"
+              + "onDuty boolean not null)");
 
       for (int j = 0; j < List.size(); j++) {
         Employee currEmp = List.get(j);
         statement.execute(
-                "INSERT INTO Employees VALUES('"
-                        + currEmp.employeeID
-                        + "','"
-                        + currEmp.occupation
-                        + "',"
-                        + currEmp.reports
-                        + ",'"
-                        + currEmp.onDuty
-                        + "')");
+            "INSERT INTO Employees VALUES('"
+                + currEmp.employeeID
+                + "','"
+                + currEmp.occupation
+                + "',"
+                + currEmp.reports
+                + ",'"
+                + currEmp.onDuty
+                + "')");
       }
-    }catch(SQLException e)
-    {
+    } catch (SQLException e) {
       System.out.println("hsbd");
     }
-
   }
 
   /** SQLToJava: takes the SQL database and overwrites the global list of Java objects */
