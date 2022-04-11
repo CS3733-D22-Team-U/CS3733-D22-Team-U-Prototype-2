@@ -1,21 +1,29 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.MedicineRequest;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.LaundryRequest.LaundryRequest;
+
 import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
   public Statement statement;
   public ArrayList<MedicineRequest> medicineRequestList = new ArrayList<MedicineRequest>();
   public String csvFile;
+  public HashMap<String, MedicineRequest> hList = new HashMap<String, MedicineRequest>();
 
   public MedicineRequestDaoImpl(Statement statement, String csvfile) {
     this.csvFile = csvfile;
     this.statement = statement;
+  }
+  @Override
+  public  HashMap<String, MedicineRequest> hList() {
+    return this.hList;
   }
 
   @Override

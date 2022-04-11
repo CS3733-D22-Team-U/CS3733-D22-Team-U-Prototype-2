@@ -1,19 +1,29 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest.EquipRequest;
+
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class LabRequestDaoImpl implements DataDao<LabRequest> {
   public Statement statement;
   public String csvFile;
   public ArrayList<LabRequest> labRequestsList = new ArrayList<LabRequest>();
+  public HashMap<String, LabRequest> hList = new HashMap<String, LabRequest>();
+
 
   public LabRequestDaoImpl(Statement statement, String csvFile) {
     this.csvFile = csvFile;
     this.statement = statement;
+  }
+  @Override
+  public  HashMap<String, LabRequest> hList() {
+    return this.hList;
   }
 
   @Override

@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.LaundryRequest;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 
 public class LaundryRequest extends Request {
@@ -13,7 +14,7 @@ public class LaundryRequest extends Request {
       String ID,
       String name,
       String patientName,
-      String staff,
+      Employee employee,
       String status,
       String location,
       String date,
@@ -21,7 +22,7 @@ public class LaundryRequest extends Request {
     this.ID = ID;
     this.name = name; // type of lab request
     this.patientName = patientName;
-    this.staff = staff;
+    this.employee = employee;
     this.status = status;
     this.location = location;
     this.date = date;

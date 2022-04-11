@@ -1,12 +1,14 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Equipment;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class EquipmentDaoImpl implements DataDao<Equipment> {
@@ -14,6 +16,7 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
   public ArrayList<Equipment> EquipmentList = new ArrayList<Equipment>();
   public String csvFile;
   private Udb udb = DBController.udb;
+  public HashMap<String, Equipment> hList = new HashMap<String, Equipment>();
 
   /**
    * Constructor for EquipmentDaoImpl
@@ -23,6 +26,10 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
   public EquipmentDaoImpl(Statement statement, String csvFile) {
     this.statement = statement;
     this.csvFile = csvFile;
+  }
+  @Override
+  public HashMap<String, Equipment> hList() {
+    return this.hList;
   }
 
   @Override

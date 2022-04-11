@@ -1,21 +1,31 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
+
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
   public Statement statement;
   public ArrayList<EquipRequest> equipRequestList = new ArrayList<EquipRequest>();
   public String csvFile;
+  public HashMap<String, EquipRequest> hList = new HashMap<String, EquipRequest>();
 
   public EquipRequestDaoImpl(Statement statement, String csvfile) {
     this.csvFile = csvfile;
     this.statement = statement;
   }
 
+
+  @Override
+  public  HashMap<String, EquipRequest> hList() {
+    return this.hList;
+  }
   @Override
   public ArrayList<EquipRequest> list() {
     return equipRequestList;

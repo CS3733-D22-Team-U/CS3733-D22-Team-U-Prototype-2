@@ -1,9 +1,13 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Location;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
+
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class LocationDaoImpl implements DataDao<Location> {
@@ -12,6 +16,7 @@ public class LocationDaoImpl implements DataDao<Location> {
   public Statement statement;
   public ArrayList<Location> locations = new ArrayList<Location>();
   public String csvFile;
+  public HashMap<String, Location> hList = new HashMap<String, Location>();
 
   /**
    * Contructor for LocationDaoImpl
@@ -22,7 +27,10 @@ public class LocationDaoImpl implements DataDao<Location> {
     this.csvFile = csvFile;
     this.statement = statement;
   }
-
+  @Override
+  public  HashMap<String, Location> hList() {
+    return this.hList;
+  }
   // Takes in a CSV file and converts it to java objects
 
   /**

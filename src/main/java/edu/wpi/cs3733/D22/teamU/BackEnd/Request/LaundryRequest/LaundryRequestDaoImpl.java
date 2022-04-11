@@ -1,19 +1,29 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.LaundryRequest;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest.LabRequest;
+
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
   public Statement statement;
   public String csvFile;
   public ArrayList<LaundryRequest> laundryRequestsList = new ArrayList<LaundryRequest>();
+  public HashMap<String, LaundryRequest> hList = new HashMap<String, LaundryRequest>();
 
   public LaundryRequestDaoImpl(Statement statement, String csvFile) {
     this.csvFile = csvFile;
     this.statement = statement;
+  }
+
+  @Override
+  public  HashMap<String, LaundryRequest> hList() {
+    return this.hList;
   }
 
   @Override
@@ -33,11 +43,12 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
       String[] row = s.split(",");
       if (row.length == columns) {
         laundryRequestsList.add(
-            new LaundryRequest(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]));
+            new LaundryRequest(row[0], row[1], row[2], EmployeeDaoImpl.hList.get(row[3]), row[4], row[5], row[6], row[7]));
       }
     }
   }
-
+  // string
+  // map.get(row
   @Override
   public void JavaToSQL() {
     try {
@@ -69,7 +80,7 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
                 + "','"
                 + currLaud.getPatientName()
                 + "','"
-                + currLaud.getStaff()
+                + currLaud.getEmployee().getEmployeeID()
                 + "','"
                 + currLaud.getStatus()
                 + "','"
@@ -103,7 +114,7 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
         String time = results.getString("time");
 
         LaundryRequest SQLRow =
-            new LaundryRequest(ID, name, patientName, staff, status, location, date, time);
+            new LaundryRequest(ID, name, patientName, EmployeeDaoImpl.hList.get(staff), status, location, date, time);
 
         laundryRequestsList.add(SQLRow);
       }
@@ -141,7 +152,7 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
       fw.append(",");
       fw.append(laundryRequestsList.get(i).getPatientName());
       fw.append(",");
-      fw.append(laundryRequestsList.get(i).getStaff());
+      fw.append(laundryRequestsList.get(i).getEmployee().getEmployeeID());
       fw.append(",");
       fw.append(laundryRequestsList.get(i).getStatus());
       fw.append(",");
@@ -168,7 +179,7 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
               + " | \t"
               + request.patientName
               + " | \t"
-              + request.staff
+              + request.getEmployee().getEmployeeID()
               + " | \t"
               + request.status
               + " | \t"
@@ -254,11 +265,14 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
     System.out.println("Input type: ");
     inputName = labInput.nextLine();
 
+    System.out.println("Staff Name: ");
+    inputStaff = labInput.nextLine();
+
     return new LaundryRequest(
         inputID,
         inputName,
         inputPatient,
-        inputStaff,
+        EmployeeDaoImpl.hList.get(inputStaff),
         inputStatus,
         inputLocation,
         inputDate,
