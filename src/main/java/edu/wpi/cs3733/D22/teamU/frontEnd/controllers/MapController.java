@@ -25,6 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.transform.Scale;
 
 public class MapController extends ServiceController {
   /*Edit Remove Popup*/
@@ -75,7 +76,6 @@ public class MapController extends ServiceController {
   @FXML TableColumn<MapUI, String> nodeType;
   @FXML TableColumn<MapUI, String> longName;
   @FXML TableColumn<MapUI, String> shortName;
-  @FXML Pane pane;
   @FXML Pane assistPane;
   @FXML Button addBTN;
   ObservableList<MapUI> mapUI = FXCollections.observableArrayList();
@@ -86,6 +86,12 @@ public class MapController extends ServiceController {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     super.initialize(location, resources);
+
+    setScroll(lowerLevel1Pane);
+    setScroll(lowerLevel2Pane);
+    setScroll(floor1Pane);
+    setScroll(floor2Pane);
+    setScroll(floor3Pane);
     locations = new HashMap<>();
     setUpMap();
     mapUI.clear();
@@ -101,8 +107,6 @@ public class MapController extends ServiceController {
               loc.getLongName(),
               loc.getShortName()));
 
-      double x = floor3Pane.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
-      double y = floor3Pane.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
       String s = loc.getFloor();
       LocationNode ln;
       try {
@@ -124,6 +128,8 @@ public class MapController extends ServiceController {
             temp = floor3Pane;
             break;
         }
+        double x = temp.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
+        double y = temp.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
         ln = new LocationNode(loc, x, y, temp);
         ln.setOnMouseClicked(this::popupOpen);
         locations.put(loc.getNodeID(), ln);
@@ -163,6 +169,26 @@ public class MapController extends ServiceController {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  private void setScroll(AnchorPane pane) {
+    pane.setOnScroll(
+        event -> {
+          double zoom_fac = 1.05;
+          if (event.getDeltaY() < 0) {
+            zoom_fac = 2.0 - zoom_fac;
+          }
+
+          Scale newScale = new Scale();
+          newScale.setPivotX(event.getX());
+          newScale.setPivotY(event.getY());
+          newScale.setX(pane.getScaleX() * zoom_fac);
+          newScale.setY(pane.getScaleY() * zoom_fac);
+
+          pane.getTransforms().add(newScale);
+
+          event.consume();
+        });
   }
 
   public void setUpMap() {
