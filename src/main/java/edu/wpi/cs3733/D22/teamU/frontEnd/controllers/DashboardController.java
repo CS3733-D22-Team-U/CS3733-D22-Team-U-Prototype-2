@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import java.net.URL;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class DashboardController extends ServiceController {
@@ -30,14 +33,34 @@ public class DashboardController extends ServiceController {
   @FXML ButtonBar bottomRow;
 
   @FXML Pane backgroundPane;
+
+  @FXML Text time;
+  @FXML Text date;
   private static final String HOVERED_BUTTON = "-fx-border-color: #029ca6";
+
+  private static final SimpleDateFormat sdf3 = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     handleNavPaneAnimation();
     handleClockPaneAnimation();
-
     handleNavButtons();
+    handeDateTime();
+  }
+
+  private void handeDateTime() {
+    Thread timeThread =
+        new Thread(
+            () -> {
+              for (; ; ) {
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                String timeStampdate = sdf3.format(timestamp).substring(0, 10);
+                String timeStampTime = sdf3.format(timestamp).substring(11);
+                time.setText(timeStampTime);
+                date.setText(timeStampdate);
+              }
+            });
+    timeThread.start();
   }
 
   private void handleNavPaneAnimation() {
