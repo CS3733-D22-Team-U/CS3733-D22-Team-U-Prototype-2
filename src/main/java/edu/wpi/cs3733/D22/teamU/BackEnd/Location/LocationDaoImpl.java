@@ -288,7 +288,7 @@ public class LocationDaoImpl implements DataDao<Location> {
     }
     this.JavaToSQL();
     this.SQLToJava();
-    this.JavaToCSV(csvFile);
+    // this.JavaToCSV(csvFile);
   }
 
   @Override
@@ -299,7 +299,7 @@ public class LocationDaoImpl implements DataDao<Location> {
     try {
       list().set(search(data.nodeID), data);
       this.JavaToSQL(); // t
-      this.JavaToCSV(csvFile); // t
+      // this.JavaToCSV(csvFile); // t
     } catch (Exception e) {
       System.out.println("This Object Does Not Exist");
     }
@@ -321,8 +321,8 @@ public class LocationDaoImpl implements DataDao<Location> {
     Location newLocation = new Location(newNodeID);
     this.locations.add(newLocation);
     this.JavaToSQL();
-    this.SQLToJava();
-    this.JavaToCSV(csvFile);
+    // this.SQLToJava();
+    // this.JavaToCSV(csvFile);
   }
 
   @Override
@@ -335,7 +335,7 @@ public class LocationDaoImpl implements DataDao<Location> {
       Location newLocation = data;
       this.locations.add(newLocation);
       this.JavaToSQL();
-      this.JavaToCSV(csvFile);
+      // this.JavaToCSV(csvFile);
     }
   }
 
@@ -369,7 +369,7 @@ public class LocationDaoImpl implements DataDao<Location> {
     try {
       this.locations.remove(search(data.nodeID));
       this.JavaToSQL();
-      this.JavaToCSV(csvFile);
+      // this.JavaToCSV(csvFile);
     } catch (Exception e) {
       System.out.println("This Data Point Was Not Found");
     }

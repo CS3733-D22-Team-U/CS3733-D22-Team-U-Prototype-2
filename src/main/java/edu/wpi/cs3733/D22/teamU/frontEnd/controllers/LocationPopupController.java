@@ -31,11 +31,11 @@ public class LocationPopupController {
   private Udb udb = DBController.udb;
 
   public void Exit(ActionEvent actionEvent) {
-    pane.setDisable(true);
+    // pane.setDisable(true);
     ((Pane) pane.getParent()).getChildren().remove(pane);
   }
 
-  public void edit(MouseEvent actionEvent) throws IOException {
+  public void popupEdit(MouseEvent actionEvent) throws IOException {
     Location l =
         new Location(
             nodeID.getText(),
@@ -58,7 +58,7 @@ public class LocationPopupController {
     toMap(actionEvent);
   }
 
-  public void remove(MouseEvent actionEvent) throws IOException {
+  public void popupRemove(MouseEvent actionEvent) throws IOException {
     Location l =
         new Location(
             nodeID.getText(),
