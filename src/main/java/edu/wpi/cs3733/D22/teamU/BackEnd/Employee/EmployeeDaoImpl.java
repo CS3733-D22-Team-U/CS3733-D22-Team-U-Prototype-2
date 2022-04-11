@@ -5,39 +5,33 @@ import edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest.EquipRequest;
 
 import java.io.*;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class EmployeeDaoImpl implements DataDao<Employee> {
 
   // make constant in locationDao
   public Statement statement;
   public String CSVfile;
-  public ArrayList<Employee> List = new ArrayList<Employee>();
-  public static HashMap<String, Employee> hList = new HashMap<String, Employee>();
+  public HashMap<String, Employee> List = new HashMap<String, Employee>();
 
   public EmployeeDaoImpl(Statement statement, String CSVfile) {
     this.CSVfile = CSVfile;
     this.statement = statement;
   }
 
-  @Override
-  public  HashMap<String, Employee> hList() {
-    return this.hList;
-  }
-
-  @Override
-  public ArrayList<Employee> list() {
+  public HashMap<String, Employee> list() {
     return this.List;
   }
+
   /**
    * CSVToJava: converts the CSV file at the given filepath into a list of Java objects
    *
    * @throws IOException
    */
   public void CSVToJava() throws IOException {
-    hList = new HashMap<String, Employee>();
+    List = new HashMap<String, Employee>();
     String s;
     File file = new File(CSVfile);
     BufferedReader br = new BufferedReader(new FileReader(file));
@@ -45,7 +39,8 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == 6)
-        hList.put(row[0].trim(),
+        List.put(
+            row[0].trim(),
             new Employee(
                 row[0].trim(),
                 row[1].trim(),
@@ -73,8 +68,9 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
               + "username varchar(20) not null,"
               + "password varchar(20) not null)");
 
-      for (Employee employee : hList.values()) {
-        Employee currEmp = employee;
+      Set<String> keys = List.keySet();
+      for (String j : keys) {
+        Employee currEmp = List.get(j);
         statement.execute(
             "INSERT INTO Employees VALUES('"
                 + currEmp.employeeID
@@ -97,7 +93,7 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
 
   /** SQLToJava: takes the SQL database and overwrites the global list of Java objects */
   public void SQLToJava() {
-    hList = new HashMap<String, Employee>();
+    List = new ArrayList<Employee>();
 
     try {
       ResultSet results;
@@ -113,7 +109,7 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
 
         Employee SQLRow = new Employee(employeeID, occupation, reports, onDuty, username, password);
 
-        hList.put(employeeID, SQLRow);
+        List.put(employeeID, SQLRow);
       }
     } catch (SQLException e) {
       System.out.println("employee does not exist.");
@@ -143,18 +139,19 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     fw.append("password");
     fw.append("\n");
 
-    for (Employee employee : hList.values()) {
-      fw.append(employee.employeeID);
+    Set<String> keys = List.keySet();
+    for (String i : keys) {
+      fw.append(List.get(i).employeeID);
       fw.append(",");
-      fw.append(employee.occupation);
+      fw.append(List.get(i).occupation);
       fw.append(",");
-      fw.append(Integer.toString(employee.reports));
+      fw.append(Integer.toString(List.get(i).reports));
       fw.append(",");
-      fw.append(Boolean.toString(employee.onDuty));
+      fw.append(Boolean.toString(List.get(i).onDuty));
       fw.append(",");
-      fw.append(employee.username);
+      fw.append(List.get(i).username);
       fw.append(",");
-      fw.append(employee.password);
+      fw.append(List.get(i).password);
       fw.append("\n");
     }
     fw.close();
@@ -172,6 +169,9 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     // display locations and attributes
     System.out.println(
         "Employee ID |\t Occupation |\t Reports |\t On Duty |\t Username |\t Password");
+    Set<String> keyList = List.keySet();
+    for (String id : keyList) {
+      Employee employee = List.get(id);
     for (Employee employee : hList().values()) {
       System.out.println(
           employee.employeeID
@@ -199,12 +199,16 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
    */
   public void edit(Employee data) throws IOException {
 
-    CSVToJava(); //
-    String employee = data.getEmployeeID();
-    hList.get(employee).setOccupation(data.getOccupation());
-    hList.get(employee).setReports(data.getReports());
-    hList.get(employee).setUsername(data.getUsername());
-    hList.get(employee).setPassword(data.getPassword());
+    CSVToJava(); // t
+    Set<String> keys = List.keySet();
+    for (String i : keys) {
+      if (this.List.get(i).employeeID.equals(data.getEmployeeID())) {
+        this.List.get(i).occupation = data.getOccupation();
+        this.List.get(i).reports = data.getReports();
+        this.List.get(i).username = data.getUsername();
+        this.List.get(i).password = data.getPassword();
+      }
+    }
     this.JavaToSQL(); // t
     this.JavaToCSV(CSVfile); // t
   }
@@ -219,9 +223,15 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
   public void add(Employee data) throws IOException {
     // add a new entry to the SQL table
     // prompt for ID
-    this.hList.put(data.getEmployeeID(), data);
-    this.JavaToSQL();
-    this.JavaToCSV(CSVfile);
+
+    // Employee newEmployee = new Employee(data.getEmployeeID());
+    if (List.containsKey(data.employeeID)) {
+      System.out.println("An Employee With This ID Already Exists");
+    } else {
+      List.put(data.employeeID, data);
+      this.JavaToSQL();
+      this.JavaToCSV(CSVfile);
+    }
   }
 
   /**
@@ -235,8 +245,11 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     // removes entries from SQL table that match input node
     // prompt for ID
 
-    hList.remove(data.getEmployeeID());
+    if (this.List.containsKey(data.getEmployeeID())) {
+      this.List.remove(data.getEmployeeID());
+    }
     this.JavaToSQL();
+    this.SQLToJava();
     this.JavaToCSV(CSVfile);
   }
 
@@ -264,14 +277,14 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
   /**
    * Search for index with the employee ID
    *
-   * @param
+   * @param id
    * @return int
    */
- public int search(String id) {
-   int index = -1;
-   for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).getEmployeeID())) index = i;
-   return index;
-}
+  /*public int search(String id) {
+    int index = -1;
+    for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).getEmployeeID())) index = i;
+    return index;
+  }*/
 
   public Employee askUser() {
     Scanner employeeInput = new Scanner(System.in);

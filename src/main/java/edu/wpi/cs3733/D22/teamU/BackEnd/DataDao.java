@@ -1,17 +1,13 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd;
 
-import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
-
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface DataDao<T> {
   String csvFile = null;
   // ArrayList<T> list;
-  ArrayList<T> list();
-  HashMap<String, T> hList();
+  HashMap<String, T> list();
 
   void CSVToJava() throws IOException;
 

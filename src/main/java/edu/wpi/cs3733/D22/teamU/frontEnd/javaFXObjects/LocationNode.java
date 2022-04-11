@@ -4,14 +4,8 @@ import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
 import java.io.IOException;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -20,11 +14,15 @@ import javafx.scene.shape.Shape;
 public class LocationNode extends Group {
   private Location location;
   private Udb udb = DBController.udb;
+  private AnchorPane pane;
+  private double x, y;
 
   public LocationNode(Location location, double x, double y, AnchorPane pane) throws IOException {
     super();
     this.location = location;
-
+    this.pane = pane;
+    this.x = x;
+    this.y = y;
     if (location.getEquipment().size() > 0) {
       Rectangle r = new Rectangle();
       r.setX(x - 5);
@@ -45,68 +43,6 @@ public class LocationNode extends Group {
       c.setStrokeWidth(1);
       getChildren().add(c);
     }
-
-    AnchorPane popupPane = new AnchorPane();
-    popupPane
-        .getChildren()
-        .add(
-            FXMLLoader.load(
-                getClass()
-                    .getClassLoader()
-                    .getResource("edu/wpi/cs3733/D22/teamU/views/popup.fxml")));
-    popupPane.setLayoutX(x);
-    popupPane.setLayoutY(y);
-
-    for (Node n : ((AnchorPane) popupPane.getChildren().get(0)).getChildren()) {
-      if (n instanceof GridPane) {
-        GridPane gp = (GridPane) n;
-        for (Node n2 : gp.getChildren()) {
-          if (n2 instanceof TextField) {
-            TextField tf = (TextField) n2;
-            switch (tf.getId()) {
-              case "nodeID":
-                tf.setText(location.getNodeID());
-                break;
-              case "floor":
-                tf.setText(location.getFloor());
-                break;
-              case "ycoord":
-                tf.setText(String.valueOf(location.getYcoord()));
-                break;
-              case "xcoord":
-                tf.setText(String.valueOf(location.getXcoord()));
-                break;
-              case "building":
-                tf.setText(location.getBuilding());
-                break;
-              case "nodeType":
-                tf.setText(location.getNodeType());
-                break;
-              case "longName":
-                tf.setText(location.getLongName());
-                break;
-              case "shortName":
-                tf.setText(location.getShortName());
-                break;
-              default:
-                break;
-            }
-          }
-        }
-      }
-    }
-    EventHandler<MouseEvent> event =
-        new EventHandler<MouseEvent>() {
-          public void handle(MouseEvent e) {
-            if (pane.getChildren().contains(popupPane)) {
-              pane.getChildren().remove(popupPane);
-            } else {
-              pane.getChildren().add(popupPane);
-            }
-          }
-        };
-
-    setOnMouseClicked(event);
   }
 
   private void setColor(Shape s) {
@@ -161,5 +97,17 @@ public class LocationNode extends Group {
 
   public Location getLocation() {
     return location;
+  }
+
+  public AnchorPane getPane() {
+    return pane;
+  }
+
+  public double getX() {
+    return x;
+  }
+
+  public double getY() {
+    return y;
   }
 }

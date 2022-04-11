@@ -1,33 +1,24 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
-import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
-import edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest.EquipRequest;
-
 import java.io.*;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class LabRequestDaoImpl implements DataDao<LabRequest> {
   public Statement statement;
   public String csvFile;
-  public ArrayList<LabRequest> labRequestsList = new ArrayList<LabRequest>();
-  public HashMap<String, LabRequest> hList = new HashMap<String, LabRequest>();
-
+  public HashMap<String, LabRequest> labRequestsList = new HashMap<String, LabRequest>();
 
   public LabRequestDaoImpl(Statement statement, String csvFile) {
     this.csvFile = csvFile;
     this.statement = statement;
   }
-  @Override
-  public  HashMap<String, LabRequest> hList() {
-    return this.hList;
-  }
 
   @Override
-  public ArrayList<LabRequest> list() {
+  public HashMap<String, LabRequest> list() {
     return labRequestsList;
   }
 
@@ -37,7 +28,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
    * @throws IOException
    */
   public void CSVToJava() throws IOException {
-    labRequestsList = new ArrayList<LabRequest>();
+    labRequestsList = new HashMap<String, LabRequest>();
     String s;
     File file = new File(csvFile);
     BufferedReader br = new BufferedReader(new FileReader(file));
@@ -46,7 +37,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == columns) {
-        labRequestsList.add(new LabRequest(row[0], row[1], row[2], row[3], row[4], row[5]));
+        labRequestsList.put(row[0], new LabRequest(row[0], row[1], row[2], row[3], row[4], row[5]));
       }
     }
   }
@@ -73,16 +64,15 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     fw.append("Time");
     fw.append("\n");
 
-    for (int i = 0;
-        i < labRequestsList.size();
-        i++) { // ask about how this was working without and = sign
+    Set<String> keys = labRequestsList.keySet();
+    for (String i : keys) {
       fw.append(labRequestsList.get(i).getID());
       fw.append(",");
       fw.append(labRequestsList.get(i).getPatient());
       fw.append(",");
       fw.append(labRequestsList.get(i).getStaff());
       fw.append(",");
-      fw.append(labRequestsList.get(i).getName());
+      fw.append(labRequestsList.get(i).getLabType());
       fw.append(",");
       fw.append(labRequestsList.get(i).getDate());
       fw.append(",");
@@ -110,7 +100,8 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
               + "date varchar(10) not null,"
               + "time varchar(10) not null)");
 
-      for (int j = 0; j < labRequestsList.size(); j++) {
+      Set<String> keys = labRequestsList.keySet();
+      for (String j : keys) {
         LabRequest currLab = labRequestsList.get(j);
         statement.execute(
             "INSERT INTO LabRequest VALUES("
@@ -121,7 +112,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
                 + "','"
                 + currLab.getStaff()
                 + "','"
-                + currLab.getName()
+                + currLab.getLabType()
                 + "','"
                 + currLab.getDate()
                 + "','"
@@ -134,7 +125,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
   }
 
   public void SQLToJava() {
-    labRequestsList = new ArrayList<LabRequest>();
+    labRequestsList = new HashMap<String, LabRequest>();
     try {
       ResultSet results;
       results = statement.executeQuery("SELECT * FROM LabRequest");
@@ -149,7 +140,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
         LabRequest SQLRow = new LabRequest(id, patient, staff, labType, date, time);
 
-        labRequestsList.add(SQLRow);
+        labRequestsList.put(id, SQLRow);
       }
     } catch (SQLException e) {
       System.out.println("Database does not exist.");
@@ -161,7 +152,9 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     CSVToJava();
     // display locations and attributes
     System.out.println("ID |\t Patient |\t Staff |\t Type |\t Date |\t Time");
-    for (LabRequest request : this.labRequestsList) {
+    Set<String> keys = labRequestsList.keySet();
+    for (String id : keys) {
+      LabRequest request = this.labRequestsList.get(id);
       System.out.println(
           request.ID
               + " | \t"
@@ -169,7 +162,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
               + " | \t"
               + request.staff
               + " | \t"
-              + request.name
+              + request.labType
               + " | \t"
               + request.date
               + " | \t"
@@ -183,7 +176,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     // location type
     // input ID
     try {
-      list().set(search(data.ID), data);
+      list().replace(data.ID, data);
       this.JavaToSQL(); // t
       this.JavaToCSV(csvFile); // t
     } catch (Exception e) {
@@ -201,12 +194,10 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
   @Override
   public void add(LabRequest data) throws IOException {
     // add a new entry to the SQL table
-    try {
-      labRequestsList.get(search(data.ID));
-      System.out.println("A Request With This ID Already Exists");
-    } catch (Exception e) {
-      LabRequest newLabRequest = data;
-      this.labRequestsList.add(newLabRequest);
+    if (labRequestsList.containsKey(data.ID)) {
+      System.out.println("A Lab Request With This ID Already Exists");
+    } else {
+      labRequestsList.put(data.ID, data);
       this.JavaToSQL();
       this.JavaToCSV(csvFile);
     }
@@ -222,7 +213,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
   public void remove(LabRequest data) throws IOException {
     // removes entries from SQL table that match input node
     try {
-      this.labRequestsList.remove(search(data.ID));
+      this.labRequestsList.remove(data.ID);
       this.JavaToSQL();
       this.JavaToCSV(csvFile);
     } catch (Exception e) {
@@ -251,12 +242,12 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     }
   }
 
-  @Override
+  /*@Override
   public int search(String id) { // TODO search
     int index = -1;
     for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).ID)) index = i;
     return index;
-  }
+  }*/
 
   public LabRequest askUser() {
     Scanner labInput = new Scanner(System.in);

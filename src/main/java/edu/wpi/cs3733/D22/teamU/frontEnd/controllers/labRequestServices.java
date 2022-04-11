@@ -10,6 +10,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,7 +63,9 @@ public class labRequestServices extends ServiceController {
   }
 
   private ObservableList<LabUI> getActiveRequestList() {
-    for (LabRequest request : udb.labRequestImpl.labRequestsList) {
+    Set<String> keys = udb.labRequestImpl.labRequestsList.keySet();
+    for (String id : keys) {
+      LabRequest request = udb.labRequestImpl.labRequestsList.get(id);
       labUIRequests.add(
           new LabUI(
               request.getID(),
