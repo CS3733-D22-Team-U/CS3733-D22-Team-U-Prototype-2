@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
+import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -52,7 +53,7 @@ public class DashboardController extends ServiceController {
     Thread timeThread =
         new Thread(
             () -> {
-              for (; ; ) {
+              while (Uapp.running) {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 String timeStampdate = sdf3.format(timestamp).substring(0, 10);
                 String timeStampTime = sdf3.format(timestamp).substring(11);
@@ -78,6 +79,7 @@ public class DashboardController extends ServiceController {
             TranslateTransition closeOther = new TranslateTransition(new Duration(350), clockPane);
             closeOther.setToX(0);
             closeOther.play();
+            clockPaneArrow.setRotate(clockPaneArrow.getRotate() * -1);
           }
         });
   }
