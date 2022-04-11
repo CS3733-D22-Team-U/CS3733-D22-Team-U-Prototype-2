@@ -110,13 +110,13 @@ public class MapController extends ServiceController {
     floor2Pane.setOnMousePressed(paneOnMousePressedEventHandler);
     floor2Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
 
-    floor3Pane.setOnMouseDragged(paneOnMousePressedEventHandler);
+    floor3Pane.setOnMousePressed(paneOnMousePressedEventHandler);
     floor3Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
 
-    floor4Pane.setOnMouseDragged(paneOnMousePressedEventHandler);
+    floor4Pane.setOnMousePressed(paneOnMousePressedEventHandler);
     floor4Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
 
-    floor5Pane.setOnMouseDragged(paneOnMousePressedEventHandler);
+    floor5Pane.setOnMousePressed(paneOnMousePressedEventHandler);
     floor5Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
 
     locations = new HashMap<>();
