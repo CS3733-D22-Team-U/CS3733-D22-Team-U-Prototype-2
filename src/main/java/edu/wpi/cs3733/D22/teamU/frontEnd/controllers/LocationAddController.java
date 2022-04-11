@@ -63,11 +63,4 @@ public class LocationAddController {
     appStage.setScene(scene);
     appStage.show();
   }
-
-  public void toMap(MouseEvent mouseEvent) throws IOException {
-    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/map.fxml");
-    Stage appStage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-    appStage.setScene(scene);
-    appStage.show();
-  }
 }

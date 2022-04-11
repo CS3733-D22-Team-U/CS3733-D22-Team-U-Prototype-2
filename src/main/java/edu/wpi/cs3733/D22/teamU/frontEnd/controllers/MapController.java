@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXHamburger;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
-import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
 import edu.wpi.cs3733.D22.teamU.frontEnd.javaFXObjects.LocationNode;
 import edu.wpi.cs3733.D22.teamU.frontEnd.services.map.MapUI;
 import java.io.IOException;
@@ -17,7 +16,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,7 +28,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class MapController extends ServiceController {
   public TextField popupNodeID;
@@ -277,11 +274,15 @@ public class MapController extends ServiceController {
             popupShortName.getText());
 
     try {
+
       Location old = udb.locationImpl.list().get(udb.locationImpl.list().indexOf(l));
       l.setEquipment(old.getEquipment());
       udb.locationImpl.edit(l);
       LocationNode lnOld = locations.get(l.getNodeID());
-      LocationNode lnNew = new LocationNode(l, l.getXcoord(), l.getYcoord(), lnOld.getPane());
+      double x = lnOld.getPane().getPrefWidth() / 5000.0 * (double) l.getXcoord();
+      double y = lnOld.getPane().getPrefHeight() / 3400.0 * (double) l.getYcoord();
+
+      LocationNode lnNew = new LocationNode(l, x, y, lnOld.getPane());
       locations.put(l.getNodeID(), lnNew);
       lnNew.setOnMouseClicked(this::popupOpen);
       Exit(actionEvent);
@@ -315,5 +316,6 @@ public class MapController extends ServiceController {
       e.printStackTrace();
     }
   }
+
   public void test(ZoomEvent zoomEvent) {}
 }
