@@ -13,6 +13,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -56,7 +57,7 @@ public class MapController extends ServiceController {
           "EXIT", "RETL", "SERV");
   ObservableList<String> buildingList = FXCollections.observableArrayList("Tower");
   ObservableList<String> floorList =
-      FXCollections.observableArrayList("G", "L1", "L2", "1", "2", "3");
+      FXCollections.observableArrayList("L1", "L2", "1", "2", "3", "4", "5");
 
   // @FXML ScrollPane imagesPane;
   @FXML AnchorPane lowerLevel1Pane;
@@ -64,6 +65,8 @@ public class MapController extends ServiceController {
   @FXML AnchorPane floor1Pane;
   @FXML AnchorPane floor2Pane;
   @FXML AnchorPane floor3Pane;
+  @FXML AnchorPane floor4Pane;
+  @FXML AnchorPane floor5Pane;
   @FXML ImageView image;
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
@@ -92,6 +95,30 @@ public class MapController extends ServiceController {
     setScroll(floor1Pane);
     setScroll(floor2Pane);
     setScroll(floor3Pane);
+    setScroll(floor4Pane);
+    setScroll(floor5Pane);
+
+    lowerLevel1Pane.setOnMousePressed(paneOnMousePressedEventHandler);
+    lowerLevel1Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
+
+    lowerLevel2Pane.setOnMousePressed(paneOnMousePressedEventHandler);
+    lowerLevel2Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
+
+    floor1Pane.setOnMousePressed(paneOnMousePressedEventHandler);
+    floor1Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
+
+    floor2Pane.setOnMousePressed(paneOnMousePressedEventHandler);
+    floor2Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
+
+    floor3Pane.setOnMouseDragged(paneOnMousePressedEventHandler);
+    floor3Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
+
+    floor4Pane.setOnMouseDragged(paneOnMousePressedEventHandler);
+    floor4Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
+
+    floor5Pane.setOnMouseDragged(paneOnMousePressedEventHandler);
+    floor5Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
+
     locations = new HashMap<>();
     setUpMap();
     mapUI.clear();
@@ -126,6 +153,12 @@ public class MapController extends ServiceController {
             break;
           case "3":
             temp = floor3Pane;
+            break;
+          case "4":
+            temp = floor4Pane;
+            break;
+          case "5":
+            temp = floor5Pane;
             break;
         }
         double x = temp.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
@@ -437,6 +470,12 @@ public class MapController extends ServiceController {
         case "3":
           temp = floor3Pane;
           break;
+        case "4":
+          temp = floor4Pane;
+          break;
+        case "5":
+          temp = floor5Pane;
+          break;
       }
       double x = temp.getPrefWidth() / 5000.0 * (double) l.getXcoord();
       double y = temp.getPrefHeight() / 3400.0 * (double) l.getYcoord();
@@ -449,6 +488,36 @@ public class MapController extends ServiceController {
       e.printStackTrace();
     }
   }
+
+  // Pan by Pressing and Dragging
+  double orgSceneX, orgSceneY;
+  double orgTranslateX, orgTranslateY;
+  EventHandler<MouseEvent> paneOnMousePressedEventHandler =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent t) {
+          orgSceneX = t.getSceneX();
+          orgSceneY = t.getSceneY();
+          orgTranslateX = ((AnchorPane) (t.getSource())).getTranslateX();
+          orgTranslateY = ((AnchorPane) (t.getSource())).getTranslateY();
+        }
+      };
+
+  EventHandler<MouseEvent> paneOnMouseDraggedEventHandler =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent t) {
+          double offsetX = t.getSceneX() - orgSceneX;
+          double offsetY = t.getSceneY() - orgSceneY;
+          double newTranslateX = orgTranslateX + offsetX;
+          double newTranslateY = orgTranslateY + offsetY;
+
+          ((AnchorPane) (t.getSource())).setTranslateX(newTranslateX);
+          ((AnchorPane) (t.getSource())).setTranslateY(newTranslateY);
+        }
+      };
 
   public void test(ZoomEvent zoomEvent) {}
 }
