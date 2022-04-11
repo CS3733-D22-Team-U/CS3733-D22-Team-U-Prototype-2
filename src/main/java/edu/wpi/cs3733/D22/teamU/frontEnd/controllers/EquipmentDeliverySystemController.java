@@ -13,6 +13,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -145,7 +146,9 @@ public class EquipmentDeliverySystemController extends ServiceController {
 
   private ObservableList<EquipmentUI> getEquipmentList() {
     equipmentUI.clear();
-    for (Equipment equipment : udb.EquipmentImpl.EquipmentList) {
+    Set<String> keys = udb.EquipmentImpl.EquipmentList.keySet();
+    for (String id : keys) {
+      Equipment equipment = udb.EquipmentImpl.EquipmentList.get(id);
       equipmentUI.add(
           new EquipmentUI(
               equipment.getName(),
@@ -158,7 +161,9 @@ public class EquipmentDeliverySystemController extends ServiceController {
   }
 
   private ObservableList<EquipmentUI> getActiveRequestList() {
-    for (EquipRequest equipRequest : udb.equipRequestImpl.equipRequestList) {
+    Set<String> keys = udb.equipRequestImpl.equipRequestList.keySet();
+    for (String id : keys) {
+      EquipRequest equipRequest = udb.equipRequestImpl.equipRequestList.get(id);
       equipmentUIRequests.add(
           new EquipmentUI(
               equipRequest.getID(),

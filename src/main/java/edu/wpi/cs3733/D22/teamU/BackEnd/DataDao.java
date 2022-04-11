@@ -2,12 +2,12 @@ package edu.wpi.cs3733.D22.teamU.BackEnd;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface DataDao<T> {
   String csvFile = null;
   // ArrayList<T> list;
-  ArrayList<T> list();
+  HashMap<String, T> list();
 
   void CSVToJava() throws IOException;
 
@@ -25,7 +25,7 @@ public interface DataDao<T> {
 
   void remove(T data) throws IOException;
 
-  int search(String id);
+  // int search(String id);
 
   void saveTableAsCSV(String nameOfCSV) throws SQLException;
 

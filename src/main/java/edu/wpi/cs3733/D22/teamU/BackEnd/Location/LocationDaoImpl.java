@@ -3,14 +3,15 @@ package edu.wpi.cs3733.D22.teamU.BackEnd.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
 import java.io.*;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class LocationDaoImpl implements DataDao<Location> {
 
   // make constant in locationDao
   public Statement statement;
-  public ArrayList<Location> locations = new ArrayList<Location>();
+  public HashMap<String, Location> locations = new HashMap<String, Location>();
   public String csvFile;
 
   /**
@@ -32,7 +33,7 @@ public class LocationDaoImpl implements DataDao<Location> {
    */
   @Override
   public void CSVToJava() throws IOException {
-    locations = new ArrayList<Location>();
+    locations = new HashMap<String, Location>();
     String s;
     File file = new File(csvFile);
     BufferedReader br = new BufferedReader(new FileReader(file));
@@ -40,7 +41,8 @@ public class LocationDaoImpl implements DataDao<Location> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == 8)
-        locations.add(
+        locations.put(
+            row[0],
             new Location(
                 row[0],
                 Integer.parseInt(row[1]),
@@ -57,7 +59,7 @@ public class LocationDaoImpl implements DataDao<Location> {
   // puts them into the the SQL database
 
   @Override
-  public ArrayList<Location> list() {
+  public HashMap<String, Location> list() {
     return locations;
   }
 
@@ -85,7 +87,8 @@ public class LocationDaoImpl implements DataDao<Location> {
               + "longName varchar(900) not null,"
               + "shortName varchar(600))");
 
-      for (int j = 0; j < locations.size(); j++) {
+      Set<String> keys = locations.keySet();
+      for (String j : keys) {
         Location currLoc = locations.get(j);
         statement.execute(
             "INSERT INTO Locations VALUES("
@@ -122,7 +125,7 @@ public class LocationDaoImpl implements DataDao<Location> {
    */
   @Override
   public void SQLToJava() {
-    locations = new ArrayList<Location>();
+    locations = new HashMap<String, Location>();
 
     try {
       ResultSet results;
@@ -148,7 +151,7 @@ public class LocationDaoImpl implements DataDao<Location> {
         SQLRow.longName = longName;
         SQLRow.shortName = shortName;
 
-        locations.add(SQLRow);
+        locations.put(nodeID, SQLRow);
       }
     } catch (SQLException e) {
       System.out.println("location does not exist.");
@@ -184,9 +187,8 @@ public class LocationDaoImpl implements DataDao<Location> {
     fw.append("shortName");
     fw.append("\n");
 
-    for (int i = 0;
-        i < locations.size();
-        i++) { // ask about how this was working without and = sign
+    Set<String> keys = locations.keySet();
+    for (String i : keys) {
       fw.append(locations.get(i).nodeID);
       fw.append(",");
       fw.append(Integer.toString(locations.get(i).xcoord));
@@ -215,7 +217,9 @@ public class LocationDaoImpl implements DataDao<Location> {
     // display locations and attributes
     System.out.println(
         "Node |\t X |\t Y |\t Level |\t Building |\t Type |\t Long Name |\t Short Name");
-    for (Location location : this.locations) {
+    Set<String> keys = locations.keySet();
+    for (String id : keys) {
+      Location location = this.locations.get(id);
       System.out.println(
           location.nodeID
               + " | \t"
@@ -248,7 +252,7 @@ public class LocationDaoImpl implements DataDao<Location> {
     // location type
     // input ID
     try {
-      list().set(search(data.nodeID), data);
+      list().replace(data.nodeID, data);
       this.JavaToSQL(); // t
       this.JavaToCSV(csvFile); // t
     } catch (Exception e) {
@@ -265,12 +269,10 @@ public class LocationDaoImpl implements DataDao<Location> {
   @Override
   public void add(Location data) throws IOException {
     // add a new entry to the SQL table
-    try {
-      locations.get(search(data.nodeID));
-      System.out.println("An Object With This ID Already Exists");
-    } catch (Exception e) {
-      Location newLocation = data;
-      this.locations.add(newLocation);
+    if (locations.containsKey(data.nodeID)) {
+      System.out.println("A Location With This ID Already Exists");
+    } else {
+      locations.put(data.nodeID, data);
       this.JavaToSQL();
       this.JavaToCSV(csvFile);
     }
@@ -287,7 +289,7 @@ public class LocationDaoImpl implements DataDao<Location> {
   public void remove(Location data) throws IOException {
     // removes entries from SQL table that match input node
     try {
-      this.locations.remove(search(data.nodeID));
+      this.locations.remove(data.nodeID);
       this.JavaToSQL();
       this.JavaToCSV(csvFile);
     } catch (Exception e) {
@@ -295,12 +297,12 @@ public class LocationDaoImpl implements DataDao<Location> {
     }
   }
 
-  @Override
+  /*@Override
   public int search(String id) { // TODO search
     int index = -1;
     for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).nodeID)) index = i;
     return index;
-  }
+  }*/
 
   /**
    * Prompts user for the name of a new file and then creates the new file in the project folder

@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -73,7 +74,9 @@ public class MapController extends ServiceController {
     locations = new HashMap<>();
     setUpMap();
     mapUI.clear();
-    for (Location loc : udb.locationImpl.locations) {
+    Set<String> keys = udb.locationImpl.locations.keySet();
+    for (String id : keys) {
+      Location loc = udb.locationImpl.locations.get(id);
       mapUI.add(
           new MapUI(
               loc.getNodeID(),
@@ -275,7 +278,7 @@ public class MapController extends ServiceController {
 
     try {
 
-      Location old = udb.locationImpl.list().get(udb.locationImpl.list().indexOf(l));
+      Location old = udb.locationImpl.list().get(l);
       l.setEquipment(old.getEquipment());
       udb.locationImpl.edit(l);
       LocationNode lnOld = locations.get(l.getNodeID());

@@ -3,22 +3,23 @@ package edu.wpi.cs3733.D22.teamU.BackEnd.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
 import java.io.*;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class EmployeeDaoImpl implements DataDao<Employee> {
 
   // make constant in locationDao
   public Statement statement;
   public String CSVfile;
-  public ArrayList<Employee> List = new ArrayList<Employee>();
+  public HashMap<String, Employee> List = new HashMap<String, Employee>();
 
   public EmployeeDaoImpl(Statement statement, String CSVfile) {
     this.CSVfile = CSVfile;
     this.statement = statement;
   }
 
-  public ArrayList<Employee> list() {
+  public HashMap<String, Employee> list() {
     return this.List;
   }
 
@@ -28,7 +29,7 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
    * @throws IOException
    */
   public void CSVToJava() throws IOException {
-    List = new ArrayList<Employee>();
+    List = new HashMap<String, Employee>();
     String s;
     File file = new File(CSVfile);
     BufferedReader br = new BufferedReader(new FileReader(file));
@@ -36,7 +37,8 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == 6)
-        List.add(
+        List.put(
+            row[0].trim(),
             new Employee(
                 row[0].trim(),
                 row[1].trim(),
@@ -64,7 +66,8 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
               + "username varchar(20) not null,"
               + "password varchar(20) not null)");
 
-      for (int j = 0; j < List.size(); j++) {
+      Set<String> keys = List.keySet();
+      for (String j : keys) {
         Employee currEmp = List.get(j);
         statement.execute(
             "INSERT INTO Employees VALUES('"
@@ -88,7 +91,7 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
 
   /** SQLToJava: takes the SQL database and overwrites the global list of Java objects */
   public void SQLToJava() {
-    List = new ArrayList<Employee>();
+    List = new HashMap<String, Employee>();
 
     try {
       ResultSet results;
@@ -104,7 +107,7 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
 
         Employee SQLRow = new Employee(employeeID, occupation, reports, onDuty, username, password);
 
-        List.add(SQLRow);
+        List.put(employeeID, SQLRow);
       }
     } catch (SQLException e) {
       System.out.println("employee does not exist.");
@@ -134,7 +137,8 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     fw.append("password");
     fw.append("\n");
 
-    for (int i = 0; i < List.size(); i++) {
+    Set<String> keys = List.keySet();
+    for (String i : keys) {
       fw.append(List.get(i).employeeID);
       fw.append(",");
       fw.append(List.get(i).occupation);
@@ -163,7 +167,9 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     // display locations and attributes
     System.out.println(
         "Employee ID |\t Occupation |\t Reports |\t On Duty |\t Username |\t Password");
-    for (Employee employee : List) {
+    Set<String> keyList = List.keySet();
+    for (String id : keyList) {
+      Employee employee = List.get(id);
       System.out.println(
           employee.employeeID
               + " | \t"
@@ -191,7 +197,8 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
   public void edit(Employee data) throws IOException {
 
     CSVToJava(); // t
-    for (int i = 0; i < this.List.size(); i++) {
+    Set<String> keys = List.keySet();
+    for (String i : keys) {
       if (this.List.get(i).employeeID.equals(data.getEmployeeID())) {
         this.List.get(i).occupation = data.getOccupation();
         this.List.get(i).reports = data.getReports();
@@ -215,9 +222,13 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     // prompt for ID
 
     // Employee newEmployee = new Employee(data.getEmployeeID());
-    this.List.add(data);
-    this.JavaToSQL();
-    this.JavaToCSV(CSVfile);
+    if (List.containsKey(data.employeeID)) {
+      System.out.println("An Employee With This ID Already Exists");
+    } else {
+      List.put(data.employeeID, data);
+      this.JavaToSQL();
+      this.JavaToCSV(CSVfile);
+    }
   }
 
   /**
@@ -231,10 +242,8 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     // removes entries from SQL table that match input node
     // prompt for ID
 
-    for (int i = this.List.size() - 1; i >= 0; i--) {
-      if (this.List.get(i).employeeID.equals(data.getEmployeeID())) {
-        this.List.remove(i);
-      }
+    if (this.List.containsKey(data.getEmployeeID())) {
+      this.List.remove(data.getEmployeeID());
     }
     this.JavaToSQL();
     this.SQLToJava();
@@ -268,11 +277,11 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
    * @param id
    * @return int
    */
-  public int search(String id) {
+  /*public int search(String id) {
     int index = -1;
     for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).getEmployeeID())) index = i;
     return index;
-  }
+  }*/
 
   public Employee askUser() {
     Scanner employeeInput = new Scanner(System.in);
