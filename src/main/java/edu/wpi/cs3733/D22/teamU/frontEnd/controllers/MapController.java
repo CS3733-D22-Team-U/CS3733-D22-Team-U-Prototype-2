@@ -16,10 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -30,6 +27,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class MapController extends ServiceController {
+  /*Edit Remove Popup*/
   public TextField popupNodeID;
   public TextField popupXCoord;
   public TextField popupFloor;
@@ -38,6 +36,27 @@ public class MapController extends ServiceController {
   public TextField popupNodeType;
   public TextField popupLongName;
   public TextField popupShortName;
+  AnchorPane popupEditPane;
+
+  /*Add Popup*/
+  AnchorPane popupAddPane;
+  TextField addNodeID;
+  TextField addXcoord;
+  TextField addYcoord;
+  TextField addLongName;
+  TextField addShortName;
+  ComboBox addNodeTypeCombo;
+  ComboBox addBuildingCombo;
+  ComboBox addFloorCombo;
+  Button addButton;
+  ObservableList<String> nodeTypeList =
+      FXCollections.observableArrayList(
+          "PATI", "STOR", "DIRT", "HALL", "ELEV", "REST", "STAI", "DEPT", "LABS", "INFO", "CONF",
+          "EXIT", "RETL", "SERV");
+  ObservableList<String> buildingList = FXCollections.observableArrayList("Tower");
+  ObservableList<String> floorList =
+      FXCollections.observableArrayList("G", "L1", "L2", "1", "2", "3");
+
   // @FXML ScrollPane imagesPane;
   @FXML AnchorPane lowerLevel1Pane;
   @FXML AnchorPane lowerLevel2Pane;
@@ -59,9 +78,6 @@ public class MapController extends ServiceController {
   @FXML Pane pane;
   @FXML Pane assistPane;
   @FXML Button addBTN;
-  AnchorPane popupAddPane;
-  AnchorPane popupEditPane;
-  Location temp;
   ObservableList<MapUI> mapUI = FXCollections.observableArrayList();
   Udb udb = DBController.udb;
 
@@ -177,6 +193,52 @@ public class MapController extends ServiceController {
       pane.getChildren().remove(popupAddPane);
     } else {
       pane.getChildren().add(popupAddPane);
+      for (Node n : ((AnchorPane) popupAddPane.getChildren().get(0)).getChildren()) {
+        if (n instanceof GridPane) {
+          GridPane gp = (GridPane) n;
+          for (Node n2 : gp.getChildren()) {
+            if (n2 instanceof ComboBox) {
+              ComboBox cb = (ComboBox) n2;
+              switch (cb.getId()) {
+                case "addBuildingCombo":
+                  addBuildingCombo = cb;
+                  addBuildingCombo.setItems(buildingList);
+                  break;
+                case "addNodeTypeCombo":
+                  addNodeTypeCombo = cb;
+                  addNodeTypeCombo.setItems(nodeTypeList);
+                  break;
+                case "addFloorCombo":
+                  addFloorCombo = cb;
+                  addFloorCombo.setItems(floorList);
+                  break;
+              }
+            } else if (n2 instanceof Button && n2.getId().equals("addButton")) {
+              addButton = (Button) n2;
+              addButton.setOnMouseClicked(this::popupAddLocation);
+            } else if (n2 instanceof TextField) {
+              TextField tf = (TextField) n2;
+              switch (tf.getId()) {
+                case "addNodeID":
+                  addNodeID = tf;
+                  break;
+                case "addXcoord":
+                  addXcoord = tf;
+                  break;
+                case "addYcoord":
+                  addYcoord = tf;
+                  break;
+                case "addLongName":
+                  addLongName = tf;
+                  break;
+                case "addShortName":
+                  addShortName = tf;
+                  break;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -261,7 +323,7 @@ public class MapController extends ServiceController {
     popupEditPane.relocate(Integer.MIN_VALUE, Integer.MIN_VALUE);
   }
 
-  public void popupEdit(MouseEvent actionEvent) { // todo
+  public void popupEdit(MouseEvent actionEvent) {
     Location l =
         new Location(
             popupNodeID.getText(),
@@ -294,7 +356,7 @@ public class MapController extends ServiceController {
     }
   }
 
-  public void popupRemove(MouseEvent actionEvent) { // todo
+  public void popupRemove(MouseEvent actionEvent) {
     Location l =
         new Location(
             popupNodeID.getText(),
@@ -312,6 +374,51 @@ public class MapController extends ServiceController {
       locations.remove(l.getNodeID());
       Exit(actionEvent);
       lnOld.getPane().getChildren().remove(lnOld);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void popupAddLocation(MouseEvent mouseEvent) {
+
+    Location l =
+        new Location(
+            addNodeID.getText(),
+            Integer.parseInt(addXcoord.getText()),
+            Integer.parseInt(addYcoord.getText()),
+            addFloorCombo.getValue().toString(),
+            addBuildingCombo.getValue().toString(),
+            addNodeTypeCombo.getValue().toString(),
+            addLongName.getText(),
+            addShortName.getText());
+    try {
+      udb.locationImpl.add(l);
+      String s = l.getFloor();
+      AnchorPane temp = new AnchorPane();
+      switch (s) {
+        case "L1":
+          temp = lowerLevel1Pane;
+          break;
+        case "L2":
+          temp = lowerLevel2Pane;
+          break;
+        case "1":
+          temp = floor1Pane;
+          break;
+        case "2":
+          temp = floor2Pane;
+          break;
+        case "3":
+          temp = floor3Pane;
+          break;
+      }
+      double x = temp.getPrefWidth() / 5000.0 * (double) l.getXcoord();
+      double y = temp.getPrefHeight() / 3400.0 * (double) l.getYcoord();
+      LocationNode ln = new LocationNode(l, x, y, temp);
+      ln.setOnMouseClicked(this::popupOpen);
+      locations.put(l.getNodeID(), ln);
+      temp.getChildren().add(ln);
+      popUpAdd(mouseEvent);
     } catch (IOException e) {
       e.printStackTrace();
     }
