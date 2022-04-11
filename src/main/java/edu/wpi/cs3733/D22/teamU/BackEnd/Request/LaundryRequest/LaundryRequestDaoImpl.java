@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.LaundryRequest;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest.LabRequest;
 
@@ -13,8 +14,7 @@ import java.util.Scanner;
 public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
   public Statement statement;
   public String csvFile;
-  public ArrayList<LaundryRequest> laundryRequestsList = new ArrayList<LaundryRequest>();
-  public HashMap<String, LaundryRequest> hList = new HashMap<String, LaundryRequest>();
+  public HashMap<String, LaundryRequest> List = new HashMap<String, LaundryRequest>();
 
   public LaundryRequestDaoImpl(Statement statement, String csvFile) {
     this.csvFile = csvFile;
@@ -23,17 +23,12 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
 
   @Override
   public  HashMap<String, LaundryRequest> hList() {
-    return this.hList;
-  }
-
-  @Override
-  public ArrayList<LaundryRequest> list() {
-    return laundryRequestsList;
+    return this.List;
   }
 
   @Override
   public void CSVToJava() throws IOException {
-    laundryRequestsList = new ArrayList<LaundryRequest>();
+    List = new HashMap<String, LaundryRequest>();
     String s;
     File file = new File(csvFile);
     BufferedReader br = new BufferedReader(new FileReader(file));
@@ -42,11 +37,26 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == columns) {
-        laundryRequestsList.add(
-            new LaundryRequest(row[0], row[1], row[2], EmployeeDaoImpl.hList.get(row[3]), row[4], row[5], row[6], row[7]));
+        List.put(row[0], new LaundryRequest(row[0], row[1], row[2], checkEmployee(row[3]), row[4], row[5], row[6], row[7]));
       }
     }
   }
+
+  // CHecks whether an employee exists
+  // Returns Employee if exists
+  // Returns empty employee with employee ID = N/A
+  public Employee checkEmployee (String employee)
+  {
+    if (List.get(employee) != null)
+    {
+      return EmployeeDaoImpl.List.get(employee);
+    }
+    else {
+      Employee empty = new Employee("N/A");
+      return empty;
+    }
+  }
+
   // string
   // map.get(row
   @Override
@@ -69,8 +79,7 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
               + "date varchar(10) not null,"
               + "time varchar(10) not null)");
 
-      for (int j = 0; j < laundryRequestsList.size(); j++) {
-        LaundryRequest currLaud = laundryRequestsList.get(j);
+      for (LaundryRequest currLaud : List.values()) {
         statement.execute(
             "INSERT INTO LaundryRequest VALUES("
                 + "'"
@@ -98,7 +107,7 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
 
   @Override
   public void SQLToJava() {
-    laundryRequestsList = new ArrayList<LaundryRequest>();
+    List = new HashMap<String, LaundryRequest>();
     try {
       ResultSet results;
       results = statement.executeQuery("SELECT * FROM LaundryRequest");
@@ -114,9 +123,9 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
         String time = results.getString("time");
 
         LaundryRequest SQLRow =
-            new LaundryRequest(ID, name, patientName, EmployeeDaoImpl.hList.get(staff), status, location, date, time);
+            new LaundryRequest(ID, name, patientName, checkEmployee(staff), status, location, date, time);
 
-        laundryRequestsList.add(SQLRow);
+        List.put(ID, SQLRow);
       }
     } catch (SQLException e) {
       System.out.println("Database does not exist.");
@@ -145,22 +154,22 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
     fw.append(",");
     fw.append("\n");
 
-    for (int i = 0; i < laundryRequestsList.size(); i++) {
-      fw.append(laundryRequestsList.get(i).getID());
+    for (LaundryRequest request : List.values()) {
+      fw.append(request.getID());
       fw.append(",");
-      fw.append(laundryRequestsList.get(i).getName());
+      fw.append(request.getName());
       fw.append(",");
-      fw.append(laundryRequestsList.get(i).getPatientName());
+      fw.append(request.getPatientName());
       fw.append(",");
-      fw.append(laundryRequestsList.get(i).getEmployee().getEmployeeID());
+      fw.append(request.getEmployee().getEmployeeID());
       fw.append(",");
-      fw.append(laundryRequestsList.get(i).getStatus());
+      fw.append(request.getStatus());
       fw.append(",");
-      fw.append(laundryRequestsList.get(i).getLocation());
+      fw.append(request.getLocation());
       fw.append(",");
-      fw.append(laundryRequestsList.get(i).getDate());
+      fw.append(request.getDate());
       fw.append(",");
-      fw.append(laundryRequestsList.get(i).getTime());
+      fw.append(request.getTime());
       fw.append("\n");
     }
     fw.close();

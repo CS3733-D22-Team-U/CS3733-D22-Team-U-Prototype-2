@@ -14,7 +14,7 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
   // make constant in locationDao
   public Statement statement;
   public String CSVfile;
-  public HashMap<String, Employee> List = new HashMap<String, Employee>();
+  public static HashMap<String, Employee> List = new HashMap<String, Employee>();
 
   public EmployeeDaoImpl(Statement statement, String CSVfile) {
     this.CSVfile = CSVfile;
@@ -93,7 +93,7 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
 
   /** SQLToJava: takes the SQL database and overwrites the global list of Java objects */
   public void SQLToJava() {
-    List = new ArrayList<Employee>();
+    List = new HashMap<String, Employee>();
 
     try {
       ResultSet results;
@@ -169,10 +169,7 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     // display locations and attributes
     System.out.println(
         "Employee ID |\t Occupation |\t Reports |\t On Duty |\t Username |\t Password");
-    Set<String> keyList = List.keySet();
-    for (String id : keyList) {
-      Employee employee = List.get(id);
-    for (Employee employee : hList().values()) {
+    for (Employee employee : List.values()) {
       System.out.println(
           employee.employeeID
               + " | \t"
