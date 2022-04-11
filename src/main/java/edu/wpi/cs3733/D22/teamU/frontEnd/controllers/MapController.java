@@ -98,27 +98,6 @@ public class MapController extends ServiceController {
     setScroll(floor4Pane);
     setScroll(floor5Pane);
 
-    lowerLevel1Pane.setOnMousePressed(paneOnMousePressedEventHandler);
-    lowerLevel1Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
-
-    lowerLevel2Pane.setOnMousePressed(paneOnMousePressedEventHandler);
-    lowerLevel2Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
-
-    floor1Pane.setOnMousePressed(paneOnMousePressedEventHandler);
-    floor1Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
-
-    floor2Pane.setOnMousePressed(paneOnMousePressedEventHandler);
-    floor2Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
-
-    floor3Pane.setOnMousePressed(paneOnMousePressedEventHandler);
-    floor3Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
-
-    floor4Pane.setOnMousePressed(paneOnMousePressedEventHandler);
-    floor4Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
-
-    floor5Pane.setOnMousePressed(paneOnMousePressedEventHandler);
-    floor5Pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
-
     locations = new HashMap<>();
     setUpMap();
     mapUI.clear();
@@ -222,6 +201,9 @@ public class MapController extends ServiceController {
 
           event.consume();
         });
+
+    pane.setOnMousePressed(paneOnMousePressedEventHandler);
+    pane.setOnMouseDragged(paneOnMouseDraggedEventHandler);
   }
 
   public void setUpMap() {
