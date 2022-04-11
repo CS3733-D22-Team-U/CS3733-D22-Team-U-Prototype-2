@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest;
+package edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
 import java.io.*;
@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LabRequestDaoImpl implements DataDao<LabRequest> {
-  public String DB_LOC;
-  public ArrayList<LabRequest> labRequestsList = new ArrayList<LabRequest>();
+  public Statement statement;
   public String csvFile;
+  public ArrayList<LabRequest> labRequestsList = new ArrayList<LabRequest>();
 
-  public LabRequestDaoImpl(String db_loc, String csvfile) {
-    DB_LOC = db_loc;
-    csvFile = csvfile;
+  public LabRequestDaoImpl(Statement statement, String csvFile) {
+    this.csvFile = csvFile;
+    this.statement = statement;
   }
 
   @Override
@@ -85,17 +85,13 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
   public void JavaToSQL() {
 
     try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
+      statement.execute("Drop table LabRequest");
+    } catch (Exception e) {
+      System.out.println("didn't drop table");
+    }
 
-      Statement exampleStatement = connection.createStatement();
-      try {
-        exampleStatement.execute("Drop table LabRequest");
-      } catch (Exception e) {
-        System.out.println("didn't drop table");
-      }
-
-      exampleStatement.execute(
+    try {
+      statement.execute(
           "CREATE TABLE LabRequest("
               + "ID varchar(10) not null,"
               + "patient varchar(50) not null, "
@@ -106,7 +102,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
       for (int j = 0; j < labRequestsList.size(); j++) {
         LabRequest currLab = labRequestsList.get(j);
-        exampleStatement.execute(
+        statement.execute(
             "INSERT INTO LabRequest VALUES("
                 + "'"
                 + currLab.getID()
@@ -122,47 +118,29 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
                 + currLab.getTime()
                 + "')");
       }
-
-      connection.close();
-
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
-      e.printStackTrace();
-      return;
     }
   }
 
   public void SQLToJava() {
     labRequestsList = new ArrayList<LabRequest>();
-
     try {
-      Connection connection = null;
-      connection = DriverManager.getConnection(DB_LOC);
+      ResultSet results;
+      results = statement.executeQuery("SELECT * FROM LabRequest");
 
-      Statement exampleStatement = connection.createStatement();
+      while (results.next()) {
+        String id = results.getString("ID");
+        String patient = results.getString("patient");
+        String staff = results.getString("staff");
+        String labType = results.getString("labType");
+        String date = results.getString("date");
+        String time = results.getString("time");
 
-      try {
-        ResultSet results;
-        results = exampleStatement.executeQuery("SELECT * FROM LabRequest");
+        LabRequest SQLRow = new LabRequest(id, patient, staff, labType, date, time);
 
-        while (results.next()) {
-          String id = results.getString("ID");
-          String patient = results.getString("patient");
-          String staff = results.getString("staff");
-          String labType = results.getString("labType");
-          String date = results.getString("date");
-          String time = results.getString("time");
-
-          LabRequest SQLRow = new LabRequest(id, patient, staff, labType, date, time);
-
-          labRequestsList.add(SQLRow);
-        }
-      } catch (SQLException e) {
-        System.out.println("request not found");
+        labRequestsList.add(SQLRow);
       }
-
-      connection.close();
-
     } catch (SQLException e) {
       System.out.println("Database does not exist.");
     }
@@ -187,37 +165,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
               + " | \t"
               + request.time);
     }
-    // menu
   }
-
-  /*
-  public void edit(String ID, String patient, String staff, String labType, String date, String time)
-          throws IOException, SQLException {
-      // takes entries from SQL table that match input node and updates it with a new floor and
-      // location type
-      // input ID
-      // Scanner s = new Scanner(System.in);
-      // System.out.println("Please input the name: ");
-      // String inputName = s.nextLine();
-      // input new floor
-      // System.out.println("New Amount: ");
-      // String inputNewAmount = s.nextLine();
-      // input new location type
-      // System.out.println("New In Use type");
-      // String inputInUse = s.nextLine();
-      // this.CSVToJava(csvFile); // t
-      for (int i = 0; i < this.labRequestsList.size(); i++) {
-          if (this.labRequestsList.get(i).getID().equals(ID)) {
-              this.labRequestsList.get(i).patient = patient;
-              this.labRequestsList.get(i).staff = staff;
-              this.labRequestsList.get(i).labType = labType;
-              this.labRequestsList.get(i).date = date;
-              this.labRequestsList.get(i).time = time;
-          }
-      }
-      this.JavaToCSV(csvFile);
-  }
-  */
 
   @Override
   public void edit(LabRequest data) throws IOException {
@@ -237,23 +185,9 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
    * Prompts user for the information of a new lab request and then adds it to the csv file and
    * database
    *
-   * @param csvFile
+   * @param
    * @throws IOException
    */
-  /*public void add(
-                  String id,
-                  String patient,
-                  String staff,
-                  String labType,
-                  String date,
-                  String time)
-          throws IOException {
-      LabRequest newLabRequest =
-              new LabRequest(id, patient, staff, labType, date, time);
-      this.labRequestsList.add(newLabRequest);
-      this.JavaToCSV(csvFile);
-  }*/
-
   @Override
   public void add(LabRequest data) throws IOException {
     // add a new entry to the SQL table
@@ -274,18 +208,6 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
    *
    * @throws IOException
    */
-  /*public void removeRequest(String id) throws IOException {
-      // removes entries from SQL table that match input node
-      // prompt for ID
-
-      for (int i = this.requestList.size() - 1; i >= 0; i--) {
-          if (this.requestList.get(i).getID().equals(id)) {
-              this.requestList.remove(i);
-          }
-      }
-      this.JavaToCSV(csvFile);
-  }*/
-
   @Override
   public void remove(LabRequest data) throws IOException {
     // removes entries from SQL table that match input node
@@ -298,14 +220,15 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     }
   }
 
-  public void saveLocTableAsCSV() {
+  /**
+   * Prompts user for the name of a new file and then creates the new file in the project folder
+   * then it copies the database table: EquipmentList into the CSV file
+   *
+   * @throws SQLException
+   */
+  public void saveTableAsCSV(String CSVName) throws SQLException {
     // takes entries from SQL table and an input name, from there it makes a new CSV file
-    // prompt for user input
-    Scanner s = new Scanner(System.in);
 
-    System.out.println("Enter CSV file location name");
-
-    String CSVName = s.nextLine();
     String csvFilePath = "./" + CSVName + ".csv";
 
     try {
@@ -328,30 +251,18 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
   public LabRequest askUser() {
     Scanner labInput = new Scanner(System.in);
 
-    String inputID;
-    String inputPatient;
-    String inputStaff;
-    String inputType;
-    String inputDate;
-    String inputTime;
+    String inputID = "None";
+    String inputPatient = "N/A";
+    String inputStaff = "N/A";
+    String inputType = "N/A";
+    String inputDate = "N/A";
+    String inputTime = "N/A";
 
     System.out.println("Input lab ID: ");
     inputID = labInput.nextLine();
 
-    System.out.println("Input lab patient: ");
-    inputPatient = labInput.nextLine();
-
-    System.out.println("Input lab staff: ");
-    inputStaff = labInput.nextLine();
-
-    System.out.println("Input lab labType: ");
+    System.out.println("Input type: ");
     inputType = labInput.nextLine();
-
-    System.out.println("Input lab date: ");
-    inputDate = labInput.nextLine();
-
-    System.out.println("Input lab time: ");
-    inputTime = labInput.nextLine();
 
     return new LabRequest(inputID, inputPatient, inputStaff, inputType, inputDate, inputTime);
   }

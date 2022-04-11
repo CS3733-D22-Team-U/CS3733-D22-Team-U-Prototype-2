@@ -3,6 +3,7 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest.EquipRequest;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
@@ -157,16 +158,16 @@ public class EquipmentDeliverySystemController extends ServiceController {
   }
 
   private ObservableList<EquipmentUI> getActiveRequestList() {
-    for (Request request : udb.requestImpl.requestList) {
+    for (EquipRequest equipRequest : udb.equipRequestImpl.equipRequestList) {
       equipmentUIRequests.add(
           new EquipmentUI(
-              request.getID(),
-              request.getName(),
-              request.getAmount(),
-              request.getDestination(),
-              request.getDate(),
-              request.getTime(),
-              request.getPri()));
+              equipRequest.getID(),
+              equipRequest.getName(),
+              equipRequest.getAmount(),
+              equipRequest.getDestination(),
+              equipRequest.getDate(),
+              equipRequest.getTime(),
+              equipRequest.getPri()));
     }
     return equipmentUIRequests;
   }
@@ -228,7 +229,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
                 request.getRequestTime(),
                 1));
         try {
-          udb.requestImpl.add( // TODO Have random ID and enter Room Destination
+          udb.add( // TODO Have random ID and enter Room Destination
               new Request(
                   request.getId(),
                   request.getEquipmentName(),

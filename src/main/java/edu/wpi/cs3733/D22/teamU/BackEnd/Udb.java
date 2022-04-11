@@ -4,11 +4,16 @@ package edu.wpi.cs3733.D22.teamU.BackEnd;
  * ask about Harsh's override idea to simplify all the functions the tower locations master CSV does
  * NOT have unique nodes ask about changing all of our array lists to hash maps
  */
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.EquipmentDaoImpl;
-import edu.wpi.cs3733.D22.teamU.BackEnd.LabRequest.LabRequestDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
-import edu.wpi.cs3733.D22.teamU.BackEnd.Request.RequestDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest.EquipRequest;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest.EquipRequestDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest.LabRequest;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest.LabRequestDaoImpl;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -18,10 +23,11 @@ import java.util.Scanner;
 public class Udb {
 
   public String DB_LOC = "jdbc:derby:UDB;";
+  public Connection connection;
   public LocationDaoImpl locationImpl;
   public EquipmentDaoImpl EquipmentImpl;
   public EmployeeDaoImpl EmployeeImpl;
-  public RequestDaoImpl requestImpl;
+  public EquipRequestDaoImpl equipRequestImpl;
   public LabRequestDaoImpl labRequestImpl;
 
   public static String copyFile(InputStream inputPath, String outputPath) throws IOException {
@@ -33,12 +39,9 @@ public class Udb {
   }
 
   public Udb(String username, String password, String[] CSVfiles) throws IOException {
+
+    Statement statement = null;
     String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
-    locationImpl = new LocationDaoImpl(authentication, CSVfiles[0]);
-    EmployeeImpl = new EmployeeDaoImpl(authentication, CSVfiles[1]);
-    EquipmentImpl = new EquipmentDaoImpl(authentication, CSVfiles[2]);
-    requestImpl = new RequestDaoImpl(authentication, CSVfiles[3]);
-    labRequestImpl = new LabRequestDaoImpl(authentication, CSVfiles[4]);
 
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -56,8 +59,9 @@ public class Udb {
 
     System.out.println("Apache Derby driver registered!");
 
+    // set username password
     try {
-      Connection connection = DriverManager.getConnection(locationImpl.DB_LOC + "create=true;");
+      Connection connection = DriverManager.getConnection(authentication + "create=true;");
       Statement exampleStatement = connection.createStatement();
 
       exampleStatement.executeUpdate(
@@ -78,6 +82,23 @@ public class Udb {
       return;
     }
 
+    // create connection
+    try {
+      connection = null;
+      connection = DriverManager.getConnection(authentication);
+
+      statement = connection.createStatement();
+    } catch (SQLException e) {
+      System.out.println("Connection failed. Check output console.");
+      e.printStackTrace();
+    }
+    //
+    locationImpl = new LocationDaoImpl(statement, CSVfiles[0]);
+    EmployeeImpl = new EmployeeDaoImpl(statement, CSVfiles[1]);
+    EquipmentImpl = new EquipmentDaoImpl(statement, CSVfiles[2]);
+    equipRequestImpl = new EquipRequestDaoImpl(statement, CSVfiles[3]);
+    labRequestImpl = new LabRequestDaoImpl(statement, CSVfiles[4]);
+
     locationImpl.CSVToJava();
     locationImpl.JavaToSQL();
 
@@ -87,18 +108,143 @@ public class Udb {
     EquipmentImpl.CSVToJava(locationImpl.list());
     EquipmentImpl.JavaToSQL();
 
-    requestImpl.CSVToJava();
-    requestImpl.JavaToSQL();
+    equipRequestImpl.CSVToJava();
+    equipRequestImpl.JavaToSQL();
 
     labRequestImpl.CSVToJava();
     labRequestImpl.JavaToSQL();
+  }
+
+  // Function for closing global connection FRONT END MUST CALL THIS WHEN USER HITS THE EXIT BUTTON
+  // OR THE X IN THE CORNER
+  public void closeConnection() throws SQLException {
+    connection.close();
+  }
+
+  // ============================================================= Facade Functions
+
+  public void edit(Object thingToAdd) throws IOException {
+
+    switch (thingToAdd.getClass().getSimpleName()) {
+      case "Location":
+        locationImpl.edit((Location) thingToAdd);
+        break;
+
+      case "Equipment":
+        EquipmentImpl.edit((Equipment) thingToAdd);
+        break;
+
+      case "Employee":
+        EmployeeImpl.edit((Employee) thingToAdd);
+        break;
+
+      case "EquipRequst":
+        equipRequestImpl.edit((EquipRequest) thingToAdd);
+        break;
+
+      case "LabRequest":
+        labRequestImpl.edit((LabRequest) thingToAdd);
+        break;
+
+      default:
+        System.out.println("Object not in switch case for udb.edit()");
+        break;
+    }
+  }
+
+  public void add(Object thingToAdd) throws IOException {
+
+    switch (thingToAdd.getClass().getSimpleName()) {
+      case "Location":
+        locationImpl.add((Location) thingToAdd);
+        break;
+
+      case "Equipment":
+        EquipmentImpl.add((Equipment) thingToAdd);
+        break;
+
+      case "Employee":
+        EmployeeImpl.add((Employee) thingToAdd);
+        break;
+
+      case "EquipRequest":
+        equipRequestImpl.add((EquipRequest) thingToAdd);
+        break;
+
+      case "LabRequest":
+        labRequestImpl.add((LabRequest) thingToAdd);
+        break;
+
+      default:
+        System.out.println("Object not in switch case for udb.add()");
+        break;
+    }
+  }
+
+  public void remove(Object thingToAdd) throws IOException {
+
+    switch (thingToAdd.getClass().getSimpleName()) {
+      case "Location":
+        locationImpl.remove((Location) thingToAdd);
+        break;
+
+      case "Equipment":
+        EquipmentImpl.remove((Equipment) thingToAdd);
+        break;
+
+      case "Employee":
+        EmployeeImpl.remove((Employee) thingToAdd);
+        break;
+
+      case "EquipRequest":
+        equipRequestImpl.remove((EquipRequest) thingToAdd);
+        break;
+
+      case "LabRequest":
+        labRequestImpl.remove((LabRequest) thingToAdd);
+        break;
+
+      default:
+        System.out.println("Object not in switch case for udb.remove()");
+        break;
+    }
+  }
+
+  // todo: would this be better with an enum?
+  public void saveTableAsCSV(String thingYouWantToSave, String nameOfCSV) throws SQLException {
+
+    switch (thingYouWantToSave) {
+      case "Locations":
+        locationImpl.saveTableAsCSV(nameOfCSV);
+        break;
+
+      case "Equipments":
+        EquipmentImpl.saveTableAsCSV(nameOfCSV);
+        break;
+
+      case "Employees":
+        EmployeeImpl.saveTableAsCSV(nameOfCSV);
+        break;
+
+      case "EquipRequests":
+        equipRequestImpl.saveTableAsCSV(nameOfCSV);
+        break;
+
+      case "LabRequests":
+        labRequestImpl.saveTableAsCSV(nameOfCSV);
+        break;
+
+      default:
+        System.out.println("Object not in switch case for udb.saveTableAsCSV()");
+        break;
+    }
   }
 
   // This function is called in main the starts the menu where a client can access and or change
   // data in our SQL data base
   // This calls all of our private functions
 
-  public void menu(String[] CSVfiles) throws IOException, SQLException {
+  public void menu() throws IOException, SQLException {
 
     Scanner userInput = new Scanner(System.in);
 
@@ -113,19 +259,19 @@ public class Udb {
 
     switch (userInput.nextInt()) {
       case 1:
-        locationMenu(CSVfiles);
+        locationMenu();
         break;
       case 2:
-        employeesMenu(CSVfiles);
+        employeesMenu();
         break;
       case 3:
-        equipmentMenu(CSVfiles);
+        equipmentMenu();
         break;
       case 4:
-        requestMenu(CSVfiles);
+        requestMenu();
         break;
       case 5:
-        labRequestMenu(CSVfiles);
+        labRequestMenu();
         break;
 
       case 6:
@@ -134,7 +280,7 @@ public class Udb {
     }
   }
 
-  private void locationMenu(String[] CSVfiles) throws SQLException, IOException {
+  private void locationMenu() throws SQLException, IOException {
     Scanner locationsInput = new Scanner(System.in);
 
     System.out.println(
@@ -148,27 +294,32 @@ public class Udb {
     switch (locationsInput.nextInt()) {
       case 1:
         locationImpl.printTable();
-        locationMenu(CSVfiles);
+        locationMenu();
         break;
       case 2:
-        locationImpl.edit(CSVfiles[0]);
-        locationMenu(CSVfiles);
+        edit(locationImpl.askUser());
+        locationMenu();
         break;
       case 3:
-        locationImpl.add(CSVfiles[0]);
-        locationMenu(CSVfiles);
+        add(locationImpl.askUser());
+        locationMenu();
         break;
       case 4:
-        locationImpl.removeLoc(CSVfiles[0]);
-        locationMenu(CSVfiles);
+        remove(locationImpl.askUser());
+        locationMenu();
         break;
       case 5:
-        locationImpl.saveLocTableAsCSV();
-        locationMenu(CSVfiles);
+        Scanner justNeedCSVName = new Scanner(System.in);
+
+        System.out.println("Enter the name of the CSV file");
+        String nameOfFile = justNeedCSVName.nextLine();
+
+        saveTableAsCSV("Locations", nameOfFile);
+        locationMenu();
         break;
       case 6:
         // menu
-        menu(CSVfiles);
+        menu();
         break;
       default:
         System.out.println("Something went wrong");
@@ -176,7 +327,7 @@ public class Udb {
     }
   }
 
-  private void employeesMenu(String[] CSVfiles) throws SQLException, IOException {
+  private void employeesMenu() throws SQLException, IOException {
     Scanner employeeInput = new Scanner(System.in);
 
     System.out.println(
@@ -189,32 +340,37 @@ public class Udb {
     switch (employeeInput.nextInt()) {
       case 1:
         EmployeeImpl.printTable();
-        employeesMenu(CSVfiles);
+        employeesMenu();
         break;
       case 2:
-        EmployeeImpl.editEmployee(CSVfiles[1]);
-        employeesMenu(CSVfiles);
+        edit(EmployeeImpl.askUser());
+        employeesMenu();
         break;
       case 3:
-        EmployeeImpl.addEmployee(CSVfiles[1]);
-        employeesMenu(CSVfiles);
+        add(EmployeeImpl.askUser());
+        employeesMenu();
         break;
       case 4:
-        EmployeeImpl.removeEmployee(CSVfiles[1]);
-        employeesMenu(CSVfiles);
+        remove(EmployeeImpl.askUser());
+        employeesMenu();
         break;
       case 5:
-        EmployeeImpl.saveEmployeeTableAsCSV();
-        employeesMenu(CSVfiles);
+        Scanner justNeedCSVName = new Scanner(System.in);
+
+        System.out.println("Enter the name of the CSV file");
+        String nameOfFile = justNeedCSVName.nextLine();
+
+        saveTableAsCSV("Employees", nameOfFile);
+        employeesMenu();
         break;
       case 6:
         // menu
-        menu(CSVfiles);
+        menu();
         break;
     }
   }
 
-  private void equipmentMenu(String[] CSVfiles) throws SQLException, IOException {
+  private void equipmentMenu() throws SQLException, IOException {
     Scanner equipmentInput = new Scanner(System.in);
 
     System.out.println(
@@ -226,33 +382,38 @@ public class Udb {
             + "6 - Return to Main Menu");
     switch (equipmentInput.nextInt()) {
       case 1:
-        EquipmentImpl.printEquipTableInTerm(CSVfiles[2]);
-        equipmentMenu(CSVfiles);
+        EquipmentImpl.printTable();
+        equipmentMenu();
         break;
       case 2:
-        EquipmentImpl.editEquipValue(CSVfiles[2]);
-        equipmentMenu(CSVfiles);
+        edit(EquipmentImpl.askUser());
+        equipmentMenu();
         break;
       case 3:
-        EquipmentImpl.addEquip(CSVfiles[2]);
-        equipmentMenu(CSVfiles);
+        add(EquipmentImpl.askUser());
+        equipmentMenu();
         break;
       case 4:
-        EquipmentImpl.removeEquip(CSVfiles[2]);
-        equipmentMenu(CSVfiles);
+        remove(EquipmentImpl.askUser());
+        equipmentMenu();
         break;
       case 5:
-        EquipmentImpl.saveEquipTableAsCSV();
-        equipmentMenu(CSVfiles);
+        Scanner justNeedCSVName = new Scanner(System.in);
+
+        System.out.println("Enter the name of the CSV file");
+        String nameOfFile = justNeedCSVName.nextLine();
+
+        saveTableAsCSV("Equipments", nameOfFile);
+        equipmentMenu();
         break;
       case 6:
         // menu
-        menu(CSVfiles);
+        menu();
         break;
     }
   }
 
-  private void requestMenu(String[] CSVfiles) throws IOException, SQLException {
+  private void requestMenu() throws IOException, SQLException {
     Scanner requestInput = new Scanner(System.in);
 
     System.out.println(
@@ -264,57 +425,38 @@ public class Udb {
             + "6 - Return to Main Menu");
     switch (requestInput.nextInt()) {
       case 1:
-        requestImpl.printTable();
-        requestMenu(CSVfiles);
+        equipRequestImpl.printTable();
+        requestMenu();
         break;
       case 2:
-        String inputID;
-        String name;
-        int pri;
-        System.out.println("Input request ID: ");
-        inputID = requestInput.nextLine();
-
-        System.out.println("Input request name: ");
-        name = requestInput.nextLine();
-
-        System.out.println("Input request pri: ");
-        pri = requestInput.nextInt();
-
-        requestImpl.edit(inputID, name, 1, "N/A", "N/A", "N/A", "N/A", pri);
-        requestMenu(CSVfiles);
+        edit(equipRequestImpl.askUser());
+        requestMenu();
         break;
       case 3:
-        System.out.println("Input request ID: ");
-        inputID = requestInput.nextLine();
-
-        System.out.println("Input request name: ");
-        name = requestInput.nextLine();
-
-        System.out.println("Input request pri: ");
-        pri = requestInput.nextInt();
-
-        requestImpl.add(inputID, name, 1, "N/A", "N/A", "N/A", "N/A", pri);
-        requestMenu(CSVfiles);
+        add(equipRequestImpl.askUser());
+        requestMenu();
         break;
       case 4:
-        System.out.println("Input request ID: ");
-        inputID = requestInput.nextLine();
-
-        requestImpl.removeRequest(inputID);
-        requestMenu(CSVfiles);
+        remove(equipRequestImpl.askUser());
+        requestMenu();
         break;
       case 5:
-        requestImpl.saveLocTableAsCSV();
-        requestMenu(CSVfiles);
+        Scanner justNeedCSVName = new Scanner(System.in);
+
+        System.out.println("Enter the name of the CSV file");
+        String nameOfFile = justNeedCSVName.nextLine();
+
+        saveTableAsCSV("Requests", nameOfFile);
+        requestMenu();
         break;
       case 6:
         // menu
-        menu(CSVfiles);
+        menu();
         break;
     }
   }
 
-  private void labRequestMenu(String[] CSVfiles) throws SQLException, IOException {
+  private void labRequestMenu() throws SQLException, IOException {
 
     Scanner labMenu = new Scanner(System.in);
 
@@ -329,30 +471,35 @@ public class Udb {
     switch (labMenu.nextInt()) {
       case 1:
         labRequestImpl.printTable();
-        labRequestMenu(CSVfiles);
+        labRequestMenu();
         break;
       case 2:
         labRequestImpl.edit(labRequestImpl.askUser());
-        labRequestMenu(CSVfiles);
+        labRequestMenu();
         break;
       case 3:
-        labRequestImpl.add(labRequestImpl.askUser());
-        labRequestMenu(CSVfiles);
+        add(labRequestImpl.askUser());
+        labRequestMenu();
         break;
       case 4:
         labRequestImpl.remove(labRequestImpl.askUser());
-        labRequestMenu(CSVfiles);
+        labRequestMenu();
         break;
       case 5:
-        labRequestImpl.saveLocTableAsCSV();
-        labRequestMenu(CSVfiles);
+        Scanner justNeedCSVName = new Scanner(System.in);
+
+        System.out.println("Enter the name of the CSV file");
+        String nameOfFile = justNeedCSVName.nextLine();
+
+        saveTableAsCSV("LabRequests", nameOfFile);
+        labRequestMenu();
         break;
       case 6:
         // menu
-        menu(CSVfiles);
+        menu();
         break;
       default:
-        System.out.println("Something went wrong");
+        labRequestMenu();
         break;
     }
   }
