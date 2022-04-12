@@ -63,7 +63,6 @@ public class Udb {
     try {
       Connection connection = DriverManager.getConnection(authentication + "create=true;");
       Statement exampleStatement = connection.createStatement();
-
       exampleStatement.executeUpdate(
           "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.connection.requireAuthentication',true)");
       exampleStatement.executeUpdate(
