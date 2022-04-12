@@ -27,7 +27,7 @@ public final class Udb {
   private static Udb Instance;
 
   public static Udb getInstance(String username, String password, String[] CSVfiles)
-      throws IOException {
+      throws IOException, SQLException {
     if (Instance == null) {
       Instance = new Udb(username, password, CSVfiles);
     }
@@ -47,7 +47,8 @@ public final class Udb {
   public LaundryRequestDaoImpl laundryRequestImpl;
   public MedicineRequestDaoImpl medicineRequestImpl;
 
-  private Udb(String username, String password, String[] CSVfiles) throws IOException {
+  private Udb(String username, String password, String[] CSVfiles)
+      throws IOException, SQLException {
 
     Statement statement = null;
     String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
@@ -68,27 +69,40 @@ public final class Udb {
 
     System.out.println("Apache Derby driver registered!");
 
-    // set username password
     try {
-      Connection connection = DriverManager.getConnection(authentication + "create=true;");
-      Statement exampleStatement = connection.createStatement();
+      Connection DBThere = DriverManager.getConnection(authentication);
+      DBThere.close();
 
-      exampleStatement.executeUpdate(
+    } catch (Exception e) {
+      Connection connection = DriverManager.getConnection(authentication + "create=true;");
+      Statement makingDB = connection.createStatement();
+
+      makingDB.executeUpdate(
           "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.connection.requireAuthentication',true)");
-      exampleStatement.executeUpdate(
+      makingDB.executeUpdate(
           "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.database.sqlAuthorization', true)");
-      exampleStatement.executeUpdate(
+      makingDB.executeUpdate(
           "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY("
               + "'derby.authentication.provider', 'BUILTIN')");
-      exampleStatement.executeUpdate(
-          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.user.admin', 'admin')");
-      exampleStatement.executeUpdate(
+      makingDB.executeUpdate(
           "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY("
-              + "'derby.database.defaultConnectionMode', 'fullAccess')");
+              + "'derby.database.defaultConnectionMode', 'noAccess')");
+
+      // adding users
+      makingDB.executeUpdate(
+          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.user.admin', 'admin')");
+      makingDB.executeUpdate(
+          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.user.staff', 'staff')");
+
+      // setting permissions
+      makingDB.executeUpdate(
+          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY("
+              + "'derby.database.fullAccessUsers', 'admin')");
+      makingDB.executeUpdate(
+          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY("
+              + "'derby.database.readOnlyAccessUsers', 'staff')");
+
       connection.close();
-    } catch (Exception e) {
-      System.out.println("Wrong Username/Password");
-      return;
     }
 
     // create connection
