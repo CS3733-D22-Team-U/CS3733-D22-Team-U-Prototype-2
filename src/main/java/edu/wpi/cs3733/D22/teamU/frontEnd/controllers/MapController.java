@@ -58,7 +58,7 @@ public class MapController extends ServiceController {
   ObservableList<String> buildingList = FXCollections.observableArrayList("Tower");
   ObservableList<String> floorList =
       FXCollections.observableArrayList("L1", "L2", "1", "2", "3", "4", "5");
-
+  private final double imageX = 870, imageY = 870;
   // @FXML ScrollPane imagesPane;
   @FXML AnchorPane lowerLevel1Pane;
   @FXML AnchorPane lowerLevel2Pane;
@@ -89,7 +89,6 @@ public class MapController extends ServiceController {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     super.initialize(location, resources);
-
     setScroll(lowerLevel1Pane);
     setScroll(lowerLevel2Pane);
     setScroll(floor1Pane);
@@ -140,8 +139,11 @@ public class MapController extends ServiceController {
             temp = floor5Pane;
             break;
         }
-        double x = temp.getPrefWidth() / 5000.0 * (double) loc.getXcoord();
-        double y = temp.getPrefHeight() / 3400.0 * (double) loc.getYcoord();
+        // double x = lnOld.getPane().getPrefWidth() / imageX * (double) l.getXcoord() + 80;
+        // double y = lnOld.getPane().getPrefHeight() / imageY * (double) l.getYcoord();
+        double scale = Double.min(temp.getPrefHeight(), temp.getPrefWidth());
+        double x = scale / imageX * loc.getXcoord();
+        double y = scale / imageY * loc.getYcoord();
         ln = new LocationNode(loc, x, y, temp);
         ln.setOnMouseClicked(this::popupOpen);
         locations.put(loc.getNodeID(), ln);
@@ -161,7 +163,7 @@ public class MapController extends ServiceController {
                   getClass()
                       .getClassLoader()
                       .getResource("edu/wpi/cs3733/D22/teamU/views/addLocPopUp.fxml")));
-      popupAddPane.setLayoutX(200);
+      popupAddPane.setLayoutX(100);
       popupAddPane.setLayoutY(200);
 
     } catch (IOException e) {
@@ -227,8 +229,7 @@ public class MapController extends ServiceController {
   @Override
   public void updateRequest() {}
 
-  public void popUpAdd(MouseEvent mouseEvent) throws IOException {
-
+  public void popUpAdd(MouseEvent mouseEvent) {
     Pane pane = (Pane) addBTN.getParent();
     if (pane.getChildren().contains(popupAddPane)) {
       pane.getChildren().remove(popupAddPane);
@@ -382,8 +383,9 @@ public class MapController extends ServiceController {
       l.setEquipment(old.getEquipment());
       udb.locationImpl.edit(l);
       LocationNode lnOld = locations.get(l.getNodeID());
-      double x = lnOld.getPane().getPrefWidth() / 5000.0 * (double) l.getXcoord();
-      double y = lnOld.getPane().getPrefHeight() / 3400.0 * (double) l.getYcoord();
+      double scale = Double.min(lnOld.getPane().getPrefHeight(), lnOld.getPane().getPrefWidth());
+      double x = scale / imageX * l.getXcoord();
+      double y = scale / imageY * l.getYcoord();
 
       LocationNode lnNew = new LocationNode(l, x, y, lnOld.getPane());
       locations.put(l.getNodeID(), lnNew);
@@ -459,8 +461,9 @@ public class MapController extends ServiceController {
           temp = floor5Pane;
           break;
       }
-      double x = temp.getPrefWidth() / 5000.0 * (double) l.getXcoord();
-      double y = temp.getPrefHeight() / 3400.0 * (double) l.getYcoord();
+      double scale = Double.min(temp.getPrefHeight(), temp.getPrefWidth());
+      double x = scale / imageX * l.getXcoord();
+      double y = scale / imageY * l.getYcoord();
       LocationNode ln = new LocationNode(l, x, y, temp);
       ln.setOnMouseClicked(this::popupOpen);
       locations.put(l.getNodeID(), ln);

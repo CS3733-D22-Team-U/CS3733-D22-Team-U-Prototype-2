@@ -16,6 +16,7 @@ public class LocationNode extends Group {
   private Udb udb = DBController.udb;
   private AnchorPane pane;
   private double x, y;
+  private final double scale = 15;
 
   public LocationNode(Location location, double x, double y, AnchorPane pane) throws IOException {
     super();
@@ -25,10 +26,10 @@ public class LocationNode extends Group {
     this.y = y;
     if (location.getEquipment().size() > 0) {
       Rectangle r = new Rectangle();
-      r.setX(x - 5);
-      r.setWidth(10);
-      r.setHeight(10);
-      r.setY(y - 5);
+      r.setX(x - scale);
+      r.setWidth(2 * scale);
+      r.setHeight(2 * scale);
+      r.setY(y - scale);
       setColor(r);
       r.setStroke(Color.BLACK);
       r.setStrokeWidth(1);
@@ -37,7 +38,7 @@ public class LocationNode extends Group {
       Circle c = new Circle();
       c.setCenterY(y);
       c.setCenterX(x);
-      c.setRadius(5);
+      c.setRadius(scale);
       setColor(c);
       c.setStroke(Color.BLACK);
       c.setStrokeWidth(1);

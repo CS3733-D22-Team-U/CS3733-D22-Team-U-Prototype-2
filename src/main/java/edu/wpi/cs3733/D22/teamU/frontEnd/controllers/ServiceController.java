@@ -116,8 +116,6 @@ public abstract class ServiceController implements Initializable, Service {
     appStage.show();
   }
 
-
-
   @Override
   public abstract void addRequest();
 
