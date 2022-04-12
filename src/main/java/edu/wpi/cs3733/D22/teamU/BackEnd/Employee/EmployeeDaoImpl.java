@@ -45,14 +45,14 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
       String[] row = s.split(",");
       if (row.length == 6)
         List.put(
+            row[0].trim(),
+            new Employee(
                 row[0].trim(),
-                new Employee(
-                        row[0].trim(),
-                        row[1].trim(),
-                        Integer.parseInt(row[2].trim()),
-                        Boolean.parseBoolean(row[3].trim()),
-                        row[4].trim(),
-                        row[5].trim()));
+                row[1].trim(),
+                Integer.parseInt(row[2].trim()),
+                Boolean.parseBoolean(row[3].trim()),
+                row[4].trim(),
+                row[5].trim()));
     }
   }
 
@@ -66,30 +66,30 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     }
     try {
       statement.execute(
-              "CREATE TABLE Employees(employeeID varchar(18) not null, "
-                      + "occupation varchar(200) not null,"
-                      + "reports int not null,"
-                      + "onDuty boolean not null,"
-                      + "username varchar(20) not null,"
-                      + "password varchar(20) not null)");
+          "CREATE TABLE Employees(employeeID varchar(18) not null, "
+              + "occupation varchar(200) not null,"
+              + "reports int not null,"
+              + "onDuty boolean not null,"
+              + "username varchar(20) not null,"
+              + "password varchar(20) not null)");
 
       Set<String> keys = List.keySet();
       for (String j : keys) {
         Employee currEmp = List.get(j);
         statement.execute(
-                "INSERT INTO Employees VALUES('"
-                        + currEmp.employeeID
-                        + "','"
-                        + currEmp.occupation
-                        + "',"
-                        + currEmp.reports
-                        + ","
-                        + currEmp.onDuty
-                        + ",'"
-                        + currEmp.username
-                        + "','"
-                        + currEmp.password
-                        + "')");
+            "INSERT INTO Employees VALUES('"
+                + currEmp.employeeID
+                + "','"
+                + currEmp.occupation
+                + "',"
+                + currEmp.reports
+                + ","
+                + currEmp.onDuty
+                + ",'"
+                + currEmp.username
+                + "','"
+                + currEmp.password
+                + "')");
       }
     } catch (SQLException e) {
       System.out.println("hsbd");
@@ -173,21 +173,21 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     CSVToJava();
     // display locations and attributes
     System.out.println(
-            "Employee ID |\t Occupation |\t Reports |\t On Duty |\t Username |\t Password");
+        "Employee ID |\t Occupation |\t Reports |\t On Duty |\t Username |\t Password");
     for (Employee employee : List.values()) {
       System.out.println(
-              employee.employeeID
-                      + " | \t"
-                      + employee.occupation
-                      + " | \t"
-                      + employee.reports
-                      + " | \t"
-                      + employee.onDuty
-                      + " | \t"
-                      + employee.username
-                      + " | \t"
-                      + employee.password
-                      + " | \t");
+          employee.employeeID
+              + " | \t"
+              + employee.occupation
+              + " | \t"
+              + employee.reports
+              + " | \t"
+              + employee.onDuty
+              + " | \t"
+              + employee.username
+              + " | \t"
+              + employee.password
+              + " | \t");
     }
   }
 
@@ -204,12 +204,9 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     CSVToJava(); // t
     Set<String> keys = List.keySet();
 
-    if(List.containsKey(data.getEmployeeID()))
-    {
+    if (List.containsKey(data.getEmployeeID())) {
       List.replace(data.getEmployeeID(), data);
-    }
-    else
-    {
+    } else {
       System.out.println("Doesn't Exist");
     }
     this.JavaToSQL(); // t
@@ -250,11 +247,11 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
 
     if (this.List.containsKey(data.getEmployeeID())) {
       this.List.remove(data.getEmployeeID());
-    }
-    else {
+    } else {
       System.out.println("Doesn't exist");
     }
-    this.JavaToSQL();;
+    this.JavaToSQL();
+    ;
     this.JavaToCSV(CSVfile);
   }
 
@@ -318,6 +315,6 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     inputPassword = employeeInput.nextLine();
 
     return new Employee(
-            inputEmployeeID, inputOccupation, inputReports, inputOnDuty, inputUsername, inputPassword);
+        inputEmployeeID, inputOccupation, inputReports, inputOnDuty, inputUsername, inputPassword);
   }
 }

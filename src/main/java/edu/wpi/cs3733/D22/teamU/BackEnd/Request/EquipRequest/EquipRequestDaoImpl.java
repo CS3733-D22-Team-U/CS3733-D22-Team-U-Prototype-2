@@ -11,8 +11,9 @@ import java.util.Scanner;
 
 public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
   public Statement statement;
-  public ArrayList<EquipRequest> List = new ArrayList<EquipRequest>();
+  public HashMap<String, EquipRequest> List = new HashMap<String, EquipRequest>();
   public String csvFile;
+  public ArrayList<EquipRequest> list = new ArrayList<EquipRequest>();
 
   public EquipRequestDaoImpl(Statement statement, String csvfile) {
     this.csvFile = csvfile;
@@ -21,12 +22,12 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
 
   @Override
   public ArrayList<EquipRequest> list() {
-    return this.List;
+    return null;
   }
 
   @Override
-  public HashMap<String, EquipRequest> hList(){
-    return new HashMap<>();
+  public HashMap<String, EquipRequest> hList() {
+    return this.List;
   }
 
   public Employee checkEmployee(String employee) throws NullPointerException {
@@ -43,7 +44,7 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
    * @throws IOException
    */
   public void CSVToJava() throws IOException {
-    List = new ArrayList<EquipRequest>();
+    List = new HashMap<String, EquipRequest>();
     String s;
     File file = new File(csvFile);
     BufferedReader br = new BufferedReader(new FileReader(file));
@@ -51,16 +52,18 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == 9) {
-        List.add(
-                new EquipRequest(
-                        row[0],
-                        row[1],
-                        Integer.parseInt(row[2]),
-                        row[3],
-                        row[4],
-                        row[5],
-                        row[6],
-                        Integer.parseInt(row[7])));
+        List.put(
+            row[0],
+            new EquipRequest(
+                row[0],
+                row[1],
+                Integer.parseInt(row[2]),
+                row[3],
+                checkEmployee(row[4]),
+                row[5],
+                row[6],
+                row[7],
+                Integer.parseInt(row[8])));
       }
     }
   }
@@ -91,7 +94,7 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     fw.append("Priority");
     fw.append("\n");
 
-    for (EquipRequest request : List) {
+    for (EquipRequest request : List.values()) {
       fw.append(request.getID());
       fw.append(",");
       fw.append(request.getName());
@@ -124,39 +127,39 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
 
     try {
       statement.execute(
-              "CREATE TABLE EquipRequest("
-                      + "ID varchar(10) not null,"
-                      + "name varchar(50) not null, "
-                      + "amount int not null,"
-                      + "typeOfRequest varchar(10),"
-                      + "staff varchar(20) not null,"
-                      + "destination varchar(10) not null,"
-                      + "date varchar(10) not null,"
-                      + "time varchar(10) not null,"
-                      + "pri int not null)");
+          "CREATE TABLE EquipRequest("
+              + "ID varchar(10) not null,"
+              + "name varchar(50) not null, "
+              + "amount int not null,"
+              + "typeOfRequest varchar(10),"
+              + "staff varchar(20) not null,"
+              + "destination varchar(10) not null,"
+              + "date varchar(10) not null,"
+              + "time varchar(10) not null,"
+              + "pri int not null)");
 
-      for (EquipRequest currReq : List) {
+      for (EquipRequest currReq : List.values()) {
         statement.execute(
-                "INSERT INTO EquipRequest VALUES("
-                        + "'"
-                        + currReq.getID()
-                        + "','"
-                        + currReq.getName()
-                        + "',"
-                        + currReq.getAmount()
-                        + ",'"
-                        + currReq.getType()
-                        + "','"
-                        + currReq.getEmployee().getEmployeeID()
-                        + "','"
-                        + currReq.getDestination()
-                        + "','"
-                        + currReq.getDate()
-                        + "','"
-                        + currReq.getTime()
-                        + "',"
-                        + currReq.getPri()
-                        + ")");
+            "INSERT INTO EquipRequest VALUES("
+                + "'"
+                + currReq.getID()
+                + "','"
+                + currReq.getName()
+                + "',"
+                + currReq.getAmount()
+                + ",'"
+                + currReq.getType()
+                + "','"
+                + currReq.getEmployee().getEmployeeID()
+                + "','"
+                + currReq.getDestination()
+                + "','"
+                + currReq.getDate()
+                + "','"
+                + currReq.getTime()
+                + "',"
+                + currReq.getPri()
+                + ")");
       }
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
@@ -164,7 +167,7 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
   }
 
   public void SQLToJava() {
-    List = new ArrayList<EquipRequest>();
+    List = new HashMap<String, EquipRequest>();
     try {
       ResultSet results;
       results = statement.executeQuery("SELECT * FROM EquipRequest");
@@ -181,10 +184,10 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
         int pri = results.getInt("pri");
 
         EquipRequest SQLRow =
-                new EquipRequest(
-                        id, name, amount, type, destination, date, time, pri);
+            new EquipRequest(
+                id, name, amount, type, checkEmployee(staff), destination, date, time, pri);
 
-        List.add(SQLRow);
+        List.put(id, SQLRow);
       }
     } catch (SQLException e) {
       System.out.println("request not found");
@@ -196,26 +199,26 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     CSVToJava();
     // display locations and attributes
     System.out.println(
-            "ID |\t Name |\t Amount |\t Type |\t Staff |\t Destination |\t Date |\t Time |\t Priority");
-    for (EquipRequest request : this.List) {
+        "ID |\t Name |\t Amount |\t Type |\t Staff |\t Destination |\t Date |\t Time |\t Priority");
+    for (EquipRequest request : this.List.values()) {
       System.out.println(
-              request.ID
-                      + " | \t"
-                      + request.name
-                      + " | \t"
-                      + request.amount
-                      + " | \t"
-                      + request.typeOfRequest
-                      + " | \t"
-                      + request.employee.getEmployeeID()
-                      + " | \t"
-                      + request.destination
-                      + " | \t"
-                      + request.date
-                      + " | \t"
-                      + request.time
-                      + " | \t"
-                      + request.pri);
+          request.ID
+              + " | \t"
+              + request.name
+              + " | \t"
+              + request.amount
+              + " | \t"
+              + request.typeOfRequest
+              + " | \t"
+              + request.employee.getEmployeeID()
+              + " | \t"
+              + request.destination
+              + " | \t"
+              + request.date
+              + " | \t"
+              + request.time
+              + " | \t"
+              + request.pri);
     }
   }
 
@@ -227,7 +230,7 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     try {
       if (EmployeeDaoImpl.List.containsKey(data.getEmployee().getEmployeeID())) {
         data.setEmployee(EmployeeDaoImpl.List.get(data.getEmployee().getEmployeeID()));
-        this.List.add(data);
+        this.List.put(data.ID, data);
         this.JavaToSQL();
         this.JavaToCSV(csvFile);
       } else {
@@ -246,12 +249,12 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
    */
   @Override
   public void add(EquipRequest data) throws IOException {
-    if (search(data.ID)!=-1) {
+    if (List.containsKey(data.ID)) {
       System.out.println("A Request With This ID Already Exists");
     } else {
       if (EmployeeDaoImpl.List.containsKey(data.getEmployee().getEmployeeID())) {
         data.setEmployee(EmployeeDaoImpl.List.get(data.getEmployee().getEmployeeID()));
-        this.List.add(data);
+        this.List.put(data.ID, data);
         this.JavaToSQL();
         this.JavaToCSV(csvFile);
       } else {
@@ -277,10 +280,10 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     }
   }
 
-  /*@Override
+  @Override
   public int search(String id) {
     return 0;
-  }*/
+  }
 
   /**
    * Prompts user for the name of a new file and then creates the new file in the project folder
@@ -303,12 +306,12 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     }
   }
 
-  @Override
+  /*@Override
   public int search(String id) { // TODO search
     int index = -1;
     for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).ID)) index = i;
     return index;
-  }
+  }*/
 
   public EquipRequest askUser() {
     Scanner reqInput = new Scanner(System.in);
@@ -335,14 +338,14 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     Employee empty = new Employee(inputStaff);
 
     return new EquipRequest(
-            inputID,
-            inputName,
-            inputAmount,
-            inputType,
-            inputDestination,
-            inputDate,
-            inputTime,
-            inputPriority);
+        inputID,
+        inputName,
+        inputAmount,
+        inputType,
+        empty,
+        inputDestination,
+        inputDate,
+        inputTime,
+        inputPriority);
   }
 }
-

@@ -8,7 +8,7 @@ public class LabRequest extends Request {
   String patient;
 
   public LabRequest(
-          String ID, String patient, Employee employee, String name, String date, String time) {
+      String ID, String patient, Employee employee, String name, String date, String time) {
     this.ID = ID;
     this.patient = patient;
     this.employee = employee;
@@ -24,5 +24,4 @@ public class LabRequest extends Request {
   public void setPatient(String patient) {
     this.patient = patient;
   }
-
 }

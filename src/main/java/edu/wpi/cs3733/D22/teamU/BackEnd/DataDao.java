@@ -9,7 +9,8 @@ public interface DataDao<T> {
   String csvFile = null;
   // ArrayList<T> list;
   ArrayList<T> list();
-  HashMap<String,T> hList();
+
+  HashMap<String, T> hList();
 
   void CSVToJava() throws IOException;
 

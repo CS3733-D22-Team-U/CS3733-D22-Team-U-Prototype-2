@@ -58,7 +58,7 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
       String[] row = s.split(",");
       if (row.length == columns) {
         List.put(
-                row[0], new LabRequest(row[0], row[1], checkEmployee(row[2]), row[3], row[4], row[5]));
+            row[0], new LabRequest(row[0], row[1], checkEmployee(row[2]), row[3], row[4], row[5]));
       }
     }
   }
@@ -112,30 +112,30 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
 
     try {
       statement.execute(
-              "CREATE TABLE LabRequest("
-                      + "ID varchar(10) not null,"
-                      + "patient varchar(50) not null, "
-                      + "staff varchar(50) not null,"
-                      + "labType varchar(50),"
-                      + "date varchar(10) not null,"
-                      + "time varchar(10) not null)");
+          "CREATE TABLE LabRequest("
+              + "ID varchar(10) not null,"
+              + "patient varchar(50) not null, "
+              + "staff varchar(50) not null,"
+              + "labType varchar(50),"
+              + "date varchar(10) not null,"
+              + "time varchar(10) not null)");
 
       for (LabRequest currLab : List.values()) {
         statement.execute(
-                "INSERT INTO LabRequest VALUES("
-                        + "'"
-                        + currLab.getID()
-                        + "','"
-                        + currLab.getPatient()
-                        + "','"
-                        + currLab.getEmployee().getEmployeeID()
-                        + "','"
-                        + currLab.getName()
-                        + "','"
-                        + currLab.getDate()
-                        + "','"
-                        + currLab.getTime()
-                        + "')");
+            "INSERT INTO LabRequest VALUES("
+                + "'"
+                + currLab.getID()
+                + "','"
+                + currLab.getPatient()
+                + "','"
+                + currLab.getEmployee().getEmployeeID()
+                + "','"
+                + currLab.getName()
+                + "','"
+                + currLab.getDate()
+                + "','"
+                + currLab.getTime()
+                + "')");
       }
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
@@ -172,17 +172,17 @@ public class LabRequestDaoImpl implements DataDao<LabRequest> {
     System.out.println("ID |\t Patient |\t Staff |\t Type |\t Date |\t Time");
     for (LabRequest request : this.List.values()) {
       System.out.println(
-              request.ID
-                      + " | \t"
-                      + request.patient
-                      + " | \t"
-                      + request.employee.getEmployeeID()
-                      + " | \t"
-                      + request.name
-                      + " | \t"
-                      + request.date
-                      + " | \t"
-                      + request.time);
+          request.ID
+              + " | \t"
+              + request.patient
+              + " | \t"
+              + request.employee.getEmployeeID()
+              + " | \t"
+              + request.name
+              + " | \t"
+              + request.date
+              + " | \t"
+              + request.time);
     }
   }
 

@@ -4,6 +4,7 @@ import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class LocationDaoImpl implements DataDao<Location> {
@@ -59,6 +60,11 @@ public class LocationDaoImpl implements DataDao<Location> {
   @Override
   public ArrayList<Location> list() {
     return locations;
+  }
+
+  @Override
+  public HashMap<String, Location> hList() {
+    return null;
   }
 
   /**

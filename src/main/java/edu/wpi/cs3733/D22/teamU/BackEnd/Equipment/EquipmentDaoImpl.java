@@ -7,6 +7,7 @@ import edu.wpi.cs3733.D22.teamU.DBController;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class EquipmentDaoImpl implements DataDao<Equipment> {
@@ -27,6 +28,11 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
   @Override
   public ArrayList<Equipment> list() {
     return EquipmentList;
+  }
+
+  @Override
+  public HashMap<String, Equipment> hList() {
+    return null;
   }
 
   /**
