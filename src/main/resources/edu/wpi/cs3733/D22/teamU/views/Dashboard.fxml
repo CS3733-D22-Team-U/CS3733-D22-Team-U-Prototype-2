@@ -5,6 +5,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -143,10 +144,22 @@
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <tooltip>
+                        <Tooltip text="Marko Vila" />
+                     </tooltip>
                   </Button>
-                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toMap" style="-fx-background-color: #d9f0f1;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Map" />
-                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toLabRequest" style="-fx-background-color: #c9edeb;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Lab Request" />
-                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toMedicineDelivery" style="-fx-background-color: #b0e5e3;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Medicine Request" />
+                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toMap" style="-fx-background-color: #d9f0f1;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Map">
+                     <tooltip>
+                        <Tooltip text="Harsh Patel" />
+                     </tooltip></Button>
+                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toLabRequest" style="-fx-background-color: #c9edeb;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Lab Request">
+                     <tooltip>
+                        <Tooltip text="Nick Biliouris" />
+                     </tooltip></Button>
+                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toMedicineDelivery" style="-fx-background-color: #b0e5e3;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Medicine Request">
+                     <tooltip>
+                        <Tooltip text="Kody Robinson" />
+                     </tooltip></Button>
               </buttons>
                <opaqueInsets>
                   <Insets />
@@ -157,9 +170,18 @@
             </ButtonBar>
             <ButtonBar fx:id="bottomRow" layoutX="160.0" layoutY="187.0" prefHeight="40.0" prefWidth="200.0">
                <buttons>
-                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toMealDelivery" style="-fx-background-color: #d9f0f1;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Meal Delivery" />
-                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toGiftAndFloral" style="-fx-background-color: #c9edeb;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Gift &amp; Floral Request" />
-                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toLaundry" style="-fx-background-color: #b0e5e3;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Laundry Service" />
+                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toMealDelivery" style="-fx-background-color: #d9f0f1;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Meal Delivery">
+                     <tooltip>
+                        <Tooltip text="Deepti Gosukonda" />
+                     </tooltip></Button>
+                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toGiftAndFloral" style="-fx-background-color: #c9edeb;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Gift &amp; Floral Request">
+                     <tooltip>
+                        <Tooltip text="Joselin Barbosa" />
+                     </tooltip></Button>
+                  <Button minHeight="190.0" mnemonicParsing="false" onAction="#toLaundry" style="-fx-background-color: #b0e5e3;" styleClass="dashboardNavButton" stylesheets="@../css/buttons.css" text="Laundry Service">
+                     <tooltip>
+                        <Tooltip text="Deepti Gosukonda" />
+                     </tooltip></Button>
                </buttons>
                <opaqueInsets>
                   <Insets />
