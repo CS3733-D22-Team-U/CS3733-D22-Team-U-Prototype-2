@@ -3,6 +3,7 @@ package edu.wpi.cs3733.D22.teamU.BackEnd.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
@@ -13,13 +14,19 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
   public Statement statement;
   public String CSVfile;
   public static HashMap<String, Employee> List = new HashMap<String, Employee>();
+  public ArrayList<Employee> list = new ArrayList<Employee>();
 
   public EmployeeDaoImpl(Statement statement, String CSVfile) {
     this.CSVfile = CSVfile;
     this.statement = statement;
   }
 
-  public HashMap<String, Employee> list() {
+  @Override
+  public ArrayList<Employee> list() {
+    return null;
+  }
+
+  public HashMap<String, Employee> hList() {
     return this.List;
   }
 
@@ -246,6 +253,11 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     this.JavaToSQL();
     this.SQLToJava();
     this.JavaToCSV(CSVfile);
+  }
+
+  @Override
+  public int search(String id) {
+    return 0;
   }
 
   /**
