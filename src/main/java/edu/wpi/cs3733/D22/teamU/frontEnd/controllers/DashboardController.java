@@ -1,14 +1,17 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.image.ImageView;
@@ -16,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class DashboardController extends ServiceController {
@@ -121,6 +125,17 @@ public class DashboardController extends ServiceController {
             closeNav.play();
           }
         });
+  }
+
+  public void toCloseApp(ActionEvent actionEvent) {
+    Platform.exit();
+  }
+
+  public void toLogOut(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/logInPage.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
   }
 
   public void toSettings(ActionEvent actionEvent) {
