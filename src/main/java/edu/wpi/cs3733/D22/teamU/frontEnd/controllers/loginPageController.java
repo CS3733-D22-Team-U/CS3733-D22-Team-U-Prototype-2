@@ -37,7 +37,7 @@ public class loginPageController extends ServiceController {
                     () -> {
                       Scene scene = null;
                       try {
-                        scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/HomePage.fxml");
+                        scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/Dashboard.fxml");
                       } catch (IOException e) {
                         e.printStackTrace();
                       }
