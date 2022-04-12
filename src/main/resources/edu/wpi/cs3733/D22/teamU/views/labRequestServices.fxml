@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.labRequestServices">
+<AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.labRequestServices">
     <children>
         <Pane fx:id="backgroundPane" layoutY="-8.0" prefHeight="753.0" prefWidth="1100.0" style="-fx-background-color: #c9c9c9;">
             <children>
@@ -105,6 +105,14 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
+                              <Button fx:id="toHelpPage" layoutX="659.0" layoutY="477.0" mnemonicParsing="false" onAction="#toLabRequestHelp" prefHeight="39.0" prefWidth="149.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15; -fx-border-radius: 15;" text="Help" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
                            </children>
                         </AnchorPane>
                   </content>
