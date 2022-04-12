@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #c9c9c9;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.loginPageController">
+<AnchorPane prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #c9c9c9;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.loginPageController">
 <children>
       <Circle fx:id="loadingCircle" fill="#1f93ff00" layoutX="551.0" layoutY="518.0" radius="100.0" strokeType="INSIDE" strokeWidth="15.0">
          <stroke>
@@ -66,7 +66,7 @@
       </ImageView>
       <Group fx:id="loginGroup" layoutX="425.0" layoutY="341.0">
          <children>
-            <Text fill="#044e9a" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plesae Log in to Continue">
+            <Text fill="#044e9a" layoutX="14.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Log in to Continue">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>

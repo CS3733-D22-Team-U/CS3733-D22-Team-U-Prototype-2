@@ -20,32 +20,15 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.MapController">
     <children>
-        <Pane prefHeight="95.0" prefWidth="1100.0" style="-fx-background-color: #044e9a;">
-            <children>
-                <ImageView fitHeight="118.0" fitWidth="126.0" layoutX="220.0" pickOnBounds="true" preserveRatio="true" x="50.0">
-                    <image>
-                        <Image url="@../icons/mapIcon.png" />
-                    </image>
-                </ImageView>
-                <Text fill="WHITE" layoutX="340.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Map Locations" wrappingWidth="428.3189697265625" x="50.0">
-                    <font>
-                        <Font name="System Bold" size="60.0" />
-                    </font>
-                </Text>
-            </children>
-            <effect>
-                <DropShadow />
-            </effect>
-        </Pane>
         <Pane fx:id="backgroundPane" layoutX="105.0" layoutY="1.0" prefHeight="750.0" prefWidth="996.0">
             <children>
-                <TabPane layoutX="10.0" layoutY="141.0" prefHeight="552.0" prefWidth="877.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+                <TabPane layoutX="7.0" layoutY="166.0" prefHeight="552.0" prefWidth="877.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="Map View">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <TabPane prefHeight="550.0" prefWidth="874.0" tabClosingPolicy="UNAVAILABLE">
+                                        <TabPane prefHeight="552.0" prefWidth="845.0" tabClosingPolicy="UNAVAILABLE">
                                             <tabs>
                                                 <Tab text="Lower Level 1">
                                                     <content>
@@ -62,6 +45,11 @@
                                                                                                 <Image url="@../hospitalFloors/00_thelowerlevel1.png" />
                                                                                             </image>
                                                                                         </ImageView>
+                                                                  <ImageView fitHeight="82.0" fitWidth="93.0" layoutX="856.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../icons/unicornLogo.png" />
+                                                                     </image>
+                                                                  </ImageView>
                                                                                     </children>
                                                                                 </AnchorPane>
                                                                             </content>
@@ -259,6 +247,16 @@
                         </Tab>
                     </tabs>
                 </TabPane>
+            <Pane layoutX="-105.0" layoutY="-5.0" prefHeight="137.0" prefWidth="1101.0" styleClass="header" stylesheets="@../css/headersAndLabels.css">
+               <children>
+                  <ImageView fitHeight="114.0" fitWidth="75.0" layoutX="362.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/mapIcon.png" />
+                     </image>
+                  </ImageView>
+                  <Text fx:id="headerText" layoutX="437.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="headerText" text="Map Editor" wrappingWidth="226.65234375" />
+               </children>
+            </Pane>
             </children>
         </Pane>
         <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">

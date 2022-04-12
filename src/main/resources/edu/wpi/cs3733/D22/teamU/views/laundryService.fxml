@@ -23,27 +23,15 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.LaundryController">
    <children>
-      <Pane prefHeight="95.0" prefWidth="1100.0" style="-fx-background-color: #044e9a;">
+      <Pane fx:id="pane" layoutX="58.0" layoutY="117.0" prefHeight="713.0" prefWidth="1075.0">
          <children>
-            <ImageView fitHeight="97.0" fitWidth="105.0" layoutX="170.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../cs3733/D22/teamU/icons/laundryIcon.png" />
-               </image>
-            </ImageView>
-         </children>
-         <effect>
-            <DropShadow />
-         </effect>
-      </Pane>
-      <Pane fx:id="pane" prefHeight="744.0" prefWidth="1106.0">
-         <children>
-            <Text fill="WHITE" layoutX="305.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Laundry Services" wrappingWidth="514.0">
+            <Text fill="WHITE" layoutX="305.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="514.0">
                <font>
                   <Font name="System Bold" size="60.0" />
                </font>
             </Text>
             <Group layoutX="744.0" layoutY="176.203125" />
-            <TabPane layoutX="87.0" layoutY="120.0" prefHeight="576.0" prefWidth="912.0" style="-fx-border-color: BLACK;" tabClosingPolicy="UNAVAILABLE">
+            <TabPane layoutX="47.0" layoutY="56.0" prefHeight="576.0" prefWidth="912.0" style="-fx-border-color: BLACK;" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="New Request">
                   <content>
@@ -140,7 +128,11 @@
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#89d7bf" height="71.0" layoutX="572.0" layoutY="87.0" stroke="BLACK" strokeType="INSIDE" width="267.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#89d7bf" height="71.0" layoutX="572.0" layoutY="87.0" stroke="BLACK" strokeType="INSIDE" width="267.0">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Rectangle>
                               <Text layoutX="577.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" wrappingWidth="74.6031494140625">
                                  <font>
                                     <Font size="24.0" />
@@ -175,6 +167,11 @@
                 </Tab>
               </tabs>
             </TabPane>
+            <ImageView fitHeight="88.0" fitWidth="81.0" layoutX="980.0" layoutY="619.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: .3;">
+               <image>
+                  <Image url="@../icons/unicornLogo.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">
@@ -274,15 +271,20 @@
          </children>
       </JFXHamburger>
       <Pane fx:id="assistPane" layoutX="11.0" layoutY="219.0" prefHeight="534.0" prefWidth="93.0" />
-      <ImageView fitHeight="88.0" fitWidth="81.0" layoutX="998.0" layoutY="657.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: .3;">
-         <image>
-            <Image url="@../icons/unicornLogo.png" />
-         </image>
-      </ImageView>
       <Text fx:id="laundryStatus" layoutX="973.0" layoutY="-77.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="132.333251953125">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
+      <Pane prefHeight="132.0" prefWidth="1133.0" styleClass="header" stylesheets="@../css/headersAndLabels.css">
+         <children>
+            <ImageView fitHeight="114.0" fitWidth="75.0" layoutX="325.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/laundryIcon.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="headerText" layoutX="400.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="headerText" text="Laundry Service" wrappingWidth="332.65234375" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

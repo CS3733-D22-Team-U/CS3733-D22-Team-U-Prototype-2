@@ -24,23 +24,6 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.MealDeliveryController">
    <children>
-      <Pane prefHeight="95.0" prefWidth="1100.0" style="-fx-background-color: #044e9a;">
-         <children>
-            <ImageView fitHeight="80.0" fitWidth="98.0" layoutX="129.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icons/mealIcon.png" />
-               </image>
-            </ImageView>
-            <Text fill="WHITE" layoutX="240.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Meal Delivery" wrappingWidth="645.65234375">
-               <font>
-                  <Font name="System Bold" size="60.0" />
-               </font>
-            </Text>
-         </children>
-         <effect>
-            <DropShadow />
-         </effect>
-      </Pane>
       <Pane fx:id="pane" layoutY="-1.0" prefHeight="741.0" prefWidth="1100.0">
          <children>
             <TextArea id="placingOrder" layoutX="336.0" layoutY="321.0" prefHeight="111.0" prefWidth="433.0" text="Placing Order..." visible="false">
@@ -59,7 +42,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <TabPane layoutX="87.0" layoutY="120.0" prefHeight="576.0" prefWidth="912.0" style="-fx-border-color: #000000;" tabClosingPolicy="UNAVAILABLE">
+            <TabPane layoutX="88.0" layoutY="126.0" prefHeight="576.0" prefWidth="912.0" style="-fx-border-color: #000000;" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="New Request">
                   <content>
@@ -202,6 +185,16 @@
                   </Tab>
               </tabs>
             </TabPane>
+            <Pane prefHeight="112.0" prefWidth="1100.0" styleClass="header" stylesheets="@../css/headersAndLabels.css">
+               <children>
+                  <ImageView fitHeight="114.0" fitWidth="75.0" layoutX="255.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/mealIcon.png" />
+                     </image>
+                  </ImageView>
+                  <Text fx:id="headerText" layoutX="338.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="headerText" text="Patient Meal Delivery" wrappingWidth="423.65234375" />
+               </children>
+            </Pane>
          </children>
       </Pane>
       <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">

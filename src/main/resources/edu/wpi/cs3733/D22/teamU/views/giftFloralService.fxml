@@ -23,7 +23,7 @@
 <AnchorPane layoutX="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: 89D7BF89D7BF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.giftFloralController">
     <children>
       <Pane fx:id="assistPane" prefHeight="200.0" prefWidth="200.0" />
-        <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">
+        <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="161.0" prefHeight="514.0" prefWidth="52.0">
             <children>
                 <VBox fx:id="vBoxPane" prefHeight="462.0" prefWidth="232.0" visible="false">
                     <children>
@@ -134,14 +134,23 @@
                               <children>
                               <Pane layoutX="616.0" layoutY="29.0" prefHeight="62.0" prefWidth="254.0">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#89d7bf" height="56.0" layoutX="1.0" layoutY="4.0" stroke="#89d7bf" strokeType="INSIDE" width="252.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#89d7bf" height="56.0" layoutX="1.0" layoutY="4.0" stroke="#89d7bf" strokeType="INSIDE" width="252.0">
+                                       <effect>
+                                          <DropShadow />
+                                       </effect></Rectangle>
                                       <Text layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
                                       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="39.0" layoutX="62.0" layoutY="12.0" stroke="#89d7bf" strokeType="INSIDE" width="186.0" />
                                  </children>
                               </Pane>
                                 <Text fx:id="processingText" layoutX="500.0" layoutY="577.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Processing..." visible="false" x="70.0" y="-430.0" />
-                                <Button layoutX="466.0" layoutY="476.0" mnemonicParsing="false" onAction="#clear" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="Clear" />
-                                <Button layoutX="346.0" layoutY="476.0" mnemonicParsing="false" onAction="#submit" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="OK" />
+                                <Button layoutX="466.0" layoutY="476.0" mnemonicParsing="false" onAction="#clear" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="Clear">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect></Button>
+                                <Button layoutX="346.0" layoutY="476.0" mnemonicParsing="false" onAction="#submit" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="OK">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect></Button>
                                   <Text layoutX="79.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select which of the following you would like to send" />
                                   <TextField fx:id="senderField" layoutX="124.0" layoutY="47.0" />
                                   <Text layoutX="85.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insert a gift message " />
@@ -156,21 +165,33 @@
                                  <image>
                                     <Image url="@../images/balloonSquare.png" />
                                  </image>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
                               </ImageView>
                               <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="616.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/basketSquare.png" />
                                  </image>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
                               </ImageView>
                               <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="435.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/chocoSquare.png" />
                                  </image>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
                               </ImageView>
                               <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="258.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/flowerSquare.png" />
                                  </image>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
                               </ImageView>
                                   <CheckBox fx:id="balloonBox" layoutX="85.0" layoutY="239.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Balloons">
                                       <font>
@@ -225,18 +246,14 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Pane layoutX="-9.0" layoutY="-5.0" prefHeight="115.0" prefWidth="1111.0" style="-fx-background-color: #044e9a #044e9a;">
+      <Pane layoutX="-9.0" prefHeight="108.0" prefWidth="1109.0" styleClass="header" stylesheets="@../css/headersAndLabels.css">
          <children>
-            <ImageView fitHeight="67.0" fitWidth="73.0" layoutX="259.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="114.0" fitWidth="75.0" layoutX="351.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icons/flowerIcon.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" layoutX="343.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gift &amp; Floral Delivery" wrappingWidth="645.65234375">
-               <font>
-                  <Font name="System Bold" size="60.0" />
-               </font>
-            </Text>
+            <Text fx:id="headerText" layoutX="434.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="headerText" text="Gift &amp; Floral" wrappingWidth="241.65234375" />
          </children>
       </Pane>
     </children>
