@@ -202,7 +202,7 @@
             <Image url="@../icons/unicornLogo.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="200.0" fitWidth="223.0" layoutX="228.0" layoutY="448.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="188.0" fitWidth="200.0" layoutX="228.0" layoutY="448.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/med2-removebg-preview.png" />
          </image>
@@ -213,5 +213,6 @@
             <Font size="15.0" />
          </font>
       </Text>
+      <Button defaultButton="true" layoutX="252.0" layoutY="653.0" mnemonicParsing="false" onAction="#toMedHelp" prefHeight="71.0" prefWidth="152.0" style="-fx-background-radius: 15px; -fx-background-color: #89D7BF; -fx-text-fill: #ffffff;" text="Help" textFill="WHITE" />
     </children>
 </AnchorPane>
