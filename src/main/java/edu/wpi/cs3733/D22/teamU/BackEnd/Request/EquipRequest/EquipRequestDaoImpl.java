@@ -5,12 +5,13 @@ import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
   public Statement statement;
-  public HashMap<String, EquipRequest> List = new HashMap<String, EquipRequest>();
+  public ArrayList<EquipRequest> List = new ArrayList<EquipRequest>();
   public String csvFile;
 
   public EquipRequestDaoImpl(Statement statement, String csvfile) {
@@ -19,8 +20,13 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
   }
 
   @Override
-  public HashMap<String, EquipRequest> list() {
+  public ArrayList<EquipRequest> list() {
     return this.List;
+  }
+
+  @Override
+  public HashMap<String, EquipRequest> hList(){
+    return new HashMap<>();
   }
 
   public Employee checkEmployee(String employee) throws NullPointerException {
@@ -37,7 +43,7 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
    * @throws IOException
    */
   public void CSVToJava() throws IOException {
-    List = new HashMap<String, EquipRequest>();
+    List = new ArrayList<EquipRequest>();
     String s;
     File file = new File(csvFile);
     BufferedReader br = new BufferedReader(new FileReader(file));
@@ -45,18 +51,16 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == 9) {
-        List.put(
-                row[0],
+        List.add(
                 new EquipRequest(
                         row[0],
                         row[1],
                         Integer.parseInt(row[2]),
                         row[3],
-                        checkEmployee(row[4]),
+                        row[4],
                         row[5],
                         row[6],
-                        row[7],
-                        Integer.parseInt(row[8])));
+                        Integer.parseInt(row[7])));
       }
     }
   }
@@ -87,7 +91,7 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     fw.append("Priority");
     fw.append("\n");
 
-    for (EquipRequest request : List.values()) {
+    for (EquipRequest request : List) {
       fw.append(request.getID());
       fw.append(",");
       fw.append(request.getName());
@@ -131,7 +135,7 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
                       + "time varchar(10) not null,"
                       + "pri int not null)");
 
-      for (EquipRequest currReq : List.values()) {
+      for (EquipRequest currReq : List) {
         statement.execute(
                 "INSERT INTO EquipRequest VALUES("
                         + "'"
@@ -160,7 +164,7 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
   }
 
   public void SQLToJava() {
-    List = new HashMap<String, EquipRequest>();
+    List = new ArrayList<EquipRequest>();
     try {
       ResultSet results;
       results = statement.executeQuery("SELECT * FROM EquipRequest");
@@ -178,9 +182,9 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
 
         EquipRequest SQLRow =
                 new EquipRequest(
-                        id, name, amount, type, checkEmployee(staff), destination, date, time, pri);
+                        id, name, amount, type, destination, date, time, pri);
 
-        List.put(id, SQLRow);
+        List.add(SQLRow);
       }
     } catch (SQLException e) {
       System.out.println("request not found");
@@ -193,7 +197,7 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     // display locations and attributes
     System.out.println(
             "ID |\t Name |\t Amount |\t Type |\t Staff |\t Destination |\t Date |\t Time |\t Priority");
-    for (EquipRequest request : this.List.values()) {
+    for (EquipRequest request : this.List) {
       System.out.println(
               request.ID
                       + " | \t"
@@ -223,7 +227,7 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     try {
       if (EmployeeDaoImpl.List.containsKey(data.getEmployee().getEmployeeID())) {
         data.setEmployee(EmployeeDaoImpl.List.get(data.getEmployee().getEmployeeID()));
-        this.List.put(data.ID, data);
+        this.List.add(data);
         this.JavaToSQL();
         this.JavaToCSV(csvFile);
       } else {
@@ -242,12 +246,12 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
    */
   @Override
   public void add(EquipRequest data) throws IOException {
-    if (List.containsKey(data.ID)) {
+    if (search(data.ID)!=-1) {
       System.out.println("A Request With This ID Already Exists");
     } else {
       if (EmployeeDaoImpl.List.containsKey(data.getEmployee().getEmployeeID())) {
         data.setEmployee(EmployeeDaoImpl.List.get(data.getEmployee().getEmployeeID()));
-        this.List.put(data.ID, data);
+        this.List.add(data);
         this.JavaToSQL();
         this.JavaToCSV(csvFile);
       } else {
@@ -273,10 +277,10 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     }
   }
 
-  @Override
+  /*@Override
   public int search(String id) {
     return 0;
-  }
+  }*/
 
   /**
    * Prompts user for the name of a new file and then creates the new file in the project folder
@@ -299,12 +303,12 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
     }
   }
 
-  /*@Override
+  @Override
   public int search(String id) { // TODO search
     int index = -1;
     for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).ID)) index = i;
     return index;
-  }*/
+  }
 
   public EquipRequest askUser() {
     Scanner reqInput = new Scanner(System.in);
@@ -335,7 +339,6 @@ public class EquipRequestDaoImpl implements DataDao<EquipRequest> {
             inputName,
             inputAmount,
             inputType,
-            empty,
             inputDestination,
             inputDate,
             inputTime,
