@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Employee;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
-import edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest.EquipRequest;
-
 import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
@@ -274,7 +272,6 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
   /**
    * Search for index with the employee ID
    *
-   * @param id
    * @return int
    */
   /*public int search(String id) {

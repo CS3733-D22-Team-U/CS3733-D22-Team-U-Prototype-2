@@ -5,7 +5,6 @@ import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Set;
 
 public class LocationDaoImpl implements DataDao<Location> {
 
@@ -26,6 +25,11 @@ public class LocationDaoImpl implements DataDao<Location> {
 
   // Takes in a CSV file and converts it to java objects
 
+  @Override
+  public HashMap<String, Location> list() {
+    return this.locations;
+  }
+
   /**
    * Reads CSV file and puts the Locations into an array list: locations
    *
@@ -33,7 +37,7 @@ public class LocationDaoImpl implements DataDao<Location> {
    */
   @Override
   public void CSVToJava() throws IOException {
-    locations = new ArrayList<Location>();
+    locations = new HashMap<String, Location>();
     String s;
     File file = new File(csvFile);
     BufferedReader br = new BufferedReader(new FileReader(file));
@@ -41,7 +45,8 @@ public class LocationDaoImpl implements DataDao<Location> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == 8)
-        locations.add(
+        locations.put(
+            row[0],
             new Location(
                 row[0],
                 Integer.parseInt(row[1]),
@@ -56,11 +61,6 @@ public class LocationDaoImpl implements DataDao<Location> {
 
   // This function converts all of the CSV information that is stored in Java objects and
   // puts them into the the SQL database
-
-  @Override
-  public ArrayList<Location> list() {
-    return locations;
-  }
 
   /**
    * Reads the array list: locations, then opens up a connection to the UDB database, then it
@@ -86,8 +86,7 @@ public class LocationDaoImpl implements DataDao<Location> {
               + "longName varchar(900) not null,"
               + "shortName varchar(600))");
 
-      for (int j = 0; j < locations.size(); j++) {
-        Location currLoc = locations.get(j);
+      for (Location currLoc : locations.values()) {
         statement.execute(
             "INSERT INTO Locations VALUES("
                 + "'"
@@ -123,7 +122,7 @@ public class LocationDaoImpl implements DataDao<Location> {
    */
   @Override
   public void SQLToJava() {
-    locations = new ArrayList<Location>();
+    locations = new HashMap<String, Location>();
 
     try {
       ResultSet results;
@@ -149,7 +148,7 @@ public class LocationDaoImpl implements DataDao<Location> {
         SQLRow.longName = longName;
         SQLRow.shortName = shortName;
 
-        locations.add(SQLRow);
+        locations.put(SQLRow.nodeID, SQLRow);
       }
     } catch (SQLException e) {
       System.out.println("location does not exist.");
@@ -216,7 +215,7 @@ public class LocationDaoImpl implements DataDao<Location> {
     // display locations and attributes
     System.out.println(
         "Node |\t X |\t Y |\t Level |\t Building |\t Type |\t Long Name |\t Short Name");
-    for (Location location : this.locations) {
+    for (Location location : this.locations.values()) {
       System.out.println(
           location.nodeID
               + " | \t"
@@ -249,9 +248,9 @@ public class LocationDaoImpl implements DataDao<Location> {
     // location type
     // input ID
     try {
-      list().set(search(data.nodeID), data);
-      this.JavaToSQL(); // t
-      this.JavaToCSV(csvFile); // t
+      locations.replace(data.nodeID, data);
+      this.JavaToSQL();
+      this.JavaToCSV(csvFile);
     } catch (Exception e) {
       System.out.println("This Object Does Not Exist");
     }
@@ -267,13 +266,16 @@ public class LocationDaoImpl implements DataDao<Location> {
   public void add(Location data) throws IOException {
     // add a new entry to the SQL table
     try {
-      locations.get(search(data.nodeID));
+      locations.get(data.nodeID);
       System.out.println("An Object With This ID Already Exists");
     } catch (Exception e) {
-      Location newLocation = data;
-      this.locations.add(newLocation);
-      this.JavaToSQL();
-      this.JavaToCSV(csvFile);
+      try {
+        this.locations.put(data.nodeID, data);
+        this.JavaToSQL();
+        this.JavaToCSV(csvFile);
+      } catch (Exception e1) {
+        System.out.println("No Such Staff Exists");
+      }
     }
   }
 
@@ -288,19 +290,12 @@ public class LocationDaoImpl implements DataDao<Location> {
   public void remove(Location data) throws IOException {
     // removes entries from SQL table that match input node
     try {
-      this.locations.remove(search(data.nodeID));
+      this.locations.remove(data.nodeID);
       this.JavaToSQL();
       this.JavaToCSV(csvFile);
     } catch (Exception e) {
       System.out.println("This Data Point Was Not Found");
     }
-  }
-
-  @Override
-  public int search(String id) { // TODO search
-    int index = -1;
-    for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).nodeID)) index = i;
-    return index;
   }
 
   /**

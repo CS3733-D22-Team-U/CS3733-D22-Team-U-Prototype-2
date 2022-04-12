@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 
 public class EquipRequest extends Request {
@@ -13,6 +14,7 @@ public class EquipRequest extends Request {
       String name,
       int amount,
       String typeOfRequest,
+      Employee employee,
       String destination,
       String date,
       String time,
@@ -21,6 +23,7 @@ public class EquipRequest extends Request {
     this.name = name;
     this.amount = amount;
     this.typeOfRequest = typeOfRequest;
+    this.employee = employee;
     this.destination = destination;
     this.date = date;
     this.time = time;

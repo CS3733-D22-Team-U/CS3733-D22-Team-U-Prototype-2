@@ -1,17 +1,17 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 
 public class LabRequest extends Request {
 
   String patient;
-  String staff;
 
   public LabRequest(
-      String ID, String patient, String staff, String name, String date, String time) {
+      String ID, String patient, Employee employee, String name, String date, String time) {
     this.ID = ID;
     this.patient = patient;
-    this.staff = staff;
+    this.employee = employee;
     this.name = name;
     this.date = date;
     this.time = time;
@@ -23,13 +23,5 @@ public class LabRequest extends Request {
 
   public void setPatient(String patient) {
     this.patient = patient;
-  }
-
-  public String getStaff() {
-    return staff;
-  }
-
-  public void setStaff(String staff) {
-    this.staff = staff;
   }
 }

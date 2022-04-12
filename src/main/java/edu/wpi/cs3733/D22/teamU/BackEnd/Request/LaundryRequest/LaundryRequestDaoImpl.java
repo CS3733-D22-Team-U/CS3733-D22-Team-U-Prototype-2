@@ -3,11 +3,8 @@ package edu.wpi.cs3733.D22.teamU.BackEnd.Request.LaundryRequest;
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
-import edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest.LabRequest;
-
 import java.io.*;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -22,8 +19,20 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
   }
 
   @Override
-  public  HashMap<String, LaundryRequest> hList() {
+  public HashMap<String, LaundryRequest> list() {
     return this.List;
+  }
+
+  // CHecks whether an employee exists
+  // Returns Employee if exists
+  // Returns empty employee with employee ID = N/A
+  public Employee checkEmployee(String employee) {
+    if (EmployeeDaoImpl.List.get(employee) != null) {
+      return EmployeeDaoImpl.List.get(employee);
+    } else {
+      Employee empty = new Employee("N/A");
+      return empty;
+    }
   }
 
   @Override
@@ -37,23 +46,11 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == columns) {
-        List.put(row[0], new LaundryRequest(row[0], row[1], row[2], checkEmployee(row[3]), row[4], row[5], row[6], row[7]));
+        List.put(
+            row[0],
+            new LaundryRequest(
+                row[0], row[1], row[2], checkEmployee(row[3]), row[4], row[5], row[6], row[7]));
       }
-    }
-  }
-
-  // CHecks whether an employee exists
-  // Returns Employee if exists
-  // Returns empty employee with employee ID = N/A
-  public Employee checkEmployee (String employee)
-  {
-    if (List.get(employee) != null)
-    {
-      return EmployeeDaoImpl.List.get(employee);
-    }
-    else {
-      Employee empty = new Employee("N/A");
-      return empty;
     }
   }
 
@@ -123,7 +120,8 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
         String time = results.getString("time");
 
         LaundryRequest SQLRow =
-            new LaundryRequest(ID, name, patientName, checkEmployee(staff), status, location, date, time);
+            new LaundryRequest(
+                ID, name, patientName, checkEmployee(staff), status, location, date, time);
 
         List.put(ID, SQLRow);
       }
@@ -180,7 +178,7 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
     CSVToJava();
     System.out.println(
         "ID |\t Type |\t Patient Name |\t Staff |\t Status |\t Location |\t Date |\t Time");
-    for (LaundryRequest request : this.laundryRequestsList) {
+    for (LaundryRequest request : this.List.values()) {
       System.out.println(
           request.ID
               + " | \t"
@@ -202,8 +200,11 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
 
   @Override
   public void edit(LaundryRequest data) throws IOException {
+    // takes entries from SQL table that match input node and updates it with a new floor and
+    // location type
+    // input ID
     try {
-      list().set(search(data.ID), data);
+      List.replace(data.ID, data);
       this.JavaToSQL();
       this.JavaToCSV(csvFile);
     } catch (Exception e) {
@@ -214,31 +215,30 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
   @Override
   public void add(LaundryRequest data) throws IOException {
     try {
-      laundryRequestsList.get(search(data.ID));
-      System.out.println("A Request With This ID Already Exists");
+      List.get(data.ID);
+      if (EmployeeDaoImpl.List.containsKey(data.getEmployee().getEmployeeID())) {
+        data.setEmployee(EmployeeDaoImpl.List.get(data.getEmployee().getEmployeeID()));
+        this.List.put(data.ID, data);
+        this.JavaToSQL();
+        this.JavaToCSV(csvFile);
+      } else {
+        System.out.println("NO SUch STAFF");
+      }
     } catch (Exception e) {
-      this.laundryRequestsList.add(data);
-      this.JavaToSQL();
-      this.JavaToCSV(csvFile);
+      System.out.println("A Request With This ID Already Exists");
     }
   }
 
   @Override
   public void remove(LaundryRequest data) throws IOException {
+    // removes entries from SQL table that match input node
     try {
-      this.laundryRequestsList.remove(search(data.ID));
+      this.List.remove(data.ID);
       this.JavaToSQL();
       this.JavaToCSV(csvFile);
     } catch (Exception e) {
       System.out.println("This Data Point Was Not Found");
     }
-  }
-
-  @Override
-  public int search(String id) {
-    int index = -1;
-    for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).ID)) index = i;
-    return index;
   }
 
   @Override
@@ -277,14 +277,9 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
     System.out.println("Staff Name: ");
     inputStaff = labInput.nextLine();
 
+    Employee empty = new Employee(inputStaff);
+
     return new LaundryRequest(
-        inputID,
-        inputName,
-        inputPatient,
-        EmployeeDaoImpl.hList.get(inputStaff),
-        inputStatus,
-        inputLocation,
-        inputDate,
-        inputTime);
+        inputID, inputName, inputPatient, empty, inputStatus, inputLocation, inputDate, inputTime);
   }
 }

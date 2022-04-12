@@ -42,11 +42,10 @@ public abstract class Request {
   }
 
   public Employee getEmployee() {
-    return employee;
+    return this.employee;
   }
 
   public void setEmployee(Employee employee) {
     this.employee = employee;
   }
-
 }
