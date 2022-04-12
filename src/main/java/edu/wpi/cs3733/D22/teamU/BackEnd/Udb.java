@@ -26,6 +26,22 @@ public final class Udb {
 
   private static Udb Instance;
 
+  public String DB_LOC = "jdbc:derby:UDB;";
+  public String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+
+  public void changeDriver(boolean change) {
+    // embedded driver
+
+
+    if (change) {
+      DB_LOC = "jdbc:derby:UDB;";
+      driver = "org.apache.derby.jdbc.EmbeddedDriver";
+    } else {
+      DB_LOC = "jdbc:derby://localhost:1527/UDBClient;";
+      driver = "org.apache.derby.jdbc.ClientDriver";
+    }
+  }
+
   public static Udb getInstance(String username, String password, String[] CSVfiles)
       throws IOException, SQLException {
     if (Instance == null) {
@@ -35,7 +51,6 @@ public final class Udb {
     return Instance;
   }
 
-  public String DB_LOC = "jdbc:derby:UDB;";
   public Connection connection;
 
   public LocationDaoImpl locationImpl;
@@ -50,11 +65,13 @@ public final class Udb {
   private Udb(String username, String password, String[] CSVfiles)
       throws IOException, SQLException {
 
+    this.changeDriver(false);
+
     Statement statement = null;
     String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
 
     try {
-      Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+      Class.forName(driver);
     } catch (ClassNotFoundException e) {
       System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
       System.out.println("For IntelliJ do the following:");
