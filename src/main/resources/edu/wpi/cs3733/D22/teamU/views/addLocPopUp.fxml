@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="pane" prefHeight="277.0" prefWidth="284.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.LocationAddController">
+<AnchorPane fx:id="pane" prefHeight="277.0" prefWidth="284.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#054f99f2" height="334.0" layoutY="-11.0" stroke="BLACK" strokeType="INSIDE" width="305.0" />
         <!--<Button fx:id="exit" layoutX="473.0" layoutY="45.0" mnemonicParsing="false" onAction="#Exit" text="X" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />-->
@@ -21,19 +21,19 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="25.0" minHeight="7.0" prefHeight="7.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="25.0" minHeight="7.0" prefHeight="7.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="43.333333333333336" minHeight="25.0" prefHeight="43.333333333333336" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="43.333333333333336" minHeight="7.333333333333332" prefHeight="7.333333333333332" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="43.333333333333336" minHeight="7.333333333333332" prefHeight="7.333333333333332" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="25.0" minHeight="7.333333333333332" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="25.0" minHeight="7.333333333333332" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="25.0" minHeight="7.333333333333332" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="25.0" minHeight="7.333333333333332" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="25.0" minHeight="7.333333333333332" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="25.0" minHeight="7.333333333333332" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="25.0" minHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="25.0" minHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="25.0" minHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="25.0" minHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
@@ -45,28 +45,28 @@
                 <Label prefHeight="18.0" prefWidth="123.0" text="nodeType" textFill="WHITE" GridPane.rowIndex="10" />
                 <Label prefHeight="18.0" prefWidth="127.0" text="longName" textFill="WHITE" GridPane.rowIndex="12" />
                 <Label prefHeight="18.0" prefWidth="83.0" text="shortName" textAlignment="RIGHT" textFill="WHITE" GridPane.rowIndex="14" />
-                <TextField fx:id="nodeID" prefHeight="11.0" prefWidth="120.0" GridPane.columnIndex="1" />
-                <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="xcoord" />
-                <TextField fx:id="ycoord" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <TextField fx:id="longName" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                <TextField fx:id="shortName" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-            <ComboBox fx:id="nodeTypeCombo" prefWidth="150.0" style="-fx-background-color: WHITE;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <ComboBox fx:id="buildingCombo" prefWidth="150.0" style="-fx-background-color: WHITE;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <ComboBox fx:id="floorCombo" prefWidth="150.0" style="-fx-background-color: WHITE;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <TextField fx:id="addNodeID" prefHeight="11.0" prefWidth="120.0" GridPane.columnIndex="1" />
+                <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="addXcoord" />
+                <TextField fx:id="addYcoord" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="addLongName" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                <TextField fx:id="addShortName" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                <ComboBox fx:id="addNodeTypeCombo" prefWidth="150.0" style="-fx-background-color: WHITE;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                <ComboBox fx:id="addBuildingCombo" prefWidth="150.0" style="-fx-background-color: WHITE;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                <ComboBox fx:id="addFloorCombo" prefWidth="150.0" style="-fx-background-color: WHITE;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             </children>
         </GridPane>
         <GridPane layoutX="110.0" layoutY="270.0" prefHeight="41.0" prefWidth="141.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.6666259765625" minWidth="10.0" prefWidth="77.6666259765625" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.6666259765625" minWidth="1.0000203450520928" prefWidth="19.666707356770843" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.6666259765625" minWidth="10.0" prefWidth="68.33329264322916" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.6666259765625" minWidth="1.0000203450520928" prefWidth="19.666707356770843" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.6666259765625" minWidth="10.0" prefWidth="68.33329264322916" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button layoutX="20.0" layoutY="5.0" mnemonicParsing="false" onMouseClicked="#addRequest" prefHeight="31.0" prefWidth="67.0" style="-fx-background-color: #89D7BF;" text="Add" textFill="WHITE" />
-           <!-- <Button mnemonicParsing="false" onMouseClicked="#toMap" prefHeight="31.0" prefWidth="75.0" style="-fx-background-color: #89D7BF;" text="Close" textFill="WHITE" GridPane.columnIndex="2" />-->
+                <Button fx:id="addButton" layoutX="20.0" layoutY="5.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="67.0" style="-fx-background-color: #89D7BF;" text="Add" textFill="WHITE" />
+                <!-- <Button mnemonicParsing="false" onMouseClicked="#toMap" prefHeight="31.0" prefWidth="75.0" style="-fx-background-color: #89D7BF;" text="Close" textFill="WHITE" GridPane.columnIndex="2" />-->
             </children>
         </GridPane>
     </children>

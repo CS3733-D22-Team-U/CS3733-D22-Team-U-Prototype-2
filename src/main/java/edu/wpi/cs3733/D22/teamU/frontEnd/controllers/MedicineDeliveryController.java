@@ -3,18 +3,26 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class MedicineDeliveryController extends ServiceController {
 
@@ -51,6 +59,8 @@ public class MedicineDeliveryController extends ServiceController {
   @FXML VBox vBoxPane;
   @FXML Pane pane;
   @FXML Pane assistPane;
+  @FXML AnchorPane bigPane;
+  @FXML TabPane tab;
 
   public void enableTxt() {
 
@@ -218,13 +228,24 @@ public class MedicineDeliveryController extends ServiceController {
           if (pane.isDisable()) {
             hamburger.setPrefWidth(200);
             pane.setEffect(new GaussianBlur(10));
+            // tab.setEffect(new GaussianBlur(10));
+            // tab.setDisable(true);
             assistPane.setDisable(true);
           } else {
             pane.setEffect(null);
+            // tab.setEffect(null);
+            // tab.setDisable(false);
             hamburger.setPrefWidth(77);
             assistPane.setDisable(false);
           }
         });
+  }
+
+  public void toMedHelp(ActionEvent actionEvent) throws IOException {
+    Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/medHelp.fxml");
+    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    appStage.setScene(scene);
+    appStage.show();
   }
 
   @Override

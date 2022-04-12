@@ -1,9 +1,14 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Location;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest.EquipRequest;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
+import edu.wpi.cs3733.D22.teamU.DBController;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class LocationDaoImpl implements DataDao<Location> {
@@ -59,6 +64,11 @@ public class LocationDaoImpl implements DataDao<Location> {
   @Override
   public ArrayList<Location> list() {
     return locations;
+  }
+
+  @Override
+  public HashMap<String, Location> hList() {
+    return null;
   }
 
   /**
@@ -286,7 +296,15 @@ public class LocationDaoImpl implements DataDao<Location> {
   @Override
   public void remove(Location data) throws IOException {
     // removes entries from SQL table that match input node
+    Udb udb = DBController.udb;
     try {
+      Location temp = locations.get(search(data.nodeID));
+      System.out.println(data.getRequests().size());
+      for (Request e : temp.getRequests()) {
+        if (e instanceof EquipRequest) udb.equipRequestImpl.hList().remove(e.getID());
+      }
+      udb.equipRequestImpl.JavaToCSV(udb.equipRequestImpl.csvFile);
+      udb.equipRequestImpl.JavaToSQL();
       this.locations.remove(search(data.nodeID));
       this.JavaToSQL();
       this.JavaToCSV(csvFile);

@@ -66,7 +66,6 @@ public final class Udb {
   public LocationDaoImpl locationImpl;
   public EquipmentDaoImpl EquipmentImpl;
   public EmployeeDaoImpl EmployeeImpl;
-
   public EquipRequestDaoImpl equipRequestImpl;
   public LabRequestDaoImpl labRequestImpl;
   public LaundryRequestDaoImpl laundryRequestImpl;
@@ -175,7 +174,7 @@ public final class Udb {
     EquipmentImpl.CSVToJava(locationImpl.list());
     EquipmentImpl.JavaToSQL();
 
-    equipRequestImpl.CSVToJava();
+    equipRequestImpl.CSVToJava(locationImpl.list());
     equipRequestImpl.JavaToSQL();
 
     labRequestImpl.CSVToJava();

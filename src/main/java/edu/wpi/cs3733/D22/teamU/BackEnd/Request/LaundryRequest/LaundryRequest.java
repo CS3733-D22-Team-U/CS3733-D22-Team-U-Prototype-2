@@ -1,19 +1,19 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.LaundryRequest;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 
 public class LaundryRequest extends Request {
 
   String patientName;
-  String staff;
   String status;
-  String location;
+  String destination;
 
   public LaundryRequest(
       String ID,
       String name,
       String patientName,
-      String staff,
+      Employee employee,
       String status,
       String location,
       String date,
@@ -21,9 +21,9 @@ public class LaundryRequest extends Request {
     this.ID = ID;
     this.name = name; // type of lab request
     this.patientName = patientName;
-    this.staff = staff;
+    this.employee = employee;
     this.status = status;
-    this.location = location;
+    this.destination = location;
     this.date = date;
     this.time = time;
   }
@@ -36,14 +36,6 @@ public class LaundryRequest extends Request {
     this.patientName = patientName;
   }
 
-  public String getStaff() {
-    return staff;
-  }
-
-  public void setStaff(String staff) {
-    this.staff = staff;
-  }
-
   public String getStatus() {
     return status;
   }
@@ -52,11 +44,11 @@ public class LaundryRequest extends Request {
     this.status = status;
   }
 
-  public String getLocation() {
-    return location;
+  public String getDestination() {
+    return destination;
   }
 
-  public void setLocation(String location) {
-    this.location = location;
+  public void setDestination(String location) {
+    this.destination = location;
   }
 }

@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Uapp extends Application {
 
+  public static boolean running = false;
+
   @Override
   public void init() {
     log.info("Starting Up");
@@ -20,7 +22,8 @@ public class Uapp extends Application {
 
   @Override
   public void start(Stage primaryStage) throws IOException {
-    Scene scene = getScene("edu/wpi/cs3733/D22/teamU/views/HomePage.fxml");
+    Scene scene = getScene("edu/wpi/cs3733/D22/teamU/views/loginPage.fxml");
+    running = true;
     URL a =
         Uapp.class.getClassLoader().getResource("edu/wpi/cs3733/D22/teamU/icons/hospitalIcon.png");
     primaryStage.getIcons().add(new Image(String.valueOf(a)));
@@ -32,6 +35,7 @@ public class Uapp extends Application {
 
   @Override
   public void stop() {
+    running = false;
     log.info("Shutting Down");
   }
 

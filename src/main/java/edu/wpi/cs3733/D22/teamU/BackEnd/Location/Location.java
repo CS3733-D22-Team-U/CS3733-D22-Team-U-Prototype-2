@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Location;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ public class Location {
   String longName;
   String shortName;
   ArrayList<Equipment> equipment = new ArrayList<>();
-
+  ArrayList<Request> requests = new ArrayList<>();
   /** Empty constructor */
   public Location() {}
 
@@ -165,6 +166,14 @@ public class Location {
 
   public void addEquipment(Equipment e) {
     equipment.add(e);
+  }
+
+  public void addRequest(Request e) {
+    requests.add(e);
+  }
+
+  public ArrayList<Request> getRequests() {
+    return requests;
   }
 
   @Override
