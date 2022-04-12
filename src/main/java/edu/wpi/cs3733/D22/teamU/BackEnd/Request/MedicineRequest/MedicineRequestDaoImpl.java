@@ -1,32 +1,50 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.MedicineRequest;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
-
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
 import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
     public Statement statement;
-    public ArrayList<MedicineRequest> medicineRequestList = new ArrayList<MedicineRequest>();
     public String csvFile;
+    public HashMap<String, MedicineRequest> List = new HashMap<String, MedicineRequest>();
+    public ArrayList<MedicineRequest> list = new ArrayList<MedicineRequest>();
 
-    public MedicineRequestDaoImpl(Statement statement, String csvfile)
-    {
+    public MedicineRequestDaoImpl(Statement statement, String csvfile) {
         this.csvFile = csvfile;
         this.statement = statement;
     }
 
     @Override
-    public ArrayList<MedicineRequest> list(){
-        return medicineRequestList;
+    public ArrayList<MedicineRequest> list() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, MedicineRequest> hList() {
+        return this.List;
+    }
+    // CHecks whether an employee exists
+    // Returns Employee if exists
+    // Returns empty employee with employee ID = N/A
+    public Employee checkEmployee(String employee) {
+        if (EmployeeDaoImpl.List.get(employee) != null) {
+            return EmployeeDaoImpl.List.get(employee);
+        } else {
+            Employee empty = new Employee("N/A");
+            return empty;
+        }
     }
 
     public void CSVToJava() throws IOException {
-        medicineRequestList = new ArrayList<MedicineRequest>();
+        List = new HashMap<String, MedicineRequest>();
         String s;
         File file = new File(csvFile);
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -34,16 +52,10 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
         while ((s = br.readLine()) != null) {
             String[] row = s.split(",");
             if (row.length == 8) {
-                medicineRequestList.add(
+                List.put(
+                        row[0],
                         new MedicineRequest(
-                                row[0],
-                                row[1],
-                                row[2],
-                                row[3],
-                                row[4],
-                                row[5],
-                                row[6],
-                                row[7]));
+                                row[0], row[1], row[2], row[3], checkEmployee(row[4]), row[5], row[6], row[7]));
             }
         }
     }
@@ -68,24 +80,22 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
         fw.append("Time");
         fw.append("\n");
 
-        for (int i = 0;
-             i < medicineRequestList.size();
-             i++) { // ask about how this was working without and = sign
-            fw.append(medicineRequestList.get(i).getID());
+        for (MedicineRequest request : List.values()) {
+            fw.append(request.getID());
             fw.append(",");
-            fw.append(medicineRequestList.get(i).getName());
+            fw.append(request.getName());
             fw.append(",");
-            fw.append(medicineRequestList.get(i).getPatientName());
+            fw.append(request.getPatientName());
             fw.append(",");
-            fw.append(medicineRequestList.get(i).getStatus());
+            fw.append(request.getStatus());
             fw.append(",");
-            fw.append(medicineRequestList.get(i).getEmployeeName());
+            fw.append(request.getEmployee().getEmployeeID());
             fw.append(",");
+            fw.append(request.getLocation());
             fw.append(",");
-            fw.append(medicineRequestList.get(i).getLocation());
-            fw.append(medicineRequestList.get(i).getDate());
+            fw.append(request.getDate());
             fw.append(",");
-            fw.append(medicineRequestList.get(i).getTime());
+            fw.append(request.getTime());
             fw.append("\n");
         }
         fw.close();
@@ -106,12 +116,11 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
                             + "name varchar(50) not null, "
                             + "patientName varchar(50) not null, "
                             + "status varchar(50) not null, "
-                            + "employeeName varchar(50) not null, "
+                            + "staff varchar(50) not null, "
                             + "location varchar(50) not null, "
                             + "date varchar(10) not null, "
-                            + "time varchar(10) not null, ");
-            for (int j = 0; j < medicineRequestList.size(); j++) {
-                MedicineRequest currReq = medicineRequestList.get(j);
+                            + "time varchar(10) not null)");
+            for (MedicineRequest currReq : List.values()) {
                 statement.execute(
                         "INSERT INTO MedicineRequest VALUES("
                                 + "'"
@@ -123,7 +132,7 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
                                 + "','"
                                 + currReq.getStatus()
                                 + "','"
-                                + currReq.getEmployeeName()
+                                + currReq.getEmployee().getEmployeeID()
                                 + "','"
                                 + currReq.getLocation()
                                 + "','"
@@ -138,7 +147,7 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
     }
 
     public void SQLToJava() {
-        medicineRequestList = new ArrayList<MedicineRequest>();
+        List = new HashMap<String, MedicineRequest>();
         try {
             ResultSet results;
             results = statement.executeQuery("SELECT * FROM MedicineRequest");
@@ -148,16 +157,16 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
                 String name = results.getString("name");
                 String patientName = results.getString("patientName");
                 String status = results.getString("status");
-                String employeeName = results.getString("employeeName");
+                String staff = results.getString("staff");
                 String location = results.getString("location");
                 String date = results.getString("date");
                 String time = results.getString("time");
 
-
                 MedicineRequest SQLRow =
-                        new MedicineRequest(id, name, patientName, status, employeeName, location, date, time);
+                        new MedicineRequest(
+                                id, name, patientName, status, checkEmployee(staff), location, date, time);
 
-                medicineRequestList.add(SQLRow);
+                List.put(id, SQLRow);
             }
         } catch (SQLException e) {
             System.out.println("request not found");
@@ -169,8 +178,8 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
         CSVToJava();
         // display locations and attributes
         System.out.println(
-                "ID |\t Name |\t Amount |\t Type |\t Destination |\t Date |\t Time |\t Priority");
-        for (MedicineRequest request : this.medicineRequestList) {
+                "ID |\t Name |\t Patient Name |\t Status |\t Employee Name |\t Location |\t Date |\t Time");
+        for (MedicineRequest request : this.List.values()) {
             System.out.println(
                     request.ID
                             + " | \t"
@@ -180,26 +189,30 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
                             + " | \t"
                             + request.status
                             + " | \t"
-                            + request.employeeName
+                            + request.employee.getEmployeeID()
                             + " | \t"
                             + request.location
                             + " | \t"
                             + request.date
                             + " | \t"
-                            + request.time
-                            );
+                            + request.time);
         }
     }
 
     @Override
-    public void edit(MedicineRequest data) {
+    public void edit(MedicineRequest data) throws IOException {
         // takes entries from SQL table that match input node and updates it with a new floor and
         // location type
         // input ID
         try {
-            list().set(search(data.ID), data);
-            this.JavaToSQL(); // t
-            this.JavaToCSV(csvFile); // t
+            if (EmployeeDaoImpl.List.containsKey(data.getEmployee().getEmployeeID())) {
+                data.setEmployee(EmployeeDaoImpl.List.get(data.getEmployee().getEmployeeID()));
+                this.List.put(data.ID, data);
+                this.JavaToSQL();
+                this.JavaToCSV(csvFile);
+            } else {
+                System.out.println("NO SUch STAFF");
+            }
         } catch (Exception e) {
             System.out.println("This Object Does Not Exist");
         }
@@ -207,15 +220,17 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
 
     @Override
     public void add(MedicineRequest data) throws IOException {
-        // add a new entry to the SQL table
-        try {
-            medicineRequestList.get(search(data.ID));
-            System.out.println("An Object With This ID Already Exists");
-        } catch (Exception e) {
-            MedicineRequest newMedicineRequest = data;
-            this.medicineRequestList.add(newMedicineRequest);
-            this.JavaToSQL();
-            this.JavaToCSV(csvFile);
+        if (List.containsKey(data.ID)) {
+            System.out.println("A Request With This ID Already Exists");
+        } else {
+            if (EmployeeDaoImpl.List.containsKey(data.getEmployee().getEmployeeID())) {
+                data.setEmployee(EmployeeDaoImpl.List.get(data.getEmployee().getEmployeeID()));
+                this.List.put(data.ID, data);
+                this.JavaToSQL();
+                this.JavaToCSV(csvFile);
+            } else {
+                System.out.println("NO SUch STAFF");
+            }
         }
     }
 
@@ -223,12 +238,17 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
     public void remove(MedicineRequest data) throws IOException {
         // removes entries from SQL table that match input node
         try {
-            this.medicineRequestList.remove(search(data.ID));
+            this.List.remove(data.ID);
             this.JavaToSQL();
             this.JavaToCSV(csvFile);
         } catch (Exception e) {
             System.out.println("This Data Point Was Not Found");
         }
+    }
+
+    @Override
+    public int search(String id) {
+        return 0;
     }
 
     public void saveTableAsCSV(String CSVName) throws SQLException {
@@ -246,13 +266,6 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
         }
     }
 
-    @Override
-    public int search(String id) { // TODO search
-        int index = -1;
-        for (int i = 0; i < list().size(); i++) if (id.equals(list().get(i).ID)) index = i;
-        return index;
-    }
-
     public MedicineRequest askUser() {
         Scanner reqInput = new Scanner(System.in);
 
@@ -260,11 +273,10 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
         String inputName = "N/A";
         String inputPatientName = "N/A";
         String inputStatus = "N/A";
-        String inputEmployeeName = "N/A";
+        String inputStaff = "N/A";
         String inputLocation = "N/A";
         String inputDate = "N/A";
         String inputTime = "N/A";
-
 
         System.out.println("Input request ID: ");
         inputID = reqInput.nextLine();
@@ -272,12 +284,17 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
         System.out.println("Input name: ");
         inputName = reqInput.nextLine();
 
+        System.out.println("Input Staff name: ");
+        inputStaff = reqInput.nextLine();
+
+        Employee empty = new Employee(inputStaff);
+
         return new MedicineRequest(
                 inputID,
                 inputName,
                 inputPatientName,
                 inputStatus,
-                inputEmployeeName,
+                empty,
                 inputLocation,
                 inputDate,
                 inputTime);

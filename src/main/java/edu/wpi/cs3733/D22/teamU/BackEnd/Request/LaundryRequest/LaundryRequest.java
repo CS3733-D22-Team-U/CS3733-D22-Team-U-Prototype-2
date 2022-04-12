@@ -1,20 +1,20 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.LaundryRequest;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 
 public class LaundryRequest extends Request {
 
     String patientName;
-    String staff;
     String status;
     String location;
 
     public LaundryRequest(
-            String ID, String name, String patientName, String staff, String status, String location, String date, String time) {
+            String ID, String name, String patientName, Employee employee, String status, String location, String date, String time) {
         this.ID = ID;
         this.name = name;           // type of lab request
         this.patientName = patientName;
-        this.staff = staff;
+        this.employee = employee;
         this.status = status;
         this.location = location;
         this.date = date;
@@ -27,14 +27,6 @@ public class LaundryRequest extends Request {
 
     public void setPatientName(String patientName) {
         this.patientName = patientName;
-    }
-
-    public String getStaff() {
-        return staff;
-    }
-
-    public void setStaff(String staff) {
-        this.staff = staff;
     }
 
     public String getStatus() {
