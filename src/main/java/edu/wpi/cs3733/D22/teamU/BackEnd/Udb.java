@@ -28,10 +28,14 @@ public final class Udb {
 
   public String DB_LOC = "jdbc:derby:UDB;";
   public String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+  public String[] CSVfiles;
+  public String username;
+  public String password;
 
-  public void changeDriver(boolean change) {
+  public void changeDriver(boolean change) throws IOException, SQLException {
     // embedded driver
 
+    // this.closeConnection();
 
     if (change) {
       DB_LOC = "jdbc:derby:UDB;";
@@ -40,6 +44,10 @@ public final class Udb {
       DB_LOC = "jdbc:derby://localhost:1527/UDBClient;";
       driver = "org.apache.derby.jdbc.ClientDriver";
     }
+
+    authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
+
+    databaseInit();
   }
 
   public static Udb getInstance(String username, String password, String[] CSVfiles)
@@ -52,6 +60,8 @@ public final class Udb {
   }
 
   public Connection connection;
+  public Statement statement;
+  public String authentication;
 
   public LocationDaoImpl locationImpl;
   public EquipmentDaoImpl EquipmentImpl;
@@ -65,10 +75,9 @@ public final class Udb {
   private Udb(String username, String password, String[] CSVfiles)
       throws IOException, SQLException {
 
-    this.changeDriver(false);
-
-    Statement statement = null;
-    String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
+    this.CSVfiles = CSVfiles;
+    statement = null;
+    authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
 
     try {
       Class.forName(driver);
@@ -86,13 +95,21 @@ public final class Udb {
 
     System.out.println("Apache Derby driver registered!");
 
+    // create connection
+    // databaseCreate();
+    // databaseInit();
+    changeDriver(false);
+  }
+
+  public void databaseCreate() throws SQLException {
     try {
       Connection DBThere = DriverManager.getConnection(authentication);
       DBThere.close();
 
     } catch (Exception e) {
-      Connection connection = DriverManager.getConnection(authentication + "create=true;");
-      Statement makingDB = connection.createStatement();
+      Connection connectionInit = null;
+      connectionInit = DriverManager.getConnection(authentication + "create=true;");
+      Statement makingDB = connectionInit.createStatement();
 
       makingDB.executeUpdate(
           "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.connection.requireAuthentication',true)");
@@ -119,10 +136,14 @@ public final class Udb {
           "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY("
               + "'derby.database.readOnlyAccessUsers', 'staff')");
 
-      connection.close();
+      connectionInit.close();
     }
+  }
 
-    // create connection
+  public void databaseInit() throws IOException, SQLException {
+
+    databaseCreate();
+
     try {
       connection = null;
       connection = DriverManager.getConnection(authentication);
