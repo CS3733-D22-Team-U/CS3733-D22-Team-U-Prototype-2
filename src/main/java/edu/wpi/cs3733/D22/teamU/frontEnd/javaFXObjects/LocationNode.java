@@ -24,6 +24,11 @@ public class LocationNode extends Group {
     this.pane = pane;
     this.x = x;
     this.y = y;
+    Color color;
+    if (location.getRequests().size() > 0) {
+      color = Color.YELLOW;
+    } else color = Color.BLACK;
+
     if (location.getEquipment().size() > 0) {
       Rectangle r = new Rectangle();
       r.setX(x - scale);
@@ -31,8 +36,8 @@ public class LocationNode extends Group {
       r.setHeight(2 * scale);
       r.setY(y - scale);
       setColor(r);
-      r.setStroke(Color.BLACK);
-      r.setStrokeWidth(1);
+      r.setStroke(color);
+      r.setStrokeWidth(5);
       getChildren().add(r);
     } else {
       Circle c = new Circle();
@@ -40,8 +45,8 @@ public class LocationNode extends Group {
       c.setCenterX(x);
       c.setRadius(scale);
       setColor(c);
-      c.setStroke(Color.BLACK);
-      c.setStrokeWidth(1);
+      c.setStroke(color);
+      c.setStrokeWidth(5);
       getChildren().add(c);
     }
   }

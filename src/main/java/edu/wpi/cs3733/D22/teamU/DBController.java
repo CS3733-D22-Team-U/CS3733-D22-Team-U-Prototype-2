@@ -64,7 +64,7 @@ public class DBController {
       location, employee, equipment, request, LabRequest, locationTest, equipmentTest
     };
 
-    udb = new Udb(username, password, CSVfiles);
+    udb = Udb.getInstance(username, password, CSVfiles);
 
     // Testing testing = new Testing(CSVfiles, udb);
     // Testing testing = new Testing(CSVfiles, udb);

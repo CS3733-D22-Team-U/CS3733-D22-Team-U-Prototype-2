@@ -1,13 +1,12 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest;
 
-public class EquipRequest {
-  String ID;
-  String name;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
+
+public class EquipRequest extends Request {
   int amount;
   String typeOfRequest;
   String destination;
-  String date;
-  String time;
   int pri;
 
   public EquipRequest(
@@ -15,6 +14,7 @@ public class EquipRequest {
       String name,
       int amount,
       String typeOfRequest,
+      Employee employee,
       String destination,
       String date,
       String time,
@@ -23,18 +23,11 @@ public class EquipRequest {
     this.name = name;
     this.amount = amount;
     this.typeOfRequest = typeOfRequest;
+    this.employee = employee;
     this.destination = destination;
     this.date = date;
     this.time = time;
     this.pri = pri;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public int getAmount() {
@@ -43,22 +36,6 @@ public class EquipRequest {
 
   public void setAmount(int amount) {
     this.amount = amount;
-  }
-
-  public String getDate() {
-    return date;
-  }
-
-  public void setDate(String date) {
-    this.date = date;
-  }
-
-  public String getTime() {
-    return time;
-  }
-
-  public void setTime(String time) {
-    this.time = time;
   }
 
   public String getType() {
@@ -75,14 +52,6 @@ public class EquipRequest {
 
   public void setDestination(String newDestination) {
     this.destination = newDestination;
-  }
-
-  public String getID() {
-    return this.ID;
-  }
-
-  public void setID(String newID) {
-    this.ID = newID;
   }
 
   public int getPri() {

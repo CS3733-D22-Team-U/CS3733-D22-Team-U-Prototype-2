@@ -1,32 +1,23 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Request;
 
-public class Request {
-  String ID;
-  String name;
-  int amount;
-  String typeOfRequest;
-  String destination;
-  String date;
-  String time;
-  int pri;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
+import java.util.ArrayList;
 
-  public Request(
-      String ID,
-      String name,
-      int amount,
-      String typeOfRequest,
-      String destination,
-      String date,
-      String time,
-      int pri) {
+public abstract class Request {
+  public String ID;
+  public String name;
+  public String date;
+  public String time;
+  public Employee employee;
+  public Location location;
+
+  public String getID() {
+    return ID;
+  }
+
+  public void setID(String ID) {
     this.ID = ID;
-    this.name = name;
-    this.amount = amount;
-    this.typeOfRequest = typeOfRequest;
-    this.destination = destination;
-    this.date = date;
-    this.time = time;
-    this.pri = pri;
   }
 
   public String getName() {
@@ -35,14 +26,6 @@ public class Request {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public int getAmount() {
-    return amount;
-  }
-
-  public void setAmount(int amount) {
-    this.amount = amount;
   }
 
   public String getDate() {
@@ -61,35 +44,27 @@ public class Request {
     this.time = time;
   }
 
-  public String getType() {
-    return this.typeOfRequest;
+  public Employee getEmployee() {
+    return employee;
   }
 
-  public String getDestination() {
-    return this.destination;
+  public void setEmployee(Employee employee) {
+    this.employee = employee;
   }
 
-  public void setType(String newType) {
-    this.typeOfRequest = newType;
+  public void setLocation(Location location) {
+    this.location = location;
   }
 
-  public void setDestination(String newDestination) {
-    this.destination = newDestination;
+  public void updateLocation(String dest, ArrayList<Location> locations) {
+    Location temp = new Location();
+    temp.setNodeID(dest);
+    Location l = locations.get(locations.indexOf(temp));
+    l.addRequest(this);
+    setLocation(l);
   }
 
-  public String getID() {
-    return this.ID;
-  }
-
-  public void setID(String newID) {
-    this.ID = newID;
-  }
-
-  public int getPri() {
-    return this.pri;
-  }
-
-  public void setPri(int newPri) {
-    this.pri = newPri;
+  public Location getLocation() {
+    return location;
   }
 }
