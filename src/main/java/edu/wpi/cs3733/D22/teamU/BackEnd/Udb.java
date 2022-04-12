@@ -35,7 +35,7 @@ public final class Udb {
   public void changeDriver(boolean change) throws IOException, SQLException {
     // embedded driver
 
-    // this.closeConnection();
+    this.closeConnection();
 
     if (change) {
       DB_LOC = "jdbc:derby:UDB;";
@@ -75,9 +75,18 @@ public final class Udb {
   private Udb(String username, String password, String[] CSVfiles)
       throws IOException, SQLException {
 
+    this.username = username;
+    this.password = password;
     this.CSVfiles = CSVfiles;
     statement = null;
     authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
+
+    databaseInit();
+    // create connection
+
+  }
+
+  public void databaseCreate() throws SQLException {
 
     try {
       Class.forName(driver);
@@ -95,13 +104,6 @@ public final class Udb {
 
     System.out.println("Apache Derby driver registered!");
 
-    // create connection
-    // databaseCreate();
-    // databaseInit();
-    changeDriver(false);
-  }
-
-  public void databaseCreate() throws SQLException {
     try {
       Connection DBThere = DriverManager.getConnection(authentication);
       DBThere.close();
@@ -359,7 +361,8 @@ public final class Udb {
             + "5 - Lab Request\n"
             + "6 - Laundry Request\n"
             + "7 - Medicine Request\n"
-            + "8 - Quit\n");
+            + "8 - Change Server\n"
+            + "9 - Quit\n");
 
     switch (userInput.nextInt()) {
       case 1:
@@ -387,9 +390,29 @@ public final class Udb {
         break;
 
       case 8:
+        serveChangeMenu();
+        break;
+
+      case 9:
         // exits whole menu
         break;
     }
+  }
+
+  private void serveChangeMenu() throws SQLException, IOException {
+    Scanner changeInput = new Scanner(System.in);
+    System.out.println("Press 1 for Embedded Database\n" + "Press 2 for Client Server Database\n");
+
+    int a = changeInput.nextInt();
+
+    if (a == 1) {
+      this.changeDriver(true);
+    } else if (a == 2) {
+      this.changeDriver(false);
+    } else {
+      System.out.println("Not an option");
+    }
+    menu();
   }
 
   private void locationMenu() throws SQLException, IOException {
