@@ -203,13 +203,14 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
 
     CSVToJava(); // t
     Set<String> keys = List.keySet();
-    for (String i : keys) {
-      if (this.List.get(i).employeeID.equals(data.getEmployeeID())) {
-        this.List.get(i).occupation = data.getOccupation();
-        this.List.get(i).reports = data.getReports();
-        this.List.get(i).username = data.getUsername();
-        this.List.get(i).password = data.getPassword();
-      }
+
+    if(List.containsKey(data.getEmployeeID()))
+    {
+      List.replace(data.getEmployeeID(), data);
+    }
+    else
+    {
+      System.out.println("Doesn't Exist");
     }
     this.JavaToSQL(); // t
     this.JavaToCSV(CSVfile); // t
@@ -250,8 +251,10 @@ public class EmployeeDaoImpl implements DataDao<Employee> {
     if (this.List.containsKey(data.getEmployeeID())) {
       this.List.remove(data.getEmployeeID());
     }
-    this.JavaToSQL();
-    this.SQLToJava();
+    else {
+      System.out.println("Doesn't exist");
+    }
+    this.JavaToSQL();;
     this.JavaToCSV(CSVfile);
   }
 
