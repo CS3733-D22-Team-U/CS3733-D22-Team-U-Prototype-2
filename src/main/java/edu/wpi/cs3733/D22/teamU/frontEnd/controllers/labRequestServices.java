@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 
 public class labRequestServices extends ServiceController {
 
+  public Button toHelpPage;
   public Button clear;
   public Label submission;
   @FXML TextArea otherField;

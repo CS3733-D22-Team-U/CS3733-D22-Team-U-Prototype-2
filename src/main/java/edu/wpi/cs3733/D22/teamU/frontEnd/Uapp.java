@@ -22,8 +22,8 @@ public class Uapp extends Application {
 
   @Override
   public void start(Stage primaryStage) throws IOException {
+    Scene scene = getScene("edu/wpi/cs3733/D22/teamU/views/loginPage.fxml");
     running = true;
-    Scene scene = getScene("edu/wpi/cs3733/D22/teamU/views/Dashboard.fxml");
     URL a =
         Uapp.class.getClassLoader().getResource("edu/wpi/cs3733/D22/teamU/icons/hospitalIcon.png");
     primaryStage.getIcons().add(new Image(String.valueOf(a)));
