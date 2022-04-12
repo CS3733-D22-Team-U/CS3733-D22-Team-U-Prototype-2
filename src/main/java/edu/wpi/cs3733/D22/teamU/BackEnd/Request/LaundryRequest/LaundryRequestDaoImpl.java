@@ -210,17 +210,17 @@ public class LaundryRequestDaoImpl implements DataDao<LaundryRequest> {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
     // input ID
-    try {
+    if (List.containsKey(data.ID)) {
       if (EmployeeDaoImpl.List.containsKey(data.getEmployee().getEmployeeID())) {
         data.setEmployee(EmployeeDaoImpl.List.get(data.getEmployee().getEmployeeID()));
-        this.List.put(data.ID, data);
+        this.List.replace(data.ID, data);
         this.JavaToSQL();
         this.JavaToCSV(csvFile);
       } else {
         System.out.println("NO SUch STAFF");
       }
-    } catch (Exception e) {
-      System.out.println("This Object Does Not Exist");
+    } else {
+      System.out.println("Doesn't Exist");
     }
   }
 
