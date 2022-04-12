@@ -29,8 +29,8 @@ public final class Udb {
   public String DB_LOC = "jdbc:derby:UDB;";
   public String driver = "org.apache.derby.jdbc.EmbeddedDriver";
   public String[] CSVfiles;
-  public String username;
-  public String password;
+  public static String username;
+  public static String password;
 
   public void changeDriver(boolean change) throws IOException, SQLException {
     // embedded driver
