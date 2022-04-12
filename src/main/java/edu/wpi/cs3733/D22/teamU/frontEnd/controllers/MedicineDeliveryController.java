@@ -3,12 +3,10 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
-
+import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
