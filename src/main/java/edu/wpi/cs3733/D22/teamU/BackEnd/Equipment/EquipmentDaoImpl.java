@@ -16,6 +16,7 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
   public String csvFile;
   private Udb udb = DBController.udb;
 
+
   /**
    * Constructor for EquipmentDaoImpl
    *

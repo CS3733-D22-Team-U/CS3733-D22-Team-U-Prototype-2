@@ -77,13 +77,13 @@ public final class Udb {
     this.username = username;
     this.password = password;
     this.CSVfiles = CSVfiles;
-    Runtime.getRuntime().exec("java -jar %DERBY_HOME%\\lib\\derbyrun.jar server start");
+
+    // Runtime.getRuntime().exec("java -jar %DERBY_HOME%\\lib\\derbyrun.jar server start");
     statement = null;
     authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
 
     databaseInit();
     // create connection
-
   }
 
   public void databaseCreate() throws SQLException {
