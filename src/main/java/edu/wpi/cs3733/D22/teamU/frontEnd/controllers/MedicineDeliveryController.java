@@ -13,10 +13,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -57,6 +59,9 @@ public class MedicineDeliveryController extends ServiceController {
   @FXML VBox vBoxPane;
   @FXML Pane pane;
   @FXML Pane assistPane;
+  @FXML
+  AnchorPane bigPane;
+  @FXML TabPane tab;
 
   public void enableTxt() {
 
@@ -224,9 +229,13 @@ public class MedicineDeliveryController extends ServiceController {
           if (pane.isDisable()) {
             hamburger.setPrefWidth(200);
             pane.setEffect(new GaussianBlur(10));
+            //tab.setEffect(new GaussianBlur(10));
+            //tab.setDisable(true);
             assistPane.setDisable(true);
           } else {
             pane.setEffect(null);
+            //tab.setEffect(null);
+            //tab.setDisable(false);
             hamburger.setPrefWidth(77);
             assistPane.setDisable(false);
           }

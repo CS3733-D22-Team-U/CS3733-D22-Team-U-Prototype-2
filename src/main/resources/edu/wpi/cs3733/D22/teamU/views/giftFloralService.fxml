@@ -5,6 +5,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -16,90 +20,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: 89D7BF89D7BF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.giftFloralController">
+<AnchorPane layoutX="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: 89D7BF89D7BF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.giftFloralController">
     <children>
       <Pane fx:id="assistPane" prefHeight="200.0" prefWidth="200.0" />
-        <Pane fx:id="pane" layoutX="310.0" layoutY="-1.0" prefHeight="640.0" prefWidth="790.0">
-            <children>
-            <Pane layoutX="504.0" layoutY="113.0" prefHeight="62.0" prefWidth="254.0">
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#89d7bf" height="56.0" stroke="#89d7bf" strokeType="INSIDE" width="252.0" />
-                    <Text layoutX="7.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
-                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="39.0" layoutX="54.0" layoutY="9.0" stroke="#89d7bf" strokeType="INSIDE" width="186.0" />
-               </children>
-            </Pane>
-              <Text fx:id="processingText" layoutX="500.0" layoutY="577.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Processing..." visible="false" x="70.0" y="-430.0" />
-              <Button layoutX="303.0" layoutY="577.0" mnemonicParsing="false" onAction="#clear" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="Clear" />
-              <Button layoutX="132.0" layoutY="577.0" mnemonicParsing="false" onAction="#submit" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="OK" />
-                <Pane layoutX="-329.0" layoutY="-6.0" prefHeight="95.0" prefWidth="1122.0" style="-fx-background-color: #044e9a #044e9a;">
-                    <children>
-                        <Text fill="WHITE" layoutX="341.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gift &amp; Floral Delivery" wrappingWidth="645.65234375">
-                            <font>
-                                <Font name="System Bold" size="60.0" />
-                            </font>
-                        </Text>
-                        <ImageView fitHeight="67.0" fitWidth="73.0" layoutX="259.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../icons/flowerIcon.png" />
-                            </image>
-                        </ImageView>
-                    </children>
-                </Pane>
-                <Text layoutX="9.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sender" />
-                <Text layoutX="9.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select which of the following you would like to send" />
-                <TextField fx:id="senderField" layoutX="62.0" layoutY="135.0" />
-                <Text layoutX="9.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insert a gift message " />
-                <JFXTextArea fx:id="messageText" layoutX="9.0" layoutY="462.0" prefHeight="89.0" prefWidth="484.0" style="-fx-background-color: #FFFFFF#FFFFFF;" />
-                <Text layoutX="247.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reciever" />
-                <TextField fx:id="recieverField" layoutX="305.0" layoutY="134.0" />
-                <Text layoutX="9.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Member Assigned" />
-                <TextField fx:id="staffField" layoutX="162.0" layoutY="173.0" />
-                <Text layoutX="9.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Delivery #" />
-                <TextField fx:id="roomField" layoutX="118.0" layoutY="213.0" />
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="8.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/balloonSquare.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="529.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/basketSquare.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="355.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/chocoSquare.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="183.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/flowerSquare.png" />
-               </image>
-            </ImageView>
-                <CheckBox fx:id="balloonBox" layoutX="17.0" layoutY="356.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Balloons">
-                    <font>
-                        <Font name="Lucida Grande" size="11.0" />
-                    </font>
-                </CheckBox>
-                <CheckBox fx:id="basketBox" layoutX="540.0" layoutY="356.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Gift Basket">
-                    <font>
-                        <Font name="Lucida Grande" size="11.0" />
-                    </font>
-                </CheckBox>
-                <CheckBox fx:id="plantBox" layoutX="363.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Chocolate">
-                    <font>
-                        <Font name="Lucida Grande" size="11.0" />
-                    </font>
-                </CheckBox>
-                <CheckBox fx:id="flowerBox" layoutX="192.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Flowers">
-                    <font>
-                        <Font name="Lucida Grande" size="11.0" />
-                    </font>
-                </CheckBox>
-            <Text layoutX="9.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request ID" />
-            <TextField fx:id="requestID" layoutX="87.0" layoutY="253.0" />
-            </children>
-        </Pane>
         <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">
             <children>
                 <VBox fx:id="vBoxPane" prefHeight="462.0" prefWidth="232.0" visible="false">
@@ -196,10 +119,125 @@
                 </VBox>
             </children>
         </JFXHamburger>
-        <ImageView fitHeight="62.0" fitWidth="68.0" layoutX="995.0" layoutY="657.0" opacity="0.29" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="62.0" fitWidth="68.0" layoutX="1013.0" layoutY="665.0" opacity="0.29" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../icons/unicornLogo.png" />
             </image>
         </ImageView>
+      <TabPane layoutX="87.0" layoutY="120.0" prefHeight="576.0" prefWidth="912.0" style="-fx-border-color: BLACK;" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="New Request">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="808.0">
+                     <children>
+                          <Pane fx:id="pane" layoutX="-1.0" layoutY="4.0" prefHeight="534.0" prefWidth="912.0">
+                              <children>
+                              <Pane layoutX="616.0" layoutY="29.0" prefHeight="62.0" prefWidth="254.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#89d7bf" height="56.0" layoutX="1.0" layoutY="4.0" stroke="#89d7bf" strokeType="INSIDE" width="252.0" />
+                                      <Text layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
+                                      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="39.0" layoutX="62.0" layoutY="12.0" stroke="#89d7bf" strokeType="INSIDE" width="186.0" />
+                                 </children>
+                              </Pane>
+                                <Text fx:id="processingText" layoutX="500.0" layoutY="577.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Processing..." visible="false" x="70.0" y="-430.0" />
+                                <Button layoutX="466.0" layoutY="476.0" mnemonicParsing="false" onAction="#clear" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="Clear" />
+                                <Button layoutX="346.0" layoutY="476.0" mnemonicParsing="false" onAction="#submit" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="OK" />
+                                  <Text layoutX="79.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select which of the following you would like to send" />
+                                  <TextField fx:id="senderField" layoutX="124.0" layoutY="47.0" />
+                                  <Text layoutX="85.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insert a gift message " />
+                                  <JFXTextArea fx:id="messageText" layoutX="85.0" layoutY="374.0" prefHeight="89.0" prefWidth="484.0" style="-fx-background-color: #FFFFFF#FFFFFF;" />
+                                  <Text layoutX="309.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Receiver" />
+                                  <TextField fx:id="recieverField" layoutX="367.0" layoutY="48.0" />
+                                  <Text layoutX="78.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Member Assigned" />
+                                  <TextField fx:id="staffField" layoutX="217.0" layoutY="79.0" />
+                                  <Text layoutX="79.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Delivery #" />
+                                  <TextField fx:id="roomField" layoutX="178.0" layoutY="114.0" />
+                              <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="78.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/balloonSquare.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="616.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/basketSquare.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="435.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/chocoSquare.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="258.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/flowerSquare.png" />
+                                 </image>
+                              </ImageView>
+                                  <CheckBox fx:id="balloonBox" layoutX="85.0" layoutY="239.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Balloons">
+                                      <font>
+                                          <Font name="Lucida Grande" size="11.0" />
+                                      </font>
+                                  </CheckBox>
+                                  <CheckBox fx:id="basketBox" layoutX="625.0" layoutY="238.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Gift Basket">
+                                      <font>
+                                          <Font name="Lucida Grande" size="11.0" />
+                                      </font>
+                                  </CheckBox>
+                                  <CheckBox fx:id="plantBox" layoutX="447.0" layoutY="239.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Chocolate">
+                                      <font>
+                                          <Font name="Lucida Grande" size="11.0" />
+                                      </font>
+                                  </CheckBox>
+                                  <CheckBox fx:id="flowerBox" layoutX="272.0" layoutY="239.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Flowers">
+                                      <font>
+                                          <Font name="Lucida Grande" size="11.0" />
+                                      </font>
+                                  </CheckBox>
+                              <Text layoutX="79.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request ID" />
+                              <TextField fx:id="requestID" layoutX="158.0" layoutY="147.0" />
+                                  <Text layoutX="78.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sender" />
+                              </children>
+                          </Pane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Active Requests">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView layoutX="-2.0" layoutY="-2.0" prefHeight="549.0" prefWidth="912.0">
+                          <columns>
+                            <TableColumn prefWidth="91.0" text="ID" />
+                            <TableColumn prefWidth="91.0" text="Sender" />
+                              <TableColumn prefWidth="91.0" text="Receiver" />
+                              <TableColumn prefWidth="91.0" text="Staff" />
+                              <TableColumn prefWidth="91.0" text="Type" />
+                              <TableColumn prefWidth="91.0" text="Message" />
+                              <TableColumn prefWidth="91.0" text="Destination" />
+                              <TableColumn prefWidth="91.0" text="Date" />
+                              <TableColumn prefWidth="91.0" text="Time" />
+                              <TableColumn prefWidth="91.0" text="Priority" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Pane layoutX="-9.0" layoutY="-5.0" prefHeight="115.0" prefWidth="1111.0" style="-fx-background-color: #044e9a #044e9a;">
+         <children>
+            <ImageView fitHeight="67.0" fitWidth="73.0" layoutX="259.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/flowerIcon.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="343.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gift &amp; Floral Delivery" wrappingWidth="645.65234375">
+               <font>
+                  <Font name="System Bold" size="60.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>
