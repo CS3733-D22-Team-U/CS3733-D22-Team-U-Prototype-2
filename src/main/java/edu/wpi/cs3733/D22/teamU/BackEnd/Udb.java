@@ -74,9 +74,11 @@ public final class Udb {
   public LaundryRequestDaoImpl laundryRequestImpl;
   public MedicineRequestDaoImpl medicineRequestImpl;
 
+  public static boolean admin;
+
   private Udb(String username, String password, String[] CSVfiles)
       throws IOException, SQLException {
-
+    admin = true;
     this.username = username;
     this.password = password;
     this.CSVfiles = CSVfiles;
