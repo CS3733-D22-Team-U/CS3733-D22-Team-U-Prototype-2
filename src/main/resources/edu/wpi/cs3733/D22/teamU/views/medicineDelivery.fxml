@@ -157,7 +157,7 @@
                                         <TextField fx:id="patientName" promptText="Patient Name" />
                                     </children>
                                 </VBox>
-                                <ImageView fitHeight="169.0" fitWidth="200.0" layoutX="91.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="169.0" fitWidth="200.0" layoutX="106.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../icons/med2-removebg-preview.png" />
                                     </image>
@@ -207,6 +207,11 @@
                                         <Font size="15.0" />
                                     </font>
                                 </Text>
+                        <Button layoutX="159.0" layoutY="465.0" mnemonicParsing="false" onAction="#toMedHelp" prefHeight="32.0" prefWidth="59.0" style="-fx-background-color: #89D7BF;" text="Help">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Button>
                             </children>
                         </AnchorPane>
                     </content>
