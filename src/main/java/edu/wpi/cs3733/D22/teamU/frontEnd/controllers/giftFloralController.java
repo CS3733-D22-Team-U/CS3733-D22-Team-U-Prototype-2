@@ -3,11 +3,17 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
@@ -15,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class giftFloralController extends ServiceController {
 
@@ -102,6 +109,13 @@ public class giftFloralController extends ServiceController {
     requestID.setText("");
     messageText.setText("");
   }
+
+    public void toHelp(ActionEvent actionEvent) throws IOException {
+        Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/giftFloralHelp.fxml");
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.show();
+    }
 
   @Override
   public void addRequest() {}
