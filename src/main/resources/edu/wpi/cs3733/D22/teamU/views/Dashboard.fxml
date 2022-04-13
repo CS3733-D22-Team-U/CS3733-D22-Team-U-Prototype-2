@@ -19,7 +19,7 @@
             </ImageView>
             <Pane layoutX="1010.0" layoutY="19.0" prefHeight="176.0" prefWidth="90.0" style="-fx-background-radius: 0 0 0 35;" styleClass="horizontalLabel" stylesheets="@../css/headersAndLabels.css">
                <children>
-                  <Button fx:id="settingsButton" layoutX="21.0" layoutY="113.0" mnemonicParsing="false" onAction="#toSettings" prefHeight="26.0" prefWidth="35.0" style="-fx-background-color: transparent;" textFill="#400808">
+                  <Button fx:id="settingsButton" layoutX="21.0" layoutY="113.0" mnemonicParsing="false" onAction="#toSettingsPage" prefHeight="26.0" prefWidth="35.0" style="-fx-background-color: transparent;" textFill="#400808">
                      <graphic>
                         <ImageView fitHeight="58.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
                            <image>
