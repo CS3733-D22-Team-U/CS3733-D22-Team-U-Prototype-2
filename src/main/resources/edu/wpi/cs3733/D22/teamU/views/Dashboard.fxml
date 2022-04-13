@@ -10,6 +10,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -67,7 +70,7 @@
             </Pane>
             <Pane layoutX="308.0" layoutY="132.0" prefHeight="63.0" prefWidth="485.0" styleClass="horizontalLabel" stylesheets="@../css/headersAndLabels.css">
                <children>
-                  <Text layoutX="119.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelText" text="Hello Dr.Mann" />
+                  <Text fx:id="userName" layoutX="119.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelText" text="Hello Dr.Mann" />
                </children>
             </Pane>
             <Pane layoutY="687.0" prefHeight="63.0" prefWidth="90.0" style="-fx-background-radius: 0 35 0 0;" styleClass="verticalLabel" stylesheets="@../css/headersAndLabels.css">
@@ -101,6 +104,42 @@
                   </Button>
                </children>
             </Pane>
+            <AnchorPane fx:id="animatePane1" layoutX="308.0" layoutY="273.0" prefHeight="477.0" prefWidth="485.0" style="-fx-background-color: #efefef; -fx-background-radius: 35 35 0 0; -fx-effect: dropshadow(gaussian, #000000,25,0,0,0);">
+               <children>
+                  <Pane fx:id="turtlePond" layoutX="19.0" layoutY="86.0" prefHeight="364.0" prefWidth="447.0" style="-fx-background-color: blue;">
+                     <children>
+                        <Circle fx:id="apple" fill="#ff1f1f" layoutX="178.0" layoutY="56.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                        <Pane fx:id="turtlePane" prefHeight="93.0" prefWidth="84.0">
+                           <children>
+                              <ImageView fx:id="turtle" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/dashboardIcons/noun-turtle-1630789.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="63.0" prefWidth="485.0" style="-fx-background-radius: 35 35 0 0;" styleClass="horizontalLabel" stylesheets="@../css/headersAndLabels.css">
+                     <children>
+                        <Text layoutX="190.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelText" text="Turtles" y="5.0">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="navButton1" layoutX="22.0" layoutY="-4.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="51.0" style="-fx-background-color: transparent;">
+                           <graphic>
+                              <ImageView fx:id="navPaneArrow1" fitHeight="37.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                                 <image>
+                                    <Image url="@../icons/dashboardIcons/noun-arrow-download-4373766.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
          </children>
       </Pane>
       <AnchorPane fx:id="clockPane" layoutX="1010.0" layoutY="309.0" prefHeight="310.0" prefWidth="936.0" style="-fx-background-color: #efefef; -fx-background-radius: 35 0 0 35; -fx-effect: dropshadow(gaussian, #000000,25,0,0,0);">
