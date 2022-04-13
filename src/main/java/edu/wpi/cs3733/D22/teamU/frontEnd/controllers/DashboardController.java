@@ -44,12 +44,17 @@ public class DashboardController extends ServiceController {
 
   @FXML Text time;
   @FXML Text date;
+
+  @FXML Text userName;
+
+  @FXML ImageView turtle;
   private static final String HOVERED_BUTTON = "-fx-border-color: #029ca6";
 
   private static final SimpleDateFormat sdf3 = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    userName.setText("Dr." + Udb.username);
     handleNavPaneAnimation();
     handleClockPaneAnimation();
     handleNavButtons();
@@ -178,5 +183,10 @@ public class DashboardController extends ServiceController {
         clockPaneArrow.setRotate(navPaneArrow.getRotate() * -1);
       }
     }
+  }
+
+  public void moveTurtleToMouse(MouseEvent mouseEvent) {
+
+    
   }
 }
