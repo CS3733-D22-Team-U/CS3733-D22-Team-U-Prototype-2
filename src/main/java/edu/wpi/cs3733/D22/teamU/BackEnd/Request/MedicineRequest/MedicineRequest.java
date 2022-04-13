@@ -8,6 +8,7 @@ public class MedicineRequest extends Request {
   String status;
   String destination;
 
+
   public MedicineRequest(
       String ID,
       String name,
@@ -50,4 +51,7 @@ public class MedicineRequest extends Request {
   public void getDestination(String location) {
     this.destination = location;
   }
+
+
+
 }

@@ -3,19 +3,29 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.MedicineRequest.MedicineRequest;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.MedicineRequest.MedicineRequestDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
+import edu.wpi.cs3733.D22.teamU.DBController;
 import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+
+import edu.wpi.cs3733.D22.teamU.frontEnd.services.lab.LabUI;
+import edu.wpi.cs3733.D22.teamU.frontEnd.services.medicine.medicineUI;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +33,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import lombok.SneakyThrows;
 
 public class MedicineDeliveryController extends ServiceController {
 
@@ -34,13 +45,11 @@ public class MedicineDeliveryController extends ServiceController {
   @FXML JFXCheckBox Metformin;
   @FXML JFXCheckBox specialCheck;
   @FXML Button clearButton;
-
   @FXML TextArea specialReq;
   @FXML TextField patientName;
   @FXML TextField staffName;
   @FXML TextField advilTxt;
-
-  @FXML TextField IDtxt;
+  //@FXML TextField IDtxt;
   @FXML TextField alproTxt;
   @FXML TextField saltTxt;
   @FXML TextField atorvTxt;
@@ -49,10 +58,6 @@ public class MedicineDeliveryController extends ServiceController {
   @FXML TextArea specialReqTxt;
   @FXML Text reset;
   @FXML Text processText;
-  // Text status;
-
-  public Button backButton;
-
   @FXML JFXHamburger hamburger;
   @FXML VBox medVbox;
   @FXML VBox nameVbox;
@@ -61,37 +66,130 @@ public class MedicineDeliveryController extends ServiceController {
   @FXML Pane assistPane;
   @FXML AnchorPane bigPane;
   @FXML TabPane tab;
+  @FXML TextField destination;
 
-  public void enableTxt() {
+  @FXML
+  TableColumn<medicineUI, String> reqID;
+  @FXML TableColumn<medicineUI, String> reqPatient;
+  @FXML TableColumn<medicineUI, String> reqStaff;
+  @FXML TableColumn<medicineUI, String> reqMed;
+  @FXML TableColumn<medicineUI, String> reqAmount;
+  @FXML TableColumn<medicineUI, String> reqDest;
+  @FXML TableColumn<medicineUI, String> reqDate;
+  @FXML TableColumn<medicineUI, String> reqTime;
 
-    if (Advil.isSelected()) {
-      advilTxt.setDisable(false);
+  @FXML TableView<medicineUI> activeRequestTable;
+  @FXML VBox requestHolder;
+
+  ObservableList<medicineUI> medUIRequests = FXCollections.observableArrayList();
+  ObservableList<JFXCheckBox> checkBoxes = FXCollections.observableArrayList();
+  ObservableList<TextField> checkBoxInput = FXCollections.observableArrayList();
+
+  Udb udb = DBController.udb;
+
+  private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources){
+    super.initialize(location, resources);
+    setUpActiveRequests();
+    for(Node checkbox : requestHolder.getChildren()){
+      checkBoxes.add((JFXCheckBox) checkbox);
     }
 
-    if (Alprozalam.isSelected()) {
-      alproTxt.setDisable(false);
-    }
-
-    if (AmphetamineSalt.isSelected()) {
-      saltTxt.setDisable(false);
-    }
-
-    if (Atorvastatin.isSelected()) {
-      atorvTxt.setDisable(false);
-    }
-
-    if (Lisinopril.isSelected()) {
-      lisinTxt.setDisable(false);
-    }
-
-    if (Metformin.isSelected()) {
-      metTxt.setDisable(false);
-    }
-
-    if (specialCheck.isSelected()) {
-      specialReqTxt.setDisable(false);
+    for(Node textField : medVbox.getChildren()){
+        checkBoxInput.add((TextField) textField);
     }
   }
+
+  private void setUpActiveRequests(){
+    reqID.setCellValueFactory(new PropertyValueFactory<>("id"));
+    reqPatient.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+    reqStaff.setCellValueFactory(new PropertyValueFactory<>("staffName"));
+    reqMed.setCellValueFactory(new PropertyValueFactory<>("name"));
+    reqAmount.setCellValueFactory(new PropertyValueFactory<>("requestAmount"));
+    reqDest.setCellValueFactory(new PropertyValueFactory<>("destination"));
+    reqDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+    reqTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+    activeRequestTable.setItems(getActiveRequestList());
+  }
+
+  private ObservableList<medicineUI> getActiveRequestList(){
+    for(MedicineRequest request : udb.medicineRequestImpl.hList().values()) {
+      medUIRequests.add(
+              new medicineUI(request.getID(),request.getName(), request.getPatientName(), request.getDestination(), request.getStatus(),request.getEmployee(), request.getDate(), request.getTime()));
+    }
+    return medUIRequests;
+  }
+
+ @SneakyThrows
+ @Override
+ public void addRequest(){
+    String patientInput = patientName.getText().trim();
+    String staffInput = staffName.getText().trim();
+    String destinationInput = destination.getText().trim();
+
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+    for(int i = 0; i < checkBoxes.size(); i++) {
+        if (checkBoxes.get(i).isSelected()) {
+            double rand = Math.random() * 10000;
+            //int amount = Integer.parseInt(checkBoxInput.get(i).toString().trim());
+            int amount = 24;
+            medicineUI request =
+                    new medicineUI(
+                            (int) rand + "",
+                            checkBoxes.get(i).getText(),
+                            destinationInput,
+                            "Ordered",
+                            patientInput,
+                            MedicineRequestDaoImpl.checkEmployee(staffInput),
+                            sdf3.format(timestamp).substring(0, 10),
+                            sdf3.format(timestamp).substring(11), amount);
+            activeRequestTable.setItems(
+                    newRequest(
+                            request.getId(),
+                            request.getName(),
+                            request.getPatientName(),
+                            request.getDestination(),
+                            "Ordered",
+                            request.getEmployee(), request.getDate(),
+                            request.getTime(),amount));
+            try {
+                udb.medicineRequestImpl.add(
+                        new MedicineRequest(request.getId(),
+                                request.getName(),
+                                request.getPatientName(),
+                                request.getStatus(),
+                                request.getEmployee(), request.getDestination(),
+                                request.getDate(),request.getTime()));
+                processText.setText("Request for " + checkBoxes.get(i).getText() + " successfully sent.");
+            } catch (IOException e) {
+                e.printStackTrace();
+                processText.setText("Request for " + checkBoxes.get(i).getText() + " failed.");
+            }
+        }
+    }
+     clear();
+ }
+
+
+
+  public void enableTxt() {
+    if (Advil.isSelected()) {
+      advilTxt.setDisable(false);
+    }if (Alprozalam.isSelected()) {
+      alproTxt.setDisable(false);}
+    if (AmphetamineSalt.isSelected()) {
+      saltTxt.setDisable(false);}
+    if (Atorvastatin.isSelected()) {
+      atorvTxt.setDisable(false);}
+    if (Lisinopril.isSelected()) {
+      lisinTxt.setDisable(false);}
+    if (Metformin.isSelected()) {
+      metTxt.setDisable(false);}
+    if (specialCheck.isSelected()) {
+      specialReqTxt.setDisable(false);}}
 
   public void clear() {
     Advil.setSelected(false);
@@ -101,11 +199,9 @@ public class MedicineDeliveryController extends ServiceController {
     Lisinopril.setSelected(false);
     Metformin.setSelected(false);
     specialCheck.setSelected(false);
-
     patientName.setText("");
     staffName.setText("");
-    IDtxt.setText("");
-
+    //IDtxt.setText("");
     advilTxt.setText("");
     alproTxt.setText("");
     saltTxt.setText("");
@@ -113,10 +209,8 @@ public class MedicineDeliveryController extends ServiceController {
     lisinTxt.setText("");
     metTxt.setText("");
     specialReqTxt.setText("");
-
     reset.setText("Cleared requests!");
     reset.setVisible(true);
-
     new Thread(
             () -> {
               try {
@@ -128,15 +222,12 @@ public class MedicineDeliveryController extends ServiceController {
               } catch (InterruptedException ie) {
               }
             })
-        .start();
-  }
-  //
+        .start();}
   //    lisinTxt.equals("") && metTxt.equals("") && specialReqTxt.equals(""))
   public void reqFields() {
-
     if (staffName.getText().equals("")
         || patientName.getText().equals("")
-        || IDtxt.getText().equals("")
+        // IDtxt.getText().equals("")
         || (advilTxt.getText().equals("")
                 && alproTxt.getText().equals("")
                 && saltTxt.getText().equals(""))
@@ -168,7 +259,7 @@ public class MedicineDeliveryController extends ServiceController {
                               + patientName.getText()
                               + "\n"
                               + "Order ID: "
-                              + IDtxt.getText()
+                              //IDtxt.getText()
                               + "\n"
                               + ""
                               + "\n"
@@ -213,33 +304,7 @@ public class MedicineDeliveryController extends ServiceController {
     return request;
   }
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
 
-    closeTransition.setRate(-1);
-    hamburger.addEventHandler(
-        MouseEvent.MOUSE_CLICKED,
-        e -> {
-          closeTransition.setRate(closeTransition.getRate() * -1);
-          closeTransition.play();
-          vBoxPane.setVisible(!vBoxPane.isVisible());
-          pane.setDisable(!pane.isDisable());
-          if (pane.isDisable()) {
-            hamburger.setPrefWidth(200);
-            pane.setEffect(new GaussianBlur(10));
-            // tab.setEffect(new GaussianBlur(10));
-            // tab.setDisable(true);
-            assistPane.setDisable(true);
-          } else {
-            pane.setEffect(null);
-            // tab.setEffect(null);
-            // tab.setDisable(false);
-            hamburger.setPrefWidth(77);
-            assistPane.setDisable(false);
-          }
-        });
-  }
 
   public void toMedHelp(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/medHelp.fxml");
@@ -248,8 +313,12 @@ public class MedicineDeliveryController extends ServiceController {
     appStage.show();
   }
 
-  @Override
-  public void addRequest() {}
+  private ObservableList<medicineUI> newRequest(String id, String name, String patientName, String location, String status, Employee employee, String date, String time, int amount) {
+    medUIRequests.add(new medicineUI(id, name, patientName, location, status, employee, date, time, amount));
+    return medUIRequests;
+  }
+
+
 
   @Override
   public void removeRequest() {}

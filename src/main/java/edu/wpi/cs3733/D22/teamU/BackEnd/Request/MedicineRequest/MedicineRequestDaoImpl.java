@@ -3,6 +3,8 @@ package edu.wpi.cs3733.D22.teamU.BackEnd.Request.MedicineRequest;
 import edu.wpi.cs3733.D22.teamU.BackEnd.DataDao;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
+
 import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,9 +36,9 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
   // CHecks whether an employee exists
   // Returns Employee if exists
   // Returns empty employee with employee ID = N/A
-  public Employee checkEmployee(String employee) {
-    if (EmployeeDaoImpl.List.get(employee) != null) {
-      return EmployeeDaoImpl.List.get(employee);
+  public static Employee checkEmployee(String employee) throws SQLException, IOException {
+    if (Udb.getInstance().EmployeeImpl.List.get(employee) != null) {
+      return Udb.getInstance().EmployeeImpl.List.get(employee);
     } else {
       Employee empty = new Employee("N/A");
       return empty;
@@ -52,10 +54,14 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
       if (row.length == 8) {
-        List.put(
-            row[0],
-            new MedicineRequest(
-                row[0], row[1], row[2], row[3], checkEmployee(row[4]), row[5], row[6], row[7]));
+        try {
+          List.put(
+              row[0],
+              new MedicineRequest(
+                  row[0], row[1], row[2], row[3], checkEmployee(row[4]), row[5], row[6], row[7]));
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
       }
     }
   }
@@ -170,6 +176,8 @@ public class MedicineRequestDaoImpl implements DataDao<MedicineRequest> {
       }
     } catch (SQLException e) {
       System.out.println("request not found");
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 

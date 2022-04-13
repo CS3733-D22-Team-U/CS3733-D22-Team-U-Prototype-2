@@ -1,36 +1,42 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.services.medicine;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
+
 public class medicineUI {
+
     private String id;
+    private String name;
     private String patientName;
-    private String staffName;
-    private String medType;
-    private int requestAmount;
     private String destination;
+    private String status;
+    private Employee employee;
     private String date;
     private String time;
-    private int priority;
-    private int amountMedInUse;
-    private int amountMedAvail;
-    private int amountMedTotal;
+    private String staffName;
+    private int requestAmount;
 
-    public medicineUI(String name, int medInUse, int medAvail, int medTotal) {
-        this.medType = name;
-        this.amountMedInUse = medInUse;
-        this.amountMedAvail = medAvail;
-        this.amountMedTotal = medTotal;
+    public medicineUI(String id, String name, String patientName, String destination, String status, Employee employee, String date, String time) {
+        this.id = id;
+        this.name = name;
+        this.patientName = patientName;
+        this.destination = destination;
+        this.status = status;
+        this.employee = employee;
+        this.date = date;
+        this.time = time;
+        staffName = employee.getEmployeeID();
     }
-
-    public medicineUI(String medID, String patient, String staff, String type,
-                      int amount, String medDest, String medDate, String medTime){
-        this.id = medID;
-        this.patientName = patient;
-        this.staffName = staff;
-        this.medType = type;
-        this.requestAmount = amount;
-        this.destination = medDest;
-        this.date = medDate;
-        this.time = medTime;
+    public medicineUI(String id, String name, String patientName, String destination, String status, Employee employee, String date, String time, int amount) {
+        this.id = id;
+        this.name = name;
+        this.patientName = patientName;
+        this.destination = destination;
+        this.status = status;
+        this.employee = employee;
+        this.date = date;
+        this.time = time;
+        requestAmount = amount;
+        staffName = employee.getEmployeeID();
     }
 
     public String getId() {
@@ -41,6 +47,14 @@ public class medicineUI {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPatientName() {
         return patientName;
     }
@@ -49,36 +63,28 @@ public class medicineUI {
         this.patientName = patientName;
     }
 
-    public String getStaffName() {
-        return staffName;
-    }
-
-    public void setStaffName(String staffName) {
-        this.staffName = staffName;
-    }
-
-    public String getMedType() {
-        return medType;
-    }
-
-    public void setMedType(String medType) {
-        this.medType = medType;
-    }
-
-    public int getRequestAmount() {
-        return requestAmount;
-    }
-
-    public void setRequestAmount(int requestAmount) {
-        this.requestAmount = requestAmount;
-    }
-
     public String getDestination() {
         return destination;
     }
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public String getDate() {
@@ -97,36 +103,20 @@ public class medicineUI {
         this.time = time;
     }
 
-    public int getPriority() {
-        return priority;
+    public String getStaffName() {
+        return staffName;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
     }
 
-    public int getAmountMedInUse() {
-        return amountMedInUse;
+    public int getRequestAmount() {
+        return requestAmount;
     }
 
-    public void setAmountMedInUse(int amountMedInUse) {
-        this.amountMedInUse = amountMedInUse;
-    }
-
-    public int getAmountMedAvail() {
-        return amountMedAvail;
-    }
-
-    public void setAmountMedAvail(int amountMedAvail) {
-        this.amountMedAvail = amountMedAvail;
-    }
-
-    public int getAmountMedTotal() {
-        return amountMedTotal;
-    }
-
-    public void setAmountMedTotal(int amountMedTotal) {
-        this.amountMedTotal = amountMedTotal;
+    public void setRequestAmount(int requestAmount) {
+        this.requestAmount = requestAmount;
     }
 }
 
