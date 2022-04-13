@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.labRequestHelpController">
+<AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.labRequestHelpController">
     <children>
         <Pane fx:id="backgroundPane" layoutY="-8.0" prefHeight="753.0" prefWidth="1100.0" style="-fx-background-color: 89D7BF89D7BF;">
             <cursor>
@@ -28,21 +33,21 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Text>
-                  <Text layoutX="4.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Input name of the patient you're serving." wrappingWidth="370.904296875">
+                  <Text layoutX="4.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Input name of the patient you're serving." wrappingWidth="370.904296875">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="4.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Input your name, or employee name assigned to patient." wrappingWidth="424.3310546875">
+                  <Text layoutX="8.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input your name, or employee name assigned to patient." wrappingWidth="424.3310546875">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="243.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Select the lab request services needed for the patient.">
+                  <Text layoutX="254.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="     Select the lab request services needed for the patient.">
                      <font>
                         <Font size="18.0" />
                      </font></Text>
-                  <Text layoutX="265.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- If the service you need is not listed, please select &quot;Other&quot; and write the name of the service in the text area labeled &quot;Other: &quot;" wrappingWidth="300.904296875">
+                  <Text layoutX="265.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If the service you need is not listed, please select &quot;Other&quot; and write the name of the service in the text area labeled &quot;Other&quot;" wrappingWidth="300.904296875">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -70,7 +75,7 @@
                      <image>
                         <Image url="@../icons/arrow-png-download.png" />
                      </image></ImageView>
-                  <Text layoutX="588.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4. Once all fields are filled, click &quot;Submit&quot; or, click &quot;Clear&quot; to restore fields to empty." wrappingWidth="223.265625">
+                  <Text layoutX="588.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Once all fields are filled, click &quot;Submit&quot; or, click &quot;Clear&quot; to restore fields to empty." wrappingWidth="223.265625">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -82,7 +87,15 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
+                  <Circle fill="#029ca6" layoutX="254.0" layoutY="212.0" radius="12.0" stroke="#029ca6" strokeType="INSIDE" />
+                  <Circle fill="#029ca6" layoutX="571.0" layoutY="270.0" radius="12.0" stroke="#029ca6" strokeType="INSIDE" />
+                  <Text fill="WHITE" layoutX="249.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+                  <Text fill="WHITE" layoutX="567.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
                </children></Pane>
+            <Circle fill="#029ca6" layoutX="142.0" layoutY="259.0" radius="12.0" stroke="#029ca6" strokeType="INSIDE" />
+            <Circle fill="#029ca6" layoutX="142.0" layoutY="291.0" radius="12.0" stroke="#029ca6" strokeType="INSIDE" />
+            <Text fill="WHITE" layoutX="138.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+            <Text fill="WHITE" layoutX="139.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
          </children>
         </Pane>
         <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">

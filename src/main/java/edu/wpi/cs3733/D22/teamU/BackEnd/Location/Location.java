@@ -184,6 +184,10 @@ public class Location {
     return Objects.equals(nodeID, location.nodeID);
   }
 
+  public void setRequests(ArrayList<Request> requests) {
+    this.requests = requests;
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(nodeID);

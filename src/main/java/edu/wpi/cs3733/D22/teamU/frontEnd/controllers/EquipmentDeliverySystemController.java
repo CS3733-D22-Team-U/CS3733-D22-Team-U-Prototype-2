@@ -39,6 +39,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
   @FXML TableColumn<EquipmentUI, Integer> inUse;
   @FXML TableColumn<EquipmentUI, Integer> available;
   @FXML TableColumn<EquipmentUI, Integer> total;
+  @FXML TableColumn<EquipmentUI, String> location;
   @FXML TableView<EquipmentUI> table;
   @FXML VBox requestHolder;
   @FXML Text requestText;
@@ -80,7 +81,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
     }
     locations.setTooltip(new Tooltip());
     locations.getItems().addAll(nodeIDs);
-    new ComboBoxAutoComplete<String>(locations, 500, 200);
+    new ComboBoxAutoComplete<String>(locations, 650, 290);
 
     staff = new ArrayList<>();
     for (Employee l : udb.EmployeeImpl.hList().values()) {
@@ -88,7 +89,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
     }
     employees.setTooltip(new Tooltip());
     employees.getItems().addAll(staff);
-    new ComboBoxAutoComplete<String>(employees, 500, 400);
+    new ComboBoxAutoComplete<String>(employees, 675, 380);
 
     for (Node checkBox : requestHolder.getChildren()) {
       checkBoxes.add((JFXCheckBox) checkBox);
@@ -127,6 +128,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
     available.setCellValueFactory(
         new PropertyValueFactory<EquipmentUI, Integer>("amountAvailable"));
     total.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("totalAmount"));
+    location.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("location"));
     table.setItems(getEquipmentList());
   }
 
@@ -162,7 +164,8 @@ public class EquipmentDeliverySystemController extends ServiceController {
               equipment.getName(),
               equipment.getInUse(),
               equipment.getAvailable(),
-              equipment.getAmount()));
+              equipment.getAmount(),
+              equipment.getLocationID());
     }
 
     return equipmentUI;

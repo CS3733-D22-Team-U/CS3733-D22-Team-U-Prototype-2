@@ -104,7 +104,7 @@ public abstract class ServiceController implements Initializable, Service {
     appStage.show();
   }
 
-  public void toMap(ActionEvent actionEvent) throws IOException {
+  public void toSideView(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/map.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
@@ -132,7 +132,7 @@ public abstract class ServiceController implements Initializable, Service {
     appStage.show();
   }
 
-  public void toSideView(ActionEvent actionEvent) throws IOException {
+  public void toMap(ActionEvent actionEvent) throws IOException {
     Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/sideView.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
