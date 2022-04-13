@@ -59,7 +59,7 @@ public class DashboardController extends ServiceController {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    userName.setText("Dr." + Udb.username);
+    userName.setText("Dr." + "____");
     handleNavPaneAnimation();
     handleClockPaneAnimation();
     handleNavButtons();
@@ -70,14 +70,14 @@ public class DashboardController extends ServiceController {
 
   private void handleTurtle() {
     TranslateTransition openNav = new TranslateTransition(new Duration(350), turtAnchor);
-    openNav.setToY(485);
+    openNav.setToY(-415);
     TranslateTransition closeNav = new TranslateTransition(new Duration(350), turtAnchor);
     turtButton.setOnAction(
         (ActionEvent evt) -> {
-          if (turtAnchor.getTranslateY() != 0) {
+          if (turtAnchor.getTranslateY() != -415) {
             openNav.play();
           } else {
-            closeNav.setToY(687);
+            closeNav.setToY(0);
             closeNav.play();
           }
         });
