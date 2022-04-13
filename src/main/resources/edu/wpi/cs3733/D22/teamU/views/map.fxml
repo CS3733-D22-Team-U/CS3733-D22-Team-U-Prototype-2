@@ -59,7 +59,7 @@
                                                                             <content>
                                                                                 <AnchorPane fx:id="lowerLevel1Pane" minHeight="0.0" minWidth="0.0" prefHeight="1944.0" prefWidth="2832.0">
                                                                                     <children>
-                                                                                        <ImageView fx:id="image1" fitHeight="1944.0" fitWidth="3384.0" pickOnBounds="true" preserveRatio="true">
+                                                                                        <ImageView fx:id="image1" fitHeight="1944.0" fitWidth="3384.0" pickOnBounds="true" preserveRatio="true" style="-fx-fill: #044e9aff;">
                                                                                             <image>
                                                                                                 <Image url="@../hospitalFloors/00_thelowerlevel1.png" />
                                                                                             </image>
@@ -261,11 +261,11 @@
                         </Tab>
                     </tabs>
                 </TabPane>
-                <Pane layoutX="860.0" layoutY="250.0" prefHeight="329.0" prefWidth="135.0">
+                <Pane layoutX="855.0" layoutY="250.0" prefHeight="329.0" prefWidth="135.0" style="-fx-background-color: #b0e5e3ff;">
                     <children>
-                        <Text layoutX="34.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legend">
+                        <Text fill="#044e9a" layoutX="34.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legend">
                             <font>
-                                <Font size="18.0" />
+                                <Font name="System Bold" size="18.0" />
                             </font>
                         </Text>
                         <Group layoutY="50.0">
@@ -292,7 +292,7 @@
                                 </Group>
                                 <Group layoutX="1.0" layoutY="38.0">
                                     <children>
-                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirty Equipment">
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #044e9aff;" text="Dirty Equipment">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
@@ -302,7 +302,7 @@
                                 </Group>
                                 <Group layoutX="1.0" layoutY="56.0">
                                     <children>
-                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hallway">
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #044e9aff;" text="Hallway">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
@@ -312,7 +312,7 @@
                                 </Group>
                                 <Group layoutX="1.0" layoutY="74.0">
                                     <children>
-                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elevator">
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #044e9aff;" text="Elevator">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
@@ -322,7 +322,7 @@
                                 </Group>
                                 <Group layoutX="1.0" layoutY="90.0">
                                     <children>
-                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restroom">
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #044e9aff;" text="Restroom">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
@@ -332,7 +332,7 @@
                                 </Group>
                                 <Group layoutX="1.0" layoutY="106.0">
                                     <children>
-                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Staircase">
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #044e9aff;" text="Staircase">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
@@ -342,7 +342,7 @@
                                 </Group>
                                 <Group layoutX="1.0" layoutY="122.0">
                                     <children>
-                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Department">
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #044e9aff;" text="Department">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
@@ -352,7 +352,7 @@
                                 </Group>
                                 <Group layoutX="1.0" layoutY="139.0">
                                     <children>
-                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Labs">
+                                        <Text fill="#044e9a" layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Labs">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
@@ -382,7 +382,7 @@
                                 </Group>
                                 <Group layoutX="1.0" layoutY="187.0">
                                     <children>
-                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exit/Entrance">
+                                        <Text fill="#044e9a" layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exit/Entrance">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
@@ -392,7 +392,7 @@
                                 </Group>
                                 <Group layoutX="1.0" layoutY="204.0">
                                     <children>
-                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retail">
+                                        <Text fill="#044e9a" layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retail">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
@@ -402,7 +402,7 @@
                                 </Group>
                                 <Group layoutX="1.0" layoutY="220.0283203125">
                                     <children>
-                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service">
+                                        <Text fill="#044e9a" layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
