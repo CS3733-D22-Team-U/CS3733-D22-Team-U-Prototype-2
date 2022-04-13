@@ -15,20 +15,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.MapController">
     <children>
+        <Pane prefHeight="95.0" prefWidth="1100.0" style="-fx-background-color: #044e9a;">
+            <children>
+                <ImageView fitHeight="118.0" fitWidth="126.0" layoutX="220.0" pickOnBounds="true" preserveRatio="true" x="50.0">
+                    <image>
+                        <Image url="@../icons/mapIcon.png" />
+                    </image>
+                </ImageView>
+                <Text fill="WHITE" layoutX="340.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Map Locations" wrappingWidth="428.3189697265625" x="50.0">
+                    <font>
+                        <Font name="System Bold" size="60.0" />
+                    </font>
+                </Text>
+            </children>
+            <effect>
+                <DropShadow />
+            </effect>
+        </Pane>
         <Pane fx:id="backgroundPane" layoutX="105.0" layoutY="1.0" prefHeight="750.0" prefWidth="996.0">
             <children>
-                <TabPane layoutX="7.0" layoutY="166.0" prefHeight="552.0" prefWidth="877.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+                <TabPane layoutX="10.0" layoutY="140.0" prefHeight="552.0" prefWidth="841.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="Map View">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <TabPane prefHeight="552.0" prefWidth="845.0" tabClosingPolicy="UNAVAILABLE">
+                                        <TabPane layoutY="-2.0" prefHeight="552.0" prefWidth="849.0" tabClosingPolicy="UNAVAILABLE">
                                             <tabs>
                                                 <Tab text="Lower Level 1">
                                                     <content>
@@ -36,7 +55,7 @@
                                                             <children>
                                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="247.0" prefWidth="703.0">
                                                                     <children>
-                                                                        <ScrollPane fx:id="imagesPane1" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="846.0">
+                                                                        <ScrollPane fx:id="imagesPane1" layoutY="-3.0" onZoom="#test" prefHeight="524.0" prefWidth="808.0">
                                                                             <content>
                                                                                 <AnchorPane fx:id="lowerLevel1Pane" minHeight="0.0" minWidth="0.0" prefHeight="1944.0" prefWidth="2832.0">
                                                                                     <children>
@@ -45,11 +64,6 @@
                                                                                                 <Image url="@../hospitalFloors/00_thelowerlevel1.png" />
                                                                                             </image>
                                                                                         </ImageView>
-                                                                  <ImageView fitHeight="82.0" fitWidth="93.0" layoutX="856.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true">
-                                                                     <image>
-                                                                        <Image url="@../icons/unicornLogo.png" />
-                                                                     </image>
-                                                                  </ImageView>
                                                                                     </children>
                                                                                 </AnchorPane>
                                                                             </content>
@@ -66,7 +80,7 @@
                                                             <children>
                                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="247.0" prefWidth="703.0">
                                                                     <children>
-                                                                        <ScrollPane fx:id="imagesPane2" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="846.0">
+                                                                        <ScrollPane fx:id="imagesPane2" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="808.0">
                                                                             <content>
                                                                                 <AnchorPane fx:id="lowerLevel2Pane" minHeight="0.0" minWidth="0.0" prefHeight="1944.0" prefWidth="2832.0">
                                                                                     <children>
@@ -91,7 +105,7 @@
                                                             <children>
                                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="247.0" prefWidth="703.0">
                                                                     <children>
-                                                                        <ScrollPane fx:id="imagesPane3" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="846.0">
+                                                                        <ScrollPane fx:id="imagesPane3" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="808.0">
                                                                             <content>
                                                                                 <AnchorPane fx:id="floor1Pane" minHeight="0.0" minWidth="0.0" prefHeight="1944.0" prefWidth="2832.0">
                                                                                     <children>
@@ -116,7 +130,7 @@
                                                             <children>
                                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="247.0" prefWidth="703.0">
                                                                     <children>
-                                                                        <ScrollPane fx:id="imagesPane4" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="846.0">
+                                                                        <ScrollPane fx:id="imagesPane4" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="808.0">
                                                                             <content>
                                                                                 <AnchorPane fx:id="floor2Pane" minHeight="0.0" minWidth="0.0" prefHeight="1944.0" prefWidth="2832.0">
                                                                                     <children>
@@ -141,7 +155,7 @@
                                                             <children>
                                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="247.0" prefWidth="703.0">
                                                                     <children>
-                                                                        <ScrollPane fx:id="imagesPane5" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="846.0">
+                                                                        <ScrollPane fx:id="imagesPane5" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="808.0">
                                                                             <content>
                                                                                 <AnchorPane fx:id="floor3Pane" minHeight="0.0" minWidth="0.0" prefHeight="1944.0" prefWidth="2832.0">
                                                                                     <children>
@@ -166,7 +180,7 @@
                                                             <children>
                                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="247.0" prefWidth="703.0">
                                                                     <children>
-                                                                        <ScrollPane fx:id="imagesPane6" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="846.0">
+                                                                        <ScrollPane fx:id="imagesPane6" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="808.0">
                                                                             <content>
                                                                                 <AnchorPane fx:id="floor4Pane" minHeight="0.0" minWidth="0.0" prefHeight="1944.0" prefWidth="2832.0">
                                                                                     <children>
@@ -191,7 +205,7 @@
                                                             <children>
                                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="247.0" prefWidth="703.0">
                                                                     <children>
-                                                                        <ScrollPane fx:id="imagesPane7" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="846.0">
+                                                                        <ScrollPane fx:id="imagesPane7" layoutY="-1.0" onZoom="#test" prefHeight="522.0" prefWidth="808.0">
                                                                             <content>
                                                                                 <AnchorPane fx:id="floor5Pane" minHeight="0.0" minWidth="0.0" prefHeight="1944.0" prefWidth="2832.0">
                                                                                     <children>
@@ -247,23 +261,186 @@
                         </Tab>
                     </tabs>
                 </TabPane>
-            <Pane layoutX="-105.0" layoutY="-5.0" prefHeight="137.0" prefWidth="1101.0" styleClass="header" stylesheets="@../css/headersAndLabels.css">
-               <children>
-                  <ImageView fitHeight="114.0" fitWidth="75.0" layoutX="362.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/mapIcon.png" />
-                     </image>
-                  </ImageView>
-                  <Text fx:id="headerText" layoutX="437.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="headerText" text="Map Editor" wrappingWidth="226.65234375" />
-               </children>
-            </Pane>
+                <Pane layoutX="860.0" layoutY="250.0" prefHeight="329.0" prefWidth="135.0">
+                    <children>
+                        <Text layoutX="34.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legend">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Text>
+                        <Group layoutY="50.0">
+                            <children>
+                                <Group layoutX="1.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Room">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="RED" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutY="18.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipment Storage">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="ORANGE" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="38.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirty Equipment">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="YELLOW" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="56.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hallway">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="GREEN" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="74.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elevator">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="BLUE" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="90.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restroom">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="BLUEVIOLET" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="106.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Staircase">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="PURPLE" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="122.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Department">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="ROSYBROWN" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="139.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Labs">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="SILVER" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="155.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="WHEAT" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="171.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conference Room">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="187.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exit/Entrance">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="DARKRED" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="204.0">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retail">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="MAGENTA" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="220.0283203125">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="INDIANRED" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                                <Group layoutX="1.0" layoutY="245.0">
+                                    <children>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="12.0" layoutY="5.0283203125" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                                        <Text layoutX="18.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipment Stored">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                    </children>
+                                </Group>
+                                <Group layoutY="240.0283203125">
+                                    <children>
+                                        <Text layoutX="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Text>
+                                        <Circle fill="WHITE" layoutX="8.0" layoutY="-3.9716796875" radius="6.0" stroke="#daea00" strokeType="INSIDE" />
+                                    </children>
+                                </Group>
+                            </children>
+                        </Group>
+                    </children>
+                </Pane>
             </children>
         </Pane>
-        <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">
+        <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="136.0" prefHeight="558.0" prefWidth="24.0">
             <children>
                 <VBox fx:id="vBoxPane" prefHeight="462.0" prefWidth="232.0" visible="false">
                     <children>
-                        <Button fx:id="home" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toHome" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Home" textFill="WHITE">
+                        <Button fx:id="home" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toHome" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Home" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>
@@ -274,7 +451,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button fx:id="home2" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toEquipmentDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Equipment Request" textFill="WHITE">
+                        <Button fx:id="home2" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toEquipmentDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Equipment Request" textFill="WHITE">
                             <font>
                                 <Font size="19.0" />
                             </font>
@@ -285,7 +462,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLabRequest" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Lab Request" textFill="WHITE">
+                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLabRequest" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Lab Request" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>
@@ -296,7 +473,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Medicine Delivery" textFill="WHITE">
+                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Medicine Delivery" textFill="WHITE">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -307,7 +484,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMap" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #89D7BF;" text="Map" textFill="WHITE">
+                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMap" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #029ca6ff;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Map" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>
@@ -318,7 +495,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button fx:id="home1" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMealDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Meal Delivery" textFill="WHITE">
+                        <Button fx:id="home1" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMealDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Meal Delivery" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>
@@ -329,7 +506,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toGiftAndFloral" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Gift &amp; Floral" textFill="WHITE">
+                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toGiftAndFloral" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Gift &amp; Floral" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>
@@ -340,7 +517,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLaundry" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Laundry" textFill="WHITE">
+                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLaundry" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Laundry" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>

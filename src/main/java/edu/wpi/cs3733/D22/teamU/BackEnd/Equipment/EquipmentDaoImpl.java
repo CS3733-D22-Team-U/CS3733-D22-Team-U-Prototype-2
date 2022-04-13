@@ -122,6 +122,7 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
                 + "')");
       }
     } catch (SQLException e) {
+      Udb.admin = false;
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
     }

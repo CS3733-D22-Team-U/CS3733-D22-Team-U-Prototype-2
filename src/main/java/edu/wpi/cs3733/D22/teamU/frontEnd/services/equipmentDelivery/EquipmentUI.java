@@ -3,6 +3,7 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.services.equipmentDelivery;
 public class EquipmentUI {
   private String id;
   private String equipmentName;
+  private String location;
   private int amountInUse;
   private int amountAvailable;
   private int totalAmount;
@@ -14,11 +15,12 @@ public class EquipmentUI {
 
   private int priority;
 
-  public EquipmentUI(String name, int inUse, int available, int total) {
+  public EquipmentUI(String name, int inUse, int available, int total, String location) {
     equipmentName = name;
     amountInUse = inUse;
     amountAvailable = available;
     totalAmount = total;
+    this.location = location;
   }
 
   public EquipmentUI(
@@ -104,5 +106,13 @@ public class EquipmentUI {
 
   public void setPriority(int priority) {
     this.priority = priority;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
   }
 }

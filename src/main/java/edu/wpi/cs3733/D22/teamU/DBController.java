@@ -88,8 +88,10 @@ public class DBController {
       locationTest,
       equipmentTest
     };
-
-    udb = Udb.getInstance(username, password, CSVfiles);
+    Udb.username = username;
+    Udb.password = password;
+    Udb.CSVfiles = CSVfiles;
+    udb = Udb.getInstance();
 
     // Testing testing = new Testing(CSVfiles, udb);
     // Testing testing = new Testing(CSVfiles, udb);

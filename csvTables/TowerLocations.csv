@@ -18,7 +18,6 @@ FHALL00701,506,388,1,Tower,HALL,Tower Elevator Entrance,Hallway F00701
 FHALL00801,506,308,1,Tower,HALL,Tower Hallway 1,Hallway F00801
 FHALL00901,375,308,1,Tower,HALL,Tower Hallway 2,Hallway F00901
 FHALL01001,375,260,1,Tower,HALL,Tower Hallway 3,Hallway F01001
-FHALL01101,375,388,1,Tower,HALL,Tower Hallway 4,Hallway F01101
 FHALL01201,296,388,1,Tower,HALL,Tower Staff Entrance,Hallway F01201
 FHALL01301,375,283,1,Tower,HALL,Tower Hallway 5,Hallway F01301
 FHALL01401,375,487,1,Tower,HALL,Tower Hallway 6,Hallway F01401
@@ -192,3 +191,6 @@ uPATI05B31,267,291,5,Tower,PATI,Patient Room Pod B,PRB
 uPATI05B32,240,289,5,Tower,PATI,Patient Room Pod B,PRB
 uPATI05B33,211,265,5,Tower,PATI,Patient Room Pod B,PRB
 uPATI04B34,203,228,5,Tower,PATI,Patient Room Pod B,PRB
+jaja,0,0,5,N/A,N/A,N/A,N/A
+mmmm,0,0,9,N/A,N/A,N/A,N/A
+ghgh,0,0,5,N/A,N/A,N/A,N/A
