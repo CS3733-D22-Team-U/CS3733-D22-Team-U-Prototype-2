@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,9 +17,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -44,16 +46,62 @@ public class DashboardController extends ServiceController {
 
   @FXML Text time;
   @FXML Text date;
+
+  @FXML Text userName;
+
+  @FXML Pane turtlePane;
+  @FXML Circle apple;
   private static final String HOVERED_BUTTON = "-fx-border-color: #029ca6";
 
   private static final SimpleDateFormat sdf3 = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    userName.setText("Dr." + Udb.username);
     handleNavPaneAnimation();
     handleClockPaneAnimation();
     handleNavButtons();
     handeDateTime();
+
+    playTurtle();
+  }
+
+  public void playTurtle() {
+    anchor.setOnKeyPressed(
+        e -> {
+          double nextX;
+          double nextY;
+
+          if (e.getCode() == KeyCode.D) {
+            nextX = turtlePane.getLayoutX() + 10;
+            if (nextX >= 0 && nextX <= 363) {
+              turtlePane.setLayoutX(nextX);
+              turtlePane.setRotate(90);
+            }
+          }
+
+          if (e.getCode() == KeyCode.A) {
+            nextX = turtlePane.getLayoutX() - 10;
+            if (nextX >= 0 && nextX <= 363) {
+              turtlePane.setLayoutX(nextX);
+              turtlePane.setRotate(-90);
+            }
+          }
+          if (e.getCode() == KeyCode.W) {
+            nextY = turtlePane.getLayoutY() - 10;
+            if (nextY >= 0 && nextY <= 271) {
+              turtlePane.setLayoutY(nextY);
+              turtlePane.setRotate(0);
+            }
+          }
+          if (e.getCode() == KeyCode.S) {
+            nextY = turtlePane.getLayoutY() + 10;
+            if (nextY >= 0 && nextY <= 271) {
+              turtlePane.setLayoutY(nextY);
+              turtlePane.setRotate(180);
+            }
+          }
+        });
   }
 
   private void handeDateTime() {
