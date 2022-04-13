@@ -51,6 +51,8 @@ public class DashboardController extends ServiceController {
 
   @FXML Pane turtlePane;
   @FXML Circle apple;
+  @FXML AnchorPane turtAnchor;
+  @FXML Button turtButton;
   private static final String HOVERED_BUTTON = "-fx-border-color: #029ca6";
 
   private static final SimpleDateFormat sdf3 = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -62,8 +64,23 @@ public class DashboardController extends ServiceController {
     handleClockPaneAnimation();
     handleNavButtons();
     handeDateTime();
-
+    handleTurtle();
     playTurtle();
+  }
+
+  private void handleTurtle() {
+    TranslateTransition openNav = new TranslateTransition(new Duration(350), turtAnchor);
+    openNav.setToY(485);
+    TranslateTransition closeNav = new TranslateTransition(new Duration(350), turtAnchor);
+    turtButton.setOnAction(
+        (ActionEvent evt) -> {
+          if (turtAnchor.getTranslateY() != 0) {
+            openNav.play();
+          } else {
+            closeNav.setToY(687);
+            closeNav.play();
+          }
+        });
   }
 
   public void playTurtle() {
