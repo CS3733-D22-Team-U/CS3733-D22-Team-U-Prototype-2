@@ -39,7 +39,7 @@
         </Pane>
         <Pane fx:id="pane" layoutY="-1.0" prefHeight="741.0" prefWidth="1100.0">
             <children>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b0e5e3" height="564.0" layoutX="743.0" layoutY="146.0" stroke="#b0e5e3" strokeType="INSIDE" width="345.0" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b0e5e3" height="564.0" layoutX="734.0" layoutY="146.0" stroke="#b0e5e3" strokeType="INSIDE" width="354.0" />
                 <ImageView fitHeight="594.0" fitWidth="354.0" layoutX="362.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/DietaryMorgueMech.png" />
@@ -69,11 +69,11 @@
                         <MenuItem fx:id="level5" mnemonicParsing="false" onAction="#lower" text="L5" />
                     </items>
                 </SplitMenuButton>
-                <TableView fx:id="equipFloor" layoutX="760.0" layoutY="200.0" prefHeight="499.0" prefWidth="317.0">
+                <TableView fx:id="equipFloor" layoutX="745.0" layoutY="200.0" prefHeight="499.0" prefWidth="332.0">
                     <columns>
-                        <TableColumn fx:id="location" prefWidth="64.84466552734375" text="Location" />
-                        <TableColumn fx:id="locationType" prefWidth="90.7412109375" text="Location Type" />
-                        <TableColumn fx:id="equipmentName" prefWidth="160.0" text="Equipment" />
+                        <TableColumn fx:id="location" prefWidth="93.0" text="Location" />
+                        <TableColumn fx:id="locationType" prefWidth="88.0" text="# In Use" />
+                        <TableColumn fx:id="equipmentName" prefWidth="150.0" text="Equipment" />
                     </columns>
                 </TableView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="158.0" layoutX="140.0" layoutY="235.0" stroke="BLACK" strokeType="INSIDE" width="153.0" />

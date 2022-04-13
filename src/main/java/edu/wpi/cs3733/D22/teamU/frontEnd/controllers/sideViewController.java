@@ -180,7 +180,8 @@ public class sideViewController extends ServiceController {
               equipment.getName(),
               equipment.getInUse(),
               equipment.getAvailable(),
-              equipment.getAmount()));
+              equipment.getAmount(),
+              equipment.getLocationID()));
     }
 
     return equipmentUI;
@@ -207,6 +208,7 @@ public class sideViewController extends ServiceController {
     equipmentName.setCellValueFactory(
         new PropertyValueFactory<EquipmentUI, String>("equipmentName"));
     location.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("location"));
+    locationType.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("amountInUse"));
     equipFloor.setItems(getEquipmentList());
   }
 
