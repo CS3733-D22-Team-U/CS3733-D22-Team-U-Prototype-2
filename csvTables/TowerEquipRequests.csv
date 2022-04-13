@@ -18,6 +18,7 @@ ID,Name,Amount,Type,Employee,Destination,Date,Time,Priority
 7057,Gloves,32,Equipment,test2,uSTOR0L1,4/4/2022,23:12:44,1
 6880,Nebulaizer,78,Equipment,test1,uSTOR0L1,4/4/2022,23:13:37,1
 8686,First Aid Kit,10,Equipment,test3,FDEPT00201,2022-04-12,01:53:40,1
+39,First Aid Kit,100,Equipment,test2,FDEPT00201,2022-04-12,17:08:09,1
 4740,Glucometer,766,Equipment,test3,uSTOR0L1,4/4/2022,23:13:37,1
 5312,First Aid Kit,45,Equipment,test3,uSTOR0L1,4/4/2022,23:43:43,1
 3353,Bone Saw,78,Equipment,test1,uSTOR0L1,4/4/2022,23:13:37,1

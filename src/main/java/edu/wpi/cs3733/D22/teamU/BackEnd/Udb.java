@@ -26,33 +26,75 @@ public final class Udb {
 
   private static Udb Instance;
 
-  public static Udb getInstance(String username, String password, String[] CSVfiles)
-      throws IOException {
+  public String DB_LOC = "jdbc:derby:UDB;";
+  public String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+  public static String[] CSVfiles;
+  public static String username;
+  public static String password;
+
+  public void changeDriver(boolean change) throws IOException, SQLException {
+    // embedded driver
+
+    this.closeConnection();
+
+    if (change) {
+      DB_LOC = "jdbc:derby:UDB;";
+      driver = "org.apache.derby.jdbc.EmbeddedDriver";
+    } else {
+      DB_LOC = "jdbc:derby://localhost:1527/UDBClient;";
+      driver = "org.apache.derby.jdbc.ClientDriver";
+    }
+
+    authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
+
+    databaseInit();
+  }
+
+  public static Udb getInstance() throws IOException, SQLException {
     if (Instance == null) {
       Instance = new Udb(username, password, CSVfiles);
     }
+
     return Instance;
   }
 
-  public String DB_LOC = "jdbc:derby:UDB;";
+  public static void removeConnection() {
+    Instance = null;
+  }
+
   public Connection connection;
+  public Statement statement;
+  public String authentication;
 
   public LocationDaoImpl locationImpl;
   public EquipmentDaoImpl EquipmentImpl;
   public EmployeeDaoImpl EmployeeImpl;
-
   public EquipRequestDaoImpl equipRequestImpl;
   public LabRequestDaoImpl labRequestImpl;
   public LaundryRequestDaoImpl laundryRequestImpl;
   public MedicineRequestDaoImpl medicineRequestImpl;
 
-  private Udb(String username, String password, String[] CSVfiles) throws IOException {
+  public static boolean admin;
 
-    Statement statement = null;
-    String authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
+  private Udb(String username, String password, String[] CSVfiles)
+      throws IOException, SQLException {
+    admin = true;
+    this.username = username;
+    this.password = password;
+    this.CSVfiles = CSVfiles;
+
+    // Runtime.getRuntime().exec("java -jar %DERBY_HOME%\\lib\\derbyrun.jar server start");
+    statement = null;
+    authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
+
+    databaseInit();
+    // create connection
+  }
+
+  public void databaseCreate() throws SQLException {
 
     try {
-      Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+      Class.forName(driver);
     } catch (ClassNotFoundException e) {
       System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
       System.out.println("For IntelliJ do the following:");
@@ -67,30 +109,48 @@ public final class Udb {
 
     System.out.println("Apache Derby driver registered!");
 
-    // set username password
     try {
-      Connection connection = DriverManager.getConnection(authentication + "create=true;");
-      Statement exampleStatement = connection.createStatement();
+      Connection DBThere = DriverManager.getConnection(authentication);
+      DBThere.close();
 
-      exampleStatement.executeUpdate(
+    } catch (Exception e) {
+      Connection connectionInit = null;
+      connectionInit = DriverManager.getConnection(authentication + "create=true;");
+      Statement makingDB = connectionInit.createStatement();
+
+      makingDB.executeUpdate(
           "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.connection.requireAuthentication',true)");
-      exampleStatement.executeUpdate(
+      makingDB.executeUpdate(
           "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.database.sqlAuthorization', true)");
-      exampleStatement.executeUpdate(
+      makingDB.executeUpdate(
           "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY("
               + "'derby.authentication.provider', 'BUILTIN')");
-      exampleStatement.executeUpdate(
-          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.user.admin', 'admin')");
-      exampleStatement.executeUpdate(
+      makingDB.executeUpdate(
           "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY("
-              + "'derby.database.defaultConnectionMode', 'fullAccess')");
-      connection.close();
-    } catch (Exception e) {
-      System.out.println("Wrong Username/Password");
-      return;
-    }
+              + "'derby.database.defaultConnectionMode', 'noAccess')");
 
-    // create connection
+      // adding users
+      makingDB.executeUpdate(
+          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.user.admin', 'admin')");
+      makingDB.executeUpdate(
+          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.user.staff', 'staff')");
+
+      // setting permissions
+      makingDB.executeUpdate(
+          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY("
+              + "'derby.database.fullAccessUsers', 'admin')");
+      makingDB.executeUpdate(
+          "CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY("
+              + "'derby.database.readOnlyAccessUsers', 'staff')");
+
+      connectionInit.close();
+    }
+  }
+
+  public void databaseInit() throws IOException, SQLException {
+
+    databaseCreate();
+
     try {
       connection = null;
       connection = DriverManager.getConnection(authentication);
@@ -136,6 +196,7 @@ public final class Udb {
   // OR THE X IN THE CORNER
   public void closeConnection() throws SQLException {
     connection.close();
+    removeConnection();
   }
 
   // ============================================================= Facade Functions
@@ -306,7 +367,8 @@ public final class Udb {
             + "5 - Lab Request\n"
             + "6 - Laundry Request\n"
             + "7 - Medicine Request\n"
-            + "8 - Quit\n");
+            + "8 - Change Server\n"
+            + "9 - Quit\n");
 
     switch (userInput.nextInt()) {
       case 1:
@@ -334,9 +396,29 @@ public final class Udb {
         break;
 
       case 8:
+        serveChangeMenu();
+        break;
+
+      case 9:
         // exits whole menu
         break;
     }
+  }
+
+  private void serveChangeMenu() throws SQLException, IOException {
+    Scanner changeInput = new Scanner(System.in);
+    System.out.println("Press 1 for Embedded Database\n" + "Press 2 for Client Server Database\n");
+
+    int a = changeInput.nextInt();
+
+    if (a == 1) {
+      this.changeDriver(true);
+    } else if (a == 2) {
+      this.changeDriver(false);
+    } else {
+      System.out.println("Not an option");
+    }
+    menu();
   }
 
   private void locationMenu() throws SQLException, IOException {
