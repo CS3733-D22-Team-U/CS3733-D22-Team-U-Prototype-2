@@ -18,7 +18,6 @@ FHALL00701,506,388,1,Tower,HALL,Tower Elevator Entrance,Hallway F00701
 FHALL00801,506,308,1,Tower,HALL,Tower Hallway 1,Hallway F00801
 FHALL00901,375,308,1,Tower,HALL,Tower Hallway 2,Hallway F00901
 FHALL01001,375,260,1,Tower,HALL,Tower Hallway 3,Hallway F01001
-FHALL01101,375,388,1,Tower,HALL,Tower Hallway 4,Hallway F01101
 FHALL01201,296,388,1,Tower,HALL,Tower Staff Entrance,Hallway F01201
 FHALL01301,375,283,1,Tower,HALL,Tower Hallway 5,Hallway F01301
 FHALL01401,375,487,1,Tower,HALL,Tower Hallway 6,Hallway F01401
@@ -150,3 +149,48 @@ uPATI05903,334,581,3,Tower,PATI,Patient Room Pod C,PRC
 uPATI06003,336,551,3,Tower,PATI,Patient Room Pod C,PRC
 uHALL01003,448,275,3,Tower,HALL,Bed and Reciner Parking A-B,BRPAB
 uHALL02003,448,491,3,Tower,HALL,Bed and Recliner Parking C-D,BRPCD
+uPATI04B31,267,291,4,Tower,PATI,Patient Room Pod B,PRB
+uPATI04B32,240,289,4,Tower,PATI,Patient Room Pod B,PRB
+uPATI04B33,211,265,4,Tower,PATI,Patient Room Pod B,PRB
+uPATI04B34,203,228,4,Tower,PATI,Patient Room Pod B,PRB
+uPATI04B35,209,197,4,Tower,PATI,Patient Room Pod B,PRB
+uPATI04B36,234,176,4,Tower,PATI,Patient Room Pod B,PRB
+uPATI04B37,267,159,4,Tower,PATI,Patient Room Pod B,PRB
+uPATI04B38,300,165,4,Tower,PATI,Patient Room Pod B,PRB
+uPATI04B39,332,184,4,Tower,PATI,Patient Room Pod B,PRB
+uPATI04C57,287,487,4,Tower,PATI,Patient Room Pod C,PRC
+uPATI04C56,237,481,4,Tower,PATI,Patient Room Pod C,PRC
+uPATI04C55,207,518,4,Tower,PATI,Patient Room Pod C,PRC
+uPATI04C54,206,546,4,Tower,PATI,Patient Room Pod C,PRC
+uPATI04C53,213,575,4,Tower,PATI,Patient Room Pod C,PRC
+uPATI04C52,232,592,4,Tower,PATI,Patient Room Pod C,PRC
+uPATI04C51,263,608,4,Tower,PATI,Patient Room Pod C,PRC
+uPATI04C1,305,604,4,Tower,PATI,Patient Room Pod C,PRC
+uPATI04C2,334,581,4,Tower,PATI,Patient Room Pod C,PRC
+uPATI04C3,336,551,4,Tower,PATI,Patient Room Pod C,PRC
+uHALL04C01,448,275,4,Tower,HALL,Bed and Reciner Parking A-B,BRPAB
+uHALL04C03,448,491,4,Tower,HALL,Bed and Recliner Parking C-D,BRPCD
+uPATI05B35,209,197,5,Tower,PATI,Patient Room Pod B,PRB
+uPATI05B36,234,176,5,Tower,PATI,Patient Room Pod B,PRB
+uPATI05B37,267,159,5,Tower,PATI,Patient Room Pod B,PRB
+uPATI05B38,300,165,5,Tower,PATI,Patient Room Pod B,PRB
+uPATI05B39,332,184,5,Tower,PATI,Patient Room Pod B,PRB
+uPATI05C57,287,487,5,Tower,PATI,Patient Room Pod C,PRC
+uPATI05C56,237,481,5,Tower,PATI,Patient Room Pod C,PRC
+uPATI05C55,207,518,5,Tower,PATI,Patient Room Pod C,PRC
+uPATI05C54,206,546,5,Tower,PATI,Patient Room Pod C,PRC
+uPATI05C53,213,575,5,Tower,PATI,Patient Room Pod C,PRC
+uPATI05C52,232,592,5,Tower,PATI,Patient Room Pod C,PRC
+uPATI05C51,263,608,5,Tower,PATI,Patient Room Pod C,PRC
+uPATI05C1,305,604,5,Tower,PATI,Patient Room Pod C,PRC
+uPATI05C2,334,581,5,Tower,PATI,Patient Room Pod C,PRC
+uPATI05C3,336,551,5,Tower,PATI,Patient Room Pod C,PRC
+uHALL05C01,448,275,5,Tower,HALL,Bed and Reciner Parking A-B,BRPAB
+uHALL05C03,448,491,5,Tower,HALL,Bed and Recliner Parking C-D,BRPCD
+uPATI05B31,267,291,5,Tower,PATI,Patient Room Pod B,PRB
+uPATI05B32,240,289,5,Tower,PATI,Patient Room Pod B,PRB
+uPATI05B33,211,265,5,Tower,PATI,Patient Room Pod B,PRB
+uPATI04B34,203,228,5,Tower,PATI,Patient Room Pod B,PRB
+jaja,0,0,5,N/A,N/A,N/A,N/A
+mmmm,0,0,9,N/A,N/A,N/A,N/A
+ghgh,0,0,5,N/A,N/A,N/A,N/A

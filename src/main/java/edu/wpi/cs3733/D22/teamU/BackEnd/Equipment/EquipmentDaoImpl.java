@@ -7,6 +7,7 @@ import edu.wpi.cs3733.D22.teamU.DBController;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class EquipmentDaoImpl implements DataDao<Equipment> {
@@ -14,6 +15,7 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
   public ArrayList<Equipment> EquipmentList = new ArrayList<Equipment>();
   public String csvFile;
   private Udb udb = DBController.udb;
+
   /**
    * Constructor for EquipmentDaoImpl
    *
@@ -27,6 +29,11 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
   @Override
   public ArrayList<Equipment> list() {
     return EquipmentList;
+  }
+
+  @Override
+  public HashMap<String, Equipment> hList() {
+    return null;
   }
 
   /**
@@ -65,10 +72,10 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
     String s;
     File file = new File(csvFile);
     BufferedReader br = new BufferedReader(new FileReader(file));
-    br.readLine();
+    int size = br.readLine().split(",").length;
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
-      if (row.length == 5) {
+      if (row.length == size) {
         Equipment e =
             new Equipment(row[0], Integer.parseInt(row[1]), Integer.parseInt(row[2]), row[4]);
         Location l = udb.locationImpl.list().get(udb.locationImpl.list().indexOf(e.locationID));
@@ -115,6 +122,7 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
                 + "')");
       }
     } catch (SQLException e) {
+      Udb.admin = false;
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
     }

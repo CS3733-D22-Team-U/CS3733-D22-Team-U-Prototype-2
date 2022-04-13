@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.D22.teamU.BackEnd.Location;
 
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ public class Location {
   String longName;
   String shortName;
   ArrayList<Equipment> equipment = new ArrayList<>();
-
+  ArrayList<Request> requests = new ArrayList<>();
   /** Empty constructor */
   public Location() {}
 
@@ -167,12 +168,24 @@ public class Location {
     equipment.add(e);
   }
 
+  public void addRequest(Request e) {
+    requests.add(e);
+  }
+
+  public ArrayList<Request> getRequests() {
+    return requests;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Location location = (Location) o;
     return Objects.equals(nodeID, location.nodeID);
+  }
+
+  public void setRequests(ArrayList<Request> requests) {
+    this.requests = requests;
   }
 
   @Override

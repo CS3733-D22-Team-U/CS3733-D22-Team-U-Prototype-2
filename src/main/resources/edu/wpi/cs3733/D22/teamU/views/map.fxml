@@ -261,11 +261,11 @@
                 </TabPane>
             </children>
         </Pane>
-        <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">
+        <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="136.0" prefHeight="563.0" prefWidth="76.0">
             <children>
                 <VBox fx:id="vBoxPane" prefHeight="462.0" prefWidth="232.0" visible="false">
                     <children>
-                        <Button fx:id="home" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toHome" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Home" textFill="WHITE">
+                        <Button fx:id="home" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toHome" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Home" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>
@@ -276,7 +276,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button fx:id="home2" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toEquipmentDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Equipment Request" textFill="WHITE">
+                        <Button fx:id="home2" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toEquipmentDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Equipment Request" textFill="WHITE">
                             <font>
                                 <Font size="19.0" />
                             </font>
@@ -287,7 +287,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLabRequest" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Lab Request" textFill="WHITE">
+                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLabRequest" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Lab Request" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>
@@ -298,7 +298,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Medicine Delivery" textFill="WHITE">
+                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMedicineDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Medicine Delivery" textFill="WHITE">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -309,7 +309,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMap" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #89D7BF;" text="Map" textFill="WHITE">
+                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMap" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #029ca6ff;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Map" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>
@@ -320,7 +320,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button fx:id="home1" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMealDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Meal Delivery" textFill="WHITE">
+                        <Button fx:id="home1" alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toMealDelivery" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Meal Delivery" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>
@@ -331,7 +331,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toGiftAndFloral" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Gift &amp; Floral" textFill="WHITE">
+                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toGiftAndFloral" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Gift &amp; Floral" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>
@@ -342,7 +342,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLaundry" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" text="Laundry" textFill="WHITE">
+                        <Button alignment="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#toLaundry" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 15px; -fx-background-radius: 15; -fx-background-color: #044e9a;" styleClass="hamburgerButton" stylesheets="@../css/buttons.css" text="Laundry" textFill="WHITE">
                             <font>
                                 <Font size="26.0" />
                             </font>

@@ -18,19 +18,19 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: 89D7BF89D7BF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.giftFloralController">
     <children>
-      <Pane fx:id="assistPane" prefHeight="200.0" prefWidth="200.0" />
+        <Pane fx:id="assistPane" prefHeight="200.0" prefWidth="200.0" />
         <Pane fx:id="pane" layoutX="310.0" layoutY="-1.0" prefHeight="640.0" prefWidth="790.0">
             <children>
-            <Pane layoutX="504.0" layoutY="113.0" prefHeight="62.0" prefWidth="254.0">
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#89d7bf" height="56.0" stroke="#89d7bf" strokeType="INSIDE" width="252.0" />
-                    <Text layoutX="7.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
-                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="39.0" layoutX="54.0" layoutY="9.0" stroke="#89d7bf" strokeType="INSIDE" width="186.0" />
-               </children>
-            </Pane>
-              <Text fx:id="processingText" layoutX="500.0" layoutY="577.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Processing..." visible="false" x="70.0" y="-430.0" />
-              <Button layoutX="303.0" layoutY="577.0" mnemonicParsing="false" onAction="#clear" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="Clear" />
-              <Button layoutX="132.0" layoutY="577.0" mnemonicParsing="false" onAction="#submit" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="OK" />
+                <Pane layoutX="504.0" layoutY="113.0" prefHeight="62.0" prefWidth="254.0">
+                    <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#89d7bf" height="56.0" stroke="#89d7bf" strokeType="INSIDE" width="252.0" />
+                        <Text layoutX="7.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="39.0" layoutX="54.0" layoutY="9.0" stroke="#89d7bf" strokeType="INSIDE" width="186.0" />
+                    </children>
+                </Pane>
+                <Text fx:id="processingText" layoutX="500.0" layoutY="577.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Processing..." visible="false" x="70.0" y="-430.0" />
+                <Button layoutX="303.0" layoutY="577.0" mnemonicParsing="false" onAction="#clear" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="Clear" />
+                <Button layoutX="132.0" layoutY="577.0" mnemonicParsing="false" onAction="#submit" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="OK" />
                 <Pane layoutX="-329.0" layoutY="-6.0" prefHeight="95.0" prefWidth="1122.0" style="-fx-background-color: #044e9a #044e9a;">
                     <children>
                         <Text fill="WHITE" layoutX="341.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gift &amp; Floral Delivery" wrappingWidth="645.65234375">
@@ -56,26 +56,26 @@
                 <TextField fx:id="staffField" layoutX="162.0" layoutY="173.0" />
                 <Text layoutX="9.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Delivery #" />
                 <TextField fx:id="roomField" layoutX="118.0" layoutY="213.0" />
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="8.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/balloonSquare.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="529.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/basketSquare.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="355.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/chocoSquare.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="183.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/flowerSquare.png" />
-               </image>
-            </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="8.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/balloonSquare.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="529.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/basketSquare.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="355.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/chocoSquare.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="183.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/flowerSquare.png" />
+                    </image>
+                </ImageView>
                 <CheckBox fx:id="balloonBox" layoutX="17.0" layoutY="356.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Balloons">
                     <font>
                         <Font name="Lucida Grande" size="11.0" />
@@ -96,11 +96,12 @@
                         <Font name="Lucida Grande" size="11.0" />
                     </font>
                 </CheckBox>
-            <Text layoutX="9.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request ID" />
-            <TextField fx:id="requestID" layoutX="87.0" layoutY="253.0" />
+                <Text layoutX="9.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request ID" />
+                <TextField fx:id="requestID" layoutX="87.0" layoutY="253.0" />
+                <Button layoutX="220.0" layoutY="577.0" mnemonicParsing="false" onAction="#toHelp" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #89D7BF; -fx-background-radius: 15;" text="Help" />
             </children>
         </Pane>
-        <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">
+        <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="120.0" prefHeight="603.0" prefWidth="53.0">
             <children>
                 <VBox fx:id="vBoxPane" prefHeight="462.0" prefWidth="232.0" visible="false">
                     <children>

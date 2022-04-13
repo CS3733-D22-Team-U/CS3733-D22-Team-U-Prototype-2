@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXCheckBox;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Request.LabRequest.LabRequest;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
@@ -63,13 +64,13 @@ public class labRequestServices extends ServiceController {
   }
 
   private ObservableList<LabUI> getActiveRequestList() {
-    for (LabRequest request : udb.labRequestImpl.labRequestsList) {
+    for (LabRequest request : udb.labRequestImpl.hList().values()) {
       labUIRequests.add(
           new LabUI(
               request.getID(),
               request.getPatient(),
-              request.getStaff(),
-              request.getLabType(),
+              request.getEmployee().getEmployeeID(),
+              request.getName(),
               request.getDate(),
               request.getTime()));
     }
@@ -107,7 +108,7 @@ public class labRequestServices extends ServiceController {
               new LabRequest(
                   request.getId(),
                   request.getPatientName(),
-                  request.getStaffName(),
+                  new Employee(request.getId()),
                   request.getLabType(),
                   request.getRequestDate(),
                   request.getRequestTime()));

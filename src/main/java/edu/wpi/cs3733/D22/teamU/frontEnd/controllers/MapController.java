@@ -1,13 +1,15 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXHamburger;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
-import edu.wpi.cs3733.D22.teamU.DBController;
 import edu.wpi.cs3733.D22.teamU.frontEnd.javaFXObjects.LocationNode;
 import edu.wpi.cs3733.D22.teamU.frontEnd.services.map.MapUI;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -19,7 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
@@ -67,7 +68,6 @@ public class MapController extends ServiceController {
   @FXML AnchorPane floor3Pane;
   @FXML AnchorPane floor4Pane;
   @FXML AnchorPane floor5Pane;
-  @FXML ImageView image;
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
   @FXML TableView<MapUI> mapTable;
@@ -82,13 +82,16 @@ public class MapController extends ServiceController {
   @FXML Pane assistPane;
   @FXML Button addBTN;
   ObservableList<MapUI> mapUI = FXCollections.observableArrayList();
-  Udb udb = DBController.udb;
-
+  Udb udb = Udb.getInstance();
+  ListView<String> equipmentView, requestView;
   HashMap<String, LocationNode> locations;
+
+  public MapController() throws IOException, SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     super.initialize(location, resources);
+    addBTN.setDisable(!Udb.admin);
     setScroll(lowerLevel1Pane);
     setScroll(lowerLevel2Pane);
     setScroll(floor1Pane);
@@ -257,6 +260,7 @@ public class MapController extends ServiceController {
               }
             } else if (n2 instanceof Button && n2.getId().equals("addButton")) {
               addButton = (Button) n2;
+              addButton.setDisable(!Udb.admin);
               addButton.setOnMouseClicked(this::popupAddLocation);
             } else if (n2 instanceof TextField) {
               TextField tf = (TextField) n2;
@@ -342,13 +346,41 @@ public class MapController extends ServiceController {
               default:
                 break;
             }
+          } else if (n2 instanceof ListView) {
+            ListView<String> lv = (ListView<String>) n2;
+            lv.getItems().clear();
+            switch (lv.getId()) {
+              case "requestView":
+                requestView = lv;
+                for (Request r : location.getRequests()) {
+                  requestView
+                      .getItems()
+                      .add(
+                          r.getID()
+                              + ": "
+                              + r.getEmployee().getEmployeeID()
+                              + " "
+                              + r.date
+                              + " "
+                              + r.getTime());
+                }
+                break;
+              case "equipmentView":
+                equipmentView = lv;
+                for (Equipment e : location.getEquipment()) {
+                  equipmentView.getItems().add(e.getName() + ": " + e.getAmount());
+                }
+                break;
+            }
           } else if (n2 instanceof Button) {
             Button b = (Button) n2;
             switch (b.getId()) {
               case "edit":
+                b.setDisable(!Udb.admin);
                 b.setOnMouseClicked(this::popupEdit);
                 break;
               case "remove":
+                b.setDisable(!Udb.admin);
                 b.setOnMouseClicked(this::popupRemove);
                 break;
               default:
@@ -381,6 +413,7 @@ public class MapController extends ServiceController {
 
       Location old = udb.locationImpl.list().get(udb.locationImpl.list().indexOf(l));
       l.setEquipment(old.getEquipment());
+      l.setRequests(old.getRequests());
       udb.locationImpl.edit(l);
       LocationNode lnOld = locations.get(l.getNodeID());
       double scale = Double.min(lnOld.getPane().getPrefHeight(), lnOld.getPane().getPrefWidth());

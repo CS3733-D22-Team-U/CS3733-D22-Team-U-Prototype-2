@@ -2,16 +2,20 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.Employee;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.Equipment;
+import edu.wpi.cs3733.D22.teamU.BackEnd.Location.Location;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Request.EquipRequest.EquipRequest;
-import edu.wpi.cs3733.D22.teamU.BackEnd.Request.Request;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.DBController;
+import edu.wpi.cs3733.D22.teamU.frontEnd.javaFXObjects.ComboBoxAutoComplete;
 import edu.wpi.cs3733.D22.teamU.frontEnd.services.equipmentDelivery.EquipmentUI;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.Observable;
@@ -28,6 +32,8 @@ import lombok.SneakyThrows;
 
 public class EquipmentDeliverySystemController extends ServiceController {
 
+  public ComboBox<String> locations;
+  public ComboBox employees;
   @FXML TabPane tabPane;
   @FXML TableColumn<EquipmentUI, String> nameCol;
   @FXML TableColumn<EquipmentUI, Integer> inUse;
@@ -58,7 +64,8 @@ public class EquipmentDeliverySystemController extends ServiceController {
 
   ObservableList<EquipmentUI> equipmentUIRequests = FXCollections.observableArrayList();
   Udb udb = DBController.udb;
-
+  ArrayList<String> nodeIDs;
+  ArrayList<String> staff;
   private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
   @SneakyThrows
@@ -67,6 +74,21 @@ public class EquipmentDeliverySystemController extends ServiceController {
     super.initialize(location, resources);
     setUpAllEquipment();
     setUpActiveRequests();
+    nodeIDs = new ArrayList<>();
+    for (Location l : udb.locationImpl.list()) {
+      nodeIDs.add(l.getNodeID());
+    }
+    locations.setTooltip(new Tooltip());
+    locations.getItems().addAll(nodeIDs);
+    new ComboBoxAutoComplete<String>(locations, 650, 290);
+
+    staff = new ArrayList<>();
+    for (Employee l : udb.EmployeeImpl.hList().values()) {
+      staff.add(l.getEmployeeID());
+    }
+    employees.setTooltip(new Tooltip());
+    employees.getItems().addAll(staff);
+    new ComboBoxAutoComplete<String>(employees, 675, 380);
 
     for (Node checkBox : requestHolder.getChildren()) {
       checkBoxes.add((JFXCheckBox) checkBox);
@@ -74,20 +96,9 @@ public class EquipmentDeliverySystemController extends ServiceController {
     for (Node textArea : inputFields.getChildren()) {
       checkBoxesInput.add((JFXTextArea) textArea);
     }
-    for (Node textArea : locationInput.getChildren()) {
-      locInput.add((JFXTextArea) textArea);
-    }
-
     for (int i = 0; i < checkBoxesInput.size(); i++) {
       int finalI = i;
       checkBoxesInput
-          .get(i)
-          .disableProperty()
-          .bind(
-              Bindings.createBooleanBinding(
-                  () -> !checkBoxes.get(finalI).isSelected(),
-                  checkBoxes.stream().map(CheckBox::selectedProperty).toArray(Observable[]::new)));
-      locInput
           .get(i)
           .disableProperty()
           .bind(
@@ -158,7 +169,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
   }
 
   private ObservableList<EquipmentUI> getActiveRequestList() {
-    for (EquipRequest equipRequest : udb.equipRequestImpl.equipRequestList) {
+    for (EquipRequest equipRequest : udb.equipRequestImpl.hList().values()) {
       equipmentUIRequests.add(
           new EquipmentUI(
               equipRequest.getID(),
@@ -184,18 +195,12 @@ public class EquipmentDeliverySystemController extends ServiceController {
       if (checkBoxes.get(i).isSelected()) {
         String inputString = "";
 
-        // todo find a way to make it so we cant submit when amount or location are empty
-        // not a great way to do it but it sorta works
-        while (locInput.get(i).getText().trim().equals("")) {
-          //
-        }
-
         if (checkBoxesInput.get(i).getText().trim().equals("")) {
           inputString = "0";
         } else {
           inputString = checkBoxesInput.get(i).getText().trim();
         }
-        String room = locInput.get(i).getText();
+        String room = locations.getValue().toString();
 
         requestAmount = Integer.parseInt(inputString);
 
@@ -230,11 +235,12 @@ public class EquipmentDeliverySystemController extends ServiceController {
                 1));
         try {
           udb.add( // TODO Have random ID and enter Room Destination
-              new Request(
+              new EquipRequest(
                   request.getId(),
                   request.getEquipmentName(),
                   request.getRequestAmount(),
                   request.getType(),
+                  checkEmployee(employees.getValue().toString()),
                   request.getDestination(),
                   request.getRequestDate(),
                   request.getRequestTime(),
@@ -287,5 +293,14 @@ public class EquipmentDeliverySystemController extends ServiceController {
               }
             })
         .start();
+  }
+
+  public Employee checkEmployee(String employee) throws NullPointerException {
+    if (EmployeeDaoImpl.List.get(employee) != null) {
+      return EmployeeDaoImpl.List.get(employee);
+    } else {
+      Employee empty = new Employee("N/A");
+      return empty;
+    }
   }
 }

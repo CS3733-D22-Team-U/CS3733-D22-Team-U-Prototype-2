@@ -1,8 +1,10 @@
 package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
+import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
@@ -24,6 +26,7 @@ import javafx.util.Duration;
 
 public class DashboardController extends ServiceController {
 
+  public Button logOutButton;
   @FXML Button navButton;
   @FXML AnchorPane animatePane;
   @FXML ImageView navPaneArrow;
@@ -131,7 +134,11 @@ public class DashboardController extends ServiceController {
     Platform.exit();
   }
 
-  public void toLogOut(ActionEvent actionEvent) throws IOException {
+  public void toLogOut(ActionEvent actionEvent) throws IOException, SQLException {
+
+    Udb.getInstance().closeConnection();
+    Udb.password = "";
+    Udb.username = "";
     Scene scene = Uapp.getScene("edu/wpi/cs3733/D22/teamU/views/logInPage.fxml");
     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     appStage.setScene(scene);
