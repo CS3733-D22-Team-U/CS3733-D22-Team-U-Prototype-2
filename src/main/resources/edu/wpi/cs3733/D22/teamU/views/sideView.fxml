@@ -122,7 +122,7 @@
                         <Font name="System Italic" size="13.0" />
                     </font>
                 </Text>
-            <Button layoutX="161.0" layoutY="145.0" mnemonicParsing="false" onAction="#toSideView" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #89D7BF #89D7BF; -fx-background-radius: 15; -fx-border-radius: 15px;" text="Map Editor" />
+            <Button layoutX="161.0" layoutY="145.0" mnemonicParsing="false" onAction="#toSideView" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #029ca6; -fx-background-radius: 15; -fx-border-radius: 15px;" text="Map Editor" textFill="WHITE" />
             </children>
         </Pane>
         <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">
