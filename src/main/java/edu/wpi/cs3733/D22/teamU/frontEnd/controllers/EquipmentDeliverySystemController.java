@@ -165,7 +165,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
               equipment.getInUse(),
               equipment.getAvailable(),
               equipment.getAmount(),
-              equipment.getLocationID());
+              equipment.getLocationID()));
     }
 
     return equipmentUI;
