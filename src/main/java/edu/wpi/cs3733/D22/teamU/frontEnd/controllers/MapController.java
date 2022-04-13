@@ -258,10 +258,6 @@ public class MapController extends ServiceController {
                   addFloorCombo.setItems(floorList);
                   break;
               }
-            } else if (n2 instanceof Button && n2.getId().equals("addButton")) {
-              addButton = (Button) n2;
-              addButton.setDisable(!Udb.admin);
-              addButton.setOnMouseClicked(this::popupAddLocation);
             } else if (n2 instanceof TextField) {
               TextField tf = (TextField) n2;
               switch (tf.getId()) {
@@ -283,6 +279,10 @@ public class MapController extends ServiceController {
               }
             }
           }
+        } else if (n instanceof Button && n.getId().equals("addButton")) {
+          addButton = (Button) n;
+          // addButton.setDisable(!Udb.admin);
+          addButton.setOnMouseClicked(this::popupAddLocation);
         }
       }
     }
@@ -456,7 +456,7 @@ public class MapController extends ServiceController {
   }
 
   private void popupAddLocation(MouseEvent mouseEvent) {
-
+    System.out.println("test");
     Location l =
         new Location(
             addNodeID.getText(),
