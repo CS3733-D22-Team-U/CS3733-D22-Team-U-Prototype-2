@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
@@ -38,25 +39,25 @@
         </Pane>
         <Pane fx:id="pane" layoutY="-1.0" prefHeight="741.0" prefWidth="1100.0">
             <children>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b0e5e3" height="564.0" layoutX="743.0" layoutY="146.0" stroke="#b0e5e3" strokeType="INSIDE" width="345.0" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b0e5e3" height="564.0" layoutX="734.0" layoutY="146.0" stroke="#b0e5e3" strokeType="INSIDE" width="354.0" />
                 <ImageView fitHeight="594.0" fitWidth="354.0" layoutX="362.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/DietaryMorgueMech.png" />
                     </image>
                 </ImageView>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="448.0" layoutY="235.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="482.0" layoutY="235.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="591.0" layoutY="235.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="626.0" layoutY="235.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="447.0" layoutY="161.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="480.0" layoutY="161.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="590.0" layoutY="161.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="624.0" layoutY="161.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="482.0" layoutY="318.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="591.0" layoutY="318.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b25656" height="32.0" layoutX="538.0" layoutY="318.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b25656" height="32.0" layoutX="538.0" layoutY="235.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b25656" height="32.0" layoutX="537.0" layoutY="161.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room6" arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="448.0" layoutY="235.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room7" arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="482.0" layoutY="235.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room9" arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="591.0" layoutY="235.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room10" arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="626.0" layoutY="235.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room1" arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="447.0" layoutY="161.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room2" arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="480.0" layoutY="161.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room4" arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="590.0" layoutY="161.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room5" arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="624.0" layoutY="161.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room11" arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="482.0" layoutY="318.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room13" arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="591.0" layoutY="318.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room12" arcHeight="5.0" arcWidth="5.0" fill="#b25656" height="32.0" layoutX="538.0" layoutY="318.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room8" arcHeight="5.0" arcWidth="5.0" fill="#b25656" height="32.0" layoutX="538.0" layoutY="235.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+                <Rectangle fx:id="room3" arcHeight="5.0" arcWidth="5.0" fill="#b25656" height="32.0" layoutX="537.0" layoutY="161.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
                 <SplitMenuButton layoutX="760.0" layoutY="158.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" text="Choose a Floor">
                     <items>
                         <MenuItem fx:id="lower2" mnemonicParsing="false" onAction="#lower" text="LL2" />
@@ -68,13 +69,14 @@
                         <MenuItem fx:id="level5" mnemonicParsing="false" onAction="#lower" text="L5" />
                     </items>
                 </SplitMenuButton>
-                <TableView layoutX="760.0" layoutY="200.0" prefHeight="499.0" prefWidth="317.0">
+                <TableView fx:id="equipFloor" layoutX="745.0" layoutY="200.0" prefHeight="499.0" prefWidth="332.0">
                     <columns>
-                        <TableColumn fx:id="location" prefWidth="64.84466552734375" text="Location" />
-                        <TableColumn fx:id="locationType" prefWidth="90.7412109375" text="Location Type" />
-                        <TableColumn fx:id="equipmentName" prefWidth="160.0" text="Equipment" />
+                        <TableColumn fx:id="location" prefWidth="93.0" text="Location" />
+                        <TableColumn fx:id="locationType" prefWidth="88.0" text="# In Use" />
+                        <TableColumn fx:id="equipmentName" prefWidth="150.0" text="Equipment" />
                     </columns>
                 </TableView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="158.0" layoutX="140.0" layoutY="235.0" stroke="BLACK" strokeType="INSIDE" width="153.0" />
                 <Text fill="#044e9a" layoutX="306.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LL1">
                     <font>
                         <Font name="System Bold Italic" size="18.0" />
@@ -123,6 +125,26 @@
                     </font>
                 </Text>
             <Button layoutX="161.0" layoutY="145.0" mnemonicParsing="false" onAction="#toSideView" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #029ca6; -fx-background-radius: 15; -fx-border-radius: 15px;" text="Map Editor" textFill="WHITE" />
+            <CheckBox fx:id="roomCheck" layoutX="907.0" layoutY="148.0" mnemonicParsing="false" onAction="#showRooms" prefHeight="47.0" prefWidth="176.0" text="Show Clean &amp; Dirty Rooms" />
+            <Rectangle fx:id="room111" arcHeight="5.0" arcWidth="5.0" fill="#56b572" height="32.0" layoutX="153.0" layoutY="273.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+            <Rectangle fx:id="room121" arcHeight="5.0" arcWidth="5.0" fill="#b25656" height="32.0" layoutX="153.0" layoutY="313.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
+            <Text layoutX="204.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Key" />
+            <Text layoutX="180.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clean Equipment Room">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="180.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirty Equipment Room">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="180.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elevators">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Rectangle fx:id="room1211" arcHeight="5.0" arcWidth="5.0" fill="#7498bd" height="32.0" layoutX="153.0" layoutY="354.0" stroke="WHITE" strokeType="INSIDE" width="17.0" />
             </children>
         </Pane>
         <JFXHamburger fx:id="hamburger" alignment="BOTTOM_LEFT" layoutX="24.0" layoutY="141.0" prefHeight="534.0" prefWidth="24.0">
