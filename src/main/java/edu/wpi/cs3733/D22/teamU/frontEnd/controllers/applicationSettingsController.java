@@ -3,6 +3,7 @@ package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Udb;
 import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -16,7 +17,8 @@ public class applicationSettingsController {
     appStage.show();
   }
 
-  public void toggleDriver(ActionEvent actionEvent) {
+  public void toggleDriver(ActionEvent actionEvent) throws SQLException, IOException {
 
+    Udb.getInstance().changeDriver(true);
   }
 }

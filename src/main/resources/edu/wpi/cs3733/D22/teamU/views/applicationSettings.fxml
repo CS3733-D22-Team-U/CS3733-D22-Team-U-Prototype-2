@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -26,28 +27,40 @@
                     </effect>
                     <font>
                         <Font name="System Bold" size="24.0" />
-                    </font></Button>
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
                 <Button layoutY="273.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="258.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0 0 35 0;" text="&#10;Application Settings" textFill="#044e9a">
                     <effect>
                         <DropShadow />
                     </effect>
                     <font>
                         <Font name="System Bold" size="23.0" />
-                    </font></Button>
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
                 <Button layoutY="200.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="258.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0 0 35 0;" text="&#10;Privacy Settings">
                     <effect>
                         <DropShadow />
                     </effect>
                     <font>
                         <Font name="System Bold" size="24.0" />
-                    </font></Button>
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
                 <Button layoutY="158.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="258.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0 0 35 0;" text="Account Settings">
                     <effect>
                         <DropShadow />
                     </effect>
                     <font>
                         <Font name="System Bold" size="24.0" />
-                    </font></Button>
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             </children></Pane>
       <Text fill="#044e9a" layoutX="300.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Theme:">
          <font>
@@ -59,8 +72,14 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Text>
-      <ToggleButton layoutX="600.0" layoutY="160.0" mnemonicParsing="false" text="ToggleButton" />
-      <ToggleButton layoutX="600.0" layoutY="232.0" mnemonicParsing="false" onAction="#toggleDriver" text="ToggleButton" />
+      <ToggleButton layoutX="600.0" layoutY="160.0" mnemonicParsing="false" text="ToggleButton">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ToggleButton>
+      <ToggleButton layoutX="600.0" layoutY="232.0" mnemonicParsing="false" onAction="#toggleDriver" text="ToggleButton">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ToggleButton>
       <ImageView fitHeight="42.0" fitWidth="48.0" layoutX="539.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/lightmode.png" />
@@ -75,6 +94,14 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
+      <ImageView fitHeight="161.0" fitWidth="90.0" layoutX="1000.0" layoutY="650.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/unicornLogo.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

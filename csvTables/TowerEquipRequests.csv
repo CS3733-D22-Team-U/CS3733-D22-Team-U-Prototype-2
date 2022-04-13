@@ -13,6 +13,8 @@ ID,Name,Amount,Type,Employee,Destination,Date,Time,Priority
 513,Masks,78,Equipment,test3,uSTOR0L1,4/4/2022,23:13:37,1
 1012,First Aid Kit,1254,Equipment,test3,uSTOR0L1,4/4/2022,23:33:26,1
 5678,Catheter,876,Equipment,test1,uSTOR0L1,4/4/2022,23:13:37,1
+7758,Catheter,7,Equipment,test2,FDEPT00201,2022-04-12,22:22:05,1
+3898,Body Bag,25,Equipment,test4,FDEPT00101,2022-04-12,22:21:21,1
 2726,First Aid Kit,100,Equipment,test4,FDEPT00101,2022-04-12,01:37:09,1
 5592,Oximeter,743,Equipment,test2,uSTOR0L1,4/4/2022,23:13:37,1
 7057,Gloves,32,Equipment,test2,uSTOR0L1,4/4/2022,23:12:44,1
