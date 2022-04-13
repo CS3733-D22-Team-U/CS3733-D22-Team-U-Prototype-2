@@ -39,6 +39,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
   @FXML TableColumn<EquipmentUI, Integer> inUse;
   @FXML TableColumn<EquipmentUI, Integer> available;
   @FXML TableColumn<EquipmentUI, Integer> total;
+  @FXML TableColumn<EquipmentUI, String> location;
   @FXML TableView<EquipmentUI> table;
   @FXML VBox requestHolder;
   @FXML Text requestText;
@@ -127,6 +128,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
     available.setCellValueFactory(
         new PropertyValueFactory<EquipmentUI, Integer>("amountAvailable"));
     total.setCellValueFactory(new PropertyValueFactory<EquipmentUI, Integer>("totalAmount"));
+    location.setCellValueFactory(new PropertyValueFactory<EquipmentUI, String>("location"));
     table.setItems(getEquipmentList());
   }
 
@@ -162,7 +164,8 @@ public class EquipmentDeliverySystemController extends ServiceController {
               equipment.getName(),
               equipment.getInUse(),
               equipment.getAvailable(),
-              equipment.getAmount()));
+              equipment.getAmount(),
+              equipment.getLocationID()));
     }
 
     return equipmentUI;
