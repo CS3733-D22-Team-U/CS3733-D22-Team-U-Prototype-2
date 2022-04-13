@@ -15,6 +15,7 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
   public ArrayList<Equipment> EquipmentList = new ArrayList<Equipment>();
   public String csvFile;
   private Udb udb = DBController.udb;
+
   /**
    * Constructor for EquipmentDaoImpl
    *
@@ -121,6 +122,7 @@ public class EquipmentDaoImpl implements DataDao<Equipment> {
                 + "')");
       }
     } catch (SQLException e) {
+      Udb.admin = false;
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
     }

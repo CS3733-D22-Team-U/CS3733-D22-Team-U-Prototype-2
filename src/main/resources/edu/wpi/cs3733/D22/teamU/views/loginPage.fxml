@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #c9c9c9;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.loginPageController">
+<AnchorPane prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #c9c9c9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.loginPageController">
 <children>
       <Circle fx:id="loadingCircle" fill="#1f93ff00" layoutX="551.0" layoutY="518.0" radius="100.0" strokeType="INSIDE" strokeWidth="15.0">
          <stroke>
@@ -66,7 +75,7 @@
       </ImageView>
       <Group fx:id="loginGroup" layoutX="425.0" layoutY="341.0">
          <children>
-            <Text fill="#044e9a" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plesae Log in to Continue">
+            <Text fill="#044e9a" layoutX="-1.0" layoutY="-1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plesae Log in to Continue">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -76,12 +85,8 @@
                   <DropShadow />
                </effect>
                <children>
-                  <TextField layoutX="80.0" layoutY="23.0" prefHeight="46.0" prefWidth="209.0" promptText="Username" style="-fx-background-radius: 8; -fx-background-color: #E5E5E5;">
-                     <cursor>
-                        <Cursor fx:constant="TEXT" />
-                     </cursor>
-                  </TextField>
-                  <TextField layoutX="80.0" layoutY="87.0" prefHeight="46.0" prefWidth="209.0" promptText="Password" style="-fx-background-radius: 8; -fx-background-color: #E5E5E5;">
+                  <PasswordField fx:id="password" layoutX="80.0" layoutY="87.0" prefHeight="46.0" prefWidth="209.0" promptText="Password" style="-fx-background-radius: 8; -fx-background-color: #E5E5E5;" />
+                  <TextField fx:id="username" layoutX="80.0" layoutY="23.0" prefHeight="46.0" prefWidth="209.0" promptText="Username" style="-fx-background-radius: 8; -fx-background-color: #E5E5E5;">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
@@ -128,6 +133,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
           </Button>
+            <Text fx:id="feedback" fill="#991505" layoutX="-12.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Text>
          </children>
       </Group>
 </children>
