@@ -76,10 +76,13 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ToggleButton>
-      <ToggleButton layoutX="600.0" layoutY="232.0" mnemonicParsing="false" onAction="#toggleDriver" text="ToggleButton">
+      <ToggleButton layoutX="600.0" layoutY="232.0" mnemonicParsing="false" onAction="#embedderDriver" text="Embedded">
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></ToggleButton>
+         </cursor>
+         <toggleGroup>
+            <ToggleGroup fx:id="driverChange" />
+         </toggleGroup></ToggleButton>
       <ImageView fitHeight="42.0" fitWidth="48.0" layoutX="539.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/lightmode.png" />
@@ -103,5 +106,9 @@
             <Image url="@../icons/unicornLogo.png" />
          </image>
       </ImageView>
+      <ToggleButton layoutX="706.0" layoutY="232.0" mnemonicParsing="false" onAction="#clientServerDriver" text="Client Server" toggleGroup="$driverChange">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ToggleButton>
     </children>
 </AnchorPane>

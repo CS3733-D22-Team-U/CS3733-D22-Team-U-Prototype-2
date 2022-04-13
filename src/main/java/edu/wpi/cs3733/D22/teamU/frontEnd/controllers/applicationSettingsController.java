@@ -17,8 +17,13 @@ public class applicationSettingsController {
     appStage.show();
   }
 
-  public void toggleDriver(ActionEvent actionEvent) throws SQLException, IOException {
+  public void embedderDriver(ActionEvent actionEvent) throws SQLException, IOException {
 
     Udb.getInstance().changeDriver(true);
+  }
+
+  public void clientServerDriver(ActionEvent actionEvent) throws SQLException, IOException {
+
+    Udb.getInstance().changeDriver(false);
   }
 }
