@@ -80,7 +80,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
     }
     locations.setTooltip(new Tooltip());
     locations.getItems().addAll(nodeIDs);
-    new ComboBoxAutoComplete<String>(locations, 500, 200);
+    new ComboBoxAutoComplete<String>(locations, 650, 290);
 
     staff = new ArrayList<>();
     for (Employee l : udb.EmployeeImpl.hList().values()) {
@@ -88,7 +88,7 @@ public class EquipmentDeliverySystemController extends ServiceController {
     }
     employees.setTooltip(new Tooltip());
     employees.getItems().addAll(staff);
-    new ComboBoxAutoComplete<String>(employees, 500, 400);
+    new ComboBoxAutoComplete<String>(employees, 675, 380);
 
     for (Node checkBox : requestHolder.getChildren()) {
       checkBoxes.add((JFXCheckBox) checkBox);
