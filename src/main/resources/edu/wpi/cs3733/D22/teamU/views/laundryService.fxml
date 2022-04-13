@@ -23,13 +23,18 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.D22.teamU.frontEnd.controllers.LaundryController">
    <children>
-      <Pane prefHeight="95.0" prefWidth="1100.0" style="-fx-background-color: #044e9a;">
+      <Pane prefHeight="95.0" prefWidth="1106.0" style="-fx-background-color: #044e9a;">
          <children>
-            <ImageView fitHeight="97.0" fitWidth="105.0" layoutX="170.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="97.0" fitWidth="105.0" layoutX="200.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../cs3733/D22/teamU/icons/laundryIcon.png" />
                </image>
             </ImageView>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Laundry Services" wrappingWidth="514.0" x="300.0" y="70.0">
+               <font>
+                  <Font name="System Bold" size="60.0" />
+               </font>
+            </Text>
          </children>
          <effect>
             <DropShadow />
@@ -37,12 +42,6 @@
       </Pane>
       <Pane fx:id="pane" prefHeight="744.0" prefWidth="1106.0">
          <children>
-            <Text fill="WHITE" layoutX="305.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Laundry Services" wrappingWidth="514.0">
-               <font>
-                  <Font name="System Bold" size="60.0" />
-               </font>
-            </Text>
-            <Group layoutX="744.0" layoutY="176.203125" />
             <TabPane layoutX="87.0" layoutY="120.0" prefHeight="576.0" prefWidth="912.0" style="-fx-border-color: BLACK;" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="New Request">
