@@ -83,7 +83,12 @@ public final class Udb {
     this.password = password;
     this.CSVfiles = CSVfiles;
 
-    // Runtime.getRuntime().exec("java -jar %DERBY_HOME%\\lib\\derbyrun.jar server start");
+    // THIS WILL RUN THE SERVER IN PORT 1527 IN THE BACKGROUND EVEN WHEN YOU CLOSE THE APP
+    //Runtime.getRuntime().exec("cmd /c java -jar %DERBY_HOME%\\lib\\derbyrun.jar server start");
+    // netstat -ano | findstr :1527
+    // taskkill /PID [your #] /F
+    // java -jar %DERBY_HOME%\lib\derbyrun.jar server start
+
     statement = null;
     authentication = DB_LOC + "user=" + username + ";password=" + password + ";";
 
