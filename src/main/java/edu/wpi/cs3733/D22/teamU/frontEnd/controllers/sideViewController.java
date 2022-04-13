@@ -28,7 +28,7 @@ public class sideViewController extends ServiceController {
   public MenuItem lower2;
   @FXML JFXHamburger hamburger;
   @FXML VBox vBoxPane;
-  @FXML Pane pane;
+  @FXML Pane backgroundPane;
   @FXML Pane assistPane;
   @FXML SplitMenuButton chooseFloor;
   @FXML Rectangle recLower2;
@@ -64,7 +64,7 @@ public class sideViewController extends ServiceController {
   @SneakyThrows
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    super.initialize(location, resources);
+    // super.initialize(location, resources);
     setUpAllEquipment();
     HamburgerBasicCloseTransition closeTransition = new HamburgerBasicCloseTransition(hamburger);
 
@@ -75,13 +75,13 @@ public class sideViewController extends ServiceController {
           closeTransition.setRate(closeTransition.getRate() * -1);
           closeTransition.play();
           vBoxPane.setVisible(!vBoxPane.isVisible());
-          pane.setDisable(!pane.isDisable());
-          if (pane.isDisable()) {
+          backgroundPane.setDisable(!backgroundPane.isDisable());
+          if (backgroundPane.isDisable()) {
             hamburger.setPrefWidth(200);
-            pane.setEffect(new GaussianBlur(10));
+            backgroundPane.setEffect(new GaussianBlur(10));
             assistPane.setDisable(true);
           } else {
-            pane.setEffect(null);
+            backgroundPane.setEffect(null);
             hamburger.setPrefWidth(77);
             assistPane.setDisable(false);
           }
